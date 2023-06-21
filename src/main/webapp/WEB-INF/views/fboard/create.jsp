@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>W
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -10,13 +9,13 @@
 <title>자유게시판 등록</title>
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     
 </head>
  
 <body>
 <c:import url="/menu/top.do" />
-
-<DIV class='content_body'>
 
 <DIV class='title_line'>자유게시판 등록</DIV>
 
