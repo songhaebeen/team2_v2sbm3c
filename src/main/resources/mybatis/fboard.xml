@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.fboard.FboardDAOInter">
+
+<!-- 등록한 레코드 갯수 1 리턴 -->
+  <insert id="create" parameterType="dev.mvc.fboard.FboardVO">
+    INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, passwd, word, file1, file1saved, thumb1, size1, rdate)
+    VALUES(fboard_seq.nextval, #{memberno}, #{ftitle}, #{fcontent}, #{passwd}, #{word}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate)
+  </insert>
+  
+  <!-- 자유게시판에 등록된 모든 글 목록 -->
+  <select id="list_all" resultType="dev.mvc.fboard.FboardVO">
+    SELECT fboardno, memberno, ftitle, fcontent, rdate, passwd, word, file1, file1saved, thumb1, size1, youtube
+    FROM fboard
+    ORDER BY fboardno DESC
+  </select> 
+  
+  <!-- 조회 -->
+  <select id="read" resultType="dev.mvc.fboard.FboardVO" parameterType="int">
+    SELECT fboardno, memberno, ftitle, fcontent, rdate, passwd, word, file1, file1saved, thumb1, size1, youtube
+    FROM fboard
+    WHERE fboardno = #{fboardno}
+  </select> 
+  
+  <!-- Youtube 등록, 수정, 삭제 -->
+  <update id="youtube" parameterType="dev.mvc.fboard.FboardVO">
+    UPDATE fboard 
+    SET youtube=#{youtube} 
+    WHERE fboardno=#{fboardno}
+  </update>
+  
+  <!-- 카테고리별 검색 목록 -->
+  <select id="list_by_search" resultType="dev.mvc.fboard.FboardVO" parameterType="dev.mvc.fboard.FboardVO">
+    SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube
+    FROM fboard
+    <choose>
+      <when test="word == null or word == ''"> <!-- 검색하지 않는 경우, 모든 레코드 -->
+        WHERE ftitle=#{ftitle}
+      </when>
+      <otherwise> <!-- 검색하는 경우, 검색된 레코드 -->
+        WHERE UPPER(ftitle) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(fcontent) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%'
+      </otherwise>
+    </choose>
+    ORDER BY fboardno DESC   
+  </select>
+  
+    <!-- 카테고리별 검색 레코드 갯수 -->
+  <select id="search_count" resultType="int" parameterType="dev.mvc.fboard.FboardVO">
+    SELECT COUNT(*) as cnt
+    FROM fboard
+    <choose>
+      <when test="word == null or word == ''"> <!-- 검색하지 않는 경우의 레코드 갯수 -->
+        WHERE fboardno=#{fboardno}
+      </when>
+      <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
+        WHERE UPPER(ftitle) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(fcontent) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%'
+      </otherwise>
+    </choose>
+  </select>
+  
+    <!-- 검색 + 페이징 목록 -->
+  <select id="list_by_search_paging" resultType="dev.mvc.fboard.FboardVO" parameterType="dev.mvc.fboard.FboardVO">
+   SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, r
+   FROM (
+              SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, rownum as r
+              FROM (
+                        SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube
+                        FROM fboard
+                        <choose>
+                          <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+                           
+                          </when>
+                          <otherwise>
+                            WHERE UPPER(ftitle) LIKE '%' || UPPER(#{word}) || '%' 
+                                                              OR UPPER(fcontent) LIKE '%' || UPPER(#{word}) || '%' 
+                                                              OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%'
+                          </otherwise>
+                        </choose>
+                        ORDER BY fboardno DESC
+               )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+     
+    <!-- 1 page: WHERE r >= 1 AND r <= 10; 
+          2 page: WHERE r >= 11 AND r <= 20;
+          3 page: WHERE r >= 21 AND r <= 30; -->
+  </select>
+  
+    </mapper>
