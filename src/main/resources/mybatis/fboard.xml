@@ -92,4 +92,31 @@
           3 page: WHERE r >= 21 AND r <= 30; -->
   </select>
   
+  <!-- 패스워드 검사 -->
+  <select id="password_check" resultType="int" parameterType="dev.mvc.fboard.FboardVO">
+    SELECT COUNT(*) as cnt 
+    FROM fboard
+    WHERE fboardno = #{fboardno} AND passwd=#{passwd}
+  </select>
+  
+    <!-- 글 수정 -->
+  <update id="update_text" parameterType="dev.mvc.fboard.FboardVO">
+      UPDATE fboard
+      SET ftitle=#{ftitle}, fcontent=#{fcontent}
+      WHERE fboardno = #{fboardno}
+  </update>
+  
+    <!-- 파일 수정 -->
+  <update id="update_file" parameterType="dev.mvc.fboard.FboardVO">
+    UPDATE fboard
+    SET file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
+    WHERE fboardno = #{fboardno}
+  </update>
+  
+  <!-- 삭제 -->
+ <delete id="delete" parameterType="int">
+      DELETE FROM fboard
+      WHERE fboardno = #{fboardno}
+ </delete>
+  
     </mapper>

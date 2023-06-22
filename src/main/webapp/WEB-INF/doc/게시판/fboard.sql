@@ -95,12 +95,12 @@ commit;
 -- ----------------------------------------------------------------------------
 SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1
 FROM fboard
-WHERE fboardno = 3;
+WHERE fboardno = 20;
 
 -- 텍스트 수정: 예외 컬럼: 추천수, 조회수, 댓글 수
 UPDATE fboard
 SET ftitle='추천!!', fcontent='직접 사용해 본 후기입니다'
-WHERE fboardno = 1;
+WHERE fboardno = 14;
 
 -- SUCCESS
 UPDATE fboard
@@ -125,7 +125,7 @@ FROM (
            FROM (
                      SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube
                      FROM fboard
-                     WHERE ftitle LIKE '%단풍%' OR fcontent LIKE '%단풍%' OR word LIKE '%단풍%'
+                     WHERE ftitle LIKE '%추천%' OR fcontent LIKE '%추천%' OR word LIKE '%추천%'
                      ORDER BY fboardno DESC
            )          
 )
@@ -140,11 +140,16 @@ commit;
 -- 특정 회원에 속한 레코드 갯수 산출
 SELECT COUNT(*) as cnt 
 FROM fboard 
-WHERE userno=1;
+WHERE memberno=1;
 
 -- 특정 회원에 속한 레코드 모두 삭제
 DELETE FROM fboard
-WHERE userno=1;
+WHERE memberno=1;
+
+-- 패스워드 검사
+SELECT COUNT(*) as cnt 
+FROM fboard
+WHERE fboardno = 12 AND passwd='1234';
 
 -- 다수의 회원에 속한 레코드 모두 삭제: IN
 SELECT fboardno, memberno, ftitle

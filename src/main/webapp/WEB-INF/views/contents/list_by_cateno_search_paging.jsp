@@ -151,7 +151,6 @@
   <!-- 페이지 목록 출력 부분 종료 -->
   
 </DIV>
-
  
 <jsp:include page="../menu/bottom.jsp" />
 </body>

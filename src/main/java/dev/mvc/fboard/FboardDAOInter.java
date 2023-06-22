@@ -52,5 +52,33 @@ public interface FboardDAOInter {
    * @return
    */
   public ArrayList<FboardVO> list_by_search_paging(FboardVO fboardVO);
+  
+  /**
+   * 패스워드 검사  
+   * @param contentsVO
+   * @return 1: 패스워드 일치, 0: 패스워드 불일치
+   */
+  public int password_check(FboardVO fboardVO);
+  
+  /**
+   * 글 정보 수정
+   * @param fboardVO
+   * @return 처리된 레코드 갯수
+   */
+  public int update_text(FboardVO fboardVO);
+  
+  /**
+   * 파일 정보 수정
+   * @param fboardVO
+   * @return 처리된 레코드 갯수
+   */
+  public int update_file(FboardVO fboardVO);
+  
+  /**
+   * 삭제
+   * @param contentsno
+   * @return 삭제된 레코드 갯수
+   */
+  public int delete(int fboardno);
 
 }
