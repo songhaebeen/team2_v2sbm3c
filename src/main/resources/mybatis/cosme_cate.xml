@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.cosme_cate.Cosme_cateDAOInter">
+  <!-- 등록: 추가한 레코드 갯수를 리턴 -->
+  <insert id="create" parameterType="dev.mvc.cosme_cate.Cosme_cateVO">
+    INSERT INTO cosme_cate(cosme_cateno, cosme_catename) 
+    VALUES(cosme_cate_seq.nextval, #{cosme_catename})
+  </insert>
+  
+  <!-- 목록 -->
+  <select id="list_all" resultType="dev.mvc.cosme_cate.Cosme_cateVO">
+    SELECT cosme_cateno, cosme_catename
+    FROM cosme_cate 
+    ORDER BY cosme_cateno ASC
+  </select>
+  
+  <!-- 종류별 리스트 -->
+  <select id="list_by_cate" resultType="dev.mvc.cosme_cate.Cosme_cateVO" parameterType="int">
+    SELECT cosme_cateno, cosme_catename
+    FROM cosme_cate
+    WHERE cosme_cateno=#{cosme_cateno}
+    ORDER BY cosme_cateno DESC
+  </select>
+  
+ <!-- 조회 --> 
+ <select id = "read" resultType = "dev.mvc.cosme_cate.Cosme_cateVO" parameterType = "int">
+  SELECT cosme_cateno, cosme_catename
+  FROM cosme_cate
+  WHERE cosme_cateno=#{cosme_cateno}
+ </select>
+ 
+<!-- 수정 --> 
+<update id="update" parameterType="dev.mvc.cosme_cate.Cosme_cateVO">
+  UPDATE cosme_cate 
+  SET cosme_catename=#{cosme_catename}
+  WHERE cosme_cateno=#{cosme_cateno} 
+</update>
+  
+  <!-- 삭제, 삭제된 레코드 갯수를 리턴 -->
+<delete id="delete" parameterType="int">
+  DELETE FROM cosme_cate 
+  WHERE cosme_cateno=#{cosme_cateno}
+</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

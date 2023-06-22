@@ -25,6 +25,9 @@
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                     <a class="nav-link" href="/fboard/list_all.do">자유게시판</a>
                   </li>
+                  <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
+                    <a class="nav-link" href="/cosme_cate/list_all.do">화장품</a>
+                  </li>
 
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                       <c:choose>
