@@ -66,13 +66,14 @@
         </c:forEach>
     </div>
     
-    <div>
+        <div>
         <label>화장품 성분</label>
         <c:forEach items="${ingred_list}" var="IngredVO">
             <input type="checkbox" name="ingred" value="${IngredVO.ingredno}" id="ingred_${IngredVO.ingredno}" />
             <label for="ingred_${IngredVO.ingredno}">${IngredVO.ingredname}</label>
         </c:forEach>
     </div>
+
 
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-info">등록</button>
