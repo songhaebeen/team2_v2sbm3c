@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dev.mvc.cosme.CosmeDAOInter">
+  <!-- 화장품 등록 -->
+  <insert id="create" parameterType="dev.mvc.cosme.CosmeVO">
+    INSERT INTO cosme(cosmeno, brand, cosmename, rdate, masterno, cosme_cateno, cosme_file, cosme_file_saved, cosme_file_preview, cosme_file_size, cosme_youtube)
+    VALUES(cosme_seq.nextval, #{brand}, #{cosmename}, sysdate, #{masterno}, #{cosme_cateno}, #{cosme_file}, #{cosme_file_saved}, #{cosme_file_preview}, #{cosme_file_size}, #{cosme_youtube})
+  </insert>
+
+  <!-- 화장품 글 목록 -->
+  <select id="cosme_all" resultType="dev.mvc.cosme.CosmeVO">
+    SELECT cosmeno, brand, cosmename, rdate, masterno, cosme_cateno, cosme_file, 
+              cosme_file_saved, cosme_file_preview, cosme_file_size, cosme_youtube
+    FROM cosme
+    ORDER BY cosmeno DESC
+  </select> 
+  
+  <select id= "list_by_cate" resultType="dev.mvc.cosme.CosmeVO">
+     SELECT cosmeno, brand, cosmename, rdate, masterno, cosme_cateno, cosme_file, 
+               cosme_file_saved, cosme_file_preview, cosme_file_size, cosme_youtube
+     FROM cosme
+    WHERE cosme_cateno=#{cosme_cateno}  
+  </select>
+  
+    <!-- 일반적인 조회 -->
+  <select id="cosme_read" resultType="dev.mvc.cosme.CosmeVO" parameterType="int">
+    SELECT cosmeno, brand, cosmename, rdate, masterno, cosme_cateno, cosme_file, 
+              cosme_file_saved, cosme_file_preview, cosme_file_size, cosme_youtube
+    FROM cosme
+    WHERE cosmeno = #{cosmeno}
+  </select>
+  
+  <!-- 전체 수정 -->
+  <update id="update_all_cosme" parameterType="dev.mvc.cosme.CosmeVO">
+    UPDATE cosme
+    SET brand=#{brand}, cosmename=#{cosmename}, rdate=sysdate, masterno=#{masterno}, cosme_cateno=#{cosme_cateno}, 
+          cosme_file=#{cosme_file}, cosme_file_saved=#{cosme_file_saved}, cosme_file_preview=#{cosme_file_preview}, cosme_file_size=#{cosme_file_size}, cosme_youtube=#{cosme_youtube}
+    WHERE cosmeno = #{cosmeno}
+  </update>
+  
+    <!-- 파일 제외 수정 -->
+  <update id="update_cosme" parameterType="dev.mvc.cosme.CosmeVO">
+    UPDATE cosme
+    SET brand=#{brand}, cosmename=#{cosmename}, rdate=sysdate, masterno=#{masterno}, cosme_cateno=#{cosme_cateno}, 
+          cosme_youtube=#{cosme_youtube}
+    WHERE cosmeno = #{cosmeno}
+  </update>
+  
+    <!-- 파일 제외 수정 -->
+  <update id="update_file_cosme" parameterType="dev.mvc.cosme.CosmeVO">
+    UPDATE cosme
+    SET cosme_file=#{cosme_file}, cosme_file_saved=#{cosme_file_saved}, cosme_file_preview=#{cosme_file_preview}, cosme_file_size=#{cosme_file_size}
+    WHERE cosmeno = #{cosmeno}
+  </update>
+  
+  <!-- 화장품 삭제 -->
+  <delete id="cosme_delete" parameterType="int">
+    DELETE FROM cosme
+    WHERE cosmeno=#{cosmeno}
+  </delete>
+ 
+  <!-- 특정 카테고리에 속한 레코드 갯수를 리턴 -->
+  <select id="count_by_cateno" resultType="int" parameterType="int">
+    SELECT COUNT(*) as cnt 
+    FROM cosme 
+    WHERE cosme_cateno=#{cosme_cateno}
+  </select>
+  
+  <!-- 특정 카테고리에 속한 모든 레코드 삭제 -->
+  <delete id="delete_by_cateno" parameterType="int">
+    DELETE FROM contents
+    WHERE cateno=#{cateno}
+  </delete>
+             
+  <!-- CNT 안만들었는데 이걸 어떻게 써!-->  
+  <!-- 자료수 증가, cnt 컬럼 1씩 증가, id: update_cnt_add
+  <update id="update_cnt_add" parameterType="int">
+    UPDATE cosme 
+    SET cnt = cnt + 1 
+    WHERE cosmeno = #{cosmeno}
+  </update>
+
+   자료수 감소, cnt 컬럼 1씩 증가, id: update_cnt_add 
+  <update id="update_cnt_sub" parameterType="int">
+    UPDATE cosme 
+    SET cnt = cnt - 1 
+    WHERE cosmeno = #{cosmeno}
+  </update>          
+   -->
+   
+   
+    <!-- 카테고리 목록 -->
+  <select id="cate_all" resultType="dev.mvc.cosme_cate.Cosme_cateVO">
+    SELECT cosme_cateno, cosme_catename
+    FROM cosme_cate 
+    ORDER BY cosme_cateno ASC
+  </select>
+  
+  
+</mapper> 
+
+
+
+

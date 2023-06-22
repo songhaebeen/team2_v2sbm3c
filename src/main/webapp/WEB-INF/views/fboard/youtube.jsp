@@ -10,21 +10,24 @@
 <title>youtube 등록</title>
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     
 </head> 
  
 <body>
 <c:import url="/menu/top.do" />
  
+ <DIV class='title_line'> Youtube 등록/수정/삭제</DIV>
+ 
 <DIV class='content_body'>
-<DIV class='title_line'> Youtube 등록/수정/삭제</DIV>
+
   <ASIDE class="aside_right">
-  <br>
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>
-    <A href="./list_all.do">목록</A>    
+    <A href="./list_all.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">목록형</A>    
     <span class='menu_divide' >│</span>
-    <A href="./list_by_grid.do?fboardno=${fboardno }">갤러리</A>
+    <A href="./list_grid.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">갤러리형</A>
   </ASIDE>
   
   <DIV class='menu_line'></DIV>
@@ -37,9 +40,9 @@
        <textarea name='youtube' class="form-control" rows="12" style='width: 100%;'>${fboardVO.youtube }</textarea>
     </div>
     <div class="content_body_bottom">
-      <button type="submit" class="my-btn btn">저장</button>
-      <button type="button" onclick="frm_youtube.youtube.value=''; frm_youtube.submit();" class="my-btn btn">Youtube 삭제</button>
-      <button type="button" onclick="history.back();" class="my-btn btn">취소</button>
+      <button type="submit" class="btn btn-info btn-sm">저장</button>
+      <button type="button" onclick="frm_youtube.youtube.value=''; frm_youtube.submit();" class="btn btn-info btn-sm">Youtube 삭제</button>
+      <button type="button" onclick="history.back();" class="btn btn-info btn-sm">취소</button>
     </div>
   
   </FORM>

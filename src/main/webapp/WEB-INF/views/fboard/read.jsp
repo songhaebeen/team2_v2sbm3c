@@ -22,21 +22,28 @@
 <title>자유게시판</title>
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
+
+<script type="text/JavaScript"
+          src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
 </head> 
  
 <body>
 <c:import url="/menu/top.do" />
 
+<DIV class='title_line'>
+자유게시판
+</DIV>
+
 <DIV class='content_body'>
 
-<DIV class='title_line'>
-<A href="./read.do" class='title_link'>자유게시판</A></DIV>
+
 
   <ASIDE class="aside_right">
-  <br>
-
-     <A href="./update.do?fboardno=${fboardno}&now_page=${param.now_page}&word=${param.word }">글 수정</A>
+     <A href="./update_text.do?fboardno=${fboardno}&now_page=${param.now_page}">글 수정</A>
       <span class='menu_divide' >│</span>
       <A href="./update_file.do?fboardno=${fboardno}&now_page=${param.now_page}">파일 수정</A>  
       <span class='menu_divide' >│</span>
@@ -48,6 +55,25 @@
     <A href="javascript:location.reload();">새로고침</A>
   
   </ASIDE> 
+  
+    <DIV style="text-align: right; clear: both;">  
+    <form name='frm' id='frm' method='get' action='./list_all.do'>
+      
+      <c:choose>
+        <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
+          <input type='text' name='word' id='word' value='${param.word }' class='input_word'>
+        </c:when>
+        <c:otherwise> <%-- 검색하지 않는 경우 --%>
+          <input type='text' name='word' id='word' value='' class='input_word'>
+        </c:otherwise>
+      </c:choose>
+      <button type='submit' class='btn btn-info btn-sm'>검색</button>
+      <c:if test="${param.word.length() > 0 }">
+        <button type='button' class='btn btn-info btn-sm' 
+                    onclick="location.href='./list_all.do?word='">검색 취소</button>  
+      </c:if>    
+    </form>
+  </DIV>
   
   <DIV class='menu_line'></DIV>
 
@@ -93,7 +119,7 @@
   </fieldset>
   
     <div class="content_body_bottom">  
-    <button type="button" onclick="location.href='/fboard/list_all.do'" class="my-btn btn">목록</button>
+    <button type="button" onclick="location.href='/fboard/list_all.do'" class="btn btn-info btn-sm">목록</button>
   </div>
 
 </DIV>
