@@ -21,10 +21,15 @@
                       <a class="nav-link" href="/contents/list_by_cateno.do?cateno=${cateno }&now_page=1" >${name }</a>
                     </li>
                   </c:forEach>
+                                    
+                  <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
+                   <a class="nav-link" href="/notice/list_all.do">공지사항</a>
+                   </li>
                   
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                     <a class="nav-link" href="/fboard/list_all.do">자유게시판</a>
                   </li>
+
                   <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">화장품</a>
                       <div class="dropdown-menu">
