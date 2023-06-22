@@ -22,7 +22,10 @@ import com.zaxxer.hikari.HikariDataSource;
                                          "dev.mvc.admin",
                                          "dev.mvc.contents",
                                          "dev.mvc.member",
-                                         "dev.mvc.fboard"})    
+                                         "dev.mvc.fboard",
+                                         "dev.mvc.cosme_cate",
+                                         "dev.mvc.cosmetype",
+                                         "dev.mvc.ingred"})    
 public class DatabaseConfiguration {
     
     @Autowired

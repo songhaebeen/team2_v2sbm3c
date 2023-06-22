@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="dev.mvc.ingred.IngredDAOInter">
+<insert id="insert_ingred"  parameterType="dev.mvc.ingred.IngredVO">
+	 insert into ingred (ingredno, ingredname, ingredeffect)
+    values(ingred_seq.nextval, #{ingredname} , #{ingredeffect})
+
+</insert>
+
+<select id="ingred_list" parameterType="dev.mvc.ingred.IngredVO">
+    select ingredno, ingredname, ingredeffect
+    from ingred
+</select>
+</mapper>
