@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import dev.mvc.master.MasterProcInter;
+import dev.mvc.member.MemberProcInter;
 
 
 @Controller
 public class CosmetypeCont {
   @Autowired
-  @Qualifier("dev.mvc.master.MasterProc")
-  private MasterProcInter masterProc;
+  @Qualifier("dev.mvc.member.MemberProc")
+  private MemberProcInter memberProc = null;
     
   @Autowired
   @Qualifier("dev.mvc.cosmetype.CosmetypeProc")
@@ -40,7 +40,7 @@ public ModelAndView create(HttpSession session) {
  
  ModelAndView mav = new ModelAndView();
  
- if (this.masterProc.isMaster(session) == true) {
+ if (this.memberProc.isMember(session) == true) {
    mav.setViewName("/cosmetype/create");
  } else {
      mav.setViewName("/master/login_need");
@@ -61,7 +61,7 @@ public ModelAndView create(HttpSession session) {
    
    ModelAndView mav = new ModelAndView();
    
-   if (this.masterProc.isMaster(session) == true) {
+   if (this.memberProc.isMember(session) == true) {
      int cnt = this.cosmetypeProc.create(cosmetypeVO);
        if (cnt == 1) {
          mav.setViewName("redirect:/"); 
@@ -103,7 +103,7 @@ public ModelAndView create(HttpSession session) {
 public ModelAndView read_update(HttpSession session, int cosmetypeno) {
   ModelAndView mav = new ModelAndView();
   
-  if (this.masterProc.isMaster(session) == true) {
+  if (this.memberProc.isMember(session) == true) {
     mav.setViewName("/cosmetype/read_update");
     
     CosmetypeVO cosmetypeVO = this.cosmetypeProc.read(cosmetypeno); // 수정용 데이터
@@ -126,7 +126,7 @@ public ModelAndView update(HttpSession session, CosmetypeVO cosmetypeVO) {
   
   ModelAndView mav = new ModelAndView();
 
-  if (this.masterProc.isMaster(session) == true) {
+  if (this.memberProc.isMember(session) == true) {
     int cnt = this.cosmetypeProc.update(cosmetypeVO);
     
     if (cnt == 1) {
@@ -155,7 +155,7 @@ public ModelAndView update(HttpSession session, CosmetypeVO cosmetypeVO) {
 public ModelAndView read_delete(HttpSession session, int cosmetypeno) {
   ModelAndView mav = new ModelAndView();
   
-  if (this.masterProc.isMaster(session) == true) {
+  if (this.memberProc.isMember(session) == true) {
     CosmetypeVO cosmetypeVO = this.cosmetypeProc.read(cosmetypeno); // 수정용 데이터
     mav.addObject("cosmetypeVO", cosmetypeVO);
     
@@ -177,7 +177,7 @@ public ModelAndView delete(HttpSession session, int cosmetypeno) {
 
   ModelAndView mav = new ModelAndView();
   
-  if (this.masterProc.isMaster(session) == true) {
+  if (this.memberProc.isMember(session) == true) {
     ArrayList<CosmetypeVO> list = this.cosmetypeProc.list_all(); 
           
     int cnt = this.cosmetypeProc.delete(cosmetypeno); // 카테고리 삭제
@@ -204,7 +204,7 @@ public ModelAndView delete(HttpSession session, int cosmetypeno) {
 public ModelAndView read(HttpSession session, int cosmetypeno) {
   ModelAndView mav = new ModelAndView();
   
-  if (this.masterProc.isMaster(session) == true) {
+  if (this.memberProc.isMember(session) == true) {
     mav.setViewName("/cosmetype/read"); 
     
     CosmetypeVO cosmetypeVO = this.cosmetypeProc.read(cosmetypeno);

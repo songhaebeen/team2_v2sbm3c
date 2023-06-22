@@ -13,12 +13,15 @@
 <link href="/css/style.css" rel="Stylesheet" type="text/css"> <!-- /static 기준 -->
  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     
 </head> 
  
 <body>
-<c:import url="../menu/header.jsp" />
+<c:import url="/menu/top.do" />
  
 <DIV class='title_line'>전체 화장품 타입</DIV>
 
@@ -72,7 +75,7 @@
   </TABLE>
 </DIV>
  
-<jsp:include page="../menu/footer.jsp" />
+<jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
  
 </html>

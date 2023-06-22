@@ -12,12 +12,14 @@
 <%-- /static/css/style.css --%> 
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
 
-<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head> 
 <body>
 
-<c:import url="../menu/header.jsp" />
+<c:import url="/menu/top.do" />
 
 <%
 // Object: 최상위 부모 타입 -> 원래의 데이터 타입으로 변경하여 사용 
@@ -67,7 +69,7 @@ int cnt = (int)request.getAttribute("cnt");
 
 </DIV>
 
-<jsp:include page="../menu/footer.jsp" flush='false' />
+<jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
 
 </html>
