@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="dev.mvc.cosmetype.CosmetypeDAOInter">
+
+  <!-- 등록 -->
+  <insert id="create"  parameterType="dev.mvc.cosmetype.CosmetypeVO">
+  	 INSERT INTO cosmetype(cosmetypeno, cosmetypename)
+     VALUES(cosmetype_seq.nextval, #{cosmetypename})
+  </insert>
+  
+  <!-- 목록 -->
+  <select id="list_all" resultType="dev.mvc.cosmetype.CosmetypeVO">
+    SELECT cosmetypeno, cosmetypename
+    FROM cosmetype
+    ORDER BY cosmetypeno ASC
+  </select>
+  
+   <!-- 조회 --> 
+ <select id = "read" resultType = "dev.mvc.cosmetype.CosmetypeVO" parameterType = "int">
+  SELECT cosmetypeno, cosmetypename
+  FROM cosmetype
+  WHERE cosmetypeno=#{cosmetypeno}
+ </select>
+ 
+<!-- 수정 --> 
+<update id="update" parameterType="dev.mvc.cosmetype.CosmetypeVO">
+  UPDATE cosmetype 
+  SET cosmetypename=#{cosmetypename}
+  WHERE cosmetypeno=#{cosmetypeno} 
+</update>
+  
+  <!-- 삭제, 삭제된 레코드 갯수를 리턴 -->
+<delete id="delete" parameterType="int">
+  DELETE FROM cosmetype 
+  WHERE cosmetypeno=#{cosmetypeno}
+</delete>
+</mapper> 
