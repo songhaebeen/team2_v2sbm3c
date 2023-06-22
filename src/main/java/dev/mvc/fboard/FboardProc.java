@@ -113,7 +113,6 @@ public class FboardProc implements FboardProcInter{
      * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 
      * 현재 페이지: 11 / 22   [이전] 11 12 13 14 15 16 17 18 19 20 [다음] 
      *
-     * @param cateno 카테고리번호 
      * @param now_page  현재 페이지
      * @param word 검색어
      * @param list_file 목록 파일명
@@ -126,7 +125,7 @@ public class FboardProc implements FboardProcInter{
 		
 		int search_count = this.fboardDAO.search_count(fboardVO);  // 검색된 레코드 갯수 ->  전체 페이지 규모 파악
 	      int total_page = (int)(Math.ceil((double)search_count / Fboard.RECORD_PER_PAGE)); // 전체 페이지 수 
-	      int total_grp = (int)(Math.ceil((double)total_page / Fboard.PAGE_PER_BLOCK)); // 전체 그룹  수
+	      int total_grp = (int)(Math.ceil((double)total_page / Fboard.PAGE_PER_BLOCK)); // 전체 그룹 수
 	      int now_grp = (int)(Math.ceil((double)now_page / Fboard.PAGE_PER_BLOCK));  // 현재 그룹 번호
 	      
 	      // 1 group: 1, 2, 3 ... 9, 10
@@ -173,17 +172,17 @@ public class FboardProc implements FboardProcInter{
 	      // 현재 2그룹일 경우: (2 - 1) * 10 = 1그룹의 마지막 페이지 10
 	      // 현재 3그룹일 경우: (3 - 1) * 10 = 2그룹의 마지막 페이지 20
 	      int _now_page = (now_grp - 1) * Fboard.PAGE_PER_BLOCK;  
-	      if (now_grp >= 2){ // 현재 그룹번호가 2이상이면 페이지수가 11페이 이상임으로 이전 그룹으로 갈수 있는 링크 생성 
-	        str.append("<span class='span_box_1'><A href='"+list_file+"?&word="+word+"&now_page="+_now_page+">이전</A></span>"); 
+	      if (now_grp >= 2){ // 현재 그룹번호가 2이상이면 페이지 수가 11페이지 이상임으로 이전 그룹으로 갈 수 있는 링크 생성 
+	        str.append("<span class='span_box_1'><A href='"+list_file+"?&word="+word+"&now_page="+_now_page+"'>이전</A></span>"); 
 	      } 
 	   
 	      // 중앙의 페이지 목록
 	      for(int i=start_page; i<=end_page; i++){ 
-	        if (i > total_page){ // 마지막 페이지를 넘어갔다면 페이 출력 종료
+	        if (i > total_page){ // 마지막 페이지를 넘어갔다면 페이지 출력 종료
 	          break; 
 	        } 
 	    
-	        if (now_page == i){ // 목록에 출력하는 페이지가 현재페이지와 같다면 CSS 강조(차별을 둠)
+	        if (now_page == i){ // 목록에 출력하는 페이지가 현재 페이지와 같다면 CSS 강조(차별을 둠)
 	          str.append("<span class='span_box_2'>"+i+"</span>"); // 현재 페이지, 강조 
 	        }else{
 	          // 현재 페이지가 아닌 페이지는 이동이 가능하도록 링크를 설정
@@ -198,12 +197,39 @@ public class FboardProc implements FboardProcInter{
 	      // 현재 페이지 25일경우 -> 현재 3그룹: (3 * 10) + 1 = 4그룹의 시작페이지 31
 	      _now_page = (now_grp * Fboard.PAGE_PER_BLOCK)+1; //  최대 페이지수 + 1 
 	      if (now_grp < total_grp){ 
-	        str.append("<span class='span_box_1'><A href='"+list_file+"?&word="+word+"&now_page="+_now_page+">다음</A></span>"); 
+	        str.append("<span class='span_box_1'><A href='"+list_file+"?&word="+word+"&now_page="+_now_page+"'>다음</A></span>"); 
 	      } 
 	      str.append("</DIV>"); 
 	       
 	      return str.toString(); 
 	    }
+
+	//패스워드 검사
+	@Override
+	public int password_check(FboardVO fboardVO) {
+		int cnt = this.fboardDAO.password_check(fboardVO);
+		return cnt;
+	}
 	
+	//글 수정
+    @Override
+    public int update_text(FboardVO fboardVO) {
+      int cnt = this.fboardDAO.update_text(fboardVO);
+      return cnt;
+    }
+    
+    //파일 수정
+    @Override
+    public int update_file(FboardVO fboardVO) {
+        int cnt = this.fboardDAO.update_file(fboardVO);
+        return cnt;
+    }
+    
+    //삭제
+    @Override
+    public int delete(int fboardno) {
+      int cnt = this.fboardDAO.delete(fboardno);
+      return cnt;
+    }
 
 }
