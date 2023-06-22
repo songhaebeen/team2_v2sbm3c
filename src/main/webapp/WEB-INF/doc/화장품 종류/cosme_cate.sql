@@ -5,12 +5,18 @@ DROP TABLE cosme_cate;
 
 CREATE TABLE cosme_cate(
 		cosme_cateno NUMBER(10) NOT NULL PRIMARY KEY,
-		cosme_catename VARCHAR2(20) NOT NULL
+		cosme_catename VARCHAR2(20) NOT NULL,
+        cnt            NUMBER(7)  DEFAULT 0	NOT NULL,
+        rdate          DATE NOT NULL,
+        seqno          NUMBER(10) DEFAULT 0  NOT NULL
 );
 
 COMMENT ON TABLE cosme_cate is '화장품 종류';
 COMMENT ON COLUMN cosme_cate.cosme_cateno is '화장품 종류 번호';
 COMMENT ON COLUMN cosme_cate.cosme_catename is '화장품 종류 이름';
+COMMENT ON COLUMN cosme_cate.cnt is '관련 자료수';
+COMMENT ON COLUMN cosme_cate.rdate is '등록일';
+COMMENT ON COLUMN cosme_cate.seqno is '출력 순서';
 
 DROP SEQUENCE cosme_cate_seq;
 
@@ -23,11 +29,11 @@ CREATE SEQUENCE cosme_cate_seq
   
 -- CREATE -> SELECT LIST -> SELECT READ -> UPDATE -> DELETE -> COUNT(*)
 -- CREATE
-INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '스킨, 토너');
-INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '로션');
-INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '크림');
-INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '앰플, 세럼');
-INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '오일, 밤');
+INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '스킨, 토너', 0, sysdate, 0);
+INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '로션', 0, sysdate, 0);
+INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '크림', 0, sysdate, 0);
+INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '앰플, 세럼', 0, sysdate, 0);
+INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '오일, 밤', 0, sysdate, 0);
 commit;
 
 SELECT * FROM cosme_cate;
@@ -50,5 +56,22 @@ SELECT cosme_cateno, cosme_catename
 FROM cosme_cate
 WHERE cosme_cateno = 1;
 
+-- COUNT(*)
+SELECT COUNT(*) as cnt FROM cosme_cate;
 
+-- ------------------------------------------------------------------
+-- 출력 순서 변경 관련 SQL
+-- ------------------------------------------------------------------
+-- 출력 순서 상향(10등 -> 1등), seqno 컬럼의 값 감소, id: update_seqno_decrease
+UPDATE cosme_cate SET seqno = seqno - 1 WHERE cosme_cateno=1;
+
+-- 출력 순서 하향(1등 -> 10등), seqno 컬럼의 값 증가, id: update_seqno_increase
+UPDATE cosme_cate SET seqno = seqno + 1 WHERE cosme_cateno=1;
+
+SELECT A.SID , A.SERIAL# , object_name , A.SID || ', ' || A.SERIAL# AS KILL_TASK  
+  FROM V$SESSION A  
+ INNER JOIN V$LOCK B ON A.SID = B.SID  
+ INNER JOIN DBA_OBJECTS C ON B.ID1 = C.OBJECT_ID  
+ WHERE B.TYPE = 'TM' ; 
+ 
 commit;
