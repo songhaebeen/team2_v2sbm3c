@@ -25,10 +25,15 @@
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                     <a class="nav-link" href="/fboard/list_all.do">자유게시판</a>
                   </li>
-                  <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-                    <a class="nav-link" href="/cosme_cate/list_all.do">화장품</a>
+                  <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">화장품</a>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="/cosme/create.do">화장품 등록</a>
+                          <a class="dropdown-item" href="/cosme/cosme_by_cate.do">종류별 리스트</a>
+                          <a class="dropdown-item" href="#"">타입별 리스트</a>
+                          <a class="dropdown-item" href="#">성분별 리스트</a>
+                      </div>
                   </li>
-
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                       <c:choose>
                           <c:when test="${sessionScope.id == null}">
