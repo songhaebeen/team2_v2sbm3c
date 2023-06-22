@@ -20,6 +20,7 @@
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>자유게시판</title>
+<link rel="shortcut icon" href="/images/star.png" />
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
 
@@ -78,27 +79,32 @@
   <DIV class='menu_line'></DIV>
 
   <fieldset class="fieldset_basic">
-    <ul>
+    <ul style='background-color: #F6F6F6;'>
       <li class="li_none">
-        <DIV style="width: 50%; word-break: break-all;">
-          <c:choose>
+        <DIV style="width: 100%; word-break: break-all; text-align: center;" >  
+          <span style="font-size: 1.5em; font-weight: bold; text-align: center;">${ftitle }</span><br><br>
+          <div style="font-size: 1em; text-align: right; width: 89%;"><img src="/member/images/user.png" style="height: 16px">  ${rdate }</div>
+          <br><br>
+        </DIV>
+
+      <DIV style="width: 100%; word-break: break-all; text-align: center;">  
+                <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
               <%-- /static/fboard/storage/ --%>
-              <img src="/fboard/storage/${file1saved }" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/fboard/storage/${file1saved }" style='width: 20%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/fboard/images/logo2.gif" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/fboard/images/logo2.gif" style='width: 20%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
             </c:otherwise>
           </c:choose>
           
-          <span style="font-size: 1.5em; font-weight: bold;">${ftitle }</span><br>
-          <br>
-          <div style="font-size: 1em;"><img src="/member/images/user.png" style="height: 16px">  ${rdate }</div>
           <br><br>
-          <div style="font-size: 1.1em;">${fcontent }</div>
-        </DIV>
-      </li>
-      
+          <div style="width: 80%; font-size: 1.1em; text-align: left; margin-left: 10%;">${fcontent }</div>
+          </DIV>
+           <br>
+            <br>
+           </li>
+
       <c:if test="${youtube.trim().length() > 0 }">
         <li class="li_none" style="clear: both; padding-top: 5px; padding-bottom: 5px;">
           <DIV style="text-align: center;">
@@ -107,12 +113,13 @@
         </li>
       </c:if>
       
-      <li class="li_none" >
-        <DIV>
+      <li class="li_none">
+        <DIV style="width: 80%; text-align: left; margin-left: 10%;" >
           <c:if test="${file1.trim().length() > 0 }"> <%-- ServletRegister.java: registrationBean.addUrlMappings("/download"); --%>
             첨부 파일: <a href='/download?dir=/fboard/storage&filename=${file1saved}&downname=${file1}' > ${file1}</a> (${size1_label})  
           </c:if>
         </DIV>
+        <br>
       </li> 
 
     </ul>

@@ -1,6 +1,7 @@
 package dev.mvc.cosme;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,61 +65,7 @@ public class CosmeCont {
 //		
 //		return mav;
 //	}
-	// http://localhost:9093/cosme/list_by_type.do 404
-	//	@PostMapping("/cosme/list_by_type.do")
-	@ResponseBody
-	@RequestMapping(value="/cosme/list_by_type.do" , method = RequestMethod.POST)
-	public String listByTypePost(@RequestBody Map<String, Object> request) {
 
-		ArrayList<String> list= (ArrayList<String>) request.get("list");
-		if(list.isEmpty()) {
-			System.out.println("empty");
-		}
-		for(String num : list) {
-			System.out.print(num + ", ");
-		}
-//		System.out.println(request);
-//		System.out.println("들어와따!");
-		
-		
-		return "  <div class=\"product-grid\">\r\n"
-				+ "    <div class=\"product-item\">\r\n"
-				+ "      <img class=\"img-90\" src=\"\" alt=\"상품 1 이미지\">\r\n"
-				+ "      <h3>상품 1</h3>\r\n"
-				+ "      <p>상품 1 설명</p>\r\n"
-				+ "    </div>\r\n"
-				+ "    <div class=\"product-item\">\r\n"
-				+ "      <img class=\"img-90\" src=\"\" alt=\"상품 2 이미지\">\r\n"
-				+ "      <h3>상품 2</h3>\r\n"
-				+ "      <p>상품 2 설명</p>\r\n"
-				+ "    </div>\r\n"
-				+ "    <div class=\"product-item\">\r\n"
-				+ "      <img class=\"img-90\" src=\"/images/logo2.gif\" alt=\"상품 3 이미지\">\r\n"
-				+ "      <h3>상품 3</h3>\r\n"
-				+ "      <p>상품 3 설명</p>\r\n"
-				+ "    </div>\r\n"
-				+ "    <div class=\"product-item\">\r\n"
-				+ "      <img class=\"img-90\" src=\"/images/logo2.gif\" alt=\"상품 3 이미지\">\r\n"
-				+ "      <h3>상품 3</h3>\r\n"
-				+ "      <p>상품 3 설명</p>\r\n"
-				+ "    </div>\r\n"
-				+ "    <div class=\"product-item\">\r\n"
-				+ "      <img class=\"img-90\" src=\"/images/logo2.gif\" alt=\"상품 3 이미지\">\r\n"
-				+ "      <h3>상품 3</h3>\r\n"
-				+ "      <p>상품 3 설명</p>\r\n"
-				+ "    </div>\r\n"
-				+ "    <div class=\"product-item\">\r\n"
-				+ "      <img class=\"img-90\" src=\"/images/logo2.gif\" alt=\"상품 3 이미지\">\r\n"
-				+ "      <h3>상품 3</h3>\r\n"
-				+ "      <p>상품 3 설명</p>\r\n"
-				+ "    </div>\r\n"
-				+ "    <div class=\"product-item\">\r\n"
-				+ "      <img class=\"img-90\" src=\"\" alt=\"상품 4이미지\">\r\n"
-				+ "      <h3>상품 4</h3>\r\n"
-				+ "      <p>상품 4 설명</p>\r\n"
-				+ "    </div>\r\n"
-				+ "</div>";
-	}
 	
 //	/**
 //	 * 등록 폼
@@ -508,24 +455,6 @@ public class CosmeCont {
 
     	   return mav;
     }
-    @ResponseBody
-    @RequestMapping(value = "/cosme/cosme_by_cate.do", method = RequestMethod.POST)
-    public String cosme_by_cate_sort(@RequestBody Map<String, Object> request) {
-    	String cosme_cateno = (String)request.get("value");
-    	System.out.println(cosme_cateno);
-    	String str = "";
-    	ArrayList<CosmeVO> list = this.cosmeProc.list_by_cate(cosme_cateno);
-    	for (CosmeVO cosmevo: list) {
-    		str +="    <div class=\"product-item\">\r\n"
-    				+ "      <img class=\"img-90\" src=\"/images/logo2.gif\" alt=\"상품 1 이미지\">\r\n"
-    				+ "      <h3>"+cosmevo.getCosmename()+"</h3>\r\n"
-    				+ "      <p>"+cosmevo.getBrand()+"</p>\r\n"
-    				+ "    </div>";
-    	}
-    	
-    	return str;
-    }
-    
     /**
      * 삭제 폼
      * param cosmeno
@@ -583,5 +512,23 @@ public class CosmeCont {
       mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
       
       return mav;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/cosme/cosme_by_cate.do", method = RequestMethod.POST)
+    public String cosme_by_cate_sort(@RequestBody Map<String, Object> request) {
+    	String cosme_cateno = (String)request.get("value");
+    	System.out.println(cosme_cateno);
+    	String str = "";
+    	ArrayList<CosmeVO> list = this.cosmeProc.list_by_cate(cosme_cateno);
+    	for (CosmeVO cosmevo: list) {
+    		str +="    <div class=\"product-item\">\r\n"
+    				+ "      <img class=\"img-90\" src=\"/images/logo2.gif\" alt=\"상품 1 이미지\">\r\n"
+    				+ "      <h3>"+cosmevo.getCosmename()+"</h3>\r\n"
+    				+ "      <p>"+cosmevo.getBrand()+"</p>\r\n"
+    				+ "    </div>";
+    	}
+    	
+    	return str;
     }
 }

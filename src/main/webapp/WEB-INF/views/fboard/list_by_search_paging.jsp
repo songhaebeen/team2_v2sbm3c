@@ -8,7 +8,8 @@
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>자유게시판</title>
- 
+<link rel="shortcut icon" href="/images/star.png" />
+
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
  
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -96,20 +97,20 @@
             <c:choose>
               <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>
                  <%-- registry.addResourceHandler("/fboard/storage/**").addResourceLocations("file:///" +  Fboard.getUploadDir()); --%>
-                <img src="/fboard/storage/${thumb1 }" style="width: 120px; height: 90px;">
+                <img src="/fboard/storage/${thumb1 }" style="width: 140px; height: 110px;">
               </c:when>
               <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/fboard/images/logo2.gif -->
-                <IMG src="/fboard/images/logo2.gif" style="width: 120px; height: 90px;">
+                <IMG src="/fboard/images/logo2.gif" style="width: 140px; height: 110px;">
               </c:otherwise>
             </c:choose>
           </td>  
           <td style='vertical-align: middle;'>
             <div style='font-weight: bold;'><a href="./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }">${ftitle }</a></div>
             <c:choose> 
-              <c:when test="${fcontent.length() > 100 }"> <%-- 160자 이상이면 160자만 출력 --%>
-                  ${fcontent.substring(0, 100)}.....
+              <c:when test="${fcontent.length() > 150 }"> <%-- 150자 이상이면 150자만 출력 --%>
+                  ${fcontent.substring(0, 150)} .....
               </c:when>
-              <c:when test="${fcontent.length() <= 100 }">
+              <c:when test="${fcontent.length() <= 150 }">
                 ${fcontent}
               </c:when>
             </c:choose>
