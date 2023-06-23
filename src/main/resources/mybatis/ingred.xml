@@ -10,7 +10,7 @@
 
 </insert>
 
-<select id="ingred_list" parameterType="dev.mvc.ingred.IngredVO">
+<select id="ingred_list" resultType="dev.mvc.ingred.IngredVO">
     select ingredno, ingredname, ingredeffect
     from ingred
 </select>
