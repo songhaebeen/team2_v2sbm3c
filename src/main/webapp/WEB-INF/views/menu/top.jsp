@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="dev.mvc.cate.CateVO" %>
+<%@ page import="dev.mvc.cosme_cate.Cosme_cateVO" %>
 
 <DIV class='container_main'> 
     <!-- 헤더 start -->
@@ -14,11 +14,11 @@
             </button>    
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                  <c:forEach var="cateVO" items="${list}">
-                    <c:set var="cateno" value="${cateVO.cateno }" />
-                    <c:set var="name" value="${cateVO.name }" />
+                  <c:forEach var="cosme_cateVO" items="${list}">
+                    <c:set var="cosme_cateno" value="${cosme_cateVO.cosme_cateno }" />
+                    <c:set var="cosme_catename" value="${cosme_cateVO.cosme_catename }" />
                     <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-                      <a class="nav-link" href="/contents/list_by_cateno.do?cateno=${cateno }&now_page=1" >${name }</a>
+                      <a class="nav-link" href="/cosme_cate/cosme_cateno.do?cosme_cateno=${cosme_cateno }&now_page=1" >${cosme_catename }</a>
                     </li>
                   </c:forEach>
                                     
