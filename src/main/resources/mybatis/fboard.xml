@@ -48,13 +48,13 @@
     ORDER BY fboardno DESC   
   </select>
   
-    <!-- 카테고리별 검색 레코드 갯수 -->
+    <!-- 검색 레코드 갯수 -->
   <select id="search_count" resultType="int" parameterType="dev.mvc.fboard.FboardVO">
     SELECT COUNT(*) as cnt
     FROM fboard
     <choose>
       <when test="word == null or word == ''"> <!-- 검색하지 않는 경우의 레코드 갯수 -->
-        WHERE fboardno=#{fboardno}
+
       </when>
       <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
         WHERE UPPER(ftitle) LIKE '%' || UPPER(#{word}) || '%' 

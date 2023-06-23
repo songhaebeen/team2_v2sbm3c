@@ -78,15 +78,15 @@
       <!-- 4기준 하나의 이미지, 24 * 4 = 96% -->
       <!-- 5기준 하나의 이미지, 19.2 * 5 = 96% -->
       <div onclick="location.href='./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }'" class='hover'  
-             style='width: 19%; height: 256px; float: left; margin: 0.5%; padding: 0.3%; background-color: #EAEAEA; text-align: left;'>
+             style='width: 19%; height: 266px; float: left; margin: 0.5%; padding: 0.3%; background-color: #EAEAEA; text-align: left;'>
         
         <c:choose> 
           <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>
             <%-- registry.addResourceHandler("/fboard/storage/**").addResourceLocations("file:///" +  Fboard.getUploadDir()); --%>
-            <img src="/fboard/storage/${thumb1 }" style="width: 100%; height: 180px;">
+            <img src="/fboard/storage/${thumb1 }" style="width: 100%; height: 190px;">
           </c:when>
           <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/fboard/images/none1.png -->
-            <IMG src="/fboard/images/logo2.gif" style="width: 100%; height: 180px;">
+            <IMG src="/fboard/images/logo2.gif" style="width: 100%; height: 190px;">
           </c:otherwise>
         </c:choose>
         

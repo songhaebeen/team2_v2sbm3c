@@ -8,7 +8,6 @@
 <c:set var="file1" value="${fboardVO.file1 }" />
 <c:set var="file1saved" value="${fboardVO.file1saved }" />
 <c:set var="thumb1" value="${fboardVO.thumb1 }" />
-<c:set var="memberno" value="${fboardVO.memberno }" />
 <c:set var="youtube" value="${fboardVO.youtube }" />
 <c:set var="word" value="${fboardVO.word }" />
 <c:set var="youtube" value="${fboardVO.youtube }" />
@@ -84,7 +83,7 @@
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all; text-align: center;" >  
           <span style="font-size: 1.5em; font-weight: bold; text-align: center;">${ftitle }</span><br><br>
-          <div style="font-size: 1em; text-align: right; width: 89%;"><img src="/member/images/user.png" style="height: 16px"> ${memberno} ${rdate }</div>
+          <div style="font-size: 1em; text-align: right; width: 89%;"><img src="/member/images/user.png" style="height: 16px"> ${mname} ${rdate }</div>
           <br><br>
         </DIV>
 

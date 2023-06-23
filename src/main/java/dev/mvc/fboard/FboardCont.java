@@ -266,6 +266,9 @@ public class FboardCont {
      * @param word 검색어
      * @return 페이징용으로 생성된 HTML/CSS tag 문자열
      */
+    //System.out.println("-> now_page: " +fboardVO.getNow_page() );
+    //System.out.println("-> word: " +fboardVO.getWord() );
+    
     String paging = fboardProc.pagingBox(fboardVO.getNow_page(), fboardVO.getWord(), "list_all.do");
     mav.addObject("paging", paging);
 

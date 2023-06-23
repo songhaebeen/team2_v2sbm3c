@@ -56,8 +56,8 @@ VALUES(fboard_seq.nextval, 1, '자유1', '아무 글 작성', sysdate, 'cosme.jp
 INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1)
 VALUES(fboard_seq.nextval, 1, '자유2', '사담', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000);
             
-INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1)
-VALUES(fboard_seq.nextval, 1, '자유3', '오늘 하루', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000);
+INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1,passwd)
+VALUES(fboard_seq.nextval, 2, '자유3', '오늘 하루', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000,'1234');
 
 -- 유형 1 전체 목록
 SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube
