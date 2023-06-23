@@ -63,6 +63,30 @@ import dev.mvc.tool.Tool;
       int cnt = this.cosme_cateDAO.delete(cosme_cateno);
       return cnt;
     }
+
+    @Override
+    public int update_seqno_decrease(int cosme_cateno) {
+      int cnt = this.cosme_cateDAO.update_seqno_decrease(cosme_cateno);
+      return cnt;
+    }
+
+    @Override
+    public int update_seqno_increase(int cosme_cateno) {
+      int cnt = this.cosme_cateDAO.update_seqno_increase(cosme_cateno);
+      return cnt;
+    }
+
+    @Override
+    public int update_cnt_add(int cosme_cateno) {
+      int cnt = this.cosme_cateDAO.update_cnt_add(cosme_cateno);
+      return cnt;
+    }
+
+    @Override
+    public int update_cnt_sub(int cosme_cateno) {
+      int cnt = this.cosme_cateDAO.update_cnt_sub(cosme_cateno);
+      return cnt;
+    }
   }
 
     

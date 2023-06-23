@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.cate.CateVO;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.tool.Tool;
 
@@ -245,6 +246,98 @@ public ModelAndView create(HttpSession session) {
    } else {
      mav.setViewName("/master/login_need"); 
    }
+   
+   return mav;
+ }
+ 
+ /**
+  * 출력 순서 올림(상향, 10 등 -> 1 등), seqno: 10 -> 1
+  * http://localhost:9093/cosme_cate/update_seqno_decrease.do?cosme_cateno=1
+  * http://localhost:9093/cosme_cate/update_seqno_decrease.do?cosme_cateno=2
+  * @param cosme_cateno
+  * @return
+  */
+ @RequestMapping(value = "/cosme_cate/update_seqno_decrease.do", method = RequestMethod.GET)
+ public ModelAndView update_seqno_decrease(int cosme_cateno) {
+   ModelAndView mav = new ModelAndView();
+   
+   // seqno 컬럼의 값이 1 초과(1<)일때만 감소를 할 수 있다.
+   Cosme_cateVO cosme_cateVO = this.cosme_cateProc.read(cosme_cateno);
+   int seqno = cosme_cateVO.getSeqno();
+   System.out.println("-> cosme_cateno: " + cosme_cateno + " seqno: " + seqno);
+
+   // 2) if 문을 이용한 분기
+   if (seqno > 1) {
+     int cnt = this.cosme_cateProc.update_seqno_decrease(cosme_cateno); 
+     mav.addObject("cnt", cnt);
+     
+     if (cnt == 1) {
+       mav.setViewName("redirect:/cosme_cate/list_all.do");
+
+     } else {
+       mav.addObject("code", "update_seqno_decrease_fail");
+       mav.setViewName("/cosme_cate/msg"); 
+     }
+     
+   } else {
+     mav.setViewName("redirect:/cosme_cate/list_all.do");
+   }
+   
+   return mav;
+ }
+ 
+ /**
+  * 출력 순서 내림(상향, 1 등 -> 10 등), seqno: 1 -> 10
+  * http://localhost:9093/cosme_cate/update_seqno_increase.do?cosme_cateno=1
+  * http://localhost:9093/cosme_cate/update_seqno_increase.do?cosme_cateno=2
+  * @param cosme_cateno
+  * @return
+  */
+ @RequestMapping(value = "/cosme_cate/update_seqno_increase.do", method = RequestMethod.GET)
+ public ModelAndView update_seqno_increase(int cosme_cateno) {
+   ModelAndView mav = new ModelAndView();
+   int cnt = this.cosme_cateProc.update_seqno_increase(cosme_cateno); 
+   mav.addObject("cnt", cnt);
+   
+   if (cnt == 1) {
+     mav.setViewName("redirect:/cosme_cate/list_all.do");
+
+   } else {
+     mav.addObject("code", "update_seqno_increase_fail");
+     mav.setViewName("/cosme_cate/msg"); 
+   }
+   
+   return mav;
+ }
+ 
+ /**
+  * 글수 증가
+  * http://localhost:9091/cosme_cate/update_cnt_add.do?cosme_cateno=1
+  * @param cosme_cateno
+  * @return 변경된 레코드 수
+  */
+ @RequestMapping(value = "/cosme_cate/update_cnt_add.do", method = RequestMethod.GET)
+ public ModelAndView update_cnt_add(int cosme_cateno) {
+   ModelAndView mav = new ModelAndView();
+   mav.setViewName("redirect:/cosme_cate/list_all.do");
+   
+   this.cosme_cateProc.update_cnt_add(cosme_cateno);
+   
+   return mav;
+ }
+ 
+ /**
+  * 글수 감소
+  * http://localhost:9091/cosme_cate/update_cnt_sub.do?cosme_cateno=1
+  * @param cateno
+  * @return
+  */  
+ @RequestMapping(value = "/cosme_cate/update_cnt_sub.do", method = RequestMethod.GET)
+ public ModelAndView update_cnt_sub(int cosme_cateno) {
+   ModelAndView mav = new ModelAndView();
+   mav.setViewName("redirect:/cosme_cate/list_all.do");
+   
+   this.cosme_cateProc.update_cnt_sub(cosme_cateno);
    
    return mav;
  }

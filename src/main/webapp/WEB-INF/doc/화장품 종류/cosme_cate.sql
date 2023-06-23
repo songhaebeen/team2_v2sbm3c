@@ -29,11 +29,11 @@ CREATE SEQUENCE cosme_cate_seq
   
 -- CREATE -> SELECT LIST -> SELECT READ -> UPDATE -> DELETE -> COUNT(*)
 -- CREATE
-INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '스킨, 토너', 0, sysdate, 0);
-INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '로션', 0, sysdate, 0);
-INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '크림', 0, sysdate, 0);
-INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '앰플, 세럼', 0, sysdate, 0);
-INSERT INTO cosme_cate(cosme_cateno, cosme_catename) VALUES(cosme_cate_seq.nextval, '오일, 밤', 0, sysdate, 0);
+INSERT INTO cosme_cate(cosme_cateno, cosme_catename, cnt, rdate, seqno) VALUES(cosme_cate_seq.nextval, '스킨, 토너', 0, sysdate, 0);
+INSERT INTO cosme_cate(cosme_cateno, cosme_catename, cnt, rdate, seqno) VALUES(cosme_cate_seq.nextval, '로션', 0, sysdate, 0);
+INSERT INTO cosme_cate(cosme_cateno, cosme_catename, cnt, rdate, seqno) VALUES(cosme_cate_seq.nextval, '크림', 0, sysdate, 0);
+INSERT INTO cosme_cate(cosme_cateno, cosme_catename, cnt, rdate, seqno) VALUES(cosme_cate_seq.nextval, '앰플, 세럼', 0, sysdate, 0);
+INSERT INTO cosme_cate(cosme_cateno, cosme_catename, cnt, rdate, seqno) VALUES(cosme_cate_seq.nextval, '오일, 밤', 0, sysdate, 0);
 commit;
 
 SELECT * FROM cosme_cate;
@@ -46,11 +46,6 @@ DELETE FROM cosme_cate
 WHERE cosme_cateno = 3;
 
 grant select, update, insert, delete on cosme_cate to team2;
-
-SELECT cosme_cateno, cosme_catename
-FROM cosme_cate
-WHERE cosme_cateno = 1
-ORDER BY cosme_cateno DESC;
 
 SELECT cosme_cateno, cosme_catename
 FROM cosme_cate
@@ -68,10 +63,12 @@ UPDATE cosme_cate SET seqno = seqno - 1 WHERE cosme_cateno=1;
 -- 출력 순서 하향(1등 -> 10등), seqno 컬럼의 값 증가, id: update_seqno_increase
 UPDATE cosme_cate SET seqno = seqno + 1 WHERE cosme_cateno=1;
 
-SELECT A.SID , A.SERIAL# , object_name , A.SID || ', ' || A.SERIAL# AS KILL_TASK  
-  FROM V$SESSION A  
- INNER JOIN V$LOCK B ON A.SID = B.SID  
- INNER JOIN DBA_OBJECTS C ON B.ID1 = C.OBJECT_ID  
- WHERE B.TYPE = 'TM' ; 
+SELECT * FROM cosme_cate;
+
+-- 자료수 증가, cnt 커럼 1씩 증가, id: update_cnt_add
+UPDATE cosme_cate SET cnt = cnt + 1 WHERE cosme_cateno=1;
+
+-- 자료수 감소, cnt 커럼 1씩 감소, id: update_cnt_sub
+UPDATE cosme_cate SET cnt = cnt - 1 WHERE cosme_cateno=1;
  
 commit;

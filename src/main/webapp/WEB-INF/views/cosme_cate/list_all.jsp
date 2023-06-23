@@ -49,6 +49,9 @@
     <TR>
       <TH class="th_bs">순서</TH>
       <TH class="th_bs">화장품 종류 이름</TH>
+      <TH class="th_bs">관련 자료수</TH>
+      <TH class="th_bs">등록일</TH>
+      <TH class="th_bs">기타</TH>
     </TR>
     </thead>
     
@@ -60,11 +63,15 @@
       Cosme_cateVO cosme_cateVO = list.get(i);
     %>
       <TR>
-        <TD class='td_bs'><%= cosme_cateVO.getCosme_cateno() %></TD>
+        <TD class='td_bs'><%= cosme_cateVO.getSeqno() %></TD>
         <TD><%=cosme_cateVO.getCosme_catename() %></TD>
+        <TD class='td_bs'><%=cosme_cateVO.getCnt() %></TD>
+        <TD class='td_bs'><%=cosme_cateVO.getRdate().substring(0, 10) %></TD>
         <TD>
           <A href="./read_update.do?cosme_cateno=<%=cosme_cateVO.getCosme_cateno() %>" title="수정"><IMG src="/cosme_cate/images/update.png" class="icon"></A>
           <A href="./read_delete.do?cosme_cateno=<%=cosme_cateVO.getCosme_cateno() %>" title="삭제"><IMG src="/cosme_cate/images/delete.png" class="icon"></A>
+          <A href="./update_seqno_decrease.do?cosme_cateno=<%=cosme_cateVO.getCosme_cateno() %>" title="우선순위 높이기"><IMG src="/cosme_cate/images/decrease.png" class="icon"></A>
+          <A href="./update_seqno_increase.do?cosme_cateno=<%=cosme_cateVO.getCosme_cateno() %>" title="우선순위 낮추기"><IMG src="/cosme_cate/images/increase.png" class="icon"></A>
           </TD>
       </TR>
     <%  
