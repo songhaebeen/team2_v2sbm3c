@@ -7,9 +7,9 @@
 <c:set var="cosmename" value="${cosmeVO.cosmename }" />
 <c:set var="rdate" value="${cosmeVO.rdate }" />
 <c:set var="cosme_cateno" value="${cosme_cateVO.cosme_cateno }" />
-<c:set var="masterno" value="${cosmeVO.masterno }" />
-<c:set var="masterno" value="${cosmeVO.masterno }" />
-<c:set var="masterno" value="${cosmeVO.cosme_file_saved }" />
+<c:set var="adminno" value="${cosmeVO.adminno }" />
+<c:set var="adminno" value="${cosmeVO.adminno }" />
+<c:set var="adminno" value="${cosmeVO.cosme_file_saved }" />
 <c:set var="cosme_cateno" value="${cosmeVO.cosme_file_preview }" />
 <c:set var="cosme_youtube" value="${cosmeVO.cosme_youtube }" />
 <c:set var="cosmetypename" value="${CosmetypeVO.cosmetypename }" />

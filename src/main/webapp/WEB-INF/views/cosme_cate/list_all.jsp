@@ -62,7 +62,7 @@
     for (int i=0; i < list.size(); i++) {
       Cosme_cateVO cosme_cateVO = list.get(i);
     %>
-      <TR>
+      <TR class="th_bs">
         <TD class='td_bs'><%= cosme_cateVO.getSeqno() %></TD>
         <TD><%=cosme_cateVO.getCosme_catename() %></TD>
         <TD class='td_bs'><%=cosme_cateVO.getCnt() %></TD>

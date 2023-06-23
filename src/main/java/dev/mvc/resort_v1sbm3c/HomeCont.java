@@ -11,13 +11,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.cate.CateProcInter;
 import dev.mvc.cate.CateVO;
+import dev.mvc.cosme_cate.Cosme_cateProcInter;
+import dev.mvc.cosme_cate.Cosme_cateVO;
 
 // Setvlet으로 작동함, GET/POST등의 요청을 처리함.
 @Controller
 public class HomeCont {
   @Autowired
-  @Qualifier("dev.mvc.cate.CateProc")  // @Component("dev.mvc.cate.CateProc")
-  private CateProcInter cateProc; // CateProc 객체가 자동 생성되어 할당됨.
+  @Qualifier("dev.mvc.cosme_cate.Cosme_cateProc")
+  private Cosme_cateProcInter cosme_cateProc;
   
   public HomeCont() {
     System.out.println("-> HomeCont created.");
@@ -40,7 +42,7 @@ public class HomeCont {
   public ModelAndView top() {
     ModelAndView mav = new ModelAndView();
 
-    ArrayList<CateVO> list = this.cateProc.list_all_y();
+    ArrayList<Cosme_cateVO> list = this.cosme_cateProc.list_all();
     mav.addObject("list", list);
     
     mav.setViewName("/menu/top"); // /WEB-INF/views/menu/top.jsp

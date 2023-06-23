@@ -49,6 +49,7 @@
     <TR>
       <TH class="th_bs">순서</TH>
       <TH class="th_bs">화장품 성분 이름</TH>
+      <TH class="th_bs">성분 효과</TH>
     </TR>
     </thead>
     
@@ -59,12 +60,13 @@
     for (int i=0; i < list.size(); i++) {
       IngredVO ingredVO = list.get(i);
     %>
-      <TR>
+      <TR class="th_bs">
         <TD class='td_bs'><%= ingredVO.getIngredno() %></TD>
         <TD><%=ingredVO.getIngredname() %></TD>
+        <TD><%=ingredVO.getIngredeffect() %></TD>
         <TD>
-          <A href="./read_update.do?cosme_cateno=<%=ingredVO.getIngredno() %>" title="수정"><IMG src="/cosme_cate/images/update.png" class="icon"></A>
-          <A href="./read_delete.do?cosme_cateno=<%=ingredVO.getIngredno() %>" title="삭제"><IMG src="/cosme_cate/images/delete.png" class="icon"></A>
+          <A href="./read_update.do?ingredno=<%=ingredVO.getIngredno() %>" title="수정"><IMG src="/cosme_cate/images/update.png" class="icon"></A>
+          <A href="./read_delete.do?ingredno=<%=ingredVO.getIngredno() %>" title="삭제"><IMG src="/cosme_cate/images/delete.png" class="icon"></A>
           </TD>
       </TR>
     <%  

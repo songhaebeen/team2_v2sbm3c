@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import dev.mvc.cate.CateVO;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.tool.Tool;
+import dev.mvc.admin.AdminProcInter;
 
 
 @Controller
@@ -24,6 +24,10 @@ public class Cosme_cateCont {
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc = null;
 	  
+  @Autowired
+  @Qualifier("dev.mvc.admin.AdminProc")
+  private AdminProcInter adminProc = null;
+  
   @Autowired
   @Qualifier("dev.mvc.cosme_cate.Cosme_cateProc")
   private Cosme_cateProcInter cosme_cateProc;
@@ -44,10 +48,10 @@ public ModelAndView create(HttpSession session) {
  
  ModelAndView mav = new ModelAndView();
  
- if (this.memberProc.isMember(session) == true) {
+ if (this.adminProc.isAdmin(session) == true) {
 	 mav.setViewName("/cosme_cate/create");
  } else {
-     mav.setViewName("/member/login_need"); // /WEB-INF/views/master/login_need.jsp
+     mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
    }
 
  
@@ -65,7 +69,7 @@ public ModelAndView create(HttpSession session) {
    
    ModelAndView mav = new ModelAndView();
    
-   if (this.memberProc.isMember(session) == true) {
+   if (this.adminProc.isAdmin(session) == true) {
 	   int cnt = this.cosme_cateProc.create(cosme_cateVO);
 	     if (cnt == 1) {
 	       // request.setAttribute("code", "create_success"); // 고전적인 jsp 방법 
@@ -82,7 +86,7 @@ public ModelAndView create(HttpSession session) {
 	     // request.setAttribute("cnt", cnt);
 	     mav.addObject("cnt", cnt);
    } else {
-	     mav.setViewName("/master/login_need"); // /WEB-INF/views/master/login_need.jsp
+	     mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
 	   }
 
    
@@ -137,7 +141,7 @@ public ModelAndView create(HttpSession session) {
  public ModelAndView read_update(HttpSession session, int cosme_cateno) {
    ModelAndView mav = new ModelAndView();
    
-   if (this.memberProc.isMember(session) == true) {
+   if (this.adminProc.isAdmin(session) == true) {
      mav.setViewName("/cosme_cate/read_update"); // /WEB-INF/views/cate/read_update.jsp
      
      Cosme_cateVO cosme_cateVO = this.cosme_cateProc.read(cosme_cateno); // 수정용 데이터
@@ -147,7 +151,7 @@ public ModelAndView create(HttpSession session) {
      mav.addObject("list", list);
      
    } else {
-     mav.setViewName("/master/login_need"); // /WEB-INF/views/admin/login_need.jsp
+     mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
      
    }
    
@@ -160,7 +164,7 @@ public ModelAndView create(HttpSession session) {
    
    ModelAndView mav = new ModelAndView();
 
-   if (this.memberProc.isMember(session) == true) {
+   if (this.adminProc.isAdmin(session) == true) {
      int cnt = this.cosme_cateProc.update(cosme_cateVO);
      
      if (cnt == 1) {
@@ -177,7 +181,7 @@ public ModelAndView create(HttpSession session) {
      mav.addObject("cnt", cnt);
      
    } else {
-     mav.setViewName("/master/login_need"); 
+     mav.setViewName("/admin/login_need"); 
    }
    
    return mav;
@@ -189,7 +193,7 @@ public ModelAndView create(HttpSession session) {
  public ModelAndView read_delete(HttpSession session, int cosme_cateno) {
    ModelAndView mav = new ModelAndView();
    
-   if (this.memberProc.isMember(session) == true) {
+   if (this.adminProc.isAdmin(session) == true) {
      Cosme_cateVO cosme_cateVO = this.cosme_cateProc.read(cosme_cateno); // 수정용 데이터
      mav.addObject("cosme_cateVO", cosme_cateVO);
      
@@ -199,7 +203,7 @@ public ModelAndView create(HttpSession session) {
      mav.setViewName("/cosme_cate/read_delete");
      
    } else {
-     mav.setViewName("/master/login_need"); 
+     mav.setViewName("/admin/login_need"); 
    }
    
    return mav;
@@ -211,7 +215,7 @@ public ModelAndView create(HttpSession session) {
 
    ModelAndView mav = new ModelAndView();
    
-   if (this.memberProc.isMember(session) == true) {
+   if (this.adminProc.isAdmin(session) == true) {
      ArrayList<Cosme_cateVO> list = this.cosme_cateProc.list_by_cate(cosme_cateno); 
            
      int cnt = this.cosme_cateProc.delete(cosme_cateno); // 카테고리 삭제
@@ -227,7 +231,7 @@ public ModelAndView create(HttpSession session) {
      mav.addObject("cnt", cnt);
      
    } else {
-     mav.setViewName("/master/login_need"); 
+     mav.setViewName("/admin/login_need"); 
    }
    
    return mav;
@@ -238,13 +242,13 @@ public ModelAndView create(HttpSession session) {
  public ModelAndView read(HttpSession session, int cosme_cateno) {
    ModelAndView mav = new ModelAndView();
    
-   if (this.memberProc.isMember(session) == true) {
+   if (this.adminProc.isAdmin(session) == true) {
      mav.setViewName("/cosme_cate/read"); 
      
      Cosme_cateVO cosme_cateVO = this.cosme_cateProc.read(cosme_cateno);
      mav.addObject("cosme_cateVO", cosme_cateVO);
    } else {
-     mav.setViewName("/master/login_need"); 
+     mav.setViewName("/admin/login_need"); 
    }
    
    return mav;

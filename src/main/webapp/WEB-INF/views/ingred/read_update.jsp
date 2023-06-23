@@ -2,10 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="dev.mvc.cosmetype.CosmetypeVO" %>
+<%@ page import="dev.mvc.ingred.IngredVO" %>
 
 <%
-CosmetypeVO cosmetypeVO_read = (CosmetypeVO)request.getAttribute("cosmetypeVO");
+IngredVO ingredVO_read = (IngredVO)request.getAttribute("ingredVO");
 %>
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -23,16 +23,18 @@ CosmetypeVO cosmetypeVO_read = (CosmetypeVO)request.getAttribute("cosmetypeVO");
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'>화장품 타입 > 수정</DIV>
+<DIV class='title_line'>화장품 성분 > 수정</DIV>
 
 <DIV class='content_body'>
   <DIV id='panel_create' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; text-align: center;'>
     <FORM name='frm_create' id='frm_create' method='POST' action='./update.do'>
-      <input type="hidden" name="cosmetypeno" value="<%=cosmetypeVO_read.getCosmetypeno() %>">
-      <label>화장품 타입 이름</label>
-      <input type='text' name='cosmetypename' value='<%=cosmetypeVO_read.getCosmetypename() %>' required="required" style='width: 25%;' autofocus="autofocus">
+      <input type="hidden" name="ingredno" value="<%=ingredVO_read.getIngredno() %>">
+      <label>화장품 성분 이름</label>
+      <input type='text' name='ingredname' value='<%=ingredVO_read.getIngredname() %>' required="required" style='width: 25%;' autofocus="autofocus">
+      <label>성분 효과</label>
+      <input type='text' name='ingredeffect' value='<%=ingredVO_read.getIngredeffect() %>' required="required" style='width: 25%;' autofocus="autofocus">
       <button type="submit" id='submit' class='btn btn-info btn-sm' style='height: 28px; margin-bottom: 5px;'>수정</button>
-      <button type="button" onclick="location.href='/cosmetype/list_all.do'" class='btn btn-info btn-sm' style='height: 28px; margin-bottom: 5px;'>취소</button>
+      <button type="button" onclick="location.href='/ingred/list_all.do'" class='btn btn-info btn-sm' style='height: 28px; margin-bottom: 5px;'>취소</button>
     </FORM>
   </DIV>
 
@@ -48,24 +50,25 @@ CosmetypeVO cosmetypeVO_read = (CosmetypeVO)request.getAttribute("cosmetypeVO");
     <thead>  
     <TR>
       <TH class="th_bs">순서</TH>
-      <TH class="th_bs">카테고리 이름</TH>
-      <TH class="th_bs">기타</TH>
+      <TH class="th_bs">성분 이름</TH>
+      <TH class="th_bs"> 성분 효과</TH>
     </TR>
     </thead>
     
     <tbody>
-    <%
-    ArrayList<CosmetypeVO> list = (ArrayList<CosmetypeVO>)request.getAttribute("list");
+    <% 
+    ArrayList<IngredVO> list = (ArrayList<IngredVO>)request.getAttribute("list");
     
     for (int i=0; i < list.size(); i++) {
-      CosmetypeVO cosmetypeVO = list.get(i);
+      IngredVO ingredVO = list.get(i);
     %>
       <TR class="th_bs">
-        <TD class='td_bs'><%= cosmetypeVO.getCosmetypeno() %></TD>
-        <TD><%=cosmetypeVO.getCosmetypename() %></TD>
+        <TD class='td_bs'><%= ingredVO.getIngredno() %></TD>
+        <TD><%=ingredVO.getIngredname() %></TD>
+        <TD><%=ingredVO.getIngredeffect() %></TD>
         <TD>
-          <A href="./read_update.do?cosmetypeno=<%=cosmetypeVO.getCosmetypeno() %>" title="수정"><IMG src="/cosme_cate/images/update.png" class="icon"></A>
-          <A href="./read_delete.do?cosmetypeno=<%=cosmetypeVO.getCosmetypeno() %>" title="삭제"><IMG src="/cosme_cate/images/delete.png" class="icon"></A>
+          <A href="./read_update.do?ingredno=<%=ingredVO.getIngredno() %>" title="수정"><IMG src="/cosme_cate/images/update.png" class="icon"></A>
+          <A href="./read_delete.do?ingredno=<%=ingredVO.getIngredno() %>" title="삭제"><IMG src="/cosme_cate/images/delete.png" class="icon"></A>
         </TD>
       </TR>
     <%  

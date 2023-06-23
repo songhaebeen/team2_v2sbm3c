@@ -79,7 +79,7 @@ public class CosmeCont {
      
   	  ArrayList<Cosme_cateVO> cosme_cate_list = this.cosme_cateProc.list_all(); // 카테고리 목록 가져오기
   	  ArrayList<CosmetypeVO> coseme_type_list= this.cosmetypeproc.list_all();
-  	  ArrayList<IngredVO> ingred_list = this.ingredproc.ingred_list();
+  	  ArrayList<IngredVO> ingred_list = this.ingredproc.list_all();
   	  System.out.println("-> ingred_list: " + ingred_list.size());
   	  
   	  mav.addObject("cosme_cate_list", cosme_cate_list); // 모델에 카테고리 목록 추가

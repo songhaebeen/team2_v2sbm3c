@@ -81,6 +81,7 @@ public interface MemberProcInter {
    * 로그인 처리
    */
   public int login(HashMap<String, Object> map);
+
   
 }
 

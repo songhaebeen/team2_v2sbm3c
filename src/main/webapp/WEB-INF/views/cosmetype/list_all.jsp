@@ -59,7 +59,7 @@
     for (int i=0; i < list.size(); i++) {
       CosmetypeVO cosmetypeVO = list.get(i);
     %>
-      <TR>
+      <TR class="th_bs">
         <TD class='td_bs'><%= cosmetypeVO.getCosmetypeno() %></TD>
         <TD><%=cosmetypeVO.getCosmetypename() %></TD>
         <TD>

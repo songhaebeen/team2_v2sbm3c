@@ -4,6 +4,8 @@ public class IngredVO {
 	private int ingredno;
 	private String ingredname;
 	private String ingredeffect;
+	
+	
 	public int getIngredno() {
 		return ingredno;
 	}

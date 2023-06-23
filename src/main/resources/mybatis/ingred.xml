@@ -4,14 +4,35 @@
 
 
 <mapper namespace="dev.mvc.ingred.IngredDAOInter">
-<insert id="insert_ingred"  parameterType="dev.mvc.ingred.IngredVO">
-	 insert into ingred (ingredno, ingredname, ingredeffect)
-    values(ingred_seq.nextval, #{ingredname} , #{ingredeffect})
+  <!-- 등록 -->
+  <insert id="create"  parameterType="dev.mvc.ingred.IngredVO">
+	   insert into ingred (ingredno, ingredname, ingredeffect)
+     values(ingred_seq.nextval, #{ingredname} , #{ingredeffect})
+  </insert>
 
-</insert>
-
-<select id="ingred_list" resultType="dev.mvc.ingred.IngredVO">
+  <!-- 목록 -->
+  <select id="list_all" resultType="dev.mvc.ingred.IngredVO">
     select ingredno, ingredname, ingredeffect
     from ingred
-</select>
+  </select>
+
+ <!-- 조회 --> 
+ <select id = "read" resultType = "dev.mvc.ingred.IngredVO" parameterType = "int">
+  SELECT ingredno, ingredname, ingredeffect
+  FROM ingred
+  WHERE ingredno=#{ingredno}
+ </select>
+ 
+  <!-- 수정 --> 
+  <update id="update" parameterType="dev.mvc.ingred.IngredVO">
+    UPDATE ingred 
+    SET ingredname=#{ingredname}, ingredeffect=#{ingredeffect}
+    WHERE ingredno=#{ingredno} 
+  </update>
+
+ <!-- 삭제, 삭제된 레코드 갯수를 리턴 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM ingred 
+    WHERE ingredno=#{ingredno}
+  </delete>
 </mapper>

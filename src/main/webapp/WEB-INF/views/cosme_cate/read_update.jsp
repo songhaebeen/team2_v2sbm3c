@@ -60,13 +60,17 @@ Cosme_cateVO cosme_cateVO_read = (Cosme_cateVO)request.getAttribute("cosme_cateV
     for (int i=0; i < list.size(); i++) {
       Cosme_cateVO cosme_cateVO = list.get(i);
     %>
-      <TR>
-        <TD class='td_bs'><%= cosme_cateVO.getCosme_cateno() %></TD>
+      <TR class="th_bs">
+        <TD class='td_bs'><%= cosme_cateVO.getSeqno() %></TD>
         <TD><%=cosme_cateVO.getCosme_catename() %></TD>
+        <TD class='td_bs'><%=cosme_cateVO.getCnt() %></TD>
+        <TD class='td_bs'><%=cosme_cateVO.getRdate().substring(0, 10) %></TD>
         <TD>
           <A href="./read_update.do?cosme_cateno=<%=cosme_cateVO.getCosme_cateno() %>" title="수정"><IMG src="/cosme_cate/images/update.png" class="icon"></A>
           <A href="./read_delete.do?cosme_cateno=<%=cosme_cateVO.getCosme_cateno() %>" title="삭제"><IMG src="/cosme_cate/images/delete.png" class="icon"></A>
-        </TD>
+          <A href="./update_seqno_decrease.do?cosme_cateno=<%=cosme_cateVO.getCosme_cateno() %>" title="우선순위 높이기"><IMG src="/cosme_cate/images/decrease.png" class="icon"></A>
+          <A href="./update_seqno_increase.do?cosme_cateno=<%=cosme_cateVO.getCosme_cateno() %>" title="우선순위 낮추기"><IMG src="/cosme_cate/images/increase.png" class="icon"></A>
+          </TD>
       </TR>
     <%  
     }

@@ -6,7 +6,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>성분 등록</title>
+<title>화장품 성분 등록</title>
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -22,7 +22,7 @@
 
 
 <DIV class='content_body'>
-  <DIV class='title_line'>성분 등록</DIV>
+  <DIV class='title_line'>화장품 성분 등록</DIV>
   
   <FORM name='frm' method='POST' action='/ingred/create.do'>
     <br><Br>

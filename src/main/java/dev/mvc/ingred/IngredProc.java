@@ -10,16 +10,40 @@ public class IngredProc implements IngredProcInter {
 	
 	@Autowired
 	public IngredDAOInter ingredDAO;
-	
-	public int insert_ingred(IngredVO ingredvo) {
-		int cnt = this.ingredDAO.insert_ingred(ingredvo);
-		return cnt;
-	}
-	
-	public ArrayList<IngredVO> ingred_list(){
-		ArrayList<IngredVO> list = this.ingredDAO.ingred_list();
-		
-		return list;
-	}
+
+	//등록
+  @Override
+  public int create(IngredVO ingredVO) {
+    int cnt = this.ingredDAO.create(ingredVO);
+    return cnt;
+  }
+
+  //목록
+  @Override
+  public ArrayList<IngredVO> list_all() {
+   ArrayList<IngredVO>list = this.ingredDAO.list_all();
+    return list;
+  }
+
+  //조회
+  @Override
+  public IngredVO read(int ingredno) {
+    IngredVO ingredVO = this.ingredDAO.read(ingredno);
+    return ingredVO;
+  }
+
+  //수정
+  @Override
+  public int update(IngredVO ingredVO) {
+    int cnt = this.ingredDAO.update(ingredVO);
+    return cnt;
+  }
+
+  //삭제
+  @Override
+  public int delete(int ingredno) {
+    int cnt = this.ingredDAO.delete(ingredno);
+    return cnt;
+  }
 
 }
