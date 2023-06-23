@@ -38,7 +38,7 @@
     <div>
        <label>제목</label>
        <input type='text' name='ntitle' value='공지사항' required="required" 
-                 autofocus="autofocus" class="form-control" style='width: 100%;'>
+                 autofocus="autofocus" class="form-control" style='width: 50%;'>
     </div>
     <div>
        <label>내용</label>
@@ -47,7 +47,7 @@
     <div>
        <label>패스워드</label>
        <input type='password' name='passwd' value='1234' required="required" 
-                 class="form-control" style='width: 50%;'>
+                 class="form-control" style='width: 30%;'>
     </div>   
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-info btn-sm">등록</button>

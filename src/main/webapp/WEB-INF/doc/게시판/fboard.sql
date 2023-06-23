@@ -9,8 +9,8 @@ CREATE TABLE fboard(
         ftitle             VARCHAR(50)    NOT NULL,
         fcontent           CLOB    NOT NULL,
         passwd              VARCHAR2(15)         NOT NULL,
-        word                VARCHAR2(100)         NULL ,
-        views                NUMBER(10)     NOT NULL,
+        word                VARCHAR2(100)         NULL , --검색
+        views               NUMBER(7)         DEFAULT 0   NOT NULL, --조회수
         rdate               DATE           NOT NULL,
         file1                VARCHAR(100)          NULL,  -- 원본 파일명 image
         file1saved            VARCHAR(100)          NULL,  -- 저장된 파일명, image
@@ -60,7 +60,7 @@ INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, rdate, file1, file1save
 VALUES(fboard_seq.nextval, 2, '자유3', '오늘 하루', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000,'1234');
 
 -- 유형 1 전체 목록
-SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube
+SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views
 FROM fboard
 ORDER BY fboardno ASC;
          
@@ -111,6 +111,17 @@ WHERE fboardno = 1;
 UPDATE fboard
 SET ftitle='추천', fcontent='직접 "사용해 본" 후기입니다'
 WHERE fboardno = 1;
+
+--조회수 증가
+UPDATE fboard 
+SET views = views + 1 
+WHERE fboardno = 1;
+
+commit;
+
+SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views
+FROM fboard
+ORDER BY fboardno ASC;
 
 -- title, content, word column search
 SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube
@@ -178,4 +189,5 @@ WHERE userno IN('1','2','3');
   FBOARDNO     USERNO FTITLE                                            
 ---------- ---------- --------------------------------------------------
          1          1 추천!!                                            
-         3          1 자유2                                                                                         
+         3          1 자유2                
+         

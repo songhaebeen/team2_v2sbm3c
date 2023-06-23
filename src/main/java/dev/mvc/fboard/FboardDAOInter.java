@@ -80,5 +80,12 @@ public interface FboardDAOInter {
    * @return 삭제된 레코드 갯수
    */
   public int delete(int fboardno);
+  
+  /**
+   * 조회수
+   * @param fboardno
+   * @return 처리된 레코드 갯수
+   */
+  public int views(int fboardno);
 
 }

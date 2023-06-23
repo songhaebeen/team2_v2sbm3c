@@ -9,6 +9,8 @@ public class FboardVO {
 	private String fcontent="";
 	private String rdate="";
 	private String passwd="";
+	private int views;
+
 	/** 검색어 */
 	private String word="";
 	
@@ -78,6 +80,12 @@ public class FboardVO {
 	}
 	public void setWord(String word) {
 		this.word = word;
+	}
+	public int getViews() {
+		return views;
+	}
+	public void setViews(int views) {
+		this.views = views;
 	}
 	public String getRdate() {
 		return rdate;

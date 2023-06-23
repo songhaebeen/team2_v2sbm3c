@@ -103,7 +103,7 @@
         <br>
         
         <div style='font-size: 0.95em; word-break: break-all;'>
-            <img src="/member/images/user.png" style="height: 16px"> ${memberno } <!-- 등록한 사용자 이름 나오게 수정 -->
+            <img src="/member/images/user.png" style="height: 16px"> <%--${memberno } --%>
         </div>
          ${rdate }
       </div>

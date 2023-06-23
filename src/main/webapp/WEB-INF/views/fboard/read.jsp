@@ -11,6 +11,7 @@
 <c:set var="youtube" value="${fboardVO.youtube }" />
 <c:set var="word" value="${fboardVO.word }" />
 <c:set var="youtube" value="${fboardVO.youtube }" />
+<c:set var="views" value="${fboardVO.views }" />
 <c:set var="size1_label" value="${fboardVO.size1_label }" />
 <c:set var="rdate" value="${fboardVO.rdate.substring(0, 16) }" />
 
@@ -29,6 +30,32 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // 조회수 증가 함수
+    function increaseViews() {
+        $.ajax({
+            type: 'GET',
+            url: '/fboard/read.do',
+            data: {
+                fboardno: '${fboardno}'
+            },
+            success: function(response) {
+                // 조회수 증가 성공한 경우
+                if (response === 'success') {
+                    var viewsCount = parseInt('${views}') + 1;
+                    // 조회수 업데이트
+                    $('#viewsCount').text(viewsCount);
+                }
+            }
+        });
+    }
+
+    // 페이지 로드 시 조회수 증가 함수 호출
+    increaseViews();
+});
+</script> 
     
 </head> 
  
@@ -84,6 +111,7 @@
         <DIV style="width: 100%; word-break: break-all; text-align: center;" >  
           <span style="font-size: 1.5em; font-weight: bold; text-align: center;">${ftitle }</span><br><br>
           <div style="font-size: 1em; text-align: right; width: 89%;"><img src="/member/images/user.png" style="height: 16px"> ${mname} ${rdate }</div>
+          <div style="font-size: 1em; text-align: right; width: 89%;">조회수: <span id="viewsCount">${views}</span></div>
           <br><br>
         </DIV>
 
@@ -94,7 +122,7 @@
               <img src="/fboard/storage/${file1saved }" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/fboard/images/logo2.gif" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
+              <%-- <img src="/fboard/images/logo2.gif" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> --%>
             </c:otherwise>
           </c:choose>
           

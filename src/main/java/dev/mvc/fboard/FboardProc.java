@@ -38,6 +38,7 @@ public class FboardProc implements FboardProcInter{
 	@Override
 	public FboardVO read(int fboardno) {
 		FboardVO fboardVO = this.fboardDAO.read(fboardno);
+		this.fboardDAO.views(fboardno);
 		return fboardVO;
 	}
 
@@ -241,5 +242,12 @@ public class FboardProc implements FboardProcInter{
       int cnt = this.fboardDAO.delete(fboardno);
       return cnt;
     }
+
+    //조회수
+	@Override
+	public int views(int fboardno) {
+		int cnt = this.fboardDAO.views(fboardno);
+		return cnt;
+	}
 
 }

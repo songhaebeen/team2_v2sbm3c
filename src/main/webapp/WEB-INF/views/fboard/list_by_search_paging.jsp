@@ -64,13 +64,14 @@
       <c:choose>
         <c:when test="${sessionScope.admin_id != null }">
           <col style="width: 10%;"></col>
-          <col style="width: 70%;"></col>
+          <col style="width: 60%;"></col>
           <col style="width: 10%;"></col>     
           <col style="width: 10%;"></col>   
         </c:when>
         <c:otherwise>
           <col style="width: 10%;"></col>
           <col style="width: 60%;"></col>
+          
         </c:otherwise>
       </c:choose>
     </colgroup>
@@ -90,6 +91,7 @@
         <c:set var="fcontent" value="${fboardVO.fcontent }" />
         <c:set var="fboardno" value="${fboardVO.fboardno }" />
         <c:set var="thumb1" value="${fboardVO.thumb1 }" />
+        <c:set var="views" value="${fboardVO.views }" />
           <c:set var="rdate" value="${fboardVO.rdate.substring(0, 10) }" />
         
          <tr style="height: 112px;" onclick="location.href='./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }'" class='hover'>
@@ -115,6 +117,10 @@
               </c:when>
             </c:choose>
           </td> 
+          
+            <td style='vertical-align: middle; text-align: center;'>
+            <div style='font-weight: bold;'>${views }</div>
+          </td>
           
             <td style='vertical-align: middle; text-align: center;'>
             <div style='font-weight: bold;'>${rdate }</div>
