@@ -21,6 +21,11 @@ public class IngredCont {
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc = null;
 
+  /**
+   * 등록폼
+   *
+   * @return
+   */
 @RequestMapping(value="/ingred/create.do", method=RequestMethod.POST)
 public ModelAndView create(IngredVO ingredvo) {
 	ModelAndView mav = new ModelAndView();
@@ -29,6 +34,13 @@ public ModelAndView create(IngredVO ingredvo) {
 	mav.setViewName("redirect:/");
 	return mav;
 }
+
+/**
+ * 등록 처리
+ * 
+ * @param 
+ * @return
+ */
 @RequestMapping(value="/ingred/create.do", method=RequestMethod.GET)
 public ModelAndView create(HttpSession session) {
 	ModelAndView mav = new ModelAndView();

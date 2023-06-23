@@ -44,4 +44,32 @@ public interface Cosme_cateDAOInter {
    * @return 삭제된 레코드 갯수를 리턴
    */
   public int delete(int cosme_cateno);
+  
+  /**
+   * 출력 순서 하향(1등 -> 10등), seqno 컬럼의 값 증가
+   * @param cosme_cateno
+   * @return 변경된 레코드 수
+   */
+  public int update_seqno_decrease(int cosme_cateno);
+  
+  /**
+   * 출력 순서 상향(10등 -> 1등), seqno 컬럼의 값 감소
+   * @param cosme_cateno
+   * @return 변경된 레코드 수
+   */
+  public int update_seqno_increase(int cosme_cateno);
+  
+  /**
+   * 글수 증가 
+   * @param cosme_cateno
+   * @return
+   */
+  public int update_cnt_add(int cosme_cateno);
+  
+  /**
+   * 글수 감소
+   * @param cosme_cateno
+   * @return
+   */
+  public int update_cnt_sub(int cosme_cateno);
 }

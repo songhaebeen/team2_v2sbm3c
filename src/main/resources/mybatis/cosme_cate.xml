@@ -5,20 +5,20 @@
 <mapper namespace="dev.mvc.cosme_cate.Cosme_cateDAOInter">
   <!-- 등록: 추가한 레코드 갯수를 리턴 -->
   <insert id="create" parameterType="dev.mvc.cosme_cate.Cosme_cateVO">
-    INSERT INTO cosme_cate(cosme_cateno, cosme_catename) 
-    VALUES(cosme_cate_seq.nextval, #{cosme_catename})
+    INSERT INTO cosme_cate(cosme_cateno, cosme_catename, cnt, rdate, seqno) 
+    VALUES(cosme_cate_seq.nextval, #{cosme_catename}, 0, sysdate, #{seqno})
   </insert>
   
   <!-- 목록 -->
   <select id="list_all" resultType="dev.mvc.cosme_cate.Cosme_cateVO">
-    SELECT cosme_cateno, cosme_catename
+    SELECT cosme_cateno, cosme_catename, cnt, rdate, seqno
     FROM cosme_cate 
-    ORDER BY cosme_cateno ASC
+    ORDER BY seqno ASC
   </select>
   
   <!-- 종류별 리스트 -->
   <select id="list_by_cate" resultType="dev.mvc.cosme_cate.Cosme_cateVO" parameterType="int">
-    SELECT cosme_cateno, cosme_catename
+    SELECT cosme_cateno, cosme_catename, cnt, rdate, seqno
     FROM cosme_cate
     WHERE cosme_cateno=#{cosme_cateno}
     ORDER BY cosme_cateno DESC
@@ -26,7 +26,7 @@
   
  <!-- 조회 --> 
  <select id = "read" resultType = "dev.mvc.cosme_cate.Cosme_cateVO" parameterType = "int">
-  SELECT cosme_cateno, cosme_catename
+  SELECT cosme_cateno, cosme_catename, cnt, rdate, seqno
   FROM cosme_cate
   WHERE cosme_cateno=#{cosme_cateno}
  </select>
@@ -43,6 +43,34 @@
   DELETE FROM cosme_cate 
   WHERE cosme_cateno=#{cosme_cateno}
 </delete>
+
+  <!-- 출력 순서 올림(상향, 10 등 -> 1 등), seqno: 10 -> 1 -->
+  <update id="update_seqno_decrease" parameterType="int">
+    UPDATE cosme_cate
+    SET seqno = seqno - 1
+    WHERE cosme_cateno = #{cosme_cateno}
+  </update>
+
+  <!-- 출력 순서 내림(상향, 1 등 -> 10 등), seqno: 1 -> 10 -->
+  <update id="update_seqno_increase" parameterType="int">
+    UPDATE cosme_cate
+    SET seqno = seqno + 1
+    WHERE cosme_cateno = #{cosme_cateno}
+  </update>
+  
+    <!-- 자료수 증가, cnt 컬럼 1씩 증가, id: update_cnt_add -->
+  <update id="update_cnt_add" parameterType="int">
+    UPDATE cosme_cate 
+    SET cnt = cnt + 1 
+    WHERE cosme_cateno = #{cosme_cateno}
+  </update>
+
+  <!-- 자료수 감소, cnt 컬럼 1씩 증가, id: update_cnt_add -->
+  <update id="update_cnt_sub" parameterType="int">
+    UPDATE cosme_cate 
+    SET cnt = cnt - 1 
+    WHERE cosme_cateno = #{cosme_cateno}
+  </update>
 </mapper>
 
 
