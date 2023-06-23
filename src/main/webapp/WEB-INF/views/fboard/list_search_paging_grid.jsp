@@ -7,7 +7,8 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Grid</title>
+<title>자유게시판</title>
+<link rel="shortcut icon" href="/images/star.png" />
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
  
@@ -29,13 +30,13 @@
 <DIV class='content_body'>
   <ASIDE class="aside_right">
   
-      <A href="./create.do?cateno=${cateVO.cateno }">등록</A>
+      <A href="./create.do?">등록</A>
       <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>    
     <A href="./list_all.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">목록형</A>    
     <span class='menu_divide' >│</span>
-    <A href="./list_grid.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">갤러리형</A>
+    <A href="./list_grid.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">앨범형</A>
   </ASIDE>
   
   <DIV style="text-align: right; clear: both;">  
@@ -59,11 +60,12 @@
 
   <DIV class='menu_line'></DIV>
   
-  <div style='width: 100%;'> <%-- 갤러리 Layout 시작 --%>
+  <div style='width: 80%; text-align: left; margin-left: 10%;'> <%-- 갤러리 Layout 시작 --%>
       <c:forEach var="fboardVO" items="${list}" varStatus="status">
         <c:set var="ftitle" value="${fboardVO.ftitle.trim() }" />
         <c:set var="fcontent" value="${fboardVO.fcontent.trim() }" />
         <c:set var="fboardno" value="${fboardVO.fboardno }" />
+        <c:set var="memberno" value="${fboardVO.memberno }" />
         <c:set var="thumb1" value="${fboardVO.thumb1 }" />
         <c:set var="size1" value="${fboardVO.size1 }" />
         <c:set var="rdate" value="${fboardVO.rdate.substring(0, 10) }" />
@@ -76,15 +78,15 @@
       <!-- 4기준 하나의 이미지, 24 * 4 = 96% -->
       <!-- 5기준 하나의 이미지, 19.2 * 5 = 96% -->
       <div onclick="location.href='./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }'" class='hover'  
-             style='width: 19%; height: 216px; float: left; margin: 0.5%; padding: 0.3%; background-color: #E6E6E6; text-align: left;'>
+             style='width: 19%; height: 256px; float: left; margin: 0.5%; padding: 0.3%; background-color: #EAEAEA; text-align: left;'>
         
         <c:choose> 
           <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>
             <%-- registry.addResourceHandler("/fboard/storage/**").addResourceLocations("file:///" +  Fboard.getUploadDir()); --%>
-            <img src="/fboard/storage/${thumb1 }" style="width: 100%; height: 140px;">
+            <img src="/fboard/storage/${thumb1 }" style="width: 100%; height: 180px;">
           </c:when>
           <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/fboard/images/none1.png -->
-            <IMG src="/fboard/images/logo2.gif" style="width: 100%; height: 140px;">
+            <IMG src="/fboard/images/logo2.gif" style="width: 100%; height: 180px;">
           </c:otherwise>
         </c:choose>
         
@@ -101,16 +103,9 @@
         <br>
         
         <div style='font-size: 0.95em; word-break: break-all;'>
-          <c:choose>         
-            <c:when test="${fcontent.length() > 30 }"> <%-- 30 이상이면 30자만 출력 --%>
-              ${fcontent.substring(0, 30)}.....
-            </c:when>
-            <c:when test="${fcontent.length() <= 30 }">
-              ${fcontent}
-            </c:when>
-          </c:choose>
+            <img src="/member/images/user.png" style="height: 16px"> ${memberno } <!-- 등록한 사용자 이름 나오게 수정 -->
         </div>
-        
+         ${rdate }
       </div>
       
     </c:forEach>

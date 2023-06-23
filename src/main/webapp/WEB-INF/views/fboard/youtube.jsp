@@ -27,7 +27,7 @@
     <span class='menu_divide' >│</span>
     <A href="./list_all.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">목록형</A>    
     <span class='menu_divide' >│</span>
-    <A href="./list_grid.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">갤러리형</A>
+    <A href="./list_grid.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">앨범형</A>
   </ASIDE>
   
   <DIV class='menu_line'></DIV>

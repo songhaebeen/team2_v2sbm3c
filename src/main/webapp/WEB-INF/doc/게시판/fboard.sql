@@ -95,7 +95,7 @@ commit;
 -- ----------------------------------------------------------------------------
 SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1
 FROM fboard
-WHERE fboardno = 20;
+WHERE fboardno = 24;
 
 -- 텍스트 수정: 예외 컬럼: 추천수, 조회수, 댓글 수
 UPDATE fboard
@@ -130,6 +130,18 @@ FROM (
            )          
 )
 WHERE r >= 1 AND r <= 3;
+
+SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, r
+FROM (
+           SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, rownum as r
+           FROM (
+                     SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube
+                     FROM fboard
+                     WHERE ftitle LIKE '%추천%' OR fcontent LIKE '%추천%' OR word LIKE '%추천%'
+                     ORDER BY fboardno DESC
+           )          
+)
+WHERE r >= 1 AND r <= 10;
 
 -- 삭제
 DELETE FROM fboard

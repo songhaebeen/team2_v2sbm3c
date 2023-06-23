@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.notice.NoticeDAOInter">
+
+  <!-- 등록한 레코드 갯수 1 리턴 -->
+  <insert id="create" parameterType="dev.mvc.notice.NoticeVO">
+    INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate)
+    VALUES(notice_seq.nextval, #{adminno}, #{ntitle}, #{ncontent}, #{passwd}, sysdate)
+  
+     </insert>
+     
+  <!-- 모든 공지사항 목록 -->
+  <select id="list_all" resultType="dev.mvc.notice.NoticeVO">
+    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate
+    FROM notice
+    ORDER BY noticeno DESC
+  </select> 
+     
+  <!-- 공지사항 조회 -->
+  <select id="read" resultType="dev.mvc.notice.NoticeVO" parameterType="int">
+    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate
+    FROM notice
+    WHERE noticeno = #{noticeno}
+  </select> 
+  
+  <!-- 패스워드 검사 -->
+  <select id="password_check" resultType="int" parameterType="dev.mvc.notice.NoticeVO">
+    SELECT COUNT(*) as cnt 
+    FROM notice 
+    WHERE adminno=#{adminno} AND passwd=#{passwd}
+  </select>
+  
+  <!-- 글 수정 -->
+  <update id="update" parameterType="dev.mvc.notice.NoticeVO">
+    UPDATE notice
+    SET ntitle=#{ntitle}, ncontent=#{ncontent}
+    WHERE noticeno = #{noticeno}
+  </update>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM notice
+    WHERE noticeno =#{noticeno}
+  </delete>
+  
+    </mapper>

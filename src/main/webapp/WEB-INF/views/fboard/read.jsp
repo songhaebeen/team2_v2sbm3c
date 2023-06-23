@@ -8,6 +8,7 @@
 <c:set var="file1" value="${fboardVO.file1 }" />
 <c:set var="file1saved" value="${fboardVO.file1saved }" />
 <c:set var="thumb1" value="${fboardVO.thumb1 }" />
+<c:set var="memberno" value="${fboardVO.memberno }" />
 <c:set var="youtube" value="${fboardVO.youtube }" />
 <c:set var="word" value="${fboardVO.word }" />
 <c:set var="youtube" value="${fboardVO.youtube }" />
@@ -83,7 +84,7 @@
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all; text-align: center;" >  
           <span style="font-size: 1.5em; font-weight: bold; text-align: center;">${ftitle }</span><br><br>
-          <div style="font-size: 1em; text-align: right; width: 89%;"><img src="/member/images/user.png" style="height: 16px">  ${rdate }</div>
+          <div style="font-size: 1em; text-align: right; width: 89%;"><img src="/member/images/user.png" style="height: 16px"> ${memberno} ${rdate }</div>
           <br><br>
         </DIV>
 
@@ -91,10 +92,10 @@
                 <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
               <%-- /static/fboard/storage/ --%>
-              <img src="/fboard/storage/${file1saved }" style='width: 20%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/fboard/storage/${file1saved }" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/fboard/images/logo2.gif" style='width: 20%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/fboard/images/logo2.gif" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
             </c:otherwise>
           </c:choose>
           
@@ -121,13 +122,16 @@
         </DIV>
         <br>
       </li> 
+      
+      
 
     </ul>
+    <div style="width: 85%; text-align: right; margin-left: 15%;">  
+    <button type="button" onclick="location.href='/fboard/list_all.do'" class="btn btn-info btn-sm">목록형</button>
+    <button type="button" onclick="location.href='/fboard/list_grid.do'" class="btn btn-info btn-sm">앨범형</button>
+     </div>
   </fieldset>
-  
-    <div class="content_body_bottom">  
-    <button type="button" onclick="location.href='/fboard/list_all.do'" class="btn btn-info btn-sm">목록</button>
-  </div>
+
 
 </DIV>
 <jsp:include page="../menu/bottom.jsp" flush='false' />

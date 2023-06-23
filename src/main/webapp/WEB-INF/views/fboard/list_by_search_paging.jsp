@@ -35,7 +35,7 @@
     <span class='menu_divide' >│</span>    
     <A href="./list_all.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">목록형</A>    
     <span class='menu_divide' >│</span>
-    <A href="./list_grid.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">갤러리형</A>
+    <A href="./list_grid.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">앨범형</A>
   </ASIDE>
   
   <DIV style="text-align: right; clear: both;">  
@@ -107,10 +107,10 @@
           <td style='vertical-align: middle;'>
             <div style='font-weight: bold;'><a href="./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }">${ftitle }</a></div>
             <c:choose> 
-              <c:when test="${fcontent.length() > 150 }"> <%-- 150자 이상이면 150자만 출력 --%>
-                  ${fcontent.substring(0, 150)} .....
+              <c:when test="${fcontent.length() > 140 }"> <%-- 140자 이상이면 140자만 출력 --%>
+                  ${fcontent.substring(0, 140)}...더보기
               </c:when>
-              <c:when test="${fcontent.length() <= 150 }">
+              <c:when test="${fcontent.length() <= 140 }">
                 ${fcontent}
               </c:when>
             </c:choose>
@@ -128,7 +128,7 @@
             </c:when>
             <c:otherwise>
             <td style='vertical-align: middle; text-align: center;'>
-            <A href="/fboard/youtube.do?fboardno=${fboardno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="Youtube"><IMG src="/fboard/images/youtube.png" class="icon"></A>
+            <A href="/fboard/youtube.do?fboardno=${fboardno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="Youtube 등록"><IMG src="/fboard/images/youtube.png" class="icon"></A>
             </c:otherwise>
           </c:choose>
 

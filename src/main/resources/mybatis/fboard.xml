@@ -74,7 +74,7 @@
                         FROM fboard
                         <choose>
                           <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
-                           
+                          
                           </when>
                           <otherwise>
                             WHERE UPPER(ftitle) LIKE '%' || UPPER(#{word}) || '%' 
