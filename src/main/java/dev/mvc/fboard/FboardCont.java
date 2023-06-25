@@ -157,69 +157,68 @@ public class FboardCont {
    *  http://localhost:9093/fboard/read.do
    * @return
    */
-  @SuppressWarnings("null")
-@RequestMapping(value="/fboard/read.do", method=RequestMethod.GET )
+  @RequestMapping(value="/fboard/read.do",  method=RequestMethod.GET )
   public ModelAndView read(int fboardno, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-	  FboardVO read = fboardProc.read(fboardno);
-	  
-	  ModelAndView mav = new ModelAndView();
+    ModelAndView mav = new ModelAndView();
     
-	  Cookie[] cookies = request.getCookies();
-      
-      // 비교하기 위해 새로운 쿠키
-      Cookie viewCookie = null;
-      
-      // 쿠키가 있을 경우 
-      if (cookies != null && cookies.length > 0) 
-      {
-          for (int i = 0; i < cookies.length; i++)
-          {
-              // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌 
-              if (cookies[i].getName().equals("cookie"+fboardno))
-              { 
-                  System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
-                  viewCookie = cookies[i];
-              }
+    FboardVO read = fboardProc.read(fboardno);
+    
+    Cookie[] cookies = request.getCookies();
+    
+    //쿠키 중복 체크를 위해 사용되는 변수
+    Cookie viewCookie = null;
+    
+  // 쿠키가 있을 경우 
+  if (cookies != null && cookies.length > 0) {
+      for (int i = 0; i < cookies.length; i++) {
+          // Cookie의 name이 cookie + fboardno와 일치하는 쿠키를 viewCookie에 넣어줌 
+          if (cookies[i].getName().equals("cookie"+fboardno)){ 
+              //System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
+              viewCookie = cookies[i];
+              viewCookie.setMaxAge(30); // 30 seconds
           }
       }
-      
-      if (read != null) {
-          System.out.println("System - 해당 상세 페이지로 넘어감");
-          
-          mav.addObject("read", read);
+  }
 
-          // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
-          if (viewCookie == null) {    
-              System.out.println("cookie 없음");
-              
-              // 쿠키 생성(이름, 값)
-              Cookie newCookie = new Cookie("cookie"+fboardno, "|" + fboardno + "|");
-              //newCookie.setMaxAge        
-              
-              // 쿠키 추가
-              response.addCookie(newCookie);
-
-              // 쿠키를 추가 시키고 조회수 증가시킴
-              int result = fboardProc.views(fboardno);
-              
-              if(result>0) {
-                  System.out.println("조회수 증가");
-                  viewCookie.setMaxAge(60 * 60 * 24 * 30); // 30 day
-              }else {
-                  System.out.println("조회수 증가 에러");
-              }
-          }
-          // viewCookie가 null이 아닐 경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
-          else {
-              System.out.println("cookie 있음");
-              
-              // 쿠키 값 받아옴.
-              String value = viewCookie.getValue();
-              viewCookie.setMaxAge(60 * 60 * 24 * 30); // 30 day
-              System.out.println("cookie 값 : " + value);
-      
-          }
-
+	if (read != null) {
+	System.out.println("System - 해당 상세 페이지로 넘어감");
+	
+	  mav.addObject("read", read);
+	
+	// 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+	if (viewCookie == null) {    
+	    System.out.println("cookie 없음");
+	    
+	    // 쿠키 생성(이름, 값)
+	    Cookie newCookie = new Cookie("cookie"+fboardno, "|" + fboardno + "|");
+	    newCookie.setMaxAge(30); // 30 seconds
+	    
+	    // 쿠키 추가
+	    response.addCookie(newCookie);
+	    
+	    // 쿠키를 추가 시키고 조회수 증가시킴
+	    int result = fboardProc.views(fboardno);
+	    
+	    if(result>0) {
+	        System.out.println("조회수 증가");
+	        
+	    }else {
+	        System.out.println("조회수 증가 에러");
+	    }
+	}
+	// viewCookie가 null이 아닐 경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
+	else {
+	    System.out.println("cookie 있음");
+	    
+	    // 쿠키 값 받아옴.
+	    String value = viewCookie.getValue();
+	    //viewCookie.setMaxAge(60 * 60 * 24); // 1 day
+	    viewCookie.setMaxAge(30); // 30 seconds
+	    System.out.println("cookie 값 : " + value);
+	
+		}
+	}
+  
     if (memberProc.isMember(session) || adminProc.isAdmin(session)) { // 관리자, 회원으로 로그인한 경우        
     	FboardVO fboardVO = this.fboardProc.read(fboardno);
     
@@ -241,33 +240,6 @@ public class FboardCont {
     	String mname = this.memberProc.read(fboardVO.getMemberno()).getMname();
     	mav.addObject("mname", mname);
     	
-//        // 조회수
-//        int views = this.fboardProc.views(fboardno);
-//        mav.addObject("views", views);
-    	
-
-    	
-        // 클라이언트의 쿠키 가져오기
-//    	Cookie oldCookie = null;
-//        Cookie[] cookies = request.getCookies();
-//        
-//        if(cookies != null)
-//            for (Cookie cookie : cookies)
-//                if (cookie.getName().equals("fboardView"))
-//                    oldCookie = cookie;
-//        
-//        if (oldCookie != null) {
-//            if (!oldCookie.getValue().contains("[" + memberVO.id.toString() + "]")) {
-//                boardRepository.updateCount(id);
-//                oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
-//                oldCookie.setPath("/");
-//                oldCookie.setMaxAge(60 * 60 * 24);
-//                response.addCookie(oldCookie);
-//            }
-//        }
-        
-
-
     	mav.setViewName("/fboard/read"); // /WEB-INF/views/fboard/read.jsp
     	} else{ // 정상적인 로그인이 아닌 경우
     		mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
@@ -275,8 +247,6 @@ public class FboardCont {
     
     	return mav;
       }
-	return mav;
-  }
   
   /**
    * Youtube 등록/수정/삭제 폼

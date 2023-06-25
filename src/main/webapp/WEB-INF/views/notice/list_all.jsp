@@ -42,8 +42,9 @@
       <c:choose>
         <c:when test="${sessionScope.admin_id != null }">
           <col style="width: 10%;"></col>
-          <col style="width: 70%;"></col>
-          <col style="width: 10%;"></col>      
+          <col style="width: 60%;"></col>
+          <col style="width: 10%;"></col>     
+          <col style="width: 10%;"></col>   
         </c:when>
         <c:otherwise>
           <col style="width: 10%;"></col>
@@ -57,7 +58,9 @@
   <c:set var="noticeno" value="${noticeVO.noticeno }" />
   <c:set var="ntitle" value="${noticeVO.ntitle }" />        
   <c:set var="ncontent" value="${noticeVO.ncontent }" />
-    <c:set var="rdate" value="${noticeVO.rdate.substring(0, 10) }" />
+  <c:set var="thumb1" value="${noticeVO.thumb1 }" />
+  <c:set var="views" value="${noticeVO.views }" />
+  <c:set var="rdate" value="${noticeVO.rdate.substring(0, 10) }" />
   
    <tr style="height: 112px;" onclick="location.href='./read.do?noticeno=${noticeno }&now_page=${param.now_page == null ? 1 : param.now_page}'" class='hover'>
           <td style='vertical-align: middle; text-align: center; '>
@@ -65,8 +68,11 @@
           </td>  
           
           <td style='vertical-align: middle; '>
-            <div style='font-weight: bold;'><a href="./read.do?noticeno=${noticeno }&now_page=${param.now_page == null ? 1 : param.now_page }">${ntitle }</a></div>
-
+            <div style='font-weight: bold;'><%--<a href="./read.do?noticeno=${noticeno }&now_page=${param.now_page == null ? 1 : param.now_page }"> --%>${ntitle }</a></div>
+          </td>
+          
+            <td style='vertical-align: middle; text-align: center;'>
+            <div style='font-weight: bold;'>${views }</div>
           </td>
           
             <td style='vertical-align: middle; text-align: center;'>

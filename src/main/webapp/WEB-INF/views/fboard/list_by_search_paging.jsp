@@ -107,7 +107,7 @@
             </c:choose>
           </td>  
           <td style='vertical-align: middle;'>
-            <div style='font-weight: bold;'><a href="./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }">${ftitle }</a></div>
+            <div style='font-weight: bold;'><%--<a href="./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }">--%>${ftitle }</a></div>
             <c:choose> 
               <c:when test="${fcontent.length() > 140 }"> <%-- 140자 이상이면 140자만 출력 --%>
                   ${fcontent.substring(0, 140)}...더보기

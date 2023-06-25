@@ -38,7 +38,7 @@ public class FboardProc implements FboardProcInter{
 	@Override
 	public FboardVO read(int fboardno) {
 		FboardVO fboardVO = this.fboardDAO.read(fboardno);
-		this.fboardDAO.views(fboardno);
+		//this.fboardDAO.views(fboardno);
 		return fboardVO;
 	}
 

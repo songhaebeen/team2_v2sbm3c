@@ -5,6 +5,12 @@
 <c:set var="noticeno" value="${noticeVO.noticeno }" />
 <c:set var="ntitle" value="${noticeVO.ntitle }" />        
 <c:set var="ncontent" value="${noticeVO.ncontent }" />
+<c:set var="file1" value="${noticeVO.file1 }" />
+<c:set var="file1saved" value="${noticeVO.file1saved }" />
+<c:set var="thumb1" value="${noticeVO.thumb1 }" />
+<c:set var="youtube" value="${noticeVO.youtube }" />
+<c:set var="views" value="${noticeVO.views }" />
+<c:set var="size1_label" value="${noticeVO.size1_label }" />
 <c:set var="rdate" value="${noticeVO.rdate.substring(0, 16) }" />
 
 <!DOCTYPE html> 
@@ -52,10 +58,10 @@
     <ul style='background-color: #F6F6F6;'>
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all;">
-
           <span style="font-size: 1.5em; font-weight: bold;">${ntitle }</span><br>
           <br>
           <div style="font-size: 1em;"><img src="/admin/images/user.png" style="height: 16px"> ${mname } ${rdate }</div>
+          <div style="font-size: 1em;">조회수: <span id="views">${views}</span></div>
           <br><br>
           <div style="font-size: 1.1em;">${ncontent }</div>
           <br>

@@ -10,7 +10,6 @@
 <c:set var="thumb1" value="${fboardVO.thumb1 }" />
 <c:set var="youtube" value="${fboardVO.youtube }" />
 <c:set var="word" value="${fboardVO.word }" />
-<c:set var="youtube" value="${fboardVO.youtube }" />
 <c:set var="views" value="${fboardVO.views }" />
 <c:set var="size1_label" value="${fboardVO.size1_label }" />
 <c:set var="rdate" value="${fboardVO.rdate.substring(0, 16) }" />
@@ -32,7 +31,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function() {
+<%--$(document).ready(function() {
     // 조회수 증가 함수
     function increaseViews() {
         $.ajax({
@@ -54,7 +53,11 @@ $(document).ready(function() {
 
     // 페이지 로드 시 조회수 증가 함수 호출
     increaseViews();
-});
+}); --%>
+
+response.setHeader("Set-Cookie", "cookieName=; Max-Age=0");
+
+
 </script> 
     
 </head> 
@@ -67,8 +70,6 @@ $(document).ready(function() {
 </DIV>
 
 <DIV class='content_body'>
-
-
 
   <ASIDE class="aside_right">
      <A href="./update_text.do?fboardno=${fboardno}&now_page=${param.now_page}">글 수정</A>
@@ -111,7 +112,7 @@ $(document).ready(function() {
         <DIV style="width: 100%; word-break: break-all; text-align: center;" >  
           <span style="font-size: 1.5em; font-weight: bold; text-align: center;">${ftitle }</span><br><br>
           <div style="font-size: 1em; text-align: right; width: 89%;"><img src="/member/images/user.png" style="height: 16px"> ${mname} ${rdate }</div>
-          <div style="font-size: 1em; text-align: right; width: 89%;">조회수: <span id="viewsCount">${views}</span></div>
+          <div style="font-size: 1em; text-align: right; width: 89%;">조회수: <span id="views">${views}</span></div>
           <br><br>
         </DIV>
 

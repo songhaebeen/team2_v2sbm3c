@@ -6,21 +6,21 @@
 
   <!-- 등록한 레코드 갯수 1 리턴 -->
   <insert id="create" parameterType="dev.mvc.notice.NoticeVO">
-    INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate)
-    VALUES(notice_seq.nextval, #{adminno}, #{ntitle}, #{ncontent}, #{passwd}, sysdate)
+    INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1)
+    VALUES(notice_seq.nextval, #{adminno}, #{ntitle}, #{ncontent}, #{passwd}, sysdate, #{file1}, #{file1saved}, #{thumb1}, #{size1})
   
      </insert>
      
   <!-- 모든 공지사항 목록 -->
   <select id="list_all" resultType="dev.mvc.notice.NoticeVO">
-    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate
+    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views
     FROM notice
     ORDER BY noticeno DESC
   </select> 
      
   <!-- 공지사항 조회 -->
   <select id="read" resultType="dev.mvc.notice.NoticeVO" parameterType="int">
-    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate
+    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views
     FROM notice
     WHERE noticeno = #{noticeno}
   </select> 

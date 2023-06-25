@@ -10,6 +10,11 @@ CREATE TABLE notice(
         ncontent           CLOB    NOT NULL,
         passwd              VARCHAR2(15)	 NOT NULL,
         views               NUMBER(7)         DEFAULT 0   NOT NULL,
+        file1                VARCHAR(100)          NULL,  -- 원본 파일명 image
+        file1saved            VARCHAR(100)          NULL,  -- 저장된 파일명, image
+        thumb1                VARCHAR(100)          NULL,   -- preview image
+        size1                 NUMBER(10)      DEFAULT 0 NULL,  -- 파일 사이즈
+        youtube               VARCHAR2(1000)            NULL,
         rdate               DATE           NOT NULL,
         FOREIGN KEY (adminno) REFERENCES admin (adminno)
 );
@@ -22,6 +27,11 @@ COMMENT ON COLUMN notice.ncontent is '공지 내용';
 COMMENT ON COLUMN notice.views is '조회수';
 COMMENT ON COLUMN notice.passwd is '패스워드';
 COMMENT ON COLUMN notice.rdate is '등록일';
+COMMENT ON COLUMN notice.file1 is '메인 이미지';
+COMMENT ON COLUMN notice.file1saved is '실제 저장된 메인 이미지';
+COMMENT ON COLUMN notice.thumb1 is '메인 이미지 Preview';
+COMMENT ON COLUMN notice.size1 is '메인 이미지 크기';
+COMMENT ON COLUMN notice.youtube is 'youtube';
 
 DROP SEQUENCE notice_seq;
 
@@ -32,23 +42,23 @@ CREATE SEQUENCE notice_seq
   CACHE 2                        -- 2번은 메모리에서만 계산
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
 
-INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate)
-VALUES(notice_seq.nextval, 1, '필독', '규정 안내','1234', sysdate);
+INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1)
+VALUES(notice_seq.nextval, 1, '필독', '규정 안내','1234', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000);
 
 commit;     
 
 -- 등록 화면 유형 1: 커뮤니티(공지사항, 게시판, 자료실, 갤러리,  Q/A...)글 등록
-INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate)
-VALUES(notice_seq.nextval, 1, '공지사항', '규정 안내', '1234', sysdate);
+INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1)
+VALUES(notice_seq.nextval, 1, '필독', '규정 안내','1234', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000);
             
-INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate)
-VALUES(notice_seq.nextval, 1, '공지사항', '회원 등급', '1234', sysdate);
+INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1)
+VALUES(notice_seq.nextval, 1, '공지', '규정 안내','1234', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000);
             
-INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate)
-VALUES(notice_seq.nextval, 1, '필독', '경고 조치', '1234', sysdate);
+INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1)
+VALUES(notice_seq.nextval, 1, '공지사항', '규정 안내','1234', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000);
 
 -- 유형 1 전체 목록
-SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate
+SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views
 FROM notice
 ORDER BY noticeno ASC;
          
@@ -58,7 +68,6 @@ ORDER BY noticeno ASC;
          1          1 필독                                               규정 안내                                          1234            2023-06-07 11:48:54
          2          1 필독                                               규정 안내                                          1234            2023-06-07 11:48:57
          3          1 공지사항                                           회원 등급                                          1234            2023-06-07 11:49:02
-
 
 --masterno가 master 테이블에 등록이 안되어 있는 번호이면 레코드 삭제 후 다시 INSERT
 DELETE FROM notice;

@@ -33,7 +33,7 @@
   
   <DIV class='menu_line'></DIV>
   
-  <FORM name='frm' method='POST' action='/notice/create.do'>
+  <FORM name='frm' method='POST' action='/notice/create.do' enctype="multipart/form-data">
     
     <div>
        <label>제목</label>
@@ -45,17 +45,22 @@
        <textarea name='ncontent' required="required" class="form-control" rows="12" style='width: 100%;'>필독</textarea>
     </div>
     <div>
+     <label>이미지</label>
+     <input type='file' class="form-control" name='file1MF' id='file1MF' 
+               value='' placeholder="파일 선택">
+  </div>  
+    <div>
        <label>패스워드</label>
        <input type='password' name='passwd' value='1234' required="required" 
                  class="form-control" style='width: 30%;'>
     </div>   
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-info btn-sm">등록</button>
+      <button type="button" onclick="location.href='/notice/list_all.do'" class="btn btn-info btn-sm">목록</button>
     </div>
   
   </FORM>
 </DIV>
- </DIV>
   <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
  
