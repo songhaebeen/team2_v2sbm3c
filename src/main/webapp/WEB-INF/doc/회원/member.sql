@@ -96,7 +96,11 @@ COMMIT;
  
 SELECT memberno, id, passwd, mname, tel, zipcode, address1, address2, mdate, grade
 FROM member
-ORDER BY grade ASC, id ASC;
+ORDER BY memberno DESC;
+
+SELECT memberno, id, passwd, mname, tel, zipcode, address1, address2, mdate, grade
+FROM member
+ORDER BY memberno DESC;
      
      
 3. 조회

@@ -60,7 +60,7 @@
 
   <DIV class='menu_line'></DIV>
   
-  <div style='width: 80%; text-align: left; margin-left: 10%;'> <%-- 갤러리 Layout 시작 --%>
+  <div style='width: 100%; text-align: left;'> <%-- 갤러리 Layout 시작 --%>
       <c:forEach var="fboardVO" items="${list}" varStatus="status">
         <c:set var="ftitle" value="${fboardVO.ftitle.trim() }" />
         <c:set var="fcontent" value="${fboardVO.fcontent.trim() }" />
@@ -71,22 +71,22 @@
         <c:set var="rdate" value="${fboardVO.rdate.substring(0, 10) }" />
         
       <%-- 하나의 행에 이미지를 5개씩 출력후 행 변경, index는 0부터 시작 --%>
-      <c:if test="${status.index % 5 == 0 && status.index != 0 }"> 
+      <c:if test="${status.index % 10 == 0 && status.index != 0 }"> 
         <HR class='menu_line'> <%-- 줄바꿈 --%>
       </c:if>
         
       <!-- 4기준 하나의 이미지, 24 * 4 = 96% -->
       <!-- 5기준 하나의 이미지, 19.2 * 5 = 96% -->
       <div onclick="location.href='./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }'" class='hover'  
-             style='width: 19%; height: 266px; float: left; margin: 0.5%; padding: 0.3%; background-color: #EAEAEA; text-align: left;'>
+             style='width: 350px; height: 298px; float: left; margin: 0.5%; padding: 0.3%; background-color: #EAEAEA; text-align: left;'>
         
         <c:choose> 
           <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>
             <%-- registry.addResourceHandler("/fboard/storage/**").addResourceLocations("file:///" +  Fboard.getUploadDir()); --%>
-            <img src="/fboard/storage/${thumb1 }" style="width: 100%; height: 190px;">
+            <img src="/fboard/storage/${thumb1 }" style="width: 100%; height: 210px;">
           </c:when>
           <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/fboard/images/none1.png -->
-            <IMG src="/fboard/images/logo2.gif" style="width: 100%; height: 190px;">
+            <IMG src="/fboard/images/logo2.gif" style="width: 100%; height: 210px;">
           </c:otherwise>
         </c:choose>
         

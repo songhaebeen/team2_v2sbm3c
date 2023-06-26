@@ -181,13 +181,13 @@ public class FboardCont {
   }
 
 	if (read != null) {
-	System.out.println("System - 해당 상세 페이지로 넘어감");
+	//System.out.println("System - 해당 상세 페이지로 넘어감");
 	
 	  mav.addObject("read", read);
 	
 	// 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
 	if (viewCookie == null) {    
-	    System.out.println("cookie 없음");
+	    //System.out.println("cookie 없음");
 	    
 	    // 쿠키 생성(이름, 값)
 	    Cookie newCookie = new Cookie("cookie"+fboardno, "|" + fboardno + "|");
@@ -200,21 +200,21 @@ public class FboardCont {
 	    int result = fboardProc.views(fboardno);
 	    
 	    if(result>0) {
-	        System.out.println("조회수 증가");
+	        //System.out.println("조회수 증가");
 	        
 	    }else {
-	        System.out.println("조회수 증가 에러");
+	        //System.out.println("조회수 증가 에러");
 	    }
 	}
 	// viewCookie가 null이 아닐 경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
 	else {
-	    System.out.println("cookie 있음");
+	    //System.out.println("cookie 있음");
 	    
 	    // 쿠키 값 받아옴.
 	    String value = viewCookie.getValue();
 	    //viewCookie.setMaxAge(60 * 60 * 24); // 1 day
 	    viewCookie.setMaxAge(30); // 30 seconds
-	    System.out.println("cookie 값 : " + value);
+	    //System.out.println("cookie 값 : " + value);
 	
 		}
 	}
@@ -250,14 +250,14 @@ public class FboardCont {
   
   /**
    * Youtube 등록/수정/삭제 폼
-   * http://localhost:9091/fboard/youtube.do?contentsno=1
+   * http://localhost:9093/fboard/youtube.do?fboardno=1
    * @return
    */
   @RequestMapping(value="/fboard/youtube.do", method=RequestMethod.GET )
   public ModelAndView youtube(int fboardno, HttpSession session) {
-	ModelAndView mav = new ModelAndView();
+    ModelAndView mav = new ModelAndView();
 	
-		if (memberProc.isMember(session)) { // 관리자, 회원으로 로그인한 경우       
+		if (memberProc.isMember(session)) { // 회원으로 로그인한 경우       
 
 		FboardVO fboardVO = this.fboardProc.read(fboardno); // youtube 정보 읽어 오기
 		mav.addObject("fboardVO", fboardVO); // request.setAttribute("fboardVO", fboardVO);

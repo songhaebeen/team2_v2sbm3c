@@ -102,7 +102,8 @@ public class CosmeCont {
     public ModelAndView create(CosmeVO cosmeVO, HttpServletRequest request, HttpSession session) {
       ModelAndView mav = new ModelAndView();
       
-      if (adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
+      if (this.adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
+        
         // ------------------------------------------------------------------------------
         // 파일 전송 코드 시작
         // ------------------------------------------------------------------------------
@@ -133,11 +134,12 @@ public class CosmeCont {
           }
           
         }    
+
         
-        cosmeVO.setCosme_file(file1);   // 순수 원본 파일명
-        cosmeVO.setCosme_file_saved(file1saved); // 저장된 파일명(파일명 중복 처리)
-        cosmeVO.setCosme_file_preview(thumb1);      // 원본이미지 축소판
-        cosmeVO.setCosme_file_size(size1);  // 파일 크기
+        cosmeVO.setFile1(file1);   // 순수 원본 파일명
+        cosmeVO.setFile1saved(file1saved); // 저장된 파일명(파일명 중복 처리)
+        cosmeVO.setThumb1(thumb1);      // 원본이미지 축소판
+        cosmeVO.setSize1(size1);  // 파일 크기
         // ------------------------------------------------------------------------------
         // 파일 전송 코드 종료
         // ------------------------------------------------------------------------------
@@ -147,8 +149,14 @@ public class CosmeCont {
 
         // Call By Reference: 메모리 공유, Hashcode 전달
         int adminno = (int)session.getAttribute("adminno"); // adminno FK
+        
         cosmeVO.setAdminno(adminno);
         int cnt = this.cosmeProc.create(cosmeVO); 
+        
+        if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
+          String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
+          cosmeVO.setCosme_youtube(youtube);
+        }
 
         // ------------------------------------------------------------------------------
         // PK의 return
@@ -177,12 +185,12 @@ public class CosmeCont {
       return mav; // forward
     }
     
-	 // http://localhost:9093/cosme/cosme_read.do
+	 // http://localhost:9093/cosme/read.do
 	 /**
 	  * 조회
 	  * @return
 	  */
-	 @RequestMapping(value="/cosme/cosme_read.do", method=RequestMethod.GET)
+	 @RequestMapping(value="/cosme/read.do", method=RequestMethod.GET)
 	 public ModelAndView comse_read(int cosmeno) {
 	   ModelAndView mav = new ModelAndView();
 	   
@@ -196,8 +204,8 @@ public class CosmeCont {
 	   cosmeVO.setCosmename(cosmename);
 	   cosmeVO.setCosme_youtube(cosme_youtube);
 	   
-	   long cosme_file_size = cosmeVO.getCosme_file_size();
-	   cosmeVO.setCosme_file_size(cosme_file_size);
+	   long size1 = cosmeVO.getSize1();
+	   cosmeVO.setSize1(size1);
 	   
 	   mav.addObject("cosmeVO", cosmeVO); // request.setAttribute("cosmeVO", cosmeVO);
 	   
@@ -205,7 +213,7 @@ public class CosmeCont {
 	   cosme_cateVO = this.cosme_cateProc.read(cosme_cateVO.getCosme_cateno()); // 값 할당// 카테고리 정보 읽기
 	   mav.addObject("cosme_cateVO", cosme_cateVO);
 	   
-	   mav.setViewName("/cosme/cosme_read"); // WEB-INF/views/cosme/comse_read.jsp
+	   mav.setViewName("/cosme/read"); // WEB-INF/views/cosme/read.jsp
 	   
 	   return mav;
 	   
@@ -229,75 +237,27 @@ public class CosmeCont {
 //        
 //        return mav;
 //    }
-    
-//  /**
-//  * 수정 폼
-//  * http://localhost:9093/cosme/update.do?cosmeno=1
-//  * @param cosmeno
-//  * @return
-//  */
-   @RequestMapping(value="/cosme/update.do", method = RequestMethod.GET)
-   public ModelAndView update_cosme(int cosmeno) {
-     ModelAndView mav = new ModelAndView();
-     
-     CosmeVO cosmeVO = this.cosmeProc.cosme_read(cosmeno);
-     mav.addObject("cosmeVO", cosmeVO);
-     
-     ArrayList<Cosme_cateVO> list2 = this.cosme_cateProc.list_all(); // 카테고리 목록 가져오기
-     
-    for (Cosme_cateVO item : list2) {
-//       System.out.println("화장품 종류 이름: " + item.getCosme_catename());
-     }
 
-   mav.addObject("list2", list2); // 모델에 카테고리 목록 추가
-   mav.setViewName("/cosme/update"); 
-   
-   return mav;
-   }
 
-//   /**
-//    * 수정 처리
-//    * http://localhost:9093/cosme/update.do?cosmeno=1
-//    * @return
-//    */
-   @RequestMapping(value="/cosme/update.do", method=RequestMethod.POST)
-   public ModelAndView update_cosme(HttpSession session, CosmeVO cosmeVO) {
-
-     ModelAndView mav = new ModelAndView();
-     mav.setViewName("/cosme/msg");
-
-     if (this.adminProc.isAdmin(session) == true) {
-       int count = this.cosmeProc.update_cosme(cosmeVO);
-       
-       if (count == 1) {
-         // request.setAttribute("code", "update_success"); // 고전적인 jsp 방법 
-         mav.addObject("code", "update_success");
-         mav.setViewName("/cosme/msg"); // /WEB-INF/views/cosme/msg.jsp
-         
-       } else {
-         // request.setAttribute("code", "update_fail");
-         mav.addObject("code", "update_fail");
-         mav.setViewName("/cosme/msg"); // /WEB-INF/views/cosme/msg.jsp
-       }
-
-       mav.addObject("count", count);
-       
-     } else {
-       mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
-     }
-
-       return mav;
-   }
    
 // /**
-// * 파일 수정 폼
-// * http://localhost:9093/cosme/update_file.do?cosmeno=1
+// * 수정 폼
+// * http://localhost:9093/cosme/update.do?cosmeno=1
 // * @param cosmeno
 // * @return
 // */
-  @RequestMapping(value="/cosme/update_file.do", method = RequestMethod.GET)
-  public ModelAndView update_file_cosme(int cosmeno) {
+  @RequestMapping(value="/cosme/update.do", method = RequestMethod.GET)
+  public ModelAndView update_cosme(int cosmeno) {
     ModelAndView mav = new ModelAndView();
+    
+    ArrayList<Cosme_cateVO> cosme_cate_list = this.cosme_cateProc.list_all(); // 카테고리 목록 가져오기
+    ArrayList<CosmetypeVO> coseme_type_list= this.cosmetypeproc.list_all();
+    ArrayList<IngredVO> ingred_list = this.ingredproc.list_all();
+    System.out.println("-> ingred_list: " + ingred_list.size());
+    
+    mav.addObject("cosme_cate_list", cosme_cate_list); // 모델에 카테고리 목록 추가
+    mav.addObject("coseme_type_list", coseme_type_list); // 모델에 화장품 타입 추가
+    mav.addObject("ingred_list", ingred_list); // 모델에 화장품 성분 추가
     
     CosmeVO cosmeVO = this.cosmeProc.cosme_read(cosmeno);
     mav.addObject("cosmeVO", cosmeVO);
@@ -309,29 +269,34 @@ public class CosmeCont {
     }
 
   mav.addObject("list2", list2); // 모델에 카테고리 목록 추가
-  mav.setViewName("/cosme/update_file"); 
+  mav.setViewName("/cosme/update"); 
   
   return mav;
   }
    
    /**
-    * 파일 수정 처리 http://localhost:9093/cosme/update_file.do
-    * 
+    * 수정 처리 http://localhost:9093/cosme/update.do
+    * http://localhost:9093/cosme/update.do?cosmeno=1
     * @return
     */
-   @RequestMapping(value="/cosme/update_file.do", method=RequestMethod.POST)
+   @RequestMapping(value="/cosme/update.do", method=RequestMethod.POST)
    public ModelAndView update(CosmeVO cosmeVO, HttpServletRequest request, HttpSession session) {
      ModelAndView mav = new ModelAndView();
      
-     if (adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
+     if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
+       String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
+       cosmeVO.setCosme_youtube(youtube);
+     }
+     
+     if (this.adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
        // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
        CosmeVO cosmeVO_old = cosmeProc.cosme_read(cosmeVO.getCosmeno());
        
        // -------------------------------------------------------------------
        // 파일 삭제 시작
        // -------------------------------------------------------------------
-       String file1saved = cosmeVO_old.getCosme_file_saved();  // 실제 저장된 파일명
-       String thumb1 = cosmeVO_old.getCosme_file_preview();       // 실제 저장된 preview 이미지 파일명
+       String file1saved = cosmeVO.getFile1saved();  // 실제 저장된 파일명
+       String thumb1 = cosmeVO.getThumb1();       // 실제 저장된 preview 이미지 파일명
        long size1 = 0;
           
        String upDir =  Cosme.getUploadDir(); // C:/kd/deploy/team2_v2sbm3c/cosme/storage/
@@ -371,10 +336,10 @@ public class CosmeCont {
          size1=0;
        }
            
-       cosmeVO.setCosme_file(file1);   // 순수 원본 파일명
-       cosmeVO.setCosme_file_saved(file1saved); // 저장된 파일명(파일명 중복 처리)
-       cosmeVO.setCosme_file_preview(thumb1);      // 원본이미지 축소판
-       cosmeVO.setCosme_file_size(size1);  // 파일 크기
+       cosmeVO.setFile1(file1);   // 순수 원본 파일명
+       cosmeVO.setFile1saved(file1saved); // 저장된 파일명(파일명 중복 처리)
+       cosmeVO.setThumb1(thumb1);      // 원본이미지 축소판
+       cosmeVO.setSize1(size1);  // 파일 크기
        // -------------------------------------------------------------------
        // 파일 전송 코드 종료
        // -------------------------------------------------------------------
@@ -383,19 +348,26 @@ public class CosmeCont {
        // 다른 필요한 핸들러 메서드를 추가로 구현할 수 있습니다.
 
        // Call By Reference: 메모리 공유, Hashcode 전달
+       System.out.println("-> session.getAttribute(\"adminno\"): " + session.getAttribute("adminno"));
        int adminno = (int)session.getAttribute("adminno"); // adminno FK
        cosmeVO.setAdminno(adminno);
-       int cnt = this.cosmeProc.update_file_cosme(cosmeVO); 
+       
+       if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
+         String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
+         cosmeVO.setCosme_youtube(youtube);
+       }
+       
+       int cnt = this.cosmeProc.update_cosme(cosmeVO); 
 
        // ------------------------------------------------------------------------------
        // PK의 return
        // ------------------------------------------------------------------------------
        if (cnt == 1) {
         // this.cosmeProc.update_cnt_add(cosmeVO.getCosmeno()); 
-         mav.addObject("code", "update_file_success");
+         mav.addObject("code", "update_success");
          mav.setViewName("/cosme/msg");
        } else {
-         mav.addObject("code", "update_file_fail");
+         mav.addObject("code", "update_fail");
          mav.setViewName("/cosme/msg");
        }
        mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
@@ -467,6 +439,7 @@ public class CosmeCont {
       // 삭제할 정보를 조회하여 확인
       CosmeVO cosmeVO = this.cosmeProc.cosme_read(cosmeno);
       mav.addObject("cosmeVO", cosmeVO);
+      mav.addObject("code", ""); // 새로운 코드 속성 추가
 
       mav.setViewName("/cosme/delete"); // /webapp/WEB-INF/views/cosme/delete.jsp
       
@@ -488,12 +461,12 @@ public class CosmeCont {
       // 삭제할 파일 정보를 읽어옴.
       CosmeVO cosmeVO_read = cosmeProc.cosme_read(cosmeVO.getCosmeno());
       
-      String cosme_file_saved = cosmeVO.getCosme_file_saved();
-      String cosme_file_preview = cosmeVO.getCosme_file_preview();
+      String file1saved = cosmeVO.getFile1saved();
+      String thumb1 = cosmeVO.getThumb1();
       
       String uploadDir = Cosme.getUploadDir();
-      Tool.deleteFile(uploadDir, cosme_file_saved); // 실제 저장된 파일삭제
-      Tool.deleteFile(uploadDir, cosme_file_preview); // preview 이미지 삭제
+      Tool.deleteFile(uploadDir, file1saved); // 실제 저장된 파일삭제
+      Tool.deleteFile(uploadDir, thumb1); // preview 이미지 삭제
       // -------------------------------------------------------------------------
       // 파일 삭제 종료
       // -------------------------------------------------------------------------

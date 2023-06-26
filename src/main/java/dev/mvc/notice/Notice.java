@@ -18,7 +18,7 @@ public class Notice {
 	    String path = "";
 	    if (File.separator.equals("\\")) { // windows, 개발 환경의 파일 업로드 폴더
 	        // path = "C:/kd/deploy/team2_v2sbm3c/notice/storage/";
-	        path="C:\\kd\\deploy\\team2_v2sbm3c\\notice\\";
+	        path="C:\\kd\\deploy\\team2_v2sbm3c\\notice\\storage\\";
 	        // System.out.println("Windows 10: " + path);
 	        
 	    } else { // Linux, AWS, 서비스용 배치 폴더 

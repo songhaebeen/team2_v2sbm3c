@@ -256,16 +256,36 @@ public class MemberCont {
   
   /**
    * 패스워드 변경폼
+   * 회원로그인시 가능
    * @param memberno
    * @return
    */
   @RequestMapping(value="/member/passwd_update.do", method=RequestMethod.GET)
-  public ModelAndView passwd_update(int memberno){
+  public ModelAndView passwd_update(HttpSession session, HttpServletRequest request){
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/member/passwd_update"); // passwd_update.jsp
     
-    return mav;
+    int memberno = 0;
+    if (this.memberProc.isMember(session)) { 
+      //회원 로그인한 경우
+
+      if (this.memberProc.isMember(session)) { // 회원으로 로그인
+        memberno = (int)session.getAttribute("memberno"); // 본인의 회원 정보 조회
+        
+      }
+
+      MemberVO memberVO = this.memberProc.read(memberno);
+      mav.addObject("memberVO", memberVO);
+      mav.setViewName("/member/passwd_update"); // /member/read.jsp
+      
+    } else {
+      // 회원 로그인을 하지 않은 경우
+      mav.setViewName("/member/login_need"); // /webapp/WEB-INF/views/member/login_need.jsp
+    }
+    
+    return mav; // forward
   }
+ 
+ 
   
   /**
    * 패스워드 변경 처리

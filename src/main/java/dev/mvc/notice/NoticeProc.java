@@ -51,6 +51,15 @@ public class NoticeProc implements NoticeProcInter{
 		NoticeVO noticeVO = this.noticeDAO.read(noticeno);
 		return noticeVO;
 	}
+	
+  /**
+   * 유튜브
+   */
+  @Override
+  public int youtube(NoticeVO noticeVO) {
+    int cnt = this.noticeDAO.youtube(noticeVO);
+    return cnt;
+  }
 
   /**
    *  패스워드 일치 검사
@@ -71,6 +80,13 @@ public class NoticeProc implements NoticeProcInter{
 		int cnt = this.noticeDAO.update(noticeVO);
 		return cnt;
 		}
+	
+  //파일 수정
+  @Override
+  public int update_file(NoticeVO noticeVO) {
+    int cnt = this.noticeDAO.update_file(noticeVO);
+    return cnt;
+  }
 
 	/**
 	 * 삭제
@@ -80,5 +96,13 @@ public class NoticeProc implements NoticeProcInter{
 		int cnt = this.noticeDAO.delete(noticeno);
 		return cnt;
 	}
+
+   //조회수
+  @Override
+  public int views(int noticeno) {
+    int cnt = this.noticeDAO.views(noticeno);
+    return cnt;
+  }
+
 
 }

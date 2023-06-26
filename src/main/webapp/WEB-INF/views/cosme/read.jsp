@@ -8,9 +8,8 @@
 <c:set var="rdate" value="${cosmeVO.rdate }" />
 <c:set var="cosme_cateno" value="${cosme_cateVO.cosme_cateno }" />
 <c:set var="adminno" value="${cosmeVO.adminno }" />
-<c:set var="adminno" value="${cosmeVO.adminno }" />
-<c:set var="adminno" value="${cosmeVO.cosme_file_saved }" />
-<c:set var="cosme_cateno" value="${cosmeVO.cosme_file_preview }" />
+<c:set var="file1saved" value="${cosmeVO.file1saved }" />
+<c:set var="thumb1" value="${cosmeVO.thumb1 }" />
 <c:set var="cosme_youtube" value="${cosmeVO.cosme_youtube }" />
 <c:set var="cosmetypename" value="${CosmetypeVO.cosmetypename }" />
 <c:set var="ingredname" value="${IngredVO.ingredname }" />
@@ -43,19 +42,28 @@
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all;">
           <c:choose>
-            <c:when test="${cosme_file_preview.endsWith('jpg') || cosme_file_preview.endsWith('png') || cosme_file_preview.endsWith('gif')}">
+            <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
               <%-- /static/cosme/storage/ --%>
-              <img src="/cosme/storage/${cosme_file_saved }" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/cosme/storage/${file1saved }" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/cosme/images/none1.png" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+                <img src="/cosme/images/logo2.gif" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'>
             </c:otherwise>
           </c:choose>
 
+          <br>
           <span style="font-size: 1.5em; font-weight: bold;">${cosmename }</span><br>
           <div style="font-size: 1em;">${brand } ${rdate }</div><br>
           <div style="font-size: 1em;">${cosmetypename } ${ingredname }</div><br>
-          <div style="font-size: 1em;">${cosme_youtube }</div><br>
+          <div>
+            <c:if test="${cosme_youtube.trim().length() > 0 }">
+              <li class="li_none" style="clear: both; padding-top: 5px; padding-bottom: 5px;">
+                <DIV style="text-align: center;">
+                  ${cosme_youtube }
+                </DIV>
+              </li>
+            </c:if>
+          </div>
         </DIV>
       </li>
  
