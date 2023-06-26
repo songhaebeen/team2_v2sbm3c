@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
+import dev.mvc.fboard.Fboard;
+import dev.mvc.fboard.FboardVO;
 import dev.mvc.member.MemberProcInter;
 
 import dev.mvc.tool.Tool;
@@ -505,9 +507,23 @@ Cookie[] cookies = request.getCookies();
   public ModelAndView delete(HttpSession session, NoticeVO noticeVO) {
     ModelAndView mav = new ModelAndView();
     
-    //NoticeVO noticeVO_read = this.noticeProc.read(noticeVO.getNoticeno()); 
-
-    this.noticeProc.delete(noticeVO.getNoticeno()); // DBMS 삭제
+    // -------------------------------------------------------------------
+    // 파일 삭제 시작
+    // -------------------------------------------------------------------
+    // 삭제할 파일 정보를 읽어옴.
+    NoticeVO noticeVO_read = noticeProc.read(noticeVO.getNoticeno());
+        
+    String file1saved = noticeVO.getFile1saved();
+    String thumb1 = noticeVO.getThumb1();
+    
+    String uploadDir = Fboard.getUploadDir();
+    Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
+    Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
+    // -------------------------------------------------------------------
+    // 파일 삭제 종료
+    // -------------------------------------------------------------------
+        
+    this.noticeProc.delete(noticeVO.getNoticeno()); // DBMS 삭제 
     
     if (this.adminProc.isAdmin(session)) { // 관리자 로그인
       mav.setViewName("redirect:/notice/list_all.do");
