@@ -20,13 +20,13 @@ public class CosmeVO{
     /** 화장품 종류 번호 */
     private int cosme_cateno;
     /** 화장품 사진 파일 */
-    private String cosme_file = "";
+    private String file1 = "";
     /** 화장품 사진 저장 */
-    private String cosme_file_saved = "";
+    private String file1saved = "";
     /** 화장품 사진 미리보기 */
-    private String cosme_file_preview = "";
+    private String thumb1 = "";
     /** 화장품 사진 크기 */
-    private long cosme_file_size;
+    private long size1;
     /** 화장품 유튜브 영상 */
     private String cosme_youtube = "";
     
@@ -78,36 +78,36 @@ public class CosmeVO{
       this.cosme_cateno = cosme_cateno;
     }
 
-    public String getCosme_file() {
-      return cosme_file;
+    public String getFile1() {
+      return file1;
     }
 
-    public void setCosme_file(String cosme_file) {
-      this.cosme_file = cosme_file;
+    public void setFile1(String file1) {
+      this.file1 = file1;
     }
 
-    public String getCosme_file_saved() {
-      return cosme_file_saved;
+    public String getFile1saved() {
+      return file1saved;
     }
 
-    public void setCosme_file_saved(String cosme_file_saved) {
-      this.cosme_file_saved = cosme_file_saved;
+    public void setFile1saved(String file1saved) {
+      this.file1saved = file1saved;
     }
 
-    public String getCosme_file_preview() {
-      return cosme_file_preview;
+    public String getThumb1() {
+      return thumb1;
     }
 
-    public void setCosme_file_preview(String cosme_file_preview) {
-      this.cosme_file_preview = cosme_file_preview;
+    public void setThumb1(String thumb1) {
+      this.thumb1 = thumb1;
     }
 
-    public long getCosme_file_size() {
-      return cosme_file_size;
+    public long getSize1() {
+      return size1;
     }
 
-    public void setCosme_file_size(long cosme_file_size) {
-      this.cosme_file_size = cosme_file_size;
+    public void setSize1(long size1) {
+      this.size1 = size1;
     }
 
     public String getCosme_youtube() {
