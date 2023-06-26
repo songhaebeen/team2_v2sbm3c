@@ -58,7 +58,7 @@ INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, fi
 VALUES(notice_seq.nextval, 1, '공지사항', '규정 안내','1234', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000);
 
 -- 유형 1 전체 목록
-SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views
+SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views, youtube
 FROM notice
 ORDER BY noticeno ASC;
          
@@ -83,14 +83,14 @@ WHERE noticeno = 1;
 commit;
 
 DELETE FROM notice
-WHERE noticeno=1 AND masterno = 1;
+WHERE noticeno=1 AND adminno = 1;
 
 commit;
 
 -- ----------------------------------------------------------------------------
 -- 조회
 -- ----------------------------------------------------------------------------
-SELECT noticeno, masterno, ntitle, ncontent, passwd, rdate
+SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views, youtube
 FROM notice
 WHERE noticeno = 2;
 
@@ -118,27 +118,27 @@ commit;
 -- 특정 관리자에 속한 레코드 갯수 산출
 SELECT COUNT(*) as cnt 
 FROM notice 
-WHERE masterno=1 AND passwd='1234';
+WHERE adminno=1 AND passwd='1234';
 
 -- 특정 관리자에 속한 레코드 모두 삭제
 DELETE FROM notice
-WHERE masterno=1;
+WHERE adminno=1;
 
 -- 다수의 관리자에 속한 레코드 모두 삭제: IN
-SELECT noticeno, masterno, ntitle
+SELECT noticeno, adminno, ntitle
 FROM notice
-WHERE masterno IN(1,2,3);
-  NOTICENO   MASTERNO NTITLE                                            
+WHERE adminno IN(1,2,3);
+  NOTICENO   adminno NTITLE                                            
 ---------- ---------- --------------------------------------------------
          1          1 필독!!                                            
          2          1 공지사항                                          
          3          1 공지사항                                          
          4          1 필독                                                                                         
                                                                                                                                                                                                                     
-SELECT noticeno, masterno, ntitle
+SELECT noticeno, adminno, ntitle
 FROM notice
-WHERE masterno IN('1','2','3');
-  NOTICENO   MASTERNO NTITLE                                            
+WHERE adminno IN('1','2','3');
+  NOTICENO   adminno NTITLE                                            
 ---------- ---------- --------------------------------------------------
          1          1 필독!!                                            
          2          1 공지사항                                          

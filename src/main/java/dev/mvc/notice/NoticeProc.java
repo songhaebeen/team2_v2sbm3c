@@ -52,6 +52,9 @@ public class NoticeProc implements NoticeProcInter{
 		return noticeVO;
 	}
 	
+  /**
+   * 유튜브
+   */
   @Override
   public int youtube(NoticeVO noticeVO) {
     int cnt = this.noticeDAO.youtube(noticeVO);

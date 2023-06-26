@@ -13,14 +13,14 @@
      
   <!-- 모든 공지사항 목록 -->
   <select id="list_all" resultType="dev.mvc.notice.NoticeVO">
-    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views
+    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views, youtube
     FROM notice
     ORDER BY noticeno DESC
   </select> 
      
-  <!-- 공지사항 조회 -->
+  <!-- 조회 -->
   <select id="read" resultType="dev.mvc.notice.NoticeVO" parameterType="int">
-    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views
+    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views, youtube
     FROM notice
     WHERE noticeno = #{noticeno}
   </select> 

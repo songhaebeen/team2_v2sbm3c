@@ -255,9 +255,9 @@ public class FboardCont {
    */
   @RequestMapping(value="/fboard/youtube.do", method=RequestMethod.GET )
   public ModelAndView youtube(int fboardno, HttpSession session) {
-	ModelAndView mav = new ModelAndView();
+    ModelAndView mav = new ModelAndView();
 	
-		if (memberProc.isMember(session)) { // 관리자, 회원으로 로그인한 경우       
+		if (memberProc.isMember(session)) { // 회원으로 로그인한 경우       
 
 		FboardVO fboardVO = this.fboardProc.read(fboardno); // youtube 정보 읽어 오기
 		mav.addObject("fboardVO", fboardVO); // request.setAttribute("fboardVO", fboardVO);

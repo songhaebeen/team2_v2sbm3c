@@ -290,7 +290,7 @@ public class ContentsCont {
   
   /**
    * Youtube 등록/수정/삭제 처리
-   * http://localhost:9091/contents/map.do
+   * http://localhost:9091/contents/youtube.do
    * @param contentsVO
    * @return
    */

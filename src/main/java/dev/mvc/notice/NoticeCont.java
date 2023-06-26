@@ -15,8 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
-import dev.mvc.fboard.Fboard;
-import dev.mvc.fboard.FboardVO;
 import dev.mvc.member.MemberProcInter;
 
 import dev.mvc.tool.Tool;
@@ -26,11 +24,11 @@ import dev.mvc.tool.Upload;
 public class NoticeCont {
   @Autowired
   @Qualifier("dev.mvc.admin.AdminProc") 
-  private AdminProcInter adminProc;
+  private AdminProcInter adminProc = null;;
   
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
-  private MemberProcInter memberProc;
+  private MemberProcInter memberProc = null;;
   
   @Autowired
   @Qualifier("dev.mvc.notice.NoticeProc") 
@@ -202,9 +200,9 @@ public class NoticeCont {
    */
   @RequestMapping(value="/notice/youtube.do", method=RequestMethod.GET )
   public ModelAndView youtube(int noticeno, HttpSession session) {
-  ModelAndView mav = new ModelAndView();
+    ModelAndView mav = new ModelAndView();
   
-    if (adminProc.isAdmin(session)) { // 관리자, 회원으로 로그인한 경우       
+    if (adminProc.isAdmin(session)) { // 관리자로 로그인한 경우       
 
     NoticeVO noticeVO = this.noticeProc.read(noticeno); // youtube 정보 읽어 오기
     mav.addObject("noticeVO", noticeVO); // request.setAttribute("noticeVO", noticeVO);

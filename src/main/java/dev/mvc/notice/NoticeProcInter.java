@@ -28,7 +28,7 @@ public interface NoticeProcInter {
   
   /**
    * Youtube
-   * @param fboardVO
+   * @param noticeVO
    * @return
    */
   public int youtube(NoticeVO noticeVO);

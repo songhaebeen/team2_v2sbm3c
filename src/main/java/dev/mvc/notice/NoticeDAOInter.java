@@ -30,7 +30,7 @@ public interface NoticeDAOInter {
   
   /**
    * Youtube
-   * @param fboardVO
+   * @param noticeVO
    * @return
    */
   public int youtube(NoticeVO noticeVO);

@@ -23,6 +23,8 @@
 <DIV class='content_body'>
 
   <ASIDE class="aside_right">
+    <A href="./list_all.do?now_page=${param.now_page}">목록</A>
+    <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE>
   
