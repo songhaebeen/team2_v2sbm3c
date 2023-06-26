@@ -177,12 +177,12 @@ public class CosmeCont {
       return mav; // forward
     }
     
-	 // http://localhost:9093/cosme/cosme_read.do
+	 // http://localhost:9093/cosme/read.do
 	 /**
 	  * 조회
 	  * @return
 	  */
-	 @RequestMapping(value="/cosme/cosme_read.do", method=RequestMethod.GET)
+	 @RequestMapping(value="/cosme/read.do", method=RequestMethod.GET)
 	 public ModelAndView comse_read(int cosmeno) {
 	   ModelAndView mav = new ModelAndView();
 	   
@@ -205,7 +205,7 @@ public class CosmeCont {
 	   cosme_cateVO = this.cosme_cateProc.read(cosme_cateVO.getCosme_cateno()); // 값 할당// 카테고리 정보 읽기
 	   mav.addObject("cosme_cateVO", cosme_cateVO);
 	   
-	   mav.setViewName("/cosme/cosme_read"); // WEB-INF/views/cosme/comse_read.jsp
+	   mav.setViewName("/cosme/read"); // WEB-INF/views/cosme/read.jsp
 	   
 	   return mav;
 	   
@@ -229,75 +229,27 @@ public class CosmeCont {
 //        
 //        return mav;
 //    }
-    
-//  /**
-//  * 수정 폼
-//  * http://localhost:9093/cosme/update.do?cosmeno=1
-//  * @param cosmeno
-//  * @return
-//  */
-   @RequestMapping(value="/cosme/update.do", method = RequestMethod.GET)
-   public ModelAndView update_cosme(int cosmeno) {
-     ModelAndView mav = new ModelAndView();
-     
-     CosmeVO cosmeVO = this.cosmeProc.cosme_read(cosmeno);
-     mav.addObject("cosmeVO", cosmeVO);
-     
-     ArrayList<Cosme_cateVO> list2 = this.cosme_cateProc.list_all(); // 카테고리 목록 가져오기
-     
-    for (Cosme_cateVO item : list2) {
-//       System.out.println("화장품 종류 이름: " + item.getCosme_catename());
-     }
 
-   mav.addObject("list2", list2); // 모델에 카테고리 목록 추가
-   mav.setViewName("/cosme/update"); 
-   
-   return mav;
-   }
 
-//   /**
-//    * 수정 처리
-//    * http://localhost:9093/cosme/update.do?cosmeno=1
-//    * @return
-//    */
-   @RequestMapping(value="/cosme/update.do", method=RequestMethod.POST)
-   public ModelAndView update_cosme(HttpSession session, CosmeVO cosmeVO) {
-
-     ModelAndView mav = new ModelAndView();
-     mav.setViewName("/cosme/msg");
-
-     if (this.adminProc.isAdmin(session) == true) {
-       int count = this.cosmeProc.update_cosme(cosmeVO);
-       
-       if (count == 1) {
-         // request.setAttribute("code", "update_success"); // 고전적인 jsp 방법 
-         mav.addObject("code", "update_success");
-         mav.setViewName("/cosme/msg"); // /WEB-INF/views/cosme/msg.jsp
-         
-       } else {
-         // request.setAttribute("code", "update_fail");
-         mav.addObject("code", "update_fail");
-         mav.setViewName("/cosme/msg"); // /WEB-INF/views/cosme/msg.jsp
-       }
-
-       mav.addObject("count", count);
-       
-     } else {
-       mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
-     }
-
-       return mav;
-   }
    
 // /**
-// * 파일 수정 폼
-// * http://localhost:9093/cosme/update_file.do?cosmeno=1
+// * 수정 폼
+// * http://localhost:9093/cosme/update.do?cosmeno=1
 // * @param cosmeno
 // * @return
 // */
-  @RequestMapping(value="/cosme/update_file.do", method = RequestMethod.GET)
-  public ModelAndView update_file_cosme(int cosmeno) {
+  @RequestMapping(value="/cosme/update.do", method = RequestMethod.GET)
+  public ModelAndView update_cosme(int cosmeno) {
     ModelAndView mav = new ModelAndView();
+    
+    ArrayList<Cosme_cateVO> cosme_cate_list = this.cosme_cateProc.list_all(); // 카테고리 목록 가져오기
+    ArrayList<CosmetypeVO> coseme_type_list= this.cosmetypeproc.list_all();
+    ArrayList<IngredVO> ingred_list = this.ingredproc.list_all();
+    System.out.println("-> ingred_list: " + ingred_list.size());
+    
+    mav.addObject("cosme_cate_list", cosme_cate_list); // 모델에 카테고리 목록 추가
+    mav.addObject("coseme_type_list", coseme_type_list); // 모델에 화장품 타입 추가
+    mav.addObject("ingred_list", ingred_list); // 모델에 화장품 성분 추가
     
     CosmeVO cosmeVO = this.cosmeProc.cosme_read(cosmeno);
     mav.addObject("cosmeVO", cosmeVO);
@@ -309,17 +261,17 @@ public class CosmeCont {
     }
 
   mav.addObject("list2", list2); // 모델에 카테고리 목록 추가
-  mav.setViewName("/cosme/update_file"); 
+  mav.setViewName("/cosme/update"); 
   
   return mav;
   }
    
    /**
-    * 파일 수정 처리 http://localhost:9093/cosme/update_file.do
-    * 
+    * 수정 처리 http://localhost:9093/cosme/update.do
+    * http://localhost:9093/cosme/update.do?cosmeno=1
     * @return
     */
-   @RequestMapping(value="/cosme/update_file.do", method=RequestMethod.POST)
+   @RequestMapping(value="/cosme/update.do", method=RequestMethod.POST)
    public ModelAndView update(CosmeVO cosmeVO, HttpServletRequest request, HttpSession session) {
      ModelAndView mav = new ModelAndView();
      
@@ -385,17 +337,17 @@ public class CosmeCont {
        // Call By Reference: 메모리 공유, Hashcode 전달
        int adminno = (int)session.getAttribute("adminno"); // adminno FK
        cosmeVO.setAdminno(adminno);
-       int cnt = this.cosmeProc.update_file_cosme(cosmeVO); 
+       int cnt = this.cosmeProc.update_cosme(cosmeVO); 
 
        // ------------------------------------------------------------------------------
        // PK의 return
        // ------------------------------------------------------------------------------
        if (cnt == 1) {
         // this.cosmeProc.update_cnt_add(cosmeVO.getCosmeno()); 
-         mav.addObject("code", "update_file_success");
+         mav.addObject("code", "update_success");
          mav.setViewName("/cosme/msg");
        } else {
-         mav.addObject("code", "update_file_fail");
+         mav.addObject("code", "update_fail");
          mav.setViewName("/cosme/msg");
        }
        mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)

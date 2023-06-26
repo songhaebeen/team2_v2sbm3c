@@ -34,8 +34,6 @@
        <input type='file' class="form-control" name='file1MF' id='file1MF' 
                  value='${file1MF }' placeholder="파일 선택">
     </div>   
->
-    </div>
 
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-primary">파일 수정</button>
