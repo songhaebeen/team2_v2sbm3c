@@ -103,6 +103,7 @@ public class CosmeCont {
       ModelAndView mav = new ModelAndView();
       
       if (adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
+        
         // ------------------------------------------------------------------------------
         // 파일 전송 코드 시작
         // ------------------------------------------------------------------------------
@@ -133,6 +134,7 @@ public class CosmeCont {
           }
           
         }    
+
         
         cosmeVO.setCosme_file(file1);   // 순수 원본 파일명
         cosmeVO.setCosme_file_saved(file1saved); // 저장된 파일명(파일명 중복 처리)
@@ -147,6 +149,12 @@ public class CosmeCont {
 
         // Call By Reference: 메모리 공유, Hashcode 전달
         int adminno = (int)session.getAttribute("adminno"); // adminno FK
+        
+        if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
+          String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
+          cosmeVO.setCosme_youtube(youtube);
+        }
+        
         cosmeVO.setAdminno(adminno);
         int cnt = this.cosmeProc.create(cosmeVO); 
 
@@ -275,6 +283,11 @@ public class CosmeCont {
    public ModelAndView update(CosmeVO cosmeVO, HttpServletRequest request, HttpSession session) {
      ModelAndView mav = new ModelAndView();
      
+     if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
+       String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
+       cosmeVO.setCosme_youtube(youtube);
+     }
+     
      if (adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
        // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
        CosmeVO cosmeVO_old = cosmeProc.cosme_read(cosmeVO.getCosmeno());
@@ -337,6 +350,12 @@ public class CosmeCont {
        // Call By Reference: 메모리 공유, Hashcode 전달
        int adminno = (int)session.getAttribute("adminno"); // adminno FK
        cosmeVO.setAdminno(adminno);
+       
+       if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
+         String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
+         cosmeVO.setCosme_youtube(youtube);
+       }
+       
        int cnt = this.cosmeProc.update_cosme(cosmeVO); 
 
        // ------------------------------------------------------------------------------

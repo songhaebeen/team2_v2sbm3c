@@ -45,17 +45,26 @@
           <c:choose>
             <c:when test="${cosme_file_preview.endsWith('jpg') || cosme_file_preview.endsWith('png') || cosme_file_preview.endsWith('gif')}">
               <%-- /static/cosme/storage/ --%>
-              <img src="/cosme/storage/${cosme_file_saved }" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/cosme/${cosme_file_saved }" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/cosme/images/none1.png" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+                <img src="/cosme/images/logo2.gif" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'>
             </c:otherwise>
           </c:choose>
 
+          <br>
           <span style="font-size: 1.5em; font-weight: bold;">${cosmename }</span><br>
           <div style="font-size: 1em;">${brand } ${rdate }</div><br>
           <div style="font-size: 1em;">${cosmetypename } ${ingredname }</div><br>
-          <div style="font-size: 1em;">${cosme_youtube }</div><br>
+          <div>
+            <c:if test="${cosme_youtube.trim().length() > 0 }">
+              <li class="li_none" style="clear: both; padding-top: 5px; padding-bottom: 5px;">
+                <DIV style="text-align: center;">
+                  ${cosme_youtube }
+                </DIV>
+              </li>
+            </c:if>
+          </div>
         </DIV>
       </li>
  
