@@ -256,7 +256,7 @@ public class MemberCont {
   
   /**
    * 패스워드 변경폼
-   * 회원, 관리자 가능
+   * 회원로그인시 가능
    * @param memberno
    * @return
    */
@@ -266,7 +266,7 @@ public class MemberCont {
     
     int memberno = 0;
     if (this.memberProc.isMember(session)) { 
-      // 로그인한 경우
+      //회원 로그인한 경우
 
       if (this.memberProc.isMember(session)) { // 회원으로 로그인
         memberno = (int)session.getAttribute("memberno"); // 본인의 회원 정보 조회
@@ -278,7 +278,7 @@ public class MemberCont {
       mav.setViewName("/member/passwd_update"); // /member/read.jsp
       
     } else {
-      // 로그인을 하지 않은 경우
+      // 회원 로그인을 하지 않은 경우
       mav.setViewName("/member/login_need"); // /webapp/WEB-INF/views/member/login_need.jsp
     }
     
