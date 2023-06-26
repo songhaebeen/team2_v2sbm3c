@@ -50,8 +50,7 @@
     <br>
     <div>
        <label class="">화장품 관련 유튜브 채널</label>
-       <textarea name='youtube' class='form-control' rows="12" value='${cosme_youtube }' 
-                 class="form-control" style='width: 100%;'></textarea>
+          <textarea name='youtube' class='form-control' rows="10" style='width: 100%;'>${cosme_youtube }</textarea>
     </div>
     <br>
     <div>

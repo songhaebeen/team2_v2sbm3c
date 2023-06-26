@@ -102,7 +102,7 @@ public class CosmeCont {
     public ModelAndView create(CosmeVO cosmeVO, HttpServletRequest request, HttpSession session) {
       ModelAndView mav = new ModelAndView();
       
-      if (adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
+      if (this.adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
         
         // ------------------------------------------------------------------------------
         // 파일 전송 코드 시작
@@ -288,7 +288,7 @@ public class CosmeCont {
        cosmeVO.setCosme_youtube(youtube);
      }
      
-     if (adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
+     if (this.adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
        // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
        CosmeVO cosmeVO_old = cosmeProc.cosme_read(cosmeVO.getCosmeno());
        
