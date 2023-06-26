@@ -10,6 +10,7 @@
 <c:set var="cosme_cateno" value="${cosmeVO.cosme_cateno }" />
 <c:set var="cosme_catename" value="${cosme_cateVO.cosme_catename }" />
 <c:set var="cosme_youtube" value="${cosmeVO.cosme_youtube }" />
+<c:set var="cosme_catename" value="${cosme_cateVO.cosme_catename }" />
 
  
 <!DOCTYPE html> 
@@ -55,10 +56,17 @@
     <br>
     <div>
         <label>화장품 카테고리</label>
-        <select name='cosme_cateno' >
-          <c:forEach var="cosme_cateVO" items="${cosme_cate_list}" >
-            <option value="${cosme_cateVO.cosme_cateno}">${cosme_cateVO.cosme_catename}</option>
-          </c:forEach>
+        <select name='cosme_cateno'>
+            <c:forEach var="cosme_cateVO" items="${cosme_cate_list}">
+                <c:choose>
+                    <c:when test="${cosme_cateVO.cosme_cateno == cosme_cateno}">
+                        <option value="${cosme_cateVO.cosme_cateno}" selected>${cosme_cateVO.cosme_catename}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${cosme_cateVO.cosme_cateno}">${cosme_cateVO.cosme_catename}</option>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
         </select>
     </div>
     <br>
