@@ -348,6 +348,7 @@ public class CosmeCont {
        // 다른 필요한 핸들러 메서드를 추가로 구현할 수 있습니다.
 
        // Call By Reference: 메모리 공유, Hashcode 전달
+       System.out.println("-> session.getAttribute(\"adminno\"): " + session.getAttribute("adminno"));
        int adminno = (int)session.getAttribute("adminno"); // adminno FK
        cosmeVO.setAdminno(adminno);
        

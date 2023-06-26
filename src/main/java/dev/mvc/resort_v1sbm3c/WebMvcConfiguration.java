@@ -20,6 +20,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer{
       
         // JSP 인식되는 경로: http://localhost:9091/contents/storage";
         registry.addResourceHandler("/fboard/storage/**").addResourceLocations("file:///" +  Fboard.getUploadDir());
+        registry.addResourceHandler("/cosme/storage/**").addResourceLocations("file:///" +  Fboard.getUploadDir());
         
         // JSP 인식되는 경로: http://localhost:9091/attachfile/storage";
         // registry.addResourceHandler("/contents/storage/**").addResourceLocations("file:///" +  Tool.getOSPath() + "/attachfile/storage/");
