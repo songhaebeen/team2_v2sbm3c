@@ -28,7 +28,7 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    
+
 </head> 
  
 <body>
@@ -79,7 +79,7 @@
            <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
               <%-- /static/notice/storage/ --%>
-              <img src="/notice/storage/${file1saved }" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/notice/storage/${thumb1 }" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
               <%-- <img src="/notice/images/logo2.gif" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> --%>

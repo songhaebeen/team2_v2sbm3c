@@ -25,14 +25,14 @@
     <IMG src='/images/logo2.gif' style='width: 45%;'>
   </DIV>
   
-  <DIV style='margin: 0px auto; width: 90%;'>
-    <DIV style='float: left; width: 50%;'>
+  <DIV style='margin: 0px auto; width: 100%;'>
+    <DIV style='float: left; width: 100%;'>
      </DIV>
-     <DIV style='float: left; width: 50%;'>
+     <DIV style='float: left; width: 100%;'>
     </DIV>  
   </DIV>
  
-  <DIV style='width: 94.8%; margin: 0px auto;'>
+  <DIV style='width: 100%; margin: 0px auto;'>
   </DIV>  
  
 <jsp:include page="./menu/bottom.jsp" flush='false' />
