@@ -2,8 +2,9 @@ package dev.mvc.notice;
 
 import java.util.ArrayList;
 
-
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -161,8 +162,66 @@ public class NoticeCont {
    * @return
    */
   @RequestMapping(value="/notice/read.do", method=RequestMethod.GET )
-  public ModelAndView read(int noticeno, HttpSession session) {
+  public ModelAndView read(int noticeno, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
     ModelAndView mav = new ModelAndView();
+    
+    NoticeVO read = noticeProc.read(noticeno);
+    
+Cookie[] cookies = request.getCookies();
+    
+    //쿠키 중복 체크를 위해 사용되는 변수
+    Cookie viewCookie = null;
+    
+  // 쿠키가 있을 경우 
+  if (cookies != null && cookies.length > 0) {
+      for (int i = 0; i < cookies.length; i++) {
+          // Cookie의 name이 cookie + noticeno와 일치하는 쿠키를 viewCookie에 넣어줌 
+          if (cookies[i].getName().equals("cookie"+noticeno)){ 
+              //System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
+              viewCookie = cookies[i];
+              viewCookie.setMaxAge(30); // 30 seconds
+          }
+      }
+  }
+
+  if (read != null) {
+ // System.out.println("System - 해당 상세 페이지로 넘어감");
+  
+    mav.addObject("read", read);
+  
+  // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+  if (viewCookie == null) {    
+      //System.out.println("cookie 없음");
+      
+      // 쿠키 생성(이름, 값)
+      Cookie newCookie = new Cookie("cookie"+noticeno, "|" + noticeno + "|");
+      newCookie.setMaxAge(30); // 30 seconds
+      
+      // 쿠키 추가
+      response.addCookie(newCookie);
+      
+      // 쿠키를 추가 시키고 조회수 증가시킴
+      int result = noticeProc.views(noticeno);
+      
+      if(result>0) {
+          //System.out.println("조회수 증가");
+          
+      }else {
+          //System.out.println("조회수 증가 에러");
+      }
+  }
+  // viewCookie가 null이 아닐 경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
+  else {
+      //System.out.println("cookie 있음");
+      
+      // 쿠키 값 받아옴.
+      String value = viewCookie.getValue();
+      //viewCookie.setMaxAge(60 * 60 * 24); // 1 day
+      viewCookie.setMaxAge(30); // 30 seconds
+      //System.out.println("cookie 값 : " + value);
+  
+    }
+  }
 
     if (adminProc.isAdmin(session) || memberProc.isMember(session)) { // 관리자, 회원으로 로그인한 경우        
     NoticeVO noticeVO = this.noticeProc.read(noticeno);
@@ -313,6 +372,106 @@ public class NoticeCont {
     
     return mav; // forward
   }
+  
+  /**
+   * 파일 수정 폼
+   * http://localhost:9093/notice/update_file.do?noticeno=1
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/notice/update_file.do", method = RequestMethod.GET)
+  public ModelAndView update_file(HttpSession session, int noticeno) {
+    ModelAndView mav = new ModelAndView();
+    
+    if (this.adminProc.isAdmin(session)) { // 로그인
+      NoticeVO noticeVO = this.noticeProc.read(noticeno);
+      mav.addObject("noticeVO", noticeVO);
+    
+      mav.setViewName("/notice/update_file"); // /WEB-INF/views/notice/update_file.jsp
+      }else{ // 정상적인 로그인이 아닌 경우
+     mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+     }
+
+    return mav; // forward
+  }
+  
+  /**
+   * 파일 수정 처리 http://localhost:9093/notice/update_file.do
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/notice/update_file.do", method = RequestMethod.POST)
+  public ModelAndView update_file(HttpSession session, NoticeVO noticeVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    if (this.adminProc.isAdmin(session)) {
+      // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
+      NoticeVO noticeVO_old = noticeProc.read(noticeVO.getNoticeno());
+      
+      // -------------------------------------------------------------------
+      // 파일 삭제 시작
+      // -------------------------------------------------------------------
+      String file1saved = noticeVO_old.getFile1saved();  // 실제 저장된 파일명
+      String thumb1 = noticeVO_old.getThumb1();       // 실제 저장된 preview 이미지 파일명
+      long size1 = 0;
+         
+      String upDir =  Notice.getUploadDir(); // C:/kd/deploy/team2_v2sbm3c/notice/storage/
+      
+      Tool.deleteFile(upDir, file1saved);  // 실제 저장된 파일삭제
+      Tool.deleteFile(upDir, thumb1);     // preview 이미지 삭제
+      // -------------------------------------------------------------------
+      // 파일 삭제 종료
+      // -------------------------------------------------------------------
+          
+      // -------------------------------------------------------------------
+      // 파일 전송 시작
+      // -------------------------------------------------------------------
+      String file1 = "";          // 원본 파일명 image
+
+      // 전송 파일이 없어도 file1MF 객체가 생성됨.
+      // <input type='file' class="form-control" name='file1MF' id='file1MF' 
+      //           value='' placeholder="파일 선택">
+      MultipartFile mf = noticeVO.getFile1MF();
+          
+      file1 = mf.getOriginalFilename(); // 원본 파일명
+      size1 = mf.getSize();  // 파일 크기
+          
+      if (size1 > 0) { // 폼에서 새롭게 올리는 파일이 있는지 파일 크기로 체크 ★
+        // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
+        file1saved = Upload.saveFileSpring(mf, upDir); 
+        
+        if (Tool.isImage(file1saved)) { // 이미지인지 검사
+          // thumb 이미지 생성후 파일명 리턴됨, width: 250, height: 200
+          thumb1 = Tool.preview(upDir, file1saved, 250, 200); 
+        }
+        
+      } else { // 파일이 삭제만 되고 새로 올리지 않는 경우
+        file1="";
+        file1saved="";
+        thumb1="";
+        size1=0;
+      }
+          
+      noticeVO.setFile1(file1);
+      noticeVO.setFile1saved(file1saved);
+      noticeVO.setThumb1(thumb1);
+      noticeVO.setSize1(size1);
+      // -------------------------------------------------------------------
+      // 파일 전송 코드 종료
+      // -------------------------------------------------------------------
+          
+      this.noticeProc.update_file(noticeVO); // Oracle 처리
+
+      mav.addObject("noticeno", noticeVO.getNoticeno());
+      mav.setViewName("redirect:/notice/read.do"); // request -> param으로 접근 전환
+                
+    } else {
+      mav.addObject("url", "/admin/login_need"); // login_need.jsp, redirect parameter 적용
+      mav.setViewName("redirect:/notice/msg.do"); // GET
+    }
+    
+    return mav; // forward
+  }   
   
   /**
    * 삭제 폼

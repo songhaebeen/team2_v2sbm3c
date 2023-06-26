@@ -115,6 +115,11 @@ WHERE noticeno = 2;
 
 commit;
 
+--조회수 증가
+UPDATE notice 
+SET views = views + 1 
+WHERE noticeno = 1;
+
 -- 특정 관리자에 속한 레코드 갯수 산출
 SELECT COUNT(*) as cnt 
 FROM notice 

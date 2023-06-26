@@ -64,16 +64,8 @@
   
    <tr style="height: 112px;" onclick="location.href='./read.do?noticeno=${noticeno }&now_page=${param.now_page == null ? 1 : param.now_page}'" class='hover'>
           <td style='vertical-align: middle; text-align: center; '>
-            <c:choose>
-              <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>
-                 <%-- registry.addResourceHandler("/notice/storage/**").addResourceLocations("file:///" +  Notice.getUploadDir()); --%>
-                <img src="/notice/storage/${thumb1 }" style="width: 140px; height: 110px;">
-              </c:when>
-              <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/fboard/images/logo2.gif -->
-                <IMG src="/notice/images/logo2.gif" style="width: 140px; height: 110px;">
-              </c:otherwise>
-            </c:choose>  
-          </td>  
+            <IMG src="/notice/images/check.png" style="width: 16px; height: 16px;">          
+          </td> 
           
           <td style='vertical-align: middle; '>
             <div style='font-weight: bold;'><%--<a href="./read.do?noticeno=${noticeno }&now_page=${param.now_page == null ? 1 : param.now_page }"> --%>${ntitle }</a></div>

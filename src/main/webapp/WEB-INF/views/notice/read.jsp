@@ -52,6 +52,8 @@
       <span class='menu_divide' >│</span>
      <A href="./update.do?noticeno=${noticeno}&now_page=${param.now_page}">글 수정</A>
       <span class='menu_divide' >│</span>
+      <A href="./update_file.do?noticeno=${noticeno}&now_page=${param.now_page}">파일 수정</A>  
+      <span class='menu_divide' >│</span>
       <A href="./youtube.do?noticeno=${noticeno}">Youtube</A>
       <span class='menu_divide' >│</span>
       <A href="./delete.do?noticeno=${noticeno}&now_page=${param.now_page}">삭제</A>  
@@ -74,7 +76,7 @@
         </DIV>
 
       <DIV style="width: 100%; word-break: break-all; text-align: center;">  
-                <c:choose>
+           <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
               <%-- /static/notice/storage/ --%>
               <img src="/notice/storage/${file1saved }" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
@@ -107,8 +109,6 @@
         </DIV>
         <br>
       </li> 
-      
-      
 
     </ul>
     <div style="width: 85%; text-align: right; margin-left: 15%;">  

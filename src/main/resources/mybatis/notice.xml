@@ -6,8 +6,8 @@
 
   <!-- 등록한 레코드 갯수 1 리턴 -->
   <insert id="create" parameterType="dev.mvc.notice.NoticeVO">
-    INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1)
-    VALUES(notice_seq.nextval, #{adminno}, #{ntitle}, #{ncontent}, #{passwd}, sysdate, #{file1}, #{file1saved}, #{thumb1}, #{size1})
+    INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, file1, file1saved, thumb1, size1, rdate)
+    VALUES(notice_seq.nextval, #{adminno}, #{ntitle}, #{ncontent}, #{passwd}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate)
   
      </insert>
      
@@ -46,10 +46,24 @@
     WHERE noticeno = #{noticeno}
   </update>
   
+    <!-- 파일 수정 -->
+  <update id="update_file" parameterType="dev.mvc.notice.NoticeVO">
+    UPDATE notice
+    SET file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
+    WHERE noticeno = #{noticeno}
+  </update>
+  
   <!-- 삭제 -->
   <delete id="delete" parameterType="int">
     DELETE FROM notice
     WHERE noticeno =#{noticeno}
   </delete>
+  
+    <!-- 조회수 증가 -->
+  <update id="views" parameterType="int">
+		UPDATE notice 
+		SET views = views + 1 
+		WHERE noticeno = #{noticeno}
+  </update>
   
     </mapper>

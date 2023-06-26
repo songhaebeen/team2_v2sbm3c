@@ -31,6 +31,9 @@ public class NoticeVO {
     
     /** Youtube */
     private String youtube;
+    
+    /** 현재 페이지 */
+    private int now_page = 1;
 	
 	public int getNoticeno() {
 		return noticeno;
@@ -116,6 +119,12 @@ public class NoticeVO {
 	public void setYoutube(String youtube) {
 		this.youtube = youtube;
 	}
+  public int getNow_page() {
+    return now_page;
+  }
+  public void setNow_page(int now_page) {
+    this.now_page = now_page;
+  }
 	
 	
 
