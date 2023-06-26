@@ -78,7 +78,7 @@
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-info">등록</button>
       <button type="button" onclick="location.href='./list_by_type.do'" class="btn btn-info">목록</button>
-    </div>
+    </div>/
     
     <HR>
     <DIV style="text-align: center;">

@@ -9,16 +9,16 @@ DROP TABLE cosme CASCADE CONSTRAINTS;
 select * from cosme;
 CREATE TABLE COSME(
     COSMENO                           NUMBER(10)     NOT NULL    PRIMARY KEY,
-    BRAND                             VARCHAR2(15)     NOT NULL,
-    COSMENAME                         VARCHAR2(50)     NOT NULL,
+    BRAND                             VARCHAR2(25)     NOT NULL,
+    COSMENAME                         VARCHAR2(500)     NOT NULL,
     RDATE                             DATE     NOT NULL,
     adminno                          NUMBER(10)     NULL ,
     cosme_cateno                      NUMBER(10)     NULL ,
-    cosme_file                        VARCHAR2(500)    NULL ,
-    cosme_file_saved                  VARCHAR2(500)    NULL ,
-    cosme_file_preview                VARCHAR2(500)    NULL ,
-    cosme_file_size                   INTEGER    NULL ,
-    cosme_youtube                     VARCHAR2(1000)     NULL ,
+    file1                        VARCHAR2(500)    NULL ,
+    file1saved                  VARCHAR2(500)    NULL ,
+    thumb1                VARCHAR2(500)    NULL ,
+    size1                   INTEGER    NULL ,
+    cosme_youtube                     VARCHAR2(2000)     NULL ,
   FOREIGN KEY (cosme_cateno) REFERENCES cosme_cate (cosme_cateno)
 );
 
@@ -30,10 +30,10 @@ COMMENT ON COLUMN COSME.COSMENAME is '화장품 이름';
 COMMENT ON COLUMN COSME.RDATE is '등록일';
 COMMENT ON COLUMN COSME.adminno is '관리자 번호';
 COMMENT ON COLUMN COSME.cosme_cateno is '화장품 종류 번호';
-COMMENT ON COLUMN COSME.cosme_file is '화장품 사진 파일';
-COMMENT ON COLUMN COSME.cosme_file_saved is '화장품 사진 저장';
-COMMENT ON COLUMN COSME.cosme_file_preview is '화장품 사진 미리보기';
-COMMENT ON COLUMN COSME.cosme_file_size is '화장품 사진 크기';
+COMMENT ON COLUMN COSME.file1 is '화장품 사진 파일';
+COMMENT ON COLUMN COSME.file1saved is '화장품 사진 저장';
+COMMENT ON COLUMN COSME.thumb1 is '화장품 사진 미리보기';
+COMMENT ON COLUMN COSME.size1 is '화장품 사진 크기';
 COMMENT ON COLUMN COSME.cosme_youtube is '화장품 유튜브 영상';
 
 DROP SEQUENCE cosme_seq;
@@ -45,7 +45,7 @@ CREATE SEQUENCE cosme_seq
   CACHE 2                        -- 2번은 메모리에서만 계산
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
   
-INSERT INTO cosme(cosmeno, brand, cosmename, rdate, adminno, cosme_cateno, cosme_file, cosme_file_saved, cosme_file_preview, cosme_file_size, cosme_youtube)
+INSERT INTO cosme(cosmeno, brand, cosmename, rdate, adminno, cosme_cateno, file1, file1saved, thumb1, size1, cosme_youtube)
 VALUES(cosme_seq.nextval, '한율', '한율 어린쑥 수분진정 크림', sysdate, 1, 1, '1', '2', '3', 4, '5');
 
 

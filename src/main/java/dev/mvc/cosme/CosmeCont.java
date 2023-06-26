@@ -136,10 +136,10 @@ public class CosmeCont {
         }    
 
         
-        cosmeVO.setCosme_file(file1);   // 순수 원본 파일명
-        cosmeVO.setCosme_file_saved(file1saved); // 저장된 파일명(파일명 중복 처리)
-        cosmeVO.setCosme_file_preview(thumb1);      // 원본이미지 축소판
-        cosmeVO.setCosme_file_size(size1);  // 파일 크기
+        cosmeVO.setFile1(file1);   // 순수 원본 파일명
+        cosmeVO.setFile1saved(file1saved); // 저장된 파일명(파일명 중복 처리)
+        cosmeVO.setThumb1(thumb1);      // 원본이미지 축소판
+        cosmeVO.setSize1(size1);  // 파일 크기
         // ------------------------------------------------------------------------------
         // 파일 전송 코드 종료
         // ------------------------------------------------------------------------------
@@ -150,13 +150,13 @@ public class CosmeCont {
         // Call By Reference: 메모리 공유, Hashcode 전달
         int adminno = (int)session.getAttribute("adminno"); // adminno FK
         
+        cosmeVO.setAdminno(adminno);
+        int cnt = this.cosmeProc.create(cosmeVO); 
+        
         if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
           String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
           cosmeVO.setCosme_youtube(youtube);
         }
-        
-        cosmeVO.setAdminno(adminno);
-        int cnt = this.cosmeProc.create(cosmeVO); 
 
         // ------------------------------------------------------------------------------
         // PK의 return
@@ -204,8 +204,8 @@ public class CosmeCont {
 	   cosmeVO.setCosmename(cosmename);
 	   cosmeVO.setCosme_youtube(cosme_youtube);
 	   
-	   long cosme_file_size = cosmeVO.getCosme_file_size();
-	   cosmeVO.setCosme_file_size(cosme_file_size);
+	   long size1 = cosmeVO.getSize1();
+	   cosmeVO.setSize1(size1);
 	   
 	   mav.addObject("cosmeVO", cosmeVO); // request.setAttribute("cosmeVO", cosmeVO);
 	   
@@ -295,8 +295,8 @@ public class CosmeCont {
        // -------------------------------------------------------------------
        // 파일 삭제 시작
        // -------------------------------------------------------------------
-       String file1saved = cosmeVO_old.getCosme_file_saved();  // 실제 저장된 파일명
-       String thumb1 = cosmeVO_old.getCosme_file_preview();       // 실제 저장된 preview 이미지 파일명
+       String file1saved = cosmeVO.getFile1saved();  // 실제 저장된 파일명
+       String thumb1 = cosmeVO.getThumb1();       // 실제 저장된 preview 이미지 파일명
        long size1 = 0;
           
        String upDir =  Cosme.getUploadDir(); // C:/kd/deploy/team2_v2sbm3c/cosme/storage/
@@ -336,10 +336,10 @@ public class CosmeCont {
          size1=0;
        }
            
-       cosmeVO.setCosme_file(file1);   // 순수 원본 파일명
-       cosmeVO.setCosme_file_saved(file1saved); // 저장된 파일명(파일명 중복 처리)
-       cosmeVO.setCosme_file_preview(thumb1);      // 원본이미지 축소판
-       cosmeVO.setCosme_file_size(size1);  // 파일 크기
+       cosmeVO.setFile1(file1);   // 순수 원본 파일명
+       cosmeVO.setFile1saved(file1saved); // 저장된 파일명(파일명 중복 처리)
+       cosmeVO.setThumb1(thumb1);      // 원본이미지 축소판
+       cosmeVO.setSize1(size1);  // 파일 크기
        // -------------------------------------------------------------------
        // 파일 전송 코드 종료
        // -------------------------------------------------------------------
@@ -438,6 +438,7 @@ public class CosmeCont {
       // 삭제할 정보를 조회하여 확인
       CosmeVO cosmeVO = this.cosmeProc.cosme_read(cosmeno);
       mav.addObject("cosmeVO", cosmeVO);
+      mav.addObject("code", ""); // 새로운 코드 속성 추가
 
       mav.setViewName("/cosme/delete"); // /webapp/WEB-INF/views/cosme/delete.jsp
       
@@ -459,12 +460,12 @@ public class CosmeCont {
       // 삭제할 파일 정보를 읽어옴.
       CosmeVO cosmeVO_read = cosmeProc.cosme_read(cosmeVO.getCosmeno());
       
-      String cosme_file_saved = cosmeVO.getCosme_file_saved();
-      String cosme_file_preview = cosmeVO.getCosme_file_preview();
+      String file1saved = cosmeVO.getFile1saved();
+      String thumb1 = cosmeVO.getThumb1();
       
       String uploadDir = Cosme.getUploadDir();
-      Tool.deleteFile(uploadDir, cosme_file_saved); // 실제 저장된 파일삭제
-      Tool.deleteFile(uploadDir, cosme_file_preview); // preview 이미지 삭제
+      Tool.deleteFile(uploadDir, file1saved); // 실제 저장된 파일삭제
+      Tool.deleteFile(uploadDir, thumb1); // preview 이미지 삭제
       // -------------------------------------------------------------------------
       // 파일 삭제 종료
       // -------------------------------------------------------------------------
