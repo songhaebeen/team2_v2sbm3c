@@ -82,7 +82,7 @@
           <c:choose>
             <c:when test="${sessionScope.admin_id != null }"> 
               <td style='vertical-align: middle; text-align: center;'>
-              
+              <A href="/notice/youtube.do?noticeno=${noticeno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="youtube 등록"><IMG src="/notice/images/youtube.png" class="icon"></A>
                 <A href="/notice/update.do?noticeno=${noticeno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="수정"><IMG src="/notice/images/update.png" class="icon"></A>
                 <A href="/notice/delete.do?noticeno=${noticeno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="삭제"><IMG src="/notice/images/delete.png" class="icon"></A>
               </td>

@@ -25,6 +25,13 @@
     WHERE noticeno = #{noticeno}
   </select> 
   
+    <!-- Youtube 등록, 수정, 삭제 -->
+  <update id="youtube" parameterType="dev.mvc.notice.NoticeVO">
+    UPDATE notice 
+    SET youtube=#{youtube} 
+    WHERE noticeno=#{noticeno}
+  </update>
+  
   <!-- 패스워드 검사 -->
   <select id="password_check" resultType="int" parameterType="dev.mvc.notice.NoticeVO">
     SELECT COUNT(*) as cnt 

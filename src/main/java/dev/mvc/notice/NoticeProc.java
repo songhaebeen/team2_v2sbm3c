@@ -51,6 +51,12 @@ public class NoticeProc implements NoticeProcInter{
 		NoticeVO noticeVO = this.noticeDAO.read(noticeno);
 		return noticeVO;
 	}
+	
+  @Override
+  public int youtube(NoticeVO noticeVO) {
+    int cnt = this.noticeDAO.youtube(noticeVO);
+    return cnt;
+  }
 
   /**
    *  패스워드 일치 검사
@@ -80,5 +86,6 @@ public class NoticeProc implements NoticeProcInter{
 		int cnt = this.noticeDAO.delete(noticeno);
 		return cnt;
 	}
+
 
 }

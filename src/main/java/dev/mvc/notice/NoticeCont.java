@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
 import dev.mvc.fboard.Fboard;
+import dev.mvc.fboard.FboardVO;
 import dev.mvc.member.MemberProcInter;
 
 import dev.mvc.tool.Tool;
@@ -177,6 +178,9 @@ public class NoticeCont {
     noticeVO.setNtitle(title);
     noticeVO.setNcontent(content);  
     
+    long size1 = noticeVO.getSize1();
+    noticeVO.setSize1_label(Tool.unit(size1)); 
+    
     mav.addObject("noticeVO", noticeVO); // request.setAttribute("noticeVO", noticeVO);
 
     // 관리자 번호: adminno -> MasterVO -> mname
@@ -187,6 +191,52 @@ public class NoticeCont {
     } else{ // 정상적인 로그인이 아닌 경우
     	mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
     }
+    
+    return mav;
+  }
+  
+  /**
+   * Youtube 등록/수정/삭제 폼
+   * http://localhost:9093/notice/youtube.do?noticeno=1
+   * @return
+   */
+  @RequestMapping(value="/notice/youtube.do", method=RequestMethod.GET )
+  public ModelAndView youtube(int noticeno, HttpSession session) {
+  ModelAndView mav = new ModelAndView();
+  
+    if (adminProc.isAdmin(session)) { // 관리자, 회원으로 로그인한 경우       
+
+    NoticeVO noticeVO = this.noticeProc.read(noticeno); // youtube 정보 읽어 오기
+    mav.addObject("noticeVO", noticeVO); // request.setAttribute("noticeVO", noticeVO);
+
+    mav.setViewName("/notice/youtube"); // /WEB-INF/views/notice/youtube.jsp
+    } else{ // 정상적인 로그인이 아닌 경우
+    mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+    }
+
+    return mav;
+  }
+  
+  /**
+   * Youtube 등록/수정/삭제 처리
+   * http://localhost:9093/notice/youtube.do
+   * @param noticeVO
+   * @return
+   */
+  @RequestMapping(value="/notice/youtube.do", method = RequestMethod.POST)
+  public ModelAndView youtube_update(NoticeVO noticeVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    if (noticeVO.getYoutube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경
+      // youtube 영상의 크기를 width 기준 640 px로 변경 
+      String youtube = Tool.youtubeResize(noticeVO.getYoutube());
+      noticeVO.setYoutube(youtube);
+    }
+    
+    this.noticeProc.youtube(noticeVO);
+    
+    mav.setViewName("redirect:/notice/read.do?noticeno=" + noticeVO.getNoticeno()); 
+    // /webapp/WEB-INF/views/notice/read.jsp
     
     return mav;
   }

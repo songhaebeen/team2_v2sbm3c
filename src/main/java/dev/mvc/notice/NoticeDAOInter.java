@@ -2,6 +2,8 @@ package dev.mvc.notice;
 
 import java.util.ArrayList;
 
+import dev.mvc.fboard.FboardVO;
+
 public interface NoticeDAOInter {
 	
   /**
@@ -25,6 +27,13 @@ public interface NoticeDAOInter {
    * @return
    */
   public NoticeVO read(int noticeno);
+  
+  /**
+   * Youtube
+   * @param fboardVO
+   * @return
+   */
+  public int youtube(NoticeVO noticeVO);
   
   /**
    * 패스워드 검사  

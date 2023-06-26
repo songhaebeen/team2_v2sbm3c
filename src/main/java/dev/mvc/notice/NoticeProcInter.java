@@ -27,6 +27,13 @@ public interface NoticeProcInter {
   public NoticeVO read(int noticeno);
   
   /**
+   * Youtube
+   * @param fboardVO
+   * @return
+   */
+  public int youtube(NoticeVO noticeVO);
+  
+  /**
    * 패스워드 검사  
    * @param contentsVO
    * @return 1: 패스워드 일치, 0: 패스워드 불일치

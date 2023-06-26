@@ -250,7 +250,7 @@ public class FboardCont {
   
   /**
    * Youtube 등록/수정/삭제 폼
-   * http://localhost:9091/fboard/youtube.do?contentsno=1
+   * http://localhost:9093/fboard/youtube.do?fboardno=1
    * @return
    */
   @RequestMapping(value="/fboard/youtube.do", method=RequestMethod.GET )

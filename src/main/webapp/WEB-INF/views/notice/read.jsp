@@ -45,6 +45,8 @@
 
      <A href="./update.do?noticeno=${noticeno}&now_page=${param.now_page}">글 수정</A>
       <span class='menu_divide' >│</span>
+      <A href="./youtube.do?noticeno=${noticeno}">Youtube</A>
+      <span class='menu_divide' >│</span>
       <A href="./delete.do?noticeno=${noticeno}&now_page=${param.now_page}">삭제</A>  
     <span class='menu_divide' >│</span>  
     </c:if>
@@ -57,16 +59,47 @@
   <fieldset class="fieldset_basic">
     <ul style='background-color: #F6F6F6;'>
       <li class="li_none">
-        <DIV style="width: 100%; word-break: break-all;">
+        <DIV style="width: 100%; word-break: break-all; text-align: center;">
           <span style="font-size: 1.5em; font-weight: bold;">${ntitle }</span><br>
-          <br>
-          <div style="font-size: 1em;"><img src="/admin/images/user.png" style="height: 16px"> ${mname } ${rdate }</div>
-          <div style="font-size: 1em;">조회수: <span id="views">${views}</span></div>
+          <div style="font-size: 1em; text-align: right; width: 89%;"><img src="/admin/images/user.png" style="height: 16px"> ${mname } ${rdate }</div>
+          <div style="font-size: 1em; text-align: right; width: 89%;">조회수: <span id="views">${views}</span></div>
           <br><br>
-          <div style="font-size: 1.1em;">${ncontent }</div>
+          </DIV>
+          
+         <DIV style="width: 100%; word-break: break-all; text-align: center;">  
+         <c:choose>
+            <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
+              <%-- /static/notice/storage/ --%>
+              <img src="/notice/storage/${file1saved }" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
+            </c:when>
+            <c:otherwise> <!-- 기본 이미지 출력 -->
+              <%-- <img src="/notice/images/logo2.gif" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> --%>
+            </c:otherwise>
+          </c:choose>
+          
+         <c:if test="${youtube.trim().length() > 0 }">
+        <li class="li_none" style="clear: both; padding-top: 5px; padding-bottom: 5px;">
+          <DIV style="text-align: center;">
+            ${youtube }
+          </DIV>
+        </li>
+      </c:if>
+          
+           <br><br>
+          <div style="width: 80%; font-size: 1.1em; text-align: left; margin-left: 10%;">${ncontent }</div>
+          <br>
           <br>
         </DIV>
       </li>
+      
+      <li class="li_none">
+        <DIV style="width: 80%; text-align: left; margin-left: 10%;" >
+          <c:if test="${file1.trim().length() > 0 }"> <%-- ServletRegister.java: registrationBean.addUrlMappings("/download"); --%>
+            첨부 파일: <a href='/download?dir=/notice/storage&filename=${file1saved}&downname=${file1}' > ${file1}</a> (${size1_label})  
+          </c:if>
+        </DIV>
+        <br>
+      </li> 
 
     </ul>
         <div style="width: 85%; text-align: right; margin-left: 15%;"> 
