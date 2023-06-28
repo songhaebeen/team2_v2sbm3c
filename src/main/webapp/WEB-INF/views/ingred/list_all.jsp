@@ -38,11 +38,11 @@
 
   <TABLE class='table table-hover'>
     <colgroup>
-      <col style='width: 10%;'/>
-      <col style='width: 45%;'/>
-      <col style='width: 10%;'/>    
-      <col style='width: 20%;'/>
       <col style='width: 15%;'/>
+      <col style='width: 40%;'/>
+      <col style='width: 15%;'/>    
+      <col style='width: 10%;'/>
+
     </colgroup>
    
     <thead>  
@@ -50,6 +50,7 @@
       <TH class="th_bs">순서</TH>
       <TH class="th_bs">화장품 성분 이름</TH>
       <TH class="th_bs">성분 효과</TH>
+      <TH class="th_bs">기타</TH>
     </TR>
     </thead>
     
