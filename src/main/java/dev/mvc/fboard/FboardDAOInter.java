@@ -33,7 +33,7 @@ public interface FboardDAOInter {
   public int youtube(FboardVO fboardVO);
   
   /**
-   *  특정 카테고리의 검색된 글목록
+   *  자유게시판에 검색된 글목록
    *  spring framework이 JDBC 관련 코드를 모두 생성해줌
    * @return
    */

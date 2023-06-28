@@ -28,7 +28,7 @@ COMMENT ON COLUMN fboard.ftitle is '자유게시판 제목';
 COMMENT ON COLUMN fboard.fcontent is '자유게시판 내용';
 COMMENT ON COLUMN fboard.passwd is '패스워드';
 COMMENT ON COLUMN fboard.word is '검색어';
-COMMENT ON COLUMN fboard.view is '조회수';
+COMMENT ON COLUMN fboard.views is '조회수';
 COMMENT ON COLUMN fboard.replycnt is '댓글수';
 COMMENT ON COLUMN fboard.rdate is '등록일';
 COMMENT ON COLUMN fboard.file1 is '메인 이미지';
@@ -121,7 +121,7 @@ WHERE fboardno = 1;
 
 commit;
 
-SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views
+SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views, replycnt
 FROM fboard
 ORDER BY fboardno ASC;
 
@@ -192,4 +192,10 @@ WHERE userno IN('1','2','3');
 ---------- ---------- --------------------------------------------------
          1          1 추천!!                                            
          3          1 자유2                
-         
+
+--댓글 증가         
+UPDATE fboard
+SET replycnt = replycnt + 1
+WHERE fboardno = 1;
+
+ROLLBACK;

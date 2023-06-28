@@ -159,7 +159,7 @@ public class FboardCont {
 //  }
   
   /**
-   * 조회, 조회수 증가
+   * 조회, 조회수 증가, 댓글수
    *  http://localhost:9093/fboard/read.do
    * @return
    */
@@ -224,7 +224,7 @@ public class FboardCont {
 	
 		}
 	}
-  
+	
     if (memberProc.isMember(session) || adminProc.isAdmin(session)) { // 관리자, 회원으로 로그인한 경우        
     	FboardVO fboardVO = this.fboardProc.read(fboardno);
     

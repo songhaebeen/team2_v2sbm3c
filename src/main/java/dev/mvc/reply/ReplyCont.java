@@ -36,6 +36,10 @@ public class ReplyCont {
   @Autowired
   @Qualifier("dev.mvc.admin.AdminProc")
   private AdminProcInter adminProc = null;
+  
+  @Autowired
+  @Qualifier("dev.mvc.fboard.FboardProc") 
+  private FboardProcInter fboardProc;
 
   public ReplyCont(){
     System.out.println("-> ReplyCont created.");
@@ -238,6 +242,9 @@ public class ReplyCont {
     // return msg;
     
     List<ReplyMemberVO> list = replyProc.list_by_fboardno_join_add(fboardno);
+    
+	fboardProc.increaseReplycnt(fboardno);
+	fboardProc.decreaseReplycnt(fboardno);
     
     JSONObject obj = new JSONObject();
     obj.put("list", list);
