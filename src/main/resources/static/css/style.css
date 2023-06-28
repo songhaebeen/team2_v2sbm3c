@@ -79,7 +79,7 @@
     padding-bottom: 20px;
     text-align: right;
     width: 100%;
-    background-color: black;
+    background-color: white;
   }
   
   .content_bottom {
@@ -488,8 +488,5 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     padding: 0;
     box-sizing: border-box;
 }
-  
-  
-
   
   

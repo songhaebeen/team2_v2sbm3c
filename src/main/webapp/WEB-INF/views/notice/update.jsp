@@ -5,6 +5,11 @@
 <c:set var="noticeno" value="${noticeVO.noticeno }" />
 <c:set var="ntitle" value="${noticeVO.ntitle }" />        
 <c:set var="ncontent" value="${noticeVO.ncontent }" />
+<c:set var="file1" value="${noticeVO.file1 }" />
+<c:set var="file1saved" value="${noticeVO.file1saved }" />
+<c:set var="thumb1" value="${noticeVO.thumb1 }" />
+<c:set var="size1" value="${noticeVO.size1 }" />
+<c:set var="youtube" value="${noticeVO.youtube }" />
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -16,6 +21,10 @@
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
     
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+<script type="text/javascript">  
+
+</script>
     
 </head>
  
@@ -34,7 +43,7 @@
   
   <DIV class='menu_line'></DIV>
   
-  <FORM name='frm' method='POST' action='./update.do'>
+  <FORM name='frm' method='POST' action='./update.do' enctype="multipart/form-data">
     <input type="hidden" name="noticeno" value="${noticeno }">
     
     <div>
@@ -47,13 +56,18 @@
        <label>내용</label>
        <textarea name='ncontent' required="required" class="form-control" rows="12" style='width: 100%;'>${ncontent }</textarea>
     </div> 
-    
+    <Br>
+    <div>
+       <label>Youtube 스크립트</label>
+       <textarea name='youtube' class="form-control" rows="2" style='width: 100%;'>${noticeVO.youtube}</textarea>
+    </div>
+
     <c:choose>
-      <c:when test="${sessionScope.master_id == null }">
+      <c:when test="${sessionScope.admin_id == null }">
         <div>
           <label>패스워드</label>
-          <input type='password' name='passwd' value='' required="required" 
-                    class="form-control" style='width: 50%;'>
+          <input type='password' name='passwd' value='1234' required="required" 
+                    class="form-control" style='width: 30%;'>
         </div>
       </c:when>
       <c:otherwise>

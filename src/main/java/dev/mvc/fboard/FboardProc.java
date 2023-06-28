@@ -250,4 +250,25 @@ public class FboardProc implements FboardProcInter{
 		return cnt;
 	}
 
+	//수정
+	@Override
+	public int update(FboardVO fboardVO) {
+		int cnt = this.fboardDAO.update(fboardVO);
+		return cnt;
+	}
+
+	//댓글수 증가
+	@Override
+	public int increaseReplycnt(int fboardno) {
+		int cnt = this.fboardDAO.increaseReplycnt(fboardno);
+		return cnt;
+	}
+
+	//댓글수 감소
+	@Override
+	public int decreaseReplycnt(int fboardno) {
+		int cnt = this.fboardDAO.decreaseReplycnt(fboardno);
+		return cnt;
+	}
+
 }
