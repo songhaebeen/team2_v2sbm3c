@@ -4,6 +4,18 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dev.mvc.cosme_cate.Cosme_cateVO" %>
 
+<script type="text/javascript">
+function recommend() {
+      var url = 'http://43.200.7.121:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
+      var win = window.open(url, '공지 사항', 'width=1300px, height=850px');
+      
+      var x = (screen.width - 1300) / 2;
+      var y = (screen.height - 850) / 2;
+      
+      win.moveTo(x, y); // 화면 중앙으로 이동
+}
+</script>
+
 <DIV class='container_main'> 
     <!-- 헤더 start -->
     <div class="header">
@@ -60,7 +72,7 @@
                           
                           <a class="dropdown-item" href="/member/passwd_update.do?memberno=${memberno }">비밀번호 변경</a> 
                           <a class="dropdown-item" href="#">회원 정보 수정</a>
-                          <a class="dropdown-item" href="/member/deltet.do">회원 탈퇴</a>
+                          <a class="dropdown-item" href="/member/delete_user.do">회원 탈퇴</a>
                       </div>
                   </li>
               

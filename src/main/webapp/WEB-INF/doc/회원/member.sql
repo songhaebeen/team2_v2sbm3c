@@ -152,4 +152,14 @@ WHERE id='user1@gmail.com' AND passwd='1234';
  cnt
  ---
    0
+   
+8. 회원탈퇴
+UPDATE member
+SET grade = 99
+WHERE memberno = 1;
+
+9. 로그인시 탈퇴회원인지 확인후 로그인 처리
+SELECT * FROM member
+WHERE grade NOT BETWEEN 40 AND 49
+  AND grade <> 99;
  
