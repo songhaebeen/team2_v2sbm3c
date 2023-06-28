@@ -7,7 +7,7 @@
   <!-- 등록한 레코드 갯수 1 리턴 -->
   <insert id="create" parameterType="dev.mvc.notice.NoticeVO">
     INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, word, file1, file1saved, thumb1, size1, rdate, youtube)
-    VALUES(notice_seq.nextval, #{adminno}, #{ntitle}, #{ncontent}, #{passwd}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate, #{youtube})
+    VALUES(notice_seq.nextval, #{adminno}, #{ntitle}, #{ncontent}, #{passwd}, #{word}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate, #{youtube})
   
      </insert>
      
