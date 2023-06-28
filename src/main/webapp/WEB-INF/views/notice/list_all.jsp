@@ -42,16 +42,29 @@
       <c:choose>
         <c:when test="${sessionScope.admin_id != null }">
           <col style="width: 10%;"></col>
-          <col style="width: 60%;"></col>
+          <col style="width: 50%;"></col>
           <col style="width: 10%;"></col>     
-          <col style="width: 10%;"></col>   
+          <col style="width: 20%;"></col>   
         </c:when>
         <c:otherwise>
           <col style="width: 10%;"></col>
           <col style="width: 60%;"></col>
+          <col style="width: 10%;"></col>    
+          <col style="width: 20%;"></col>
         </c:otherwise>
       </c:choose>
     </colgroup>
+    
+              
+          <thead>
+      <tr>
+        <th style='text-align: center;'></th>
+        <th style='text-align: left;'>제목</th>
+        <th style='text-align: center;'>조회수</th>
+        <th style='text-align: center;'>등록일</th>
+      </tr>
+    
+    </thead>
 
 <tbody>
   <c:forEach var="noticeVO" items="${list}">
@@ -64,15 +77,7 @@
   
    <tr style="height: 112px;" onclick="location.href='./read.do?noticeno=${noticeno }&now_page=${param.now_page == null ? 1 : param.now_page}'" class='hover'>
           <td style='vertical-align: middle; text-align: center; '>
-            <c:choose>
-              <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>
-                <%-- registry.addResourceHandler("/fboard/storage/**").addResourceLocations("file:///" +  Fboard.getUploadDir()); --%>
-                <img src="/notice/storage/${thumb1 }" style="width: 120px; height: 90px;">
-              </c:when>
-              <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/fboard/images/none1.png -->
-                <IMG src="/notice/images/logo2.gif" style="width: 120px; height: 90px;">
-              </c:otherwise>
-            </c:choose>          
+          <IMG src="/notice/images/check.png" style="width: 17px; height: 17px;">     
           </td> 
           
           <td style='vertical-align: middle; '>
@@ -89,8 +94,7 @@
           
           <c:choose>
             <c:when test="${sessionScope.admin_id != null }"> 
-              <td style='vertical-align: middle; text-align: center;'>
-              <A href="/notice/youtube.do?noticeno=${noticeno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="youtube 등록"><IMG src="/notice/images/youtube.png" class="icon"></A>
+              <td style='vertical-align: middle; text-align: center;'>           
                 <A href="/notice/update.do?noticeno=${noticeno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="수정"><IMG src="/notice/images/update.png" class="icon"></A>
                 <A href="/notice/delete.do?noticeno=${noticeno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="삭제"><IMG src="/notice/images/delete.png" class="icon"></A>
               </td>

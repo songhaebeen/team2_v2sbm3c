@@ -16,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
-import dev.mvc.fboard.Fboard;
-import dev.mvc.fboard.FboardVO;
 import dev.mvc.member.MemberProcInter;
-
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -27,11 +24,11 @@ import dev.mvc.tool.Upload;
 public class NoticeCont {
   @Autowired
   @Qualifier("dev.mvc.admin.AdminProc") 
-  private AdminProcInter adminProc = null;;
+  private AdminProcInter adminProc = null;
   
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
-  private MemberProcInter memberProc = null;;
+  private MemberProcInter memberProc = null;
   
   @Autowired
   @Qualifier("dev.mvc.notice.NoticeProc") 
@@ -66,6 +63,12 @@ public class NoticeCont {
   @RequestMapping(value = "/notice/create.do", method = RequestMethod.POST)
   public ModelAndView create(HttpServletRequest request, HttpSession session, NoticeVO noticeVO) {
     ModelAndView mav = new ModelAndView();
+    
+    if (noticeVO.getYoutube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경
+        // youtube 영상의 크기를 width 기준 640 px로 변경 
+        String youtube = Tool.youtubeResize(noticeVO.getYoutube().trim());
+        noticeVO.setYoutube(youtube);
+      }
     
     if (adminProc.isAdmin(session)) { // 관리자로 로그인한 경우   
     	// ------------------------------------------------------------------------------
@@ -290,6 +293,7 @@ Cookie[] cookies = request.getCookies();
       // youtube 영상의 크기를 width 기준 640 px로 변경 
       String youtube = Tool.youtubeResize(noticeVO.getYoutube());
       noticeVO.setYoutube(youtube);
+      
     }
     
     this.noticeProc.youtube(noticeVO);
@@ -351,6 +355,67 @@ Cookie[] cookies = request.getCookies();
   public ModelAndView update(HttpSession session, NoticeVO noticeVO) {
     ModelAndView mav = new ModelAndView();
     //System.out.println("title: " + noticeVO.getNtitle());   
+    
+    if (noticeVO.getYoutube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경
+        // youtube 영상의 크기를 width 기준 640 px로 변경 
+        String youtube = Tool.youtubeResize(noticeVO.getYoutube().trim());
+        noticeVO.setYoutube(youtube);
+      }
+    
+    NoticeVO noticeVO_old = noticeProc.read(noticeVO.getNoticeno());
+    
+    // -------------------------------------------------------------------
+    // 파일 삭제 시작
+    // -------------------------------------------------------------------
+    String file1saved = noticeVO_old.getFile1saved();  // 실제 저장된 파일명
+    String thumb1 = noticeVO_old.getThumb1();       // 실제 저장된 preview 이미지 파일명
+    long size1 = 0;
+       
+    String upDir =  Notice.getUploadDir(); // C:/kd/deploy/team2_v2sbm3c/notice/storage/
+    
+    Tool.deleteFile(upDir, file1saved);  // 실제 저장된 파일삭제
+    Tool.deleteFile(upDir, thumb1);     // preview 이미지 삭제
+    // -------------------------------------------------------------------
+    // 파일 삭제 종료
+    // -------------------------------------------------------------------
+        
+    // -------------------------------------------------------------------
+    // 파일 전송 시작
+    // -------------------------------------------------------------------
+    String file1 = "";          // 원본 파일명 image
+
+    // 전송 파일이 없어도 file1MF 객체가 생성됨.
+    // <input type='file' class="form-control" name='file1MF' id='file1MF' 
+    //           value='' placeholder="파일 선택">
+    MultipartFile mf = noticeVO.getFile1MF();
+        
+    file1 = mf.getOriginalFilename(); // 원본 파일명
+    size1 = mf.getSize();  // 파일 크기
+        
+    if (size1 > 0) { // 폼에서 새롭게 올리는 파일이 있는지 파일 크기로 체크 ★
+      // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
+      file1saved = Upload.saveFileSpring(mf, upDir); 
+      
+      if (Tool.isImage(file1saved)) { // 이미지인지 검사
+        // thumb 이미지 생성후 파일명 리턴됨, width: 250, height: 200
+        thumb1 = Tool.preview(upDir, file1saved, 250, 200); 
+      }
+      
+    } else { // 파일이 삭제만 되고 새로 올리지 않는 경우
+      file1="";
+      file1saved="";
+      thumb1="";
+      size1=0;
+    }
+        
+    noticeVO.setFile1(file1);
+    noticeVO.setFile1saved(file1saved);
+    noticeVO.setThumb1(thumb1);
+    noticeVO.setSize1(size1);
+    // -------------------------------------------------------------------
+    // 파일 전송 코드 종료
+    // -------------------------------------------------------------------
+        
     
     if (this.adminProc.isAdmin(session)) { // 관리자 로그인
       this.noticeProc.update(noticeVO);  
@@ -469,7 +534,6 @@ Cookie[] cookies = request.getCookies();
                 
     } else {
       mav.addObject("url", "/admin/login_need"); // login_need.jsp, redirect parameter 적용
-      mav.setViewName("redirect:/notice/msg.do"); // GET
     }
     
     return mav; // forward
@@ -516,7 +580,7 @@ Cookie[] cookies = request.getCookies();
     String file1saved = noticeVO.getFile1saved();
     String thumb1 = noticeVO.getThumb1();
     
-    String uploadDir = Fboard.getUploadDir();
+    String uploadDir = Notice.getUploadDir();
     Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
     Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
     // -------------------------------------------------------------------

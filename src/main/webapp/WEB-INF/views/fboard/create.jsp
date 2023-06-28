@@ -21,12 +21,11 @@
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <A href="javascript:location.reload();">새로고침</A>
-    <span class='menu_divide' >│</span>
     <A href="./list_all.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">목록형</A>    
     <span class='menu_divide' >│</span>
     <A href="./list_grid.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">앨범형</A>
-   
+     <span class='menu_divide' >│</span>
+     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
   
   <DIV class='menu_line'></DIV>
@@ -37,15 +36,22 @@
        <label>제목</label>
        <input type='text' name='ftitle' value='추천함!' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 50%;'>
+    
     </div>
+    
     <div>
        <label>내용</label>
        <textarea name='fcontent' required="required" class="form-control" rows="12" style='width: 100%;'>실제 써본 후기임</textarea>
     </div>
+        <div>
+       <label>youtube</label>
+       <input type='text' name='youtube' value='' placeholder="소스 코드 입력"
+       class="form-control" style='width: 100%;'>
+    </div> 
     <div>
        <label>이미지</label>
        <input type='file' class="form-control" name='file1MF' id='file1MF' 
-                 value='' placeholder="파일 선택">
+                 value='' placeholder="파일 선택" style='width: 30%;'>
     </div>   
     <div>
        <label>패스워드</label>
@@ -58,6 +64,10 @@
     </div>
   
   </FORM>
+    <DIV style="text-align: center;">
+      <H5>[참고] Youtube의 등록 방법</H5>
+      <IMG src='/fboard/images/youtube1.png' style='width: 60%;'><br><br>
+  </DIV>
 </DIV>
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>

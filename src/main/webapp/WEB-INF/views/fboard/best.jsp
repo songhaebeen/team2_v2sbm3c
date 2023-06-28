@@ -1,62 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>자유게시판</title>
-<link rel="shortcut icon" href="/images/star.png" />
-
+<title>best</title>
+ 
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
- 
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    
-</head> 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
  
-<body>
-<c:import url="/menu/top.do" />
+ <link rel = "stylesheet" href = "/css/bootstrap.css">
  
-<DIV class='title_line'>
-  자유게시판
-  <c:if test="${param.word.length() > 0 }">
-     「${param.word }」 검색 ${search_count } 건
-  </c:if>
-</DIV>
-
-<DIV class='content_body'>
-  <ASIDE class="aside_right">
-  
-      <A href="./create.do">등록</A>
-      <span class='menu_divide' >│</span>
-    <A href="javascript:location.reload();">새로고침</A>
-    <span class='menu_divide' >│</span>    
-    <A href="./list_all.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">목록형</A>    
-    <span class='menu_divide' >│</span>
-    <A href="./list_grid.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">앨범형</A>
-  </ASIDE>
-  
-  <DIV style="text-align: right; clear: both;">  
-    <form name='frm' id='frm' method='get' action='./list_all.do'>
-      
-      <c:choose>
-        <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
-          <input type='text' name='word' id='word' value='${param.word }' class='input_word'>
-        </c:when>
-        <c:otherwise> <%-- 검색하지 않는 경우 --%>
-          <input type='text' name='word' id='word' value='' class='input_word'>
-        </c:otherwise>
-      </c:choose>
-      <button type='submit' class='btn btn-info btn-sm'>검색</button>
-      <c:if test="${param.word.length() > 0 }">
-        <button type='button' class='btn btn-info btn-sm' 
-                    onclick="location.href='./list_all.do?word='">검색 취소</button>  
-      </c:if>    
-    </form>
-  </DIV>
-
   <DIV class='menu_line'></DIV>
   
   <table class="table table-striped" style='width: 100%;'>
@@ -66,7 +25,8 @@
           <col style="width: 10%;"></col>
           <col style="width: 50%;"></col>
           <col style="width: 10%;"></col>     
-          <col style="width: 20%;"></col>   
+          <col style="width: 10%;"></col>   
+          <col style="width: 20%;"></col>  
         </c:when>
         <c:otherwise>
           <col style="width: 10%;"></col>
@@ -87,15 +47,6 @@
       </tr>
     
     </thead>
-
-<!--     <thead>
-      <tr>
-        <th style='text-align: center;'>파일</th>
-        <th style='text-align: center;'>제목</th>
-        <th style='text-align: center;'>기타</th>
-      </tr>
-    
-    </thead> -->
     
     <tbody>
       <c:forEach var="fboardVO" items="${list}">
@@ -156,14 +107,6 @@
     </tbody>
   </table>
  
-    <!-- 페이지 목록 출력 부분 시작 -->
-  <DIV class='bottom_menu'>${paging }</DIV> <%-- 페이지 리스트 --%>
-  <!-- 페이지 목록 출력 부분 종료 -->
-  
-</DIV>
- 
 <jsp:include page="../menu/bottom.jsp" />
 </body>
- 
 </html>
-

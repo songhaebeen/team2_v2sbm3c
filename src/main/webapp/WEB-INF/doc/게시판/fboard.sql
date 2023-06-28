@@ -11,6 +11,7 @@ CREATE TABLE fboard(
         passwd              VARCHAR2(15)         NOT NULL,
         word                VARCHAR2(100)         NULL , --검색
         views               NUMBER(7)         DEFAULT 0   NOT NULL, --조회수
+        replycnt            NUMBER(7)         DEFAULT 0   NOT NULL, --댓글수
         rdate               DATE           NOT NULL,
         file1                VARCHAR(100)          NULL,  -- 원본 파일명 image
         file1saved            VARCHAR(100)          NULL,  -- 저장된 파일명, image
@@ -28,6 +29,7 @@ COMMENT ON COLUMN fboard.fcontent is '자유게시판 내용';
 COMMENT ON COLUMN fboard.passwd is '패스워드';
 COMMENT ON COLUMN fboard.word is '검색어';
 COMMENT ON COLUMN fboard.view is '조회수';
+COMMENT ON COLUMN fboard.replycnt is '댓글수';
 COMMENT ON COLUMN fboard.rdate is '등록일';
 COMMENT ON COLUMN fboard.file1 is '메인 이미지';
 COMMENT ON COLUMN fboard.file1saved is '실제 저장된 메인 이미지';
@@ -60,7 +62,7 @@ INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, rdate, file1, file1save
 VALUES(fboard_seq.nextval, 2, '자유3', '오늘 하루', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000,'1234');
 
 -- 유형 1 전체 목록
-SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views
+SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views, replycnt
 FROM fboard
 ORDER BY fboardno ASC;
          

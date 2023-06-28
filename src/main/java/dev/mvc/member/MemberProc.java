@@ -99,6 +99,12 @@ public class MemberProc implements MemberProcInter {
     return cnt;
   }
   
+  @Override
+  public int delete_user(int memberno) {
+    int cnt = this.memberDAO.delete(memberno);
+    return cnt;
+  }
+  
 }
 
 

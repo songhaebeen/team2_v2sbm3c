@@ -92,7 +92,7 @@ commit;
 -- ----------------------------------------------------------------------------
 SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views, youtube
 FROM notice
-WHERE noticeno = 2;
+WHERE noticeno = 32;
 
 -- 텍스트 수정: 예외 컬럼: 추천수, 조회수, 댓글 수
 UPDATE notice

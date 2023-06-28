@@ -72,11 +72,9 @@ response.setHeader("Set-Cookie", "cookieName=; Max-Age=0");
 <DIV class='content_body'>
 
   <ASIDE class="aside_right">
-     <A href="./update_text.do?fboardno=${fboardno}&now_page=${param.now_page}">글 수정</A>
+     <A href="./update.do?fboardno=${fboardno}&now_page=${param.now_page}">수정</A>
       <span class='menu_divide' >│</span>
-      <A href="./update_file.do?fboardno=${fboardno}&now_page=${param.now_page}">파일 수정</A>  
-      <span class='menu_divide' >│</span>
-      <A href="./youtube.do?fboardno=${fboardno}">Youtube</A>
+      <A href="./update_file.do?fboardno=${fboardno}&now_page=${param.now_page}">파일</A>  
       <span class='menu_divide' >│</span>
       <A href="./delete.do?fboardno=${fboardno}&now_page=${param.now_page}">삭제</A>  
     <span class='menu_divide' >│</span>  
@@ -120,7 +118,7 @@ response.setHeader("Set-Cookie", "cookieName=; Max-Age=0");
                 <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
               <%-- /static/fboard/storage/ --%>
-              <img src="/fboard/storage/${file1saved }" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/fboard/storage/${file1saved }" style='width: 40%; float: center; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
               <%-- <img src="/fboard/images/logo2.gif" style='width: 30%; float: center; margin-top: 0.5%; margin-right: 1%;'> --%>
