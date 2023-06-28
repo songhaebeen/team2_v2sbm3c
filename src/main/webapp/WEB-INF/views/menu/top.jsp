@@ -6,6 +6,7 @@
 
 <script type="text/javascript">
 function recommend() {
+
     var url = 'http://43.201.58.46:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
     var win = window.open(url, '공지 사항', 'width=1300px, height=850px');
     
@@ -14,8 +15,6 @@ function recommend() {
     
     win.moveTo(x, y); // 화면 중앙으로 이동
 }
-</script>
-
 </script>
 
 <DIV class='container_main'> 
@@ -74,7 +73,7 @@ function recommend() {
                           <a class="dropdown-item" href="#">비밀번호 찾기</a>                      
                           <a class="dropdown-item" href="/member/passwd_update.do?memberno=${memberno }">비밀번호 변경</a> 
                           <a class="dropdown-item" href="#">회원 정보 수정</a>
-                          <a class="dropdown-item" href="/member/deltet.do">회원 탈퇴</a>
+                          <a class="dropdown-item" href="/member/delete_user.do">회원 탈퇴</a>
                       </div>
                   </li>
               
