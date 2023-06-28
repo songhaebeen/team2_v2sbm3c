@@ -38,19 +38,20 @@
 
   <TABLE class='table table-hover'>
     <colgroup>
-      <col style='width: 10%;'/>
-      <col style='width: 45%;'/>
-      <col style='width: 10%;'/>    
       <col style='width: 20%;'/>
-      <col style='width: 15%;'/>
+      <col style='width: 45%;'/>
+      <col style='width: 20%;'/>    
     </colgroup>
    
     <thead>  
-    <TR>
-      <TH class="th_bs">순서</TH>
-      <TH class="th_bs">화장품 타입 이름</TH>
-    </TR>
+      <tr>
+        <th class="th_bs">순서</th>
+        <th class="th_bs">화장품 타입 이름</th>
+        <th class="th_bs">기타</th>
+      </tr>
     </thead>
+
+
     
     <tbody>
     <%
