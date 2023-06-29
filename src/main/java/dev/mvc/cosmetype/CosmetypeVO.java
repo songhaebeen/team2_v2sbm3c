@@ -3,6 +3,7 @@ package dev.mvc.cosmetype;
 public class CosmetypeVO {
   private int cosmetypeno;
   private String cosmetypename;
+  private int seqno;
   
   
   public int getCosmetypeno() {
@@ -17,6 +18,13 @@ public class CosmetypeVO {
   public void setCosmetypename(String cosmetypename) {
     this.cosmetypename = cosmetypename;
   }
+  public int getSeqno() {
+    return seqno;
+  }
+  public void setSeqno(int seqno) {
+    this.seqno = seqno;
+  }
+  
   
   
 }

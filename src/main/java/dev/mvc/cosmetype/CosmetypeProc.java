@@ -42,4 +42,16 @@ public class CosmetypeProc implements CosmetypeProcInter{
     return cnt;
   }
 
+  @Override
+  public int update_seqno_decrease(int cosmetypeno) {
+    int cnt = this.cosmetypeDAO.update_seqno_decrease(cosmetypeno);
+    return cnt;
+  }
+
+  @Override
+  public int update_seqno_increase(int cosmetypeno) {
+    int cnt = this.cosmetypeDAO.update_seqno_increase(cosmetypeno);
+    return cnt;
+  }
+
 }
