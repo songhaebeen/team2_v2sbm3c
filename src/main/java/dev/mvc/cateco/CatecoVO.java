@@ -1,4 +1,4 @@
-package dev.mvc.cate;
+package dev.mvc.cateco;
 
 //CREATE TABLE cate(
 //    cateno                            NUMBER(10)     NOT NULL    PRIMARY KEY,
@@ -6,19 +6,20 @@ package dev.mvc.cate;
 //    cnt                               NUMBER(7)    DEFAULT 0     NOT NULL,
 //    rdate                             DATE     NOT NULL
 //);
-public class CateVO {
-  private int cateno;
+public class CatecoVO {
+  private int catecono;
   private String name;
   private int cnt;
   private String rdate;
   private int seqno;
   private String visible;
   
-  public int getCateno() {
-    return cateno;
+
+  public int getCatecono() {
+    return catecono;
   }
-  public void setCateno(int cateno) {
-    this.cateno = cateno;
+  public void setCatecono(int catecono) {
+    this.catecono = catecono;
   }
   public String getName() {
     return name;

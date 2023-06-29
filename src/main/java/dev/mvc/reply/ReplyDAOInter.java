@@ -3,6 +3,8 @@ package dev.mvc.reply;
 import java.util.List;
 import java.util.Map;
 
+import dev.mvc.fboard.FboardVO;
+
 public interface ReplyDAOInter {
   /**
    * 등록
@@ -12,7 +14,7 @@ public interface ReplyDAOInter {
   public int create(ReplyVO replyVO);
   
   /**
-   * 등록
+   * 목록
    * @param replyVO
    * @return
    */
@@ -47,6 +49,13 @@ public interface ReplyDAOInter {
   public int checkPasswd(Map<String, Object> map);
 
   /**
+   * 수정
+   * @param fboardVO
+   * @return 처리된 레코드 갯수
+   */
+  public int update(ReplyMemberVO replyMemberVO);
+  
+  /**
    * 삭제
    * @param replyVO
    * @return
@@ -59,5 +68,12 @@ public interface ReplyDAOInter {
    * @return
    */
   public List<ReplyMemberVO> list_by_fboardno_join_add(int fboardno);
+  
+  /**
+   * 최신 댓글 10건만 출력
+   * @param fboardno
+   * @return
+   */
+  public List<ReplyMemberVO> list_ten(int fboardno);
 
 }
