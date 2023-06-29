@@ -152,11 +152,6 @@ public class CosmeCont {
         
         cosmeVO.setAdminno(adminno);
         int cnt = this.cosmeProc.create(cosmeVO); 
-        
-        if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
-          String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
-          cosmeVO.setCosme_youtube(youtube);
-        }
 
         // ------------------------------------------------------------------------------
         // PK의 return
@@ -198,11 +193,9 @@ public class CosmeCont {
 	   
 	   String brand = cosmeVO.getBrand();
 	   String cosmename = cosmeVO.getCosmename();
-	   String cosme_youtube = cosmeVO.getCosme_youtube();
 	   
 	   cosmeVO.setBrand(brand);
 	   cosmeVO.setCosmename(cosmename);
-	   cosmeVO.setCosme_youtube(cosme_youtube);
 	   
 	   long size1 = cosmeVO.getSize1();
 	   cosmeVO.setSize1(size1);
@@ -256,7 +249,7 @@ public class CosmeCont {
     System.out.println("-> ingred_list: " + ingred_list.size());
     
     mav.addObject("cosme_cate_list", cosme_cate_list); // 모델에 카테고리 목록 추가
-    mav.addObject("coseme_type_list", coseme_type_list); // 모델에 화장품 타입 추가
+    mav.addObject("cosme_type_list", coseme_type_list); // 모델에 화장품 타입 추가
     mav.addObject("ingred_list", ingred_list); // 모델에 화장품 성분 추가
     
     CosmeVO cosmeVO = this.cosmeProc.cosme_read(cosmeno);
@@ -282,11 +275,6 @@ public class CosmeCont {
    @RequestMapping(value="/cosme/update.do", method=RequestMethod.POST)
    public ModelAndView update(CosmeVO cosmeVO, HttpServletRequest request, HttpSession session) {
      ModelAndView mav = new ModelAndView();
-     
-     if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
-       String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
-       cosmeVO.setCosme_youtube(youtube);
-     }
      
      if (this.adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
        // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
@@ -351,11 +339,6 @@ public class CosmeCont {
        System.out.println("-> session.getAttribute(\"adminno\"): " + session.getAttribute("adminno"));
        int adminno = (int)session.getAttribute("adminno"); // adminno FK
        cosmeVO.setAdminno(adminno);
-       
-       if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
-         String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
-         cosmeVO.setCosme_youtube(youtube);
-       }
        
        int cnt = this.cosmeProc.update_cosme(cosmeVO); 
 

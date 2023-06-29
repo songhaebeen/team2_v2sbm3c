@@ -62,7 +62,7 @@
     %>
       <TR class="th_bs">
         <TD class='td_bs'><%= cosmetypeVO.getCosmetypeno() %></TD>
-        <TD><%=cosmetypeVO.getCosmetypename() %></TD>
+        <TD><a href="/cosme/cosme_by_cate.do?cosme_cateno=<%=cosmetypeVO.getCosmetypeno() %>&now_page=1"><%=cosmetypeVO.getCosmetypename() %></a></TD>
         <TD>
           <A href="./read_update.do?cosmetypeno=<%=cosmetypeVO.getCosmetypeno() %>" title="수정"><IMG src="/cosme_cate/images/update.png" class="icon"></A>
           <A href="./read_delete.do?cosmetypeno=<%=cosmetypeVO.getCosmetypeno() %>" title="삭제"><IMG src="/cosme_cate/images/delete.png" class="icon"></A>

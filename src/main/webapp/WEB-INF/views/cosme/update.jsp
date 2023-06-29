@@ -9,8 +9,6 @@
 <c:set var="adminno" value="${cosmeVO.adminno }" />
 <c:set var="cosme_cateno" value="${cosmeVO.cosme_cateno }" />
 <c:set var="cosme_catename" value="${cosme_cateVO.cosme_catename }" />
-<c:set var="cosme_youtube" value="${cosmeVO.cosme_youtube }" />
-<c:set var="cosme_catename" value="${cosme_cateVO.cosme_catename }" />
 
  
 <!DOCTYPE html> 
@@ -47,11 +45,6 @@
        <label class="">브랜드</label>
        <input type='text' name='brand' value='${brand }' required="required" 
                  class="form-control" style='width: 100%;'>
-    </div>
-    <br>
-    <div>
-       <label class="">화장품 관련 유튜브 채널</label>
-          <textarea name='youtube' class='form-control' rows="10" style='width: 100%;'>${cosme_youtube }</textarea>
     </div>
     <br>
     <div>
@@ -93,13 +86,6 @@
        <input type='file' class="form-control" name='file1MF' id='file1MF' 
                  value='${file1MF }' placeholder="파일 선택">
     </div>   
-    
-    <HR>
-    <DIV style="text-align: center;">
-        <H5>[참고] Youtube의 등록 방법</H5>
-        <IMG src='/cosme/images/youtube01.jpg' style='width: 60%;'><br><br>
-        <H5>이후 해당 소스를 위의 화장품 유튜브 채널에 붙이세요.</H5>
-    </DIV>  
 
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-primary">수정</button>

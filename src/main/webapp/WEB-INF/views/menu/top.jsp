@@ -49,7 +49,7 @@ function recommend() {
                           <a class="dropdown-item" href="javascript: recommend();">화장품 추천</a>
                           <a class="dropdown-item" href="/cosme/create.do">화장품 등록</a>
                           <a class="dropdown-item" href="/cosme/cosme_by_cate.do">종류별 리스트</a>
-                          <a class="dropdown-item" href="#">타입별 리스트</a>
+                          <a class="dropdown-item" href="/cosme/list_by_typet.do">타입별 리스트</a>
                           <a class="dropdown-item" href="#">성분별 리스트</a>
                       </div>
                   </li>

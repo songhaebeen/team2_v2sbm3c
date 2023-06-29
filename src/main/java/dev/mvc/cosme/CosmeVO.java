@@ -27,8 +27,6 @@ public class CosmeVO{
     private String thumb1 = "";
     /** 화장품 사진 크기 */
     private long size1;
-    /** 화장품 유튜브 영상 */
-    private String cosme_youtube = "";
     
     public int getCosmeno() {
       return cosmeno;
@@ -108,14 +106,6 @@ public class CosmeVO{
 
     public void setSize1(long size1) {
       this.size1 = size1;
-    }
-
-    public String getCosme_youtube() {
-      return cosme_youtube;
-    }
-
-    public void setCosme_youtube(String cosme_youtube) {
-      this.cosme_youtube = cosme_youtube;
     }
 
     public MultipartFile getFile1MF() {
