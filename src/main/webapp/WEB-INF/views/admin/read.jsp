@@ -157,14 +157,14 @@
   </div>
   <!-- ******************** Modal 알림창 종료 ******************** -->
 
-  <DIV class='title_line'>회원 정보 조회 및 수정(*: 필수)</DIV>
+  <DIV class='title_line'>관리자 정보 조회 및 수정(*: 필수)</DIV>
 
   <DIV class='content_body'>
 
   <ASIDE class="aside_right">
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span> 
-    <A href='./create.do'>회원 가입</A>
+    <A href='./create.do'>관리자 가입</A>
     <span class='menu_divide' >│</span> 
     <A href='./list.do'>목록</A>
   </ASIDE> 
@@ -173,43 +173,61 @@
   
   <div style="width: 60%; margin: 0px auto ">
   <FORM name='frm' id='frm' method='POST' action='./update.do' class="">
-    <input type="hidden" name="memberno" value="${memberVO.memberno }">
+    <input type="hidden" name="adminno" value="${adminVO.adminno }">
     
     <div class="form-group"> <%-- 줄이 변경되지 않는 패턴 --%>
       <label>아이디*:
-        <input type='text' class="form-control form-control-sm" name='id' id='id' value='${memberVO.id }' required="required" placeholder="아이디*" autofocus="autofocus">
+        <input type='text' class="form-control form-control-sm" name='id' id='id' value='${adminVO.id }' required="required" placeholder="아이디*" autofocus="autofocus">
       </label>
       <button type='button' id="btn_checkID" onclick="checkID()" class="btn btn-info btn-sm">중복확인</button>
     </div>   
   
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
       <label>성명*:
-        <input type='text' class="form-control form-control-sm" name='mname' id='mname' value='${memberVO.mname }' required="required" placeholder="성명">
+        <input type='text' class="form-control form-control-sm" name='mname' id='mname' value='${adminVO.mname }' required="required" placeholder="성명">
       </label>
-    </div>   
+    </div>  
+    
+    <%
+      String departs = "생산부/영업부/전산부/총무부/인사부";
+      String[] departs_array = departs.split("/");
+    %>
+    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
+      <label>부서*:
+        <SELECT name="departs">
+              <%
+              for (int i=0; i < departs_array.length; i++) { // 0 ~ 4
+              %>
+                <OPTION value="<%=departs_array[i] %>"><%=departs_array[i] %></OPTION>
+              <%  
+              }
+              %>
+        </SELECT>
+      </label>
+    </div> 
 
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
       <label>전화 번호:
-        <input type='text' class="form-control form-control-sm" name='tel' id='tel' value='${memberVO.tel }' required="required" placeholder="전화번호">
+        <input type='text' class="form-control form-control-sm" name='tel' id='tel' value='${adminVO.tel }' required="required" placeholder="전화번호">
       </label>
       예) 010-0000-0000
     </div>   
 
     <div class="form-group"> <%-- 줄이 변경되지 않는 패턴 --%>
       <label>우편 번호:
-        <input type='text' class="form-control form-control-sm" name='zipcode' id='zipcode' value='${memberVO.zipcode }' placeholder="우편번호">
+        <input type='text' class="form-control form-control-sm" name='zipcode' id='zipcode' value='${adminVO.zipcode }' placeholder="우편번호">
       </label>
       <button type="button" id="btn_DaumPostcode" onclick="DaumPostcode()" class="btn btn-info btn-sm">우편번호 찾기</button>
     </div>  
 
     <div class="form-group">
       <label style="width: 100%;">주소:</label> <%-- label의 크기를 변경하여 주소를 많이 입력받는 패턴 --%>
-      <input type='text' class="form-control form-control-sm" name='address1' id='address1' value='${memberVO.address1 }' placeholder="주소">
+      <input type='text' class="form-control form-control-sm" name='address1' id='address1' value='${adminVO.address1 }' placeholder="주소">
     </div>   
 
     <div class="form-group">
       <label style="width: 100%;">상세 주소:</label>
-      <input type='text' class="form-control form-control-sm" name='address2' id='address2' value='${memberVO.address2 }' placeholder="상세 주소">
+      <input type='text' class="form-control form-control-sm" name='address2' id='address2' value='${adminVO.address2 }' placeholder="상세 주소">
     </div>   
 
     <div>

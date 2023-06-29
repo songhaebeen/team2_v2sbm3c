@@ -9,6 +9,7 @@ public class AdminVO {
   private String zipcode = "";
   private String address1 = "";
   private String address2 = "";
+  private String depart = "";
   private String mdate;
   private int grade;
   
@@ -90,6 +91,14 @@ public class AdminVO {
   public void setAddress2(String address2) {
     this.address2 = address2;
   }
+  public String getDepart() {
+    return depart;
+  }
+  public void setDepart(String depart) {
+    this.depart = depart;
+  }
+  
+  
   
   
   

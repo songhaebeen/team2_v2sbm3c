@@ -64,8 +64,6 @@
     FROM member
     WHERE id=#{id} AND passwd=#{passwd}
   </select>  
-  
-  
 
   
 </mapper> 

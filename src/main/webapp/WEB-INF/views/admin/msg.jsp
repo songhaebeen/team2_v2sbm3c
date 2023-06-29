@@ -68,7 +68,7 @@
           <LI class='li_none'>
             <button type='button' 
                          onclick="location.href='/admin/list.do'"
-                         class="btn btn-info btn-sm">회원 목록</button>
+                         class="btn btn-info btn-sm">관리자 목록</button>
           </LI>                                                                     
         </c:when>    
             

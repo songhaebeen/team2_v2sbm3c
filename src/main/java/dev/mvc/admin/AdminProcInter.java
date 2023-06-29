@@ -55,6 +55,21 @@ public interface AdminProcInter {
    */
   public ArrayList<AdminVO> list();
   
+  /**
+   * 관리자 수정처리
+   * @param adminVO
+   * @return
+   */
+  public int update(AdminVO adminVO);
+  
+  /**
+   * 관리자 삭제처리
+   * @param memberno
+   * @return
+   */
+  public int delete(int adminno);
+  
+  
 }
 
 

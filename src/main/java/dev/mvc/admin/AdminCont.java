@@ -324,11 +324,31 @@ public class AdminCont {
     return mav;
   }
   
-  // http://localhost:9091/admin/read.do?adminno=1
+  // http://localhost:9093/admin/read.do?adminno=1
   @RequestMapping(value = "/admin/read.do", method = RequestMethod.GET)
-  public String read(int adminno) {
-    System.out.println("-> mname: " + this.adminProc.read(adminno).getMname());
-    return "";
+  public ModelAndView read(HttpSession session, HttpServletRequest request){
+    ModelAndView mav = new ModelAndView();
+    
+    int adminno= 0;
+    if (this.adminProc.isAdmin(session)) { 
+      // 로그인한 경우
+
+      if (this.adminProc.isAdmin(session)) { // 관리자로 로그인
+        adminno = Integer.parseInt(request.getParameter("adminno")); // 관리자는 누구나 조회 가능
+        
+        AdminVO adminVO = this.adminProc.read(adminno);
+        mav.addObject("adminVO", adminVO);
+        mav.setViewName("/admin/read"); // /member/read.jsp
+        
+        
+      } 
+     
+    } else {
+      // 로그인을 하지 않은 경우
+      mav.setViewName("/admin/login_need"); // /webapp/WEB-INF/views/member/login_need.jsp
+    }
+    
+    return mav; // forward
   
   }
   
@@ -353,6 +373,84 @@ public class AdminCont {
          
      return mav;
    }  
+   
+
+   
+   /**
+    * 관리자 수정 처리
+    * @param adminVO
+    * @return
+    */
+   @RequestMapping(value="/admin/update.do", method=RequestMethod.POST)
+   public ModelAndView update(AdminVO adminVO){
+     ModelAndView mav = new ModelAndView();
+     
+     // System.out.println("id: " + memberVO.getId());
+     
+     int cnt= this.adminProc.update(adminVO);
+     
+     if (cnt == 1) {
+       mav.addObject("code", "update_success");
+       mav.addObject("mname", adminVO.getMname());  // 홍길동님(user4) 회원 정보를 변경했습니다.
+       mav.addObject("id", adminVO.getId());
+     } else {
+       mav.addObject("code", "update_fail");
+     }
+
+     mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+     mav.addObject("url", "/admin/msg");  // /member/msg -> /member/msg.jsp
+     
+     mav.setViewName("redirect:/admin/msg.do");
+     
+     return mav;
+   }
+   
+   /**
+    * 회원 삭제
+    * @param adminno
+    * @return
+    */
+   @RequestMapping(value="/admin/delete.do", method=RequestMethod.GET)
+   public ModelAndView delete(int adminno){
+     ModelAndView mav = new ModelAndView();
+     
+     AdminVO adminVO = this.adminProc.read(adminno); // 삭제할 레코드를 사용자에게 출력하기위해 읽음.
+     mav.addObject("adminVO", adminVO);
+     mav.setViewName("/admin/delete"); // /admin/delete.jsp
+     
+     return mav; // forward
+   }
+   
+   /**
+    * 회원 삭제 처리
+    * @param adminVO
+    * @return
+    */
+   @RequestMapping(value="/admin/delete.do", method=RequestMethod.POST)
+   public ModelAndView delete_proc(int adminno){
+     ModelAndView mav = new ModelAndView();
+     
+     // System.out.println("id: " + memberVO.getId());
+     // 삭제된 정보를 msg.jsp에 출력하기 위해, 삭제전에 회원 정보를 읽음.
+     AdminVO adminVO = this.adminProc.read(adminno); 
+     
+     int cnt= this.adminProc.delete(adminno);
+
+     if (cnt == 1) {
+       mav.addObject("code", "delete_success");
+       mav.addObject("mname", adminVO.getMname());  // 홍길동님(user4) 회원 정보를 변경했습니다.
+       mav.addObject("id", adminVO.getId());
+     } else {
+       mav.addObject("code", "delete_fail");
+     }
+
+     mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+     mav.addObject("url", "/admin/msg");  // /member/msg -> /member/msg.jsp
+     
+     mav.setViewName("redirect:/admin/msg.do");
+     
+     return mav;
+   }
   
 }
 

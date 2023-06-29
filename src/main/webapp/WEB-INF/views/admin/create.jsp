@@ -178,7 +178,7 @@
   <ASIDE class="aside_right">
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span> 
-    <A href='./create.do'>회원 가입</A>
+    <A href='./create.do'>관리자 가입</A>
     <span class='menu_divide' >│</span> 
     <A href='./list.do'>목록</A>
   </ASIDE> 
@@ -212,6 +212,18 @@
         <input type='text' class="form-control form-control-sm" name='mname' id='mname' value='하정우' required="required" placeholder="성명">
       </label>
     </div>   
+    
+    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
+      <label>부서*:
+          <select name="dpart">
+          <option value="생산부">생산부</option>
+          <option value="영업부">영업부</option>
+          <option value="전산부" selected="selected">전산부</option>
+          <option value="총무부">총무부</option>
+          <option value="인사부">인사부</option>
+        </select>
+      </label>
+    </div>
 
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
       <label>전화 번호:

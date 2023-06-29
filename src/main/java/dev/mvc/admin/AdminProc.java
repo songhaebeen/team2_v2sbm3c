@@ -67,6 +67,18 @@ public class AdminProc implements AdminProcInter {
     return list;
   }
   
+  @Override
+  public int update(AdminVO adminVO) {
+    int cnt = this.adminDAO.update(adminVO);
+    return cnt;
+  }
+  
+  @Override
+  public int delete(int adminno) {
+    int cnt = this.adminDAO.delete(adminno);
+    return cnt;
+  }
+  
   
   
 }

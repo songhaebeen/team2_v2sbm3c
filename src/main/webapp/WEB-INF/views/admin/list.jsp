@@ -48,7 +48,8 @@
     <colgroup>
       <col style='width: 5%;'/>
       <col style='width: 10%;'/>
-      <col style='width: 15%;'/>
+      <col style='width: 10%;'/>
+      <col style='width: 10%;'/>
       <col style='width: 15%;'/>
       <col style='width: 30%;'/>
       <col style='width: 15%;'/>
@@ -58,6 +59,7 @@
       <TH class='th_bs'>등급 </TH>
       <TH class='th_bs'>ID</TH>
       <TH class='th_bs'>성명</TH>
+      <TH class='th_bs'>부서</TH>
       <TH class='th_bs'>전화번호</TH>
       <TH class='th_bs'>주소</TH>
       <TH class='th_bs'>등록일</TH>
@@ -69,6 +71,7 @@
       <c:set var="grade" value ="${adminVO.grade}" />
       <c:set var="id" value ="${adminVO.id}" />
       <c:set var="mname" value ="${adminVO.mname}" />
+      <c:set var="depart" value ="${adminVO.depart}" />
       <c:set var="tel" value ="${adminVO.tel}" />
       <c:set var="address1" value ="${adminVO.address1}" />
       <c:set var="mdate" value ="${adminVO.mdate}" />
@@ -84,6 +87,7 @@
       </TD>
       <TD class='td_left'><A href="./read.do?adminno=${adminno}">${id}</A></TD>
       <TD class='td_left'><A href="./read.do?adminno=${adminno}">${mname}</A></TD>
+      <TD class='td_left'><A href="./read.do?adminno=${adminno}">${depart}</A></TD>
       <TD class='td_basic'>${tel}</TD>
       <TD class='td_left'>
         <c:choose>
