@@ -1,6 +1,23 @@
 package dev.mvc.admin;
 
+import java.util.ArrayList;
+
 public interface AdminDAOInter {
+  
+  /**
+   * 중복 아이디 검사
+   * @param id
+   * @return 중복 아이디 갯수
+   */
+  public int checkID(String id);
+  
+  /**
+   * 관리자 가입
+   * @param adminVO
+   * @return
+   */
+  public int create(AdminVO adminVO);
+  
   /**
    * 로그인
    * @param AdminVO
@@ -22,6 +39,12 @@ public interface AdminDAOInter {
    * @return
    */
   public AdminVO read(int adminno);
+  
+  /**
+   * 관리자 목록
+   * @return
+   */
+  public ArrayList<AdminVO> list();
   
 }
 

@@ -6,19 +6,20 @@
 <mapper namespace="dev.mvc.ingred.IngredDAOInter">
   <!-- 등록 -->
   <insert id="create"  parameterType="dev.mvc.ingred.IngredVO">
-	   insert into ingred (ingredno, ingredname, ingredeffect)
-     values(ingred_seq.nextval, #{ingredname} , #{ingredeffect})
+	   insert into ingred (ingredno, ingredname, ingredeffect, seqno)
+     values(ingred_seq.nextval, #{ingredname} , #{ingredeffect}, #{seqno})
   </insert>
 
   <!-- 목록 -->
   <select id="list_all" resultType="dev.mvc.ingred.IngredVO">
-    select ingredno, ingredname, ingredeffect
-    from ingred
+    SELECT ingredno, ingredname, ingredeffect, seqno
+    FROM ingred
+    ORDER BY seqno ASC
   </select>
 
  <!-- 조회 --> 
  <select id = "read" resultType = "dev.mvc.ingred.IngredVO" parameterType = "int">
-  SELECT ingredno, ingredname, ingredeffect
+  SELECT ingredno, ingredname, ingredeffect, seqno
   FROM ingred
   WHERE ingredno=#{ingredno}
  </select>
@@ -35,4 +36,18 @@
     DELETE FROM ingred 
     WHERE ingredno=#{ingredno}
   </delete>
+  
+  <!-- 출력 순서 올림 -->
+ <update id="update_seqno_decrease" parameterType="int">
+  UPDATE ingred
+  SET seqno = seqno - 1
+  WHERE ingredno = #{ingredno}
+ </update>
+ 
+ <!-- 출력 순서 내림 -->
+ <update id="update_seqno_increase" parameterType="int">
+  UPDATE ingred
+  SET seqno = seqno + 1
+  WHERE ingredno = #{ingredno}
+ </update>
 </mapper>

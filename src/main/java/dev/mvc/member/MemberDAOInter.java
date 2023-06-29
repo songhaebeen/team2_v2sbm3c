@@ -81,12 +81,7 @@ public interface MemberDAOInter {
    */
   public int login(HashMap<String, Object> map);
   
-  /**
-   * 회원 탈퇴
-   * @param map
-   * @return
-   */
-  public int delete_user(int memberno);
+
   
 }
  

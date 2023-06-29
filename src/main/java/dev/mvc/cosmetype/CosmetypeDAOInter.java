@@ -39,4 +39,18 @@ public interface CosmetypeDAOInter {
    * @return 삭제된 레코드 갯수를 리턴
    */
   public int delete(int cosmetypeno);
+  
+  /**
+   * 출력 순서 상향
+   * @param cosmetypeno
+   * @return
+   */
+  public int update_seqno_decrease(int cosmetypeno);
+  
+  /**
+   * 출력 순서 하향
+   * @param cosmetypeno
+   * @return
+   */
+  public int update_seqno_increase(int cosmetypeno);
 }
