@@ -59,29 +59,30 @@ public class ReplyCont {
 
   }
   
-  /**
-   * 댓글 전체 목록(관리자)
-   * @param session
-   * @return
-   */
-  @RequestMapping(value="/reply/list.do", method=RequestMethod.GET)
-  public ModelAndView list(HttpSession session) {
-    ModelAndView mav = new ModelAndView();
-    
-    if (adminProc.isAdmin(session)) {
-      List<ReplyVO> list = replyProc.list();
-      
-      mav.addObject("list", list);
-      mav.setViewName("/reply/list"); // /webapp/reply/list.jsp
-
-    } else {
-      mav.addObject("return_url", "/reply/list.do"); // 로그인 후 이동할 주소 ★
-      
-      mav.setViewName("redirect:/member/login.do"); // /WEB-INF/views/member/login_ck_form.jsp
-    }
-    
-    return mav;
-  }
+//  /**
+//   * 댓글 전체 목록(관리자)
+//   * http://localhost:9093/reply/list.do
+//   * @param session
+//   * @return
+//   */
+//  @RequestMapping(value="/reply/list.do", method=RequestMethod.GET)
+//  public ModelAndView list(HttpSession session) {
+//    ModelAndView mav = new ModelAndView();
+//    
+//    if (adminProc.isAdmin(session)) {
+//      List<ReplyVO> list = replyProc.list();
+//      
+//      mav.addObject("list", list);
+//      mav.setViewName("/reply/list"); // /webapp/reply/list.jsp
+//
+//    } else {
+//      mav.addObject("return_url", "/reply/list.do"); // 로그인 후 이동할 주소 ★
+//      
+//      mav.setViewName("redirect:/member/login.do"); // /WEB-INF/views/member/login_ck_form.jsp
+//    }
+//    
+//    return mav;
+//  }
 
   /**
    <xmp>
@@ -97,30 +98,31 @@ public class ReplyCont {
             ] 
    }
    </xmp>  
-   * @param fboardno
-   * @return
-   */
-  @ResponseBody
-  @RequestMapping(value = "/reply/list_by_fboardno.do",
-                            method = RequestMethod.GET,
-                            produces = "text/plain;charset=UTF-8")
-  public String list_by_fboardno(int fboardno) {
-    List<ReplyVO> list = replyProc.list_by_fboardno(fboardno);
-    
-    JSONObject obj = new JSONObject();
-    obj.put("list", list);
- 
-    return obj.toString(); 
-
-  }
+//   * @param fboardno
+//   * @return
+//   */
+//  @ResponseBody
+//  @RequestMapping(value = "/reply/list_by_fboardno.do",
+//                            method = RequestMethod.GET,
+//                            produces = "text/plain;charset=UTF-8")
+//  public String list_by_fboardno(int fboardno) {
+//    List<ReplyVO> list = replyProc.list_by_fboardno(fboardno);
+//    
+//    JSONObject obj = new JSONObject();
+//    obj.put("list", list);
+// 
+//    return obj.toString(); 
+//
+//  }
   
   /**
    * 관리자만 목록 확인 가능
+   * http://localhost:9093/reply/list_join.do
    * @param session
    * @return
    */
   @RequestMapping(value="/reply/list_join.do", method=RequestMethod.GET)
-  public ModelAndView list_join(HttpSession session) {
+  public ModelAndView list_member_join(HttpSession session) {
     ModelAndView mav = new ModelAndView();
     
     if ( adminProc.isAdmin(session)) {
@@ -158,7 +160,7 @@ public class ReplyCont {
        "fboardno":1}
     ]
 }
-   * http://localhost:9093/reply/list_by_fboardno_join.do?fboardno=1
+   * http://localhost:9093/reply/list_by_fboardno_join.do?fboardno=2
    * @param fboardno
    * @return
    */
@@ -210,6 +212,55 @@ public class ReplyCont {
   }
   
   /**
+   * 패스워드를 검사한 후 수정 
+   * http://localhost:9093/reply/update.do?replyno=1&passwd=1234
+   * {"delete_cnt":0,"passwd_cnt":0}
+   * {"delete_cnt":1,"passwd_cnt":1}
+   * @param replyno
+   * @param passwd
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/reply/update.do", 
+                              method = RequestMethod.POST,
+                              produces = "text/plain;charset=UTF-8")
+  public String update(ReplyMemberVO replyMemberVO, String passwd) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("replyMemberVO", replyMemberVO);
+    map.put("passwd", passwd);
+    
+    int passwd_cnt = replyProc.checkPasswd(map); // 패스워드 일치 여부, 1: 일치, 0: 불일치
+    int update_cnt = 0;                                    // 수정된 댓글
+    if (passwd_cnt == 1) { // 패스워드가 일치할 경우
+      update_cnt = replyProc.update(replyMemberVO); // 댓글 수정
+    }
+    
+    JSONObject obj = new JSONObject();
+    obj.put("passwd_cnt", passwd_cnt); // 패스워드 일치 여부, 1: 일치, 0: 불일치
+    obj.put("update_cnt", update_cnt); // 수정된 댓글
+    
+    return obj.toString();
+  }
+  
+//  /**
+//   * 삭제 폼
+//   * @param replyno
+//   * @return
+//   */
+//  @RequestMapping(value="/reply/delete.do", method=RequestMethod.GET )
+//  public ModelAndView delete(int replyno) { 
+//    ModelAndView mav = new  ModelAndView();
+//    
+//    // 삭제할 정보를 조회하여 확인
+//    ReplyVO replyVO = this.replyProc.list(replyno);
+//    mav.addObject("replyVO", replyVO);
+//    
+//    mav.setViewName("/reply/delete");  // /webapp/WEB-INF/views/reply/delete.jsp
+//    
+//    return mav; 
+//  }
+  
+  /**
    * {"list":[
           {"memberno":1,
         "rdate":"2019-12-18 16:46:35",
@@ -229,27 +280,46 @@ public class ReplyCont {
     ]
   }
 
-   * http://localhost:9093/reply/list_by_fboardno_join_add.do?fboardno=1
+//   * http://localhost:9093/reply/list_by_fboardno_join_add.do?fboardno=1
+//   * @param fboardno
+//   * @return
+//   */
+//  @ResponseBody
+//  @RequestMapping(value = "/reply/list_by_fboardno_join_add.do",
+//                              method = RequestMethod.GET,
+//                              produces = "text/plain;charset=UTF-8")
+//  public String list_by_fboardno_join_add(int fboardno) {
+//    // String msg="JSON 출력";
+//    // return msg;
+//    
+//    List<ReplyMemberVO> list = replyProc.list_by_fboardno_join_add(fboardno);
+//    
+//	//fboardProc.increaseReplycnt(fboardno);
+//	//fboardProc.decreaseReplycnt(fboardno);
+//    
+//    JSONObject obj = new JSONObject();
+//    obj.put("list", list);
+// 
+//    return obj.toString(); 
+//  }
+  
+  /**
+   * 10건 출력
+  * http://localhost:9093/reply/list_ten.do?fboardno=2
    * @param fboardno
    * @return
    */
-  @ResponseBody
-  @RequestMapping(value = "/reply/list_by_fboardno_join_add.do",
-                              method = RequestMethod.GET,
-                              produces = "text/plain;charset=UTF-8")
-  public String list_by_fboardno_join_add(int fboardno) {
-    // String msg="JSON 출력";
-    // return msg;
+  @RequestMapping(value="/reply/list_ten.do", method=RequestMethod.GET)
+  public ModelAndView list_ten(int fboardno) {
+    ModelAndView mav = new ModelAndView();
+    List<ReplyMemberVO> list = replyProc.list_ten(fboardno);
     
-    List<ReplyMemberVO> list = replyProc.list_by_fboardno_join_add(fboardno);
+    mav.addObject("list", list);
     
-	fboardProc.increaseReplycnt(fboardno);
-	fboardProc.decreaseReplycnt(fboardno);
+    mav.setViewName("/reply/list_ten"); // /webapp/reply/list_ten.jsp
     
-    JSONObject obj = new JSONObject();
-    obj.put("list", list);
- 
-    return obj.toString();     
+    return mav;
   }
+  
   
 }

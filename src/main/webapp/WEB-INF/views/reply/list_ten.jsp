@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>전체 댓글 목록</title>
+<title>최신 댓글 목록</title>
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
  
@@ -16,15 +16,17 @@
  
 <body>
 <c:import url="/menu/top.do" />
-  <DIV class="title_line">
-    등록된 모든 댓글
+   <DIV class="title_line">
+    해당 글의 최신 댓글 10개만 출력
   </DIV>
-  <ASIDE class='aside_right'> 
-      <A href="javascript:location.reload();">새로고침</A>
-          <span class='menu_divide' >│</span> 
-     <A href="javascript:history.back();">돌아가기</A>
+    <ASIDE class='aside_right'> 
+    <c:if test="${sessionScope.admin_id != null }">
+    <A href="./list_join.do">모든 댓글</A>
+    <span class='menu_divide' >│</span>  
+    </c:if>
+    <A href="javascript:history.back();">돌아가기</A>
   </ASIDE>
-   
+  
   <div class='menu_line'></div>
   
   <div style='width: 100%;'>
@@ -69,11 +71,11 @@
               <A href='../fboard/read.do?fboardno=${fboardno }'>${fboardno}</A>
             </td>
             <td style='text-align: center; vertical-align: middle;'>
-              <A href='../member/read.do?memberno=${memberno }'>${id}</A>
+              <%--<A href='../member/read.do?memberno=${memberno }'>--%><span> ${id.substring(0, 5)} + </span></A>
             </td>
             <td style='text-align: left; vertical-align: middle;'>${content}</td>
             <td style='text-align: center; vertical-align: middle;'>
-              ${rdate.substring(0, 10)}
+              ${rdate.substring(0,10)}
             </td>
             <td style='text-align: center; vertical-align: middle;'>
               <a href="./delete.do?replyno=${replyno}"><img src="/reply/images/delete.png" title="삭제"  border='0' /></a>
@@ -86,7 +88,7 @@
     <br><br>
   </div>
  
-<jsp:include page="../menu/bottom.jsp" flush='false' />
+<jsp:include page="../menu/bottom.jsp" />
 </body>
  
 </html>

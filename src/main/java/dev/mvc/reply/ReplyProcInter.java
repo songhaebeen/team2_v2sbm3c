@@ -12,14 +12,14 @@ public interface ReplyProcInter {
   public int create(ReplyVO replyVO);
   
   /**
-   * 등록
+   * 목록
    * @param replyVO
    * @return
    */
   public List<ReplyVO> list();
   
   /**
-   * 목록
+   * 자유게시판 목록
    * @param replyVO
    * @return
    */
@@ -45,6 +45,13 @@ public interface ReplyProcInter {
    * @return
    */
   public int checkPasswd(Map<String, Object> map);
+  
+  /**
+   * 수정
+   * @param fboardVO
+   * @return 처리된 레코드 갯수
+   */
+  public int update(ReplyMemberVO replyMemberVO);
 
   /**
    * 삭제
@@ -59,4 +66,12 @@ public interface ReplyProcInter {
    * @return
    */
   public List<ReplyMemberVO> list_by_fboardno_join_add(int fboardno);
+  
+  /**
+   * 최신 댓글 10건만 출력
+   * @param fboardno
+   * @return
+   */
+  public List<ReplyMemberVO> list_ten(int fboardno);
+  
 }

@@ -79,6 +79,7 @@ public List<ReplyMemberVO> list_member_join() {
     return list;
 	}
 
+//목록
 @Override
 public List<ReplyMemberVO> list_by_fboardno_join_add(int fboardno) {
   List<ReplyMemberVO> list = replyDAO.list_by_fboardno_join_add(fboardno);
@@ -92,5 +93,28 @@ public List<ReplyMemberVO> list_by_fboardno_join_add(int fboardno) {
   }
   return list;
 }
+
+//10건만 출력
+@Override
+public List<ReplyMemberVO> list_ten(int fboardno) {
+  List<ReplyMemberVO> list = replyDAO.list_ten(fboardno);
+  String content = "";
+  
+  // 특수 문자 변경
+  for (ReplyMemberVO replyMemberVO:list) {
+    content = replyMemberVO.getContent();
+    content = Tool.convertChar(content);
+    replyMemberVO.setContent(content);
+  }
+  return list;
+}
+
+@Override
+public int update(ReplyMemberVO replyMemberVO) {
+  int cnt = this.replyDAO.update(replyMemberVO);
+  return cnt;
+}
+
+
    
 }
