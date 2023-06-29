@@ -7,7 +7,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, width=device-width" /> 
-<title>Resort world</title>
+<title>Team2</title>
 
 <link href="/css/style.css" rel="Stylesheet" type="text/css">  <!-- /static -->
 

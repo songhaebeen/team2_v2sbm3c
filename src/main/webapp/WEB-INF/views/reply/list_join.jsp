@@ -20,9 +20,9 @@
     등록된 모든 댓글
   </DIV>
   <ASIDE class='aside_right'> 
-    <A href='./list.do'>모든 댓글</A>
-    <span class='menu_divide' >│</span> 
-    <A href="javascript:location.reload();">새로고침</A>
+      <A href="javascript:location.reload();">새로고침</A>
+          <span class='menu_divide' >│</span> 
+     <A href="javascript:history.back();">돌아가기</A>
   </ASIDE>
    
   <div class='menu_line'></div>

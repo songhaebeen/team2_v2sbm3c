@@ -12,72 +12,100 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>타입별 추천</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <script>
-    var listVisible = false;
-      var buttonArray = [];
-      function buttonchange(button) {
-        var color = button.style.color;
+<script>
+    function sendTypevalue(button) {
+        var divElement = document.getElementById("buttondiv");
         var value = button.value;
-        if(color =="lightgray"){
-          button.style.color = "black";
-        }else{
-          button.style.color = "lightgray";
-        }
-        getAllButtonsInDiv()
-      }
-      
-      function getAllButtonsInDiv() {
-          var divElement = document.getElementById("buttondiv"); // 해당 div의 id를 사용하여 요소 선택
-          var list  = [];
-          if (divElement) {
+        if (divElement) {
             var buttons = divElement.getElementsByTagName("button"); // div 안의 모든 button 요소 가져오기
             for (var i = 0; i < buttons.length; i++) {
-              if(buttons[i].style.color == "black"){
-                  list.push(buttons[i].value)
-      
-              }
-            }
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/cosme/list_by_type.do", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onreadystatechange = function () {
-              if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log("전송 성공");
-                var response = xhr.responseText; // 처리된 결과 문자열을 받음
-                var div = document.getElementById("grid");
-                div.innerHTML = response;
-              }else{
-                  console.log("전송 실패");
-                  } 
-            };
-            xhr.send(JSON.stringify({ list: list }));
-          } else {
-            console.log("해당 div 요소를 찾을 수 없습니다.");
-          }
-        }
+                if (buttons[i] == button) {
+                    console.log(value);
+                    buttons[i].style.color = "black";
+                    buttons[i].disabled = true;
+                } else {
+                    buttons[i].style.color = "lightgray";
+                    buttons[i].disabled = false;
+                }
 
-      </script>
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/cosme/cosme_type_list.do", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log("전송 성공");
+                        var response = xhr.responseText; // 처리된 결과 문자열을 받음
+                        var div = document.getElementById("grid");
+                        div.innerHTML = response;
+                    } else {
+                        console.log("전송 실패");
+                    }
+                };
+            }
+                xhr.send(JSON.stringify({ value: value }));
+        }
+    }
+</script>
 </head>
 <style>
 </style>
 <body>
   <c:import url="/menu/top.do" />
+
 <div id="buttondiv">
-		<c:forEach items="${type_list}" var="type_list">
-		<button class="btn_type" onclick="buttonchange(this)" value="${type_list.cosmetypeno}" style="color: lightgray;">${type_list.cosmetypename}</button>
-		</c:forEach>
+        <c:forEach items="${list}" var="list">
+        <button class="btn_type" onclick="sendTypevalue(this)" value="${list.cosmetypeno}" style="color: lightgray;">${list.cosmetypename}</button>
+        </c:forEach>
   <!--라디오 버튼 (인기순 등)-->
 </div>
-<!-- sdf -->
-<div id="grid">
 
+
+<!-- sdf -->
+<div>
+  <div id="grid" class="product-grid">
+    <div class="product-item">
+      <img class="img-90" src="/images/logo2.gif" alt="상품 1 이미지">
+      <h3>상품 1</h3>
+      <p>상품 1 설명</p>
+    </div>
+    <div class="product-item">
+      <img class="img-90" src="/images/logo2.gif" alt="상품 2 이미지">
+      <h3>상품 2</h3>
+      <p>상품 2 설명</p>
+    </div>
+    <div class="product-item">
+      <img class="img-90" src="/images/logo2.gif" alt="상품 3 이미지">
+      <h3>상품 3</h3>
+      <p>상품 3 설명</p>
+    </div>
+    <div class="product-item">
+      <img class="img-90" src="/images/logo2.gif" alt="상품 3 이미지">
+      <h3>상품 3</h3>
+      <p>상품 3 설명</p>
+    </div>
+    <div class="product-item">
+      <img class="img-90" src="/images/logo2.gif" alt="상품 3 이미지">
+      <h3>상품 3</h3>
+      <p>상품 3 설명</p>
+    </div>
+    <div class="product-item">
+      <img class="img-90" src="/images/logo2.gif" alt="상품 3 이미지">
+      <h3>상품 3</h3>
+      <p>상품 3 설명</p>
+    </div>
+    <div class="product-item">
+      <img class="img-90" src="/images/logo2.gif" alt="상품 4이미지">
+      <h3>상품 4</h3>
+      <p>상품 4 설명</p>
+    </div>
+</div>
 </div>
 <Br>
 <Br>
 <Br>
-  <jsp:include page="../menu/bottom.jsp" flush='false' />
+    <jsp:include page="../menu/bottom.jsp" flush='false' />s
 
 </body>
 </html>

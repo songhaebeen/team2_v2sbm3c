@@ -46,4 +46,16 @@ public class IngredProc implements IngredProcInter {
     return cnt;
   }
 
+  @Override
+  public int update_seqno_decrease(int ingredno) {
+    int cnt = this.ingredDAO.update_seqno_decrease(ingredno);
+    return cnt;
+  }
+
+  @Override
+  public int update_seqno_increase(int ingredno) {
+    int cnt = this.ingredDAO.update_seqno_increase(ingredno);
+    return cnt;
+  }
+
 }

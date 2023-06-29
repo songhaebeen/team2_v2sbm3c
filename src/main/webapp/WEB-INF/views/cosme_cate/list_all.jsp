@@ -64,7 +64,7 @@
     %>
       <TR class="th_bs">
         <TD class='td_bs'><%= cosme_cateVO.getSeqno() %></TD>
-        <TD><%=cosme_cateVO.getCosme_catename() %></TD>
+        <TD><a href="/cosme/cosme_by_cate.do?cosme_cateno=<%=cosme_cateVO.getCosme_cateno() %>&now_page=1"><%=cosme_cateVO.getCosme_catename() %></a></TD>
         <TD class='td_bs'><%=cosme_cateVO.getCnt() %></TD>
         <TD class='td_bs'><%=cosme_cateVO.getRdate().substring(0, 10) %></TD>
         <TD>

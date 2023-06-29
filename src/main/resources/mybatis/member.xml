@@ -64,12 +64,7 @@
     FROM member
     WHERE id=#{id} AND passwd=#{passwd}
   </select>  
-  
-  <!-- 회원 탈퇴 -->
-  <delete id = "delete_user" parameterType="int">
-  UPDATE member
-  WHERE id = #{id} AND passwd=#{passwd}
-  </delete>
+
   
 </mapper> 
 

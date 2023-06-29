@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dev.mvc.cateco.CatecoDAOInter">
+  <!-- 등록: 추가한 레코드 갯수를 리턴 -->
+  <insert id="create" parameterType="dev.mvc.cateco.CatecoVO">
+    INSERT INTO cateco(catecono, name, cnt, rdate, seqno) 
+    VALUES(cateco_seq.nextval, #{name}, 0, sysdate, #{seqno})
+  </insert>
+  
+<!-- 목록 -->
+
+
+
+          
+</mapper>
+
+
+
+
+
+

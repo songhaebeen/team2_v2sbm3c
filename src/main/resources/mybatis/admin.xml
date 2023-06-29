@@ -3,6 +3,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="dev.mvc.admin.AdminDAOInter">
+
+
+  <select id="checkID" resultType="int" parameterType="String">
+    SELECT COUNT(id) as cnt
+    FROM admin
+    WHERE id=#{id}
+  </select>
+
+   <!-- 관리자 가입 -->
+   <insert id="create" parameterType="dev.mvc.admin.AdminVO">
+    INSERT INTO admin(adminno, id, passwd, mname, tel, zipcode, address1, address2, depart, mdate, grade)
+    VALUES(admin_seq.nextval, #{id}, #{passwd}, #{mname},#{tel}, #{zipcode}, #{address1}, #{address2},#{depart}, sysdate, #{grade})
+  </insert>
+  
+ 
   <!-- 로그인 -->
   <select id="login" resultType="int" parameterType="dev.mvc.admin.AdminVO">
     SELECT COUNT(*) as cnt
@@ -12,17 +27,53 @@
   
   <!-- 회원 정보 -->
   <select id="read_by_id" resultType="dev.mvc.admin.AdminVO" parameterType ="String" >
-    SELECT adminno, id, passwd, mname, mdate, grade 
+    SELECT adminno, id, passwd, mname, tel, zipcode, address1, address2, depart, mdate, grade 
     FROM admin
     WHERE id=#{id}
   </select>
 
   <!-- adminno를 통한 회원 정보 -->
   <select id="read" resultType="dev.mvc.admin.AdminVO" parameterType ="int" >
-    SELECT adminno, id, passwd, mname, mdate, grade 
+    SELECT adminno, id, passwd, mname, tel, zipcode, address1, address2, depart, mdate, grade 
     FROM admin
     WHERE adminno=#{adminno}
   </select>
+  
+  <!-- 관리자 목록 -->
+  <select id="list" resultType="dev.mvc.admin.AdminVO">
+    SELECT adminno, id, passwd, mname, tel, zipcode, address1, address2, depart, mdate, grade
+    FROM admin
+    ORDER BY adminno DESC
+  </select>
+  
+  <!-- 관리자 수정 -->
+  <update id="update" parameterType="dev.mvc.admin.AdminVO">
+    UPDATE admin 
+    SET id=#{id}, mname=#{mname}, tel=#{tel}, zipcode=#{zipcode}, address1=#{address1}, address2=#{address2}, depart=#{depart}
+    WHERE adminno=#{adminno}
+  </update>
+  
+  <!-- 관리자 삭제 -->
+   <delete id="delete" parameterType="int">
+    DELETE FROM admin
+    WHERE adminno=#{adminno}
+  </delete>
+  
+  <!--  관리자 패스워드 검사 -->
+  <select id="passwd_check" parameterType="HashMap" resultType="int">
+    SELECT COUNT(adminno) as cnt
+    FROM admin
+    WHERE adminno=#{adminno} AND passwd=#{passwd}
+  </select>
+  
+  <!-- 관리자 변경 -->
+  <update id="passwd_update" parameterType="HashMap">
+    UPDATE admin
+    SET passwd=#{passwd}
+    WHERE adminno=#{adminno}
+  </update>
+  
+
   
 </mapper>
 

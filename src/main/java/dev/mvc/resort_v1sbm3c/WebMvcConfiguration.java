@@ -4,11 +4,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import dev.mvc.contents.Contents;
 import dev.mvc.cosme.Cosme;
 import dev.mvc.fboard.Fboard;
 import dev.mvc.notice.Notice;
-import dev.mvc.tool.Tool;
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer{

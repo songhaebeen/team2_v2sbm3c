@@ -6,7 +6,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, width=device-width" /> 
-<title>Resort world</title>
+<title>Team2</title>
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
  
@@ -19,14 +19,14 @@
 <c:import url="/menu/top.do" />
  
   <DIV class='title_line'>
-    회원 탈퇴
+    관리자 삭제
   </DIV>
 
   <DIV class='content_body'>
     <ASIDE class="aside_right">
       <A href="javascript:location.reload();">새로고침</A>
       <span class='menu_divide' >│</span> 
-      <A href='./create.do'>회원 가입</A>
+      <A href='./create.do'>관리자 가입</A>
       <span class='menu_divide' >│</span> 
       <A href='./list.do'>목록</A>
     </ASIDE> 
@@ -35,10 +35,10 @@
    
    
     <DIV class='message'>
-      <FORM name='frm' method='POST' action='./delete_user.do'>
-        '${memberVO.mname }(${memberVO.id })' 회원을 삭제하면 복구 할 수 없습니다.<br><br>
+      <FORM name='frm' method='POST' action='./delete.do'>
+        '${adminVO.mname }(${adminVO.id })' 관리자를 삭제하면 복구 할 수 없습니다.<br><br>
         정말로 삭제하시겠습니까?<br><br>         
-        <input type='hidden' name='memberno' value='${memberVO.memberno}'>     
+        <input type='hidden' name='adminno' value='${adminVO.adminno}'>     
             
         <button type="submit" class="btn btn-info btn-sm">삭제</button>
         <button type="button" onclick="location.href='./list.do'" class="btn btn-info btn-sm">취소(목록)</button>
