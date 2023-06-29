@@ -7,12 +7,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.admin.AdminProcInter;
+import dev.mvc.cosmetype.CosmetypeVO;
 
 @Controller
 public class IngredCont {
@@ -227,4 +229,53 @@ public ModelAndView create(HttpSession session) {
    return mav;
  }
  
+ @RequestMapping(value="/ingred/update_seqno_decrease.do", method = RequestMethod.GET)
+ public ModelAndView update_seqno_decrease(int ingredno) {
+ ModelAndView mav = new ModelAndView();
+ 
+ // seqno 컬럼의 값이== 1 초과(1<)일때만 감소를 할 수 있다.
+ IngredVO ingredVo = this.ingredProc.read(ingredno);
+ int seqno = ingredVo.getSeqno();
+
+ // 2) if 문을 이용한 분기
+ if (seqno > 1) {
+   int cnt = this.ingredProc.update_seqno_decrease(ingredno); 
+   mav.addObject("cnt", cnt);
+   
+   if (cnt == 1) {
+     mav.setViewName("redirect:/ingred/list_all.do");
+
+   } else {
+     mav.addObject("code", "update_seqno_decrease_fail");
+     mav.setViewName("/ingred/msg"); 
+   }
+   
+ } else {
+   mav.setViewName("redirect:/ingred/list_all.do");
+ }
+ 
+ return mav;
+}
+ 
+ /**
+  * 출력 순서 내림(상향, 1 등 -> 10 등), seqno: 1 -> 10
+  * @param ingredno
+  * @return
+  */
+ @RequestMapping(value = "/ingred/update_seqno_increase.do", method = RequestMethod.GET)
+ public ModelAndView update_seqno_increase(int ingredno) {
+   ModelAndView mav = new ModelAndView();
+   int cnt = this.ingredProc.update_seqno_increase(ingredno); 
+   mav.addObject("cnt", cnt);
+   
+   if (cnt == 1) {
+     mav.setViewName("redirect:/ingred/list_all.do");
+
+   } else {
+     mav.addObject("code", "update_seqno_increase_fail");
+     mav.setViewName("/ingred/msg"); 
+   }
+   
+   return mav;
+ }
 } 

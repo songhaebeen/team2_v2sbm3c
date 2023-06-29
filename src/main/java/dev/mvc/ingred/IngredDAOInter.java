@@ -38,4 +38,17 @@ public interface IngredDAOInter {
 	 */
   public int delete(int ingredno);
 
+  /**
+   * 출력 순서 상향
+   * @param ingredno
+   * @return
+   */
+  public int update_seqno_decrease(int ingredno);
+  
+  /**
+   * 출력 순서 하향
+   * @param ingredno
+   * @return
+   */
+  public int update_seqno_increase(int ingredno);
 }

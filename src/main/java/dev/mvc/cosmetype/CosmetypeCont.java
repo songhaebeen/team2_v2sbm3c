@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.admin.AdminProcInter;
+import dev.mvc.cosme_cate.Cosme_cateVO;
 
 
 @Controller
@@ -220,5 +221,66 @@ public ModelAndView read(HttpSession session, int cosmetypeno) {
   
   return mav;
 }
+
+/**
+ * 출력 순서 올림
+ * @param cosmetypeno
+ * @return
+ */
+@RequestMapping(value = "/cosmetype/update_seqno_decrease.do", method = RequestMethod.GET)
+public ModelAndView update_seqno_decrease(int cosmetypeno) {
+  ModelAndView mav = new ModelAndView();
+  
+  // seqno 컬럼의 값이 1 초과(1<)일때만 감소를 할 수 있다.
+  CosmetypeVO cosmetypeVO = this.cosmetypeProc.read(cosmetypeno);
+  int seqno = cosmetypeVO.getSeqno();
+
+  // 2) if 문을 이용한 분기
+  if (seqno > 1) {
+    int cnt = this.cosmetypeProc.update_seqno_decrease(cosmetypeno); 
+    mav.addObject("cnt", cnt);
+    
+    if (cnt == 1) {
+      mav.setViewName("redirect:/cosmetype/list_all.do");
+
+    } else {
+      mav.addObject("code", "update_seqno_decrease_fail");
+      mav.setViewName("/cosmetype/msg"); 
+    }
+    
+  } else {
+    mav.setViewName("redirect:/cosmetype/list_all.do");
+  }
+  
+  return mav;
+}
+
+
+/**
+ * 출력 순서 내림(상향, 1 등 -> 10 등), seqno: 1 -> 10
+ * @param cosmetypeno
+ * @return
+ */
+@RequestMapping(value = "/cosmetype/update_seqno_increase.do", method = RequestMethod.GET)
+public ModelAndView update_seqno_increase(int cosmetypeno) {
+  ModelAndView mav = new ModelAndView();
+  int cnt = this.cosmetypeProc.update_seqno_increase(cosmetypeno); 
+  mav.addObject("cnt", cnt);
+  
+  if (cnt == 1) {
+    mav.setViewName("redirect:/cosmetype/list_all.do");
+
+  } else {
+    mav.addObject("code", "update_seqno_increase_fail");
+    mav.setViewName("/cosmetype/msg"); 
+  }
+  
+  return mav;
+}
+
+
+
+
+
  
  }
