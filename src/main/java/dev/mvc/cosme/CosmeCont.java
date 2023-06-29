@@ -256,7 +256,7 @@ public class CosmeCont {
     System.out.println("-> ingred_list: " + ingred_list.size());
     
     mav.addObject("cosme_cate_list", cosme_cate_list); // 모델에 카테고리 목록 추가
-    mav.addObject("coseme_type_list", coseme_type_list); // 모델에 화장품 타입 추가
+    mav.addObject("cosme_type_list", coseme_type_list); // 모델에 화장품 타입 추가
     mav.addObject("ingred_list", ingred_list); // 모델에 화장품 성분 추가
     
     CosmeVO cosmeVO = this.cosmeProc.cosme_read(cosmeno);
