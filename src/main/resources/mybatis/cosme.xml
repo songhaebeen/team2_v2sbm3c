@@ -85,6 +85,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ORDER BY cosme_cateno ASC
   </select>
   
+     <!-- 카테고리별 검색 + 페이징 목록 -->
+  <select id= "list_by_cate_all" resultType="dev.mvc.cosme.CosmeVO">
+     SELECT cosmeno, brand, cosmename, rdate, adminno, cosme_cateno, file1, 
+               file1saved, thumb1, size1
+     FROM cosme
+    WHERE cosme_cateno=#{cosme_cateno}  
+    ORDER BY cosmeno DESC
+  </select>
   
 </mapper> 
 

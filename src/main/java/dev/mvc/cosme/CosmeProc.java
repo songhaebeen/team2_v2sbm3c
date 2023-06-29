@@ -112,4 +112,11 @@ public class CosmeProc implements CosmeProcInter {
 	  return list;
   }
 
+  @Override
+  public ArrayList<CosmeVO> list_by_cate_all(int cosme_cateno) {
+    ArrayList<CosmeVO> list = this.cosmeDAO.list_by_cate_all(cosme_cateno);
+    
+    return list;
+  }
+
 }

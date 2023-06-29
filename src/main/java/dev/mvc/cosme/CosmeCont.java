@@ -487,4 +487,24 @@ public class CosmeCont {
     	
     	return str;
     }
+    
+    /**
+     * 특정 카테고리에 등록된 화장품 목록
+     * http://localhost:9093/cosme/list_by_cate_all.do?cosmeno=1
+     * @return
+     */
+    @RequestMapping(value="cosme/list_by_cate_all.do", method=RequestMethod.GET)
+    public ModelAndView list_by_cate_all(int cosme_cateno) {
+      ModelAndView mav = new ModelAndView();
+      
+      Cosme_cateVO cosme_cateVO = this.cosme_cateProc.read(cosme_cateno);
+      mav.addObject("cosme_cateVO", cosme_cateVO);
+      
+      ArrayList<CosmeVO> list = this.cosmeProc.list_by_cate_all(cosme_cateno);
+      mav.addObject("list", list);
+      
+      mav.setViewName("/cosme/list_by_cate_all"); // /webapp/WEB-INF/views/comse/list_by_cate_all.jsp
+      
+      return mav;
+    }
 }

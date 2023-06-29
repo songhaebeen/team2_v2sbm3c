@@ -10,7 +10,6 @@
 <c:set var="adminno" value="${cosmeVO.adminno }" />
 <c:set var="file1saved" value="${cosmeVO.file1saved }" />
 <c:set var="thumb1" value="${cosmeVO.thumb1 }" />
-<c:set var="cosme_youtube" value="${cosmeVO.cosme_youtube }" />
 <c:set var="cosmetypename" value="${CosmetypeVO.cosmetypename }" />
 <c:set var="ingredname" value="${IngredVO.ingredname }" />
  
@@ -55,16 +54,6 @@
           <span style="font-size: 1.5em; font-weight: bold;">${cosmename }</span><br>
           <div style="font-size: 1em;">${brand } ${rdate }</div><br>
           <div style="font-size: 1em;">${cosmetypename } ${ingredname }</div><br>
-          <div>
-            <c:if test="${cosme_youtube.trim().length() > 0 }">
-              <li class="li_none" style="clear: both; padding-top: 5px; padding-bottom: 5px;">
-                <DIV style="text-align: center;">
-                  ${cosme_youtube }
-                </DIV>
-              </li>
-            </c:if>
-          </div>
-        </DIV>
       </li>
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
