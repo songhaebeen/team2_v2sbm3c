@@ -7,21 +7,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="dev.mvc.cosme.CosmeDAOInter">
   <!-- 화장품 등록 -->
   <insert id="create" parameterType="dev.mvc.cosme.CosmeVO">
-    INSERT INTO cosme(cosmeno, brand, cosmename, rdate, adminno, cosme_cateno, file1, file1saved, thumb1, size1, cosme_youtube)
-    VALUES(cosme_seq.nextval, #{brand}, #{cosmename}, sysdate, #{adminno}, #{cosme_cateno}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, #{cosme_youtube})
+    INSERT INTO cosme(cosmeno, brand, cosmename, rdate, adminno, cosme_cateno, file1, file1saved, thumb1, size1)
+    VALUES(cosme_seq.nextval, #{brand}, #{cosmename}, sysdate, #{adminno}, #{cosme_cateno}, #{file1}, #{file1saved}, #{thumb1}, #{size1})
   </insert>
 
   <!-- 화장품 글 목록 -->
   <select id="cosme_all" resultType="dev.mvc.cosme.CosmeVO">
     SELECT cosmeno, brand, cosmename, rdate, adminno, cosme_cateno, file1, 
-              file1saved, thumb1, size1, cosme_youtube
+              file1saved, thumb1, size1
     FROM cosme
     ORDER BY cosmeno DESC
   </select> 
   
   <select id= "list_by_cate" resultType="dev.mvc.cosme.CosmeVO">
      SELECT cosmeno, brand, cosmename, rdate, adminno, cosme_cateno, cosme_file, 
-               cosme_file_saved, cosme_file_preview, cosme_file_size, cosme_youtube
+               cosme_file_saved, cosme_file_preview, cosme_file_size
      FROM cosme
     WHERE cosme_cateno=#{cosme_cateno}  
   </select>
@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 일반적인 조회 -->
   <select id="cosme_read" resultType="dev.mvc.cosme.CosmeVO" parameterType="int">
     SELECT cosmeno, brand, cosmename, rdate, adminno, cosme_cateno, file1, 
-              file1saved, thumb1, size1, cosme_youtube
+              file1saved, thumb1, size1
     FROM cosme
     WHERE cosmeno = #{cosmeno}
   </select>
@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <update id="update_all_cosme" parameterType="dev.mvc.cosme.CosmeVO">
     UPDATE cosme
     SET brand=#{brand}, cosmename=#{cosmename}, rdate=sysdate, adminno=#{adminno}, cosme_cateno=#{cosme_cateno}, 
-          file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}, cosme_youtube=#{cosme_youtube}
+          file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
     WHERE cosmeno = #{cosmeno}
   </update>
   

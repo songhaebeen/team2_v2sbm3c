@@ -152,11 +152,6 @@ public class CosmeCont {
         
         cosmeVO.setAdminno(adminno);
         int cnt = this.cosmeProc.create(cosmeVO); 
-        
-        if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
-          String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
-          cosmeVO.setCosme_youtube(youtube);
-        }
 
         // ------------------------------------------------------------------------------
         // PK의 return
@@ -198,11 +193,9 @@ public class CosmeCont {
 	   
 	   String brand = cosmeVO.getBrand();
 	   String cosmename = cosmeVO.getCosmename();
-	   String cosme_youtube = cosmeVO.getCosme_youtube();
 	   
 	   cosmeVO.setBrand(brand);
 	   cosmeVO.setCosmename(cosmename);
-	   cosmeVO.setCosme_youtube(cosme_youtube);
 	   
 	   long size1 = cosmeVO.getSize1();
 	   cosmeVO.setSize1(size1);
@@ -283,11 +276,6 @@ public class CosmeCont {
    public ModelAndView update(CosmeVO cosmeVO, HttpServletRequest request, HttpSession session) {
      ModelAndView mav = new ModelAndView();
      
-     if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
-       String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
-       cosmeVO.setCosme_youtube(youtube);
-     }
-     
      if (this.adminProc.isAdmin(session) == true) { // 관리자로 로그인한경우
        // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
        CosmeVO cosmeVO_old = cosmeProc.cosme_read(cosmeVO.getCosmeno());
@@ -351,11 +339,6 @@ public class CosmeCont {
        System.out.println("-> session.getAttribute(\"adminno\"): " + session.getAttribute("adminno"));
        int adminno = (int)session.getAttribute("adminno"); // adminno FK
        cosmeVO.setAdminno(adminno);
-       
-       if (cosmeVO.getCosme_youtube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경함., 영상 크기는 width 기준 640px
-         String youtube = Tool.youtubeResize(cosmeVO.getCosme_youtube());
-         cosmeVO.setCosme_youtube(youtube);
-       }
        
        int cnt = this.cosmeProc.update_cosme(cosmeVO); 
 
