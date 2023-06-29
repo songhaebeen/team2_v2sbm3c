@@ -9,6 +9,7 @@ CREATE TABLE notice(
         ntitle             VARCHAR2(50)    NOT NULL,
         ncontent           CLOB    NOT NULL,
         passwd              VARCHAR2(15)	 NOT NULL,
+        word                VARCHAR2(100)         NULL , --검색
         views               NUMBER(7)         DEFAULT 0   NOT NULL,
         file1                VARCHAR(100)          NULL,  -- 원본 파일명 image
         file1saved            VARCHAR(100)          NULL,  -- 저장된 파일명, image
@@ -24,6 +25,7 @@ COMMENT ON COLUMN notice.noticeno is '공지사항 번호';
 COMMENT ON COLUMN notice.adminno is '관리자 번호';
 COMMENT ON COLUMN notice.ntitle is '공지 제목';
 COMMENT ON COLUMN notice.ncontent is '공지 내용';
+COMMENT ON COLUMN notice.word is '검색어';
 COMMENT ON COLUMN notice.views is '조회수';
 COMMENT ON COLUMN notice.passwd is '패스워드';
 COMMENT ON COLUMN notice.rdate is '등록일';
@@ -69,7 +71,38 @@ ORDER BY noticeno ASC;
          2          1 필독                                               규정 안내                                          1234            2023-06-07 11:48:57
          3          1 공지사항                                           회원 등급                                          1234            2023-06-07 11:49:02
 
---masterno가 master 테이블에 등록이 안되어 있는 번호이면 레코드 삭제 후 다시 INSERT
+-- title, ncontent, word column search
+SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views, youtube
+FROM notice
+WHERE ntitle LIKE '%공지%' OR ncontent LIKE '%공지%' 
+ORDER BY noticeno DESC;
+
+--페이징
+SELECT noticeno, adminno, ntitle, ncontent, rdate, file1, file1saved, thumb1, size1, views, youtube, r
+FROM (
+           SELECT noticeno, adminno, ntitle, ncontent, rdate, file1, file1saved, thumb1, size1, views, youtube, rownum as r
+           FROM (
+                     SELECT noticeno, adminno, ntitle, ncontent, rdate, file1, file1saved, thumb1, size1, views, youtube
+                     FROM notice
+                     WHERE ntitle LIKE '%공지%' OR ncontent LIKE '%공지%' OR word LIKE '%공지%'
+                     ORDER BY noticeno DESC
+           )          
+)
+WHERE r >= 1 AND r <= 3;
+
+SELECT noticeno, adminno, ntitle, ncontent, rdate, file1, file1saved, thumb1, size1, views, youtube, r
+FROM (
+           SELECT noticeno, adminno, ntitle, ncontent, rdate, file1, file1saved, thumb1, size1, views, youtube, rownum as r
+           FROM (
+                     SELECT noticeno, adminno, ntitle, ncontent, rdate, file1, file1saved, thumb1, size1, views, youtube
+                     FROM notice
+                     WHERE ntitle LIKE '%추천%' OR ncontent LIKE '%추천%' OR word LIKE '%추천%'
+                     ORDER BY noticeno DESC
+           )          
+)
+WHERE r >= 1 AND r <= 10;
+
+--adminno가 admin 테이블에 등록이 안되어 있는 번호이면 레코드 삭제 후 다시 INSERT
 DELETE FROM notice;
 commit;
 

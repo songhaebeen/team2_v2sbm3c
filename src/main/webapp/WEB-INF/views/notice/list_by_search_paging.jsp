@@ -7,7 +7,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>자유게시판</title>
+<title>공지사항</title>
 <link rel="shortcut icon" href="/images/star.png" />
 
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
@@ -20,7 +20,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-  자유게시판
+  공지사항
   <c:if test="${param.word.length() > 0 }">
      「${param.word }」 검색 ${search_count } 건
   </c:if>
@@ -32,10 +32,6 @@
       <A href="./create.do">등록</A>
       <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
-    <span class='menu_divide' >│</span>    
-    <A href="./list_all.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">목록형</A>    
-    <span class='menu_divide' >│</span>
-    <A href="./list_grid.do?now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">앨범형</A>
   </ASIDE>
   
   <DIV style="text-align: right; clear: both;">  
@@ -88,37 +84,22 @@
     </thead>
     
     <tbody>
-      <c:forEach var="fboardVO" items="${list}">
-        <c:set var="ftitle" value="${fboardVO.ftitle }" />
-        <c:set var="fcontent" value="${fboardVO.fcontent }" />
-        <c:set var="fboardno" value="${fboardVO.fboardno }" />
-        <c:set var="thumb1" value="${fboardVO.thumb1 }" />
-        <c:set var="views" value="${fboardVO.views }" />
-          <c:set var="rdate" value="${fboardVO.rdate.substring(0, 10) }" />
+      <c:forEach var="noticeVO" items="${list}">
+      <c:set var="noticeno" value="${noticeVO.noticeno }" />
+      <c:set var="ntitle" value="${noticeVO.ntitle }" />        
+      <c:set var="ncontent" value="${noticeVO.ncontent }" />
+      <c:set var="thumb1" value="${noticeVO.thumb1 }" />
+      <c:set var="views" value="${noticeVO.views }" />
+      <c:set var="rdate" value="${noticeVO.rdate.substring(0, 10) }" />
         
-         <tr style="height: 112px;" onclick="location.href='./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }'" class='hover'>
+   <tr style="height: 112px;" onclick="location.href='./read.do?noticeno=${noticeno }&now_page=${param.now_page == null ? 1 : param.now_page}'" class='hover'>
           <td style='vertical-align: middle; text-align: center; '>
-            <c:choose>
-              <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>
-                 <%-- registry.addResourceHandler("/fboard/storage/**").addResourceLocations("file:///" +  Fboard.getUploadDir()); --%>
-                <img src="/fboard/storage/${thumb1 }" style="width: 140px; height: 110px;">
-              </c:when>
-              <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/fboard/images/logo2.gif -->
-                <IMG src="/fboard/images/logo2.gif" style="width: 140px; height: 110px;">
-              </c:otherwise>
-            </c:choose>
-          </td>  
-          <td style='vertical-align: middle;'>
-            <div style='font-weight: bold;'><%--<a href="./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }">--%>${ftitle }</a></div>
-            <c:choose> 
-              <c:when test="${fcontent.length() > 140 }"> <%-- 140자 이상이면 140자만 출력 --%>
-                  ${fcontent.substring(0, 140)}...더보기
-              </c:when>
-              <c:when test="${fcontent.length() <= 140 }">
-                ${fcontent}
-              </c:when>
-            </c:choose>
+          <IMG src="/notice/images/check.png" style="width: 17px; height: 17px;">     
           </td> 
+          
+          <td style='vertical-align: middle; '>
+            <div style='font-weight: bold;'><%--<a href="./read.do?noticeno=${noticeno }&now_page=${param.now_page == null ? 1 : param.now_page }"> --%>${ntitle }</div>
+          </td>
           
             <td style='vertical-align: middle; text-align: center;'>
             <div style='font-weight: bold;'>${views }</div>
@@ -131,7 +112,7 @@
           <c:choose>
             <c:when test="${sessionScope.admin_id != null }"> 
               <td style='vertical-align: middle; text-align: center;'>
-                <A href="/fboard/delete.do?fboardno=${fboardno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="삭제"><IMG src="/fboard/images/delete.png" class="icon"></A>
+                <A href="/fboard/delete.do?noticeno=${noticeno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="삭제"><IMG src="/notice/images/delete.png" class="icon"></A>
               </td>
             </c:when>
             <c:otherwise>

@@ -6,21 +6,21 @@
 
   <!-- 등록한 레코드 갯수 1 리턴 -->
   <insert id="create" parameterType="dev.mvc.notice.NoticeVO">
-    INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, file1, file1saved, thumb1, size1, rdate, youtube)
-    VALUES(notice_seq.nextval, #{adminno}, #{ntitle}, #{ncontent}, #{passwd}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate, #{youtube})
+    INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, word, file1, file1saved, thumb1, size1, rdate, youtube)
+    VALUES(notice_seq.nextval, #{adminno}, #{ntitle}, #{ncontent}, #{passwd}, #{word}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate, #{youtube})
   
      </insert>
      
   <!-- 모든 공지사항 목록 -->
   <select id="list_all" resultType="dev.mvc.notice.NoticeVO">
-    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views, youtube
+    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, word, file1, file1saved, thumb1, size1, views, youtube
     FROM notice
     ORDER BY noticeno DESC
   </select> 
      
   <!-- 조회 -->
   <select id="read" resultType="dev.mvc.notice.NoticeVO" parameterType="int">
-    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views, youtube
+    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views, youtube, word
     FROM notice
     WHERE noticeno = #{noticeno}
   </select> 
@@ -31,6 +31,67 @@
     SET youtube=#{youtube} 
     WHERE noticeno=#{noticeno}
   </update>
+  
+    <!-- 카테고리별 검색 목록 -->
+  <select id="list_by_search" resultType="dev.mvc.notice.NoticeVO" parameterType="dev.mvc.notice.NoticeVO">
+    SELECT noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1, views, youtube
+      FROM notice
+    <choose>
+      <when test="word == null or word == ''"> <!-- 검색하지 않는 경우, 모든 레코드 -->
+        WHERE ntitle=#{ntitle}
+      </when>
+      <otherwise> <!-- 검색하는 경우, 검색된 레코드 -->
+        WHERE UPPER(ntitle) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(ncontent) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%'
+      </otherwise>
+    </choose>
+    ORDER BY notice DESC   
+  </select>
+  
+    <!-- 검색 레코드 갯수 -->
+  <select id="search_count" resultType="int" parameterType="dev.mvc.notice.NoticeVO">
+    SELECT COUNT(*) as cnt
+       FROM notice
+    <choose>
+      <when test="word == null or word == ''"> <!-- 검색하지 않는 경우의 레코드 갯수 -->
+
+      </when>
+      <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
+          WHERE UPPER(ntitle) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(ncontent) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%'           
+      </otherwise>
+    </choose>
+  </select>
+  
+    <!-- 검색 + 페이징 목록 -->
+  <select id="list_by_search_paging" resultType="dev.mvc.notice.NoticeVO" parameterType="dev.mvc.notice.NoticeVO">
+   SELECT noticeno, adminno, ntitle, ncontent, rdate, file1, file1saved, thumb1, size1, youtube, views, r
+      FROM (
+              SELECT noticeno, adminno, ntitle, ncontent, rdate, file1, file1saved, thumb1, size1, youtube, views, rownum as r
+                FROM (
+                        SELECT noticeno, adminno, ntitle, ncontent, rdate, file1, file1saved, thumb1, size1, youtube, views
+                        FROM notice
+                        <choose>
+                          <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+                          
+                          </when>
+                          <otherwise>
+                            WHERE UPPER(ntitle) LIKE '%' || UPPER(#{word}) || '%' 
+                                                              OR UPPER(ncontent) LIKE '%' || UPPER(#{word}) || '%' 
+                                                              OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%'
+                          </otherwise>
+                        </choose>
+                        ORDER BY noticeno DESC
+               )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+     
+    <!-- 1 page: WHERE r >= 1 AND r <= 10; 
+          2 page: WHERE r >= 11 AND r <= 20;
+          3 page: WHERE r >= 21 AND r <= 30; -->
+  </select>
   
   <!-- 패스워드 검사 -->
   <select id="password_check" resultType="int" parameterType="dev.mvc.notice.NoticeVO">
@@ -49,7 +110,7 @@
     <!-- 수정 -->
   <update id="update" parameterType="dev.mvc.notice.NoticeVO">
     UPDATE notice
-    SET ntitle=#{ntitle}, ncontent=#{ncontent}, youtube=#{youtube}, file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
+    SET ntitle=#{ntitle}, ncontent=#{ncontent}, youtube=#{youtube}
     WHERE noticeno = #{noticeno}
   </update> 
   

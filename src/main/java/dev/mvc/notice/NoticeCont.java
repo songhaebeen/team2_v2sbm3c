@@ -70,7 +70,7 @@ public class NoticeCont {
         noticeVO.setYoutube(youtube);
       }
     
-    if (adminProc.isAdmin(session)) { // 관리자로 로그인한 경우   
+    if (adminProc.isAdmin(session)) { // 관리자로 로그인한 경우 
     	// ------------------------------------------------------------------------------
         // 파일 전송 코드 시작
         // ------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ public class NoticeCont {
         // ------------------------------------------------------------------------------
         // 파일 전송 코드 종료
         // ------------------------------------------------------------------------------
-       
+        
         // Call By Reference: 메모리 공유, Hashcode 전달
         int adminno = (int)session.getAttribute("adminno"); // adminno FK
         noticeVO.setAdminno(adminno);
@@ -142,24 +142,24 @@ public class NoticeCont {
 
 	}
   
-  /**
-   * 목록
-   * http://localhost:9093/notice/list.all.do
-   * @return
-   */
-  @RequestMapping(value="/notice/list_all.do", method=RequestMethod.GET)
-  public ModelAndView list_all() {
-    ModelAndView mav = new ModelAndView();
-    
-    mav.setViewName("/notice/list_all"); // /WEB-INF/views/notice/list_all.jsp
-  
-    ArrayList<NoticeVO> list = this.noticeProc.list_all();
-    mav.addObject("list", list); 
-    
-    mav.setViewName("/notice/list_all"); // /webapp/WEB-INF/views/notice/list_all.jsp
-
-    return mav;
-  }
+//  /**
+//   * 목록
+//   * http://localhost:9093/notice/list.all.do
+//   * @return
+//   */
+//  @RequestMapping(value="/notice/list_all.do", method=RequestMethod.GET)
+//  public ModelAndView list_all() {
+//    ModelAndView mav = new ModelAndView();
+//    
+//    mav.setViewName("/notice/list_all"); // /WEB-INF/views/notice/list_all.jsp
+//  
+//    ArrayList<NoticeVO> list = this.noticeProc.list_all();
+//    mav.addObject("list", list); 
+//    
+//    mav.setViewName("/notice/list_all"); // /webapp/WEB-INF/views/notice/list_all.jsp
+//
+//    return mav;
+//  }
   
   /**
    * 조회
@@ -305,6 +305,43 @@ Cookie[] cookies = request.getCookies();
   }
   
   /**
+   * 목록 + 검색 + 페이징 지원
+   * http://localhost:9093/notice/list_all.do?word=공지&now_page=1
+   * @return
+   */
+  @RequestMapping(value="/notice/list_all.do", method=RequestMethod.GET)
+  public ModelAndView list_by_search_paging(NoticeVO noticeVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    // 검색된 전체 글 수
+    int search_count = this.noticeProc.search_count(noticeVO);
+    mav.addObject("search_count", search_count);
+
+    // 검색 목록: 검색된 레코드를 페이지 단위로 분할하여 가져옴
+    ArrayList <NoticeVO> list= this.noticeProc.list_by_search_paging(noticeVO);
+    mav.addObject("list", list);
+    
+    /*
+     * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17
+     * 18 19 20 [다음]
+     * @param now_page 현재 페이지
+     * @param word 검색어
+     * @return 페이징용으로 생성된 HTML/CSS tag 문자열
+     */
+    //System.out.println("-> now_page: " +fboardVO.getNow_page() );
+    //System.out.println("-> word: " +fboardVO.getWord() );
+    
+    String paging = noticeProc.pagingBox(noticeVO.getNow_page(), noticeVO.getWord(), "list_all.do");
+    mav.addObject("paging", paging);
+
+    // mav.addObject("now_page", now_page);
+
+    mav.setViewName("/notice/list_by_search_paging"); // /WEB-INF/views/notice/list_by_search_paging.jsp
+        
+    return mav;
+  }
+  
+  /**
    * 패스워드 일치 검사
    * http://localhost:9093/notice/password_check.do?noticeno=1&passwd=1234
    * @return
@@ -360,62 +397,7 @@ Cookie[] cookies = request.getCookies();
         // youtube 영상의 크기를 width 기준 640 px로 변경 
         String youtube = Tool.youtubeResize(noticeVO.getYoutube().trim());
         noticeVO.setYoutube(youtube);
-      }
-    
-    NoticeVO noticeVO_old = noticeProc.read(noticeVO.getNoticeno());
-    
-    // -------------------------------------------------------------------
-    // 파일 삭제 시작
-    // -------------------------------------------------------------------
-    String file1saved = noticeVO_old.getFile1saved();  // 실제 저장된 파일명
-    String thumb1 = noticeVO_old.getThumb1();       // 실제 저장된 preview 이미지 파일명
-    long size1 = 0;
-       
-    String upDir =  Notice.getUploadDir(); // C:/kd/deploy/team2_v2sbm3c/notice/storage/
-    
-    Tool.deleteFile(upDir, file1saved);  // 실제 저장된 파일삭제
-    Tool.deleteFile(upDir, thumb1);     // preview 이미지 삭제
-    // -------------------------------------------------------------------
-    // 파일 삭제 종료
-    // -------------------------------------------------------------------
-        
-    // -------------------------------------------------------------------
-    // 파일 전송 시작
-    // -------------------------------------------------------------------
-    String file1 = "";          // 원본 파일명 image
-
-    // 전송 파일이 없어도 file1MF 객체가 생성됨.
-    // <input type='file' class="form-control" name='file1MF' id='file1MF' 
-    //           value='' placeholder="파일 선택">
-    MultipartFile mf = noticeVO.getFile1MF();
-        
-    file1 = mf.getOriginalFilename(); // 원본 파일명
-    size1 = mf.getSize();  // 파일 크기
-        
-    if (size1 > 0) { // 폼에서 새롭게 올리는 파일이 있는지 파일 크기로 체크 ★
-      // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
-      file1saved = Upload.saveFileSpring(mf, upDir); 
-      
-      if (Tool.isImage(file1saved)) { // 이미지인지 검사
-        // thumb 이미지 생성후 파일명 리턴됨, width: 250, height: 200
-        thumb1 = Tool.preview(upDir, file1saved, 250, 200); 
-      }
-      
-    } else { // 파일이 삭제만 되고 새로 올리지 않는 경우
-      file1="";
-      file1saved="";
-      thumb1="";
-      size1=0;
-    }
-        
-    noticeVO.setFile1(file1);
-    noticeVO.setFile1saved(file1saved);
-    noticeVO.setThumb1(thumb1);
-    noticeVO.setSize1(size1);
-    // -------------------------------------------------------------------
-    // 파일 전송 코드 종료
-    // -------------------------------------------------------------------
-        
+      }  
     
     if (this.adminProc.isAdmin(session)) { // 관리자 로그인
       this.noticeProc.update(noticeVO);  

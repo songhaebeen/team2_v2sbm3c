@@ -23,6 +23,7 @@ COMMENT ON COLUMN reply.passwd is '비밀번호';
 COMMENT ON COLUMN reply.rdate is '등록일';
 
 DROP SEQUENCE reply_seq;
+
 CREATE SEQUENCE reply_seq
   START WITH 1              -- 시작 번호
   INCREMENT BY 1          -- 증가값

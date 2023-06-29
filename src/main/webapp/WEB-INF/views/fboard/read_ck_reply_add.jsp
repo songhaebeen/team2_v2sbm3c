@@ -11,6 +11,7 @@
 <c:set var="youtube" value="${fboardVO.youtube }" />
 <c:set var="word" value="${fboardVO.word }" />
 <c:set var="views" value="${fboardVO.views }" />
+<c:set var="replycnt" value="${fboardVO.replycnt }" />
 <c:set var="size1_label" value="${fboardVO.size1_label }" />
 <c:set var="rdate" value="${fboardVO.rdate.substring(0, 16) }" />
 
@@ -498,21 +499,19 @@ response.setHeader("Set-Cookie", "cookieName=; Max-Age=0");
           </DIV>
         </li>
       </c:if>
-      
-      <li class="li_none">
         <DIV style="width: 80%; text-align: left; margin-left: 10%;" >
-          <c:if test="${file1.trim().length() > 0 }"> <%-- ServletRegister.java: registrationBean.addUrlMappings("/download"); --%>
-            첨부 파일: <a href='/download?dir=/fboard/storage&filename=${file1saved}&downname=${file1}' > ${file1}</a> (${size1_label})  
+         <c:if test="${file1.trim().length() > 0 }"> <%-- ServletRegister.java: registrationBean.addUrlMappings("/download"); --%>
+         첨부 파일: <a href='/download?dir=/fboard/storage&filename=${file1saved}&downname=${file1}' > ${file1}</a> (${size1_label})  
           </c:if>
         </DIV>
-        <br>
-      </li> 
-      
+       <br>
+       
     </ul>
     <div style="width: 85%; text-align: right; margin-left: 15%;">  
     <button type="button" onclick="location.href='/fboard/list_all.do'" class="btn btn-info btn-sm">목록형</button>
     <button type="button" onclick="location.href='/fboard/list_grid.do'" class="btn btn-info btn-sm">앨범형</button>
      </div>
+     
   </fieldset>
 
 
@@ -521,6 +520,8 @@ response.setHeader("Set-Cookie", "cookieName=; Max-Age=0");
   <DIV style='width: 80%; margin: 0px auto;'>
       <HR>
       <FORM name='frm_reply' id='frm_reply'> <%-- 댓글 등록 폼 --%>
+       <img src="/fboard/images/reply.png" style='width: 2%; float: center; float-bottom: 2%, margin-right: 0.2%;'> ${replycnt }
+       <br>
           <input type='hidden' name='fboardno' id='fboardno' value='${fboardno}'>
           <input type='hidden' name='memberno' id='memberno' value='${sessionScope.memberno}'>
           
