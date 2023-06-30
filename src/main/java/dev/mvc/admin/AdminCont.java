@@ -451,6 +451,66 @@ public class AdminCont {
      
      return mav;
    }
+   
+   /**
+    * 관리자 패스워드를 변경합니다.
+    * @param adminno
+    * @return
+    */
+   @RequestMapping(value="/admin/passwd_update.do", method=RequestMethod.GET)
+   public ModelAndView passwd_update(int adminno){
+     ModelAndView mav = new ModelAndView();
+     mav.setViewName("/admin/passwd_update"); // passwd_update.jsp
+     
+     return mav;
+   }
+   
+   /**
+    * 관리자 패스워드 변경 처리
+    * @param adminno 회원 번호
+    * @param current_passwd 현재 패스워드
+    * @param new_passwd 새로운 패스워드
+    * @return
+    */
+   @RequestMapping(value="/admin/passwd_update.do", method=RequestMethod.POST)
+   public ModelAndView passwd_update(int adminno, String current_passwd, String new_passwd){
+     ModelAndView mav = new ModelAndView();
+     
+     AdminVO adminVO = this.adminProc.read(adminno); // 패스워드를 변경하려는 회원 정보를 읽음
+     mav.addObject("mname", adminVO.getMname());  
+     mav.addObject("id", adminVO.getId());
+     
+     // 현재 패스워드 검사용 데이터
+     HashMap<Object, Object> map = new HashMap<Object, Object>();
+     map.put("adminno", adminno);
+     map.put("passwd", current_passwd);
+     
+     int cnt = adminProc.passwd_check(map); // 현재 패스워드 검사
+     int update_cnt = 0; // 변경된 패스워드 수
+     
+     if (cnt == 1) { // 현재 패스워드가 일치하는 경우
+       map.put("passwd", new_passwd); // 새로운 패스워드를 저장
+       update_cnt = this.adminProc.passwd_update(map); // 패스워드 변경 처리
+       
+       if (update_cnt == 1) {
+         mav.addObject("code", "passwd_update_success"); // 패스워드 변경 성공
+       } else {
+         cnt = 0;  // 패스워드는 일치했으나 변경하지는 못함.
+         mav.addObject("code", "passwd_update_fail");       // 패스워드 변경 실패
+       }
+       
+       mav.addObject("update_cnt", update_cnt);  // 변경된 패스워드의 갯수    
+     } else {
+       mav.addObject("code", "passwd_fail"); // 패스워드가 일치하지 않는 경우
+     }
+
+     mav.addObject("cnt", cnt); // 패스워드 일치 여부
+     mav.addObject("url", "/member/msg");  // /member/msg -> /member/msg.jsp
+     
+     mav.setViewName("redirect:/admin/msg.do");
+     
+     return mav;
+   }
   
 }
 

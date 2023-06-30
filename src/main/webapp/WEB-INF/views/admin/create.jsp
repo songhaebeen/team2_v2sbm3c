@@ -211,19 +211,27 @@
       <label>성명*:
         <input type='text' class="form-control form-control-sm" name='mname' id='mname' value='하정우' required="required" placeholder="성명">
       </label>
-    </div>   
+    </div>  
     
-    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
-      <label>부서*:
-          <select name="dpart">
-          <option value="생산부">생산부</option>
-          <option value="영업부">영업부</option>
-          <option value="전산부" selected="selected">전산부</option>
-          <option value="총무부">총무부</option>
-          <option value="인사부">인사부</option>
-        </select>
-      </label>
-    </div>
+        <%
+          String departs = "생산부/영업부/전산부/총무부/인사부";
+          String[] departs_array = departs.split("/");
+          %> 
+    
+            <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
+            <label>부서*:
+                  
+              <SELECT name="departs">
+                  <%
+                  for (int i=0; i < departs_array.length; i++) { // 0 ~ 4
+                  %>
+                    <OPTION value="<%=departs_array[i] %>"><%=departs_array[i] %></OPTION>
+                  <%  
+                  }
+                  %>
+            </SELECT>
+            </label>
+          </div>
 
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
       <label>전화 번호:
