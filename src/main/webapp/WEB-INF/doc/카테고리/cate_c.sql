@@ -55,9 +55,12 @@ SELECT catecono, name, cnt, rdate, seqno, visible FROM cateco WHERE catecono=1;
          1 여행                                    0 2023-03-21 12:10:00
          
 -- UPDATE
-UPDATE cateco SET name='캠핑', seqno=5 WHERE catecono=4;
+UPDATE cateco
+SET name='캠핑', cnt=5
+WHERE catecono=4;
 commit;
 SELECT * FROM cateco;
+        
     CATENO NAME                                  CNT RDATE              
 ---------- ------------------------------ ---------- -------------------
          1 여행                                    0 2023-03-21 12:18:26
@@ -101,7 +104,7 @@ SELECT catecono, name, cnt, rdate, seqno, visible FROM cateco ORDER BY seqno ASC
 -- 한번에 다수의 컬럼값 수정은 사용자가 불편을 느낄수 있음으로 필요시 컬럼을 분할하여 값 변경
 -- 예) 패스워드 변경, 별명 변경, 이름 변경등
 -- 출력, id: update_visible_Y
-UPDATE cateco SET visible='Y' WHERE catecono=1;
+UPDATE cateco SET visible='Y' WHERE catecono=3;
 
 -- 숨김, id: update_visible_N
 UPDATE cateco SET visible='N' WHERE catecono=2;

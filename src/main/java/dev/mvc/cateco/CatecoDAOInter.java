@@ -14,17 +14,60 @@ public interface CatecoDAOInter {
    */
   public int create(CatecoVO catecoVO); // 추상 메소드
   
-  /* 
-  자동으로 구현되는 목록
-  1. Connection 연결, 해제
-  2. PreparedStatement 객체 자동 생성
-  3. #{name}등 컬럼의 값 자동 저장
-  4. SQL 실행 자동
-  5. 관련 예외처리 자동으로 처리됨.
-  */
+  /**
+   * 목록
+   * @return
+   */
+  public ArrayList<CatecoVO> list_all();
   
-
+  /**
+   * 조회
+   * @param catecono
+   * @return
+   */
+  public CatecoVO read(int catecono);
   
+  /**
+   * 수정
+   * @param catecoVO
+   * @return
+   */
+  public int update(CatecoVO catecoVO);
+  
+  /**
+   * 삭제
+   * @param catecono
+   * @return
+   */
+  public int delete(int catecono);
+  
+  /**
+   * 출력 순서 상향
+   * @param catecono
+   * @return
+   */
+  public int update_seqno_decrease(int catecono);
+  
+  /**
+   * 출력 순서 하향
+   * @param catecono
+   * @return
+   */
+  public int update_seqno_increase(int catecono);
+  
+  /**
+   * 글수 증가 
+   * @param catecono
+   * @return
+   */
+  public int update_cnt_add(int catecono);
+  
+  /**
+   * 글수 감소
+   * @param catecono
+   * @return
+   */
+  public int update_cnt_sub(int catecono);
 }
 
 
