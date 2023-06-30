@@ -1,5 +1,6 @@
 package dev.mvc.member;
  
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import java.util.HashMap;
@@ -537,78 +538,7 @@ public class MemberCont {
     return mav;
   }
   
-  /**
-   * 회원탈퇴 99 업데이트
-   * @param memberno
-   * @return
-   */
-  @RequestMapping(value="/member/member_out.do", method=RequestMethod.GET)
-  public ModelAndView member_out(HttpSession session, HttpServletRequest request){
-    ModelAndView mav = new ModelAndView();
-    
-    int memberno = 0;
-    if (this.adminProc.isAdmin(session)) { 
-      MemberVO memberVO = this.memberProc.read(memberno); // 삭제할 레코드를 사용자에게 출력하기위해 읽음.
-      mav.addObject("memberVO", memberVO);
-      mav.setViewName("/member/delete"); // /member/delete.jsp      
-      
-    } else {
-      // admin 로그인을 하지 않은 경우
-      mav.setViewName("/admin/login_need"); // /webapp/WEB-INF/views/admin/login_need.jsp
-    }
-    
-    return mav; // forward
-  }
-  
- 
-  
-  /**
-   * 패스워드 변경 처리
-   * @param memberno 회원 번호
-   * @param current_passwd 현재 패스워드
-   * @param new_passwd 새로운 패스워드 99업데이트
-   * @return
-   */
-  @RequestMapping(value="/member/member_out.do", method=RequestMethod.POST)
-  public ModelAndView member_out(int memberno, String current_passwd, String new_passwd){
-    ModelAndView mav = new ModelAndView();
-    
-    MemberVO memberVO = this.memberProc.read(memberno); // 패스워드를 변경하려는 회원 정보를 읽음
-    mav.addObject("mname", memberVO.getMname());  
-    mav.addObject("id", memberVO.getId());
-    
-    // 현재 패스워드 검사용 데이터
-    HashMap<Object, Object> map = new HashMap<Object, Object>();
-    map.put("memberno", memberno);  // 키, 값
-    map.put("passwd", current_passwd);
-    
-    int grade = memberProc.passwd_check(map); // 현재 패스워드 검사
-    int update_cnt = 0; // 변경된 패스워드 수
-    
-    if (grade < 40 || (grade > 49 && grade != 99)) { // 현재 패스워드가 일치하는 경우
-      map.put("passwd", new_passwd); // 새로운 패스워드를 저장
-      update_cnt = this.memberProc.passwd_update(map); // 패스워드 변경 처리
-      
-      if (update_cnt == 1) {
-        mav.addObject("code", "passwd_update_success"); // 패스워드 변경 성공
-      } else {
-        grade = 0;  // 패스워드는 일치했으나 변경하지는 못함.
-        mav.addObject("code", "passwd_update_fail");       // 패스워드 변경 실패
-      }
-      
-      mav.addObject("update_cnt", update_cnt);  // 변경된 패스워드의 갯수    
-    } else {
-      mav.addObject("code", "passwd_fail"); // 패스워드가 일치하지 않는 경우
-    }
 
-    mav.addObject("grade", grade); // 패스워드 일치 여부
-    mav.addObject("url", "/member/msg");  // /member/msg -> /member/msg.jsp
-    
-    mav.setViewName("redirect:/member/msg.do");
-    
-    return mav;
-  }
-  
   
   
 

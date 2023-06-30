@@ -65,12 +65,14 @@
     WHERE id=#{id} AND passwd=#{passwd}
   </select>
   
-    <!-- 회원탈퇴 -->
-    <update id="member_out" parameterType="HashMap">
-      UPDATE member
-      SET grade = 99
-      WHERE id=#{id}
-    </update>
+    <!-- 아이디 찾기 -->
+  <select id="find_id" resultType="int" parameterType="HashMap">
+    SELECT id
+    FROM member
+    WHERE 
+  </select>
+  
+
 
   
 </mapper> 
