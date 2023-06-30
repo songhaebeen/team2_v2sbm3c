@@ -10,7 +10,6 @@ CREATE TABLE cateco(
     rdate                    DATE		         NOT NULL,
     udate                   DATE	         	     NULL,
     seqno                   NUMBER(10)        DEFAULT 0  NOT NULL,    
-    visible                   CHAR(1)    DEFAULT 'N'     NOT NULL
 );
 
 COMMENT ON TABLE cateco is '카테고리';

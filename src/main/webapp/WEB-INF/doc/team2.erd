@@ -1864,22 +1864,6 @@
                             <autoIncrement>false</autoIncrement>
                             <defaultValue></defaultValue>
                           </net.java.amateras.db.visual.model.ColumnModel>
-                          <net.java.amateras.db.visual.model.ColumnModel>
-                            <columnName>VISIBLE</columnName>
-                            <logicalName>출력 모드</logicalName>
-                            <columnType class="net.java.amateras.db.dialect.ColumnType">
-                              <name>CHAR</name>
-                              <logicalName>Character</logicalName>
-                              <supportSize>true</supportSize>
-                              <type>1</type>
-                            </columnType>
-                            <size>1</size>
-                            <notNull>true</notNull>
-                            <primaryKey>false</primaryKey>
-                            <description></description>
-                            <autoIncrement>false</autoIncrement>
-                            <defaultValue></defaultValue>
-                          </net.java.amateras.db.visual.model.ColumnModel>
                         </columns>
                         <indices/>
                         <backgroundColor>
@@ -1913,7 +1897,7 @@
                   <error></error>
                   <linkedPath></linkedPath>
                   <tableName>CONTENTSCO</tableName>
-                  <logicalName>컨텐츠 - 순례길</logicalName>
+                  <logicalName>컨텐츠</logicalName>
                   <description></description>
                   <columns>
                     <net.java.amateras.db.visual.model.ColumnModel>
