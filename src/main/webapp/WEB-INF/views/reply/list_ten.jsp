@@ -71,7 +71,7 @@
               <A href='../fboard/read.do?fboardno=${fboardno }'>${fboardno}</A>
             </td>
             <td style='text-align: center; vertical-align: middle;'>
-              <%--<A href='../member/read.do?memberno=${memberno }'>--%><span> ${id.substring(0, 5)} + </span></A>
+              <%--<A href='../member/read.do?memberno=${memberno }'>--%><span> ${id.substring(0, 5)}**********</span></A>
             </td>
             <td style='text-align: left; vertical-align: middle;'>${content}</td>
             <td style='text-align: center; vertical-align: middle;'>

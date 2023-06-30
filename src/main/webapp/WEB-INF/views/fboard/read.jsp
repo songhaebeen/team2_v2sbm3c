@@ -109,7 +109,7 @@ response.setHeader("Set-Cookie", "cookieName=; Max-Age=0");
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all; text-align: center;" >  
           <span style="font-size: 1.5em; font-weight: bold; text-align: center;">${ftitle }</span><br><br>
-          <div style="font-size: 1em; text-align: right; width: 89%;"><img src="/member/images/user.png" style="height: 16px"> ${mname} ${rdate }</div>
+          <div style="font-size: 1em; text-align: right; width: 89%;"><img src="/member/images/user.png" style="height: 16px"> ${id.substring(0, 5)}  ${rdate }</div>
           <div style="font-size: 1em; text-align: right; width: 89%;">조회수: <span id="views">${views}</span></div>
           <br><br>
         </DIV>

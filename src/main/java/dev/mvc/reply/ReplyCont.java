@@ -280,28 +280,35 @@ public class ReplyCont {
     ]
   }
 
-//   * http://localhost:9093/reply/list_by_fboardno_join_add.do?fboardno=1
-//   * @param fboardno
-//   * @return
-//   */
-//  @ResponseBody
-//  @RequestMapping(value = "/reply/list_by_fboardno_join_add.do",
-//                              method = RequestMethod.GET,
-//                              produces = "text/plain;charset=UTF-8")
-//  public String list_by_fboardno_join_add(int fboardno) {
-//    // String msg="JSON 출력";
-//    // return msg;
-//    
-//    List<ReplyMemberVO> list = replyProc.list_by_fboardno_join_add(fboardno);
-//    
-//	//fboardProc.increaseReplycnt(fboardno);
-//	//fboardProc.decreaseReplycnt(fboardno);
-//    
-//    JSONObject obj = new JSONObject();
-//    obj.put("list", list);
-// 
-//    return obj.toString(); 
-//  }
+   * http://localhost:9093/reply/list_by_fboardno_join_add.do?fboardno=2
+   * @param fboardno
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/reply/list_by_fboardno_join_add.do",
+                              method = RequestMethod.GET,
+                              produces = "text/plain;charset=UTF-8")
+  public String list_by_fboardno_join_add(int fboardno) {
+    ModelAndView mav = new ModelAndView();
+    // String msg="JSON 출력";
+    // return msg;
+    
+    List<ReplyMemberVO> list = replyProc.list_by_fboardno_join_add(fboardno);
+    
+	//fboardProc.increaseReplycnt(fboardno);
+	//fboardProc.decreaseReplycnt(fboardno);
+    
+    FboardVO fboardVO = this.fboardProc.read(fboardno);
+    
+    //회원 번호: memberno -> MemberVO -> mname
+   String mname = this.memberProc.read(fboardVO.getMemberno()).getMname();
+   mav.addObject("mname", mname);
+    
+    JSONObject obj = new JSONObject();
+    obj.put("list", list);
+ 
+    return obj.toString(); 
+  }
   
   /**
    * 10건 출력

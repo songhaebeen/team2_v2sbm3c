@@ -31,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ORDER BY r.replyno ASC
   </select>
   
+  <!-- 전체 댓글 목록 -->
     <select id="list_member_join" resultType="dev.mvc.reply.ReplyMemberVO">
     SELECT m.id, r.replyno, r.fboardno, r.memberno, r.content, r.passwd, r.rdate
     FROM member m, reply r
@@ -38,12 +39,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ORDER BY r.replyno ASC
   </select>
   
+  <!-- 패스워드 검사 -->
   <!-- <select id="checkPasswd" parameterType="HashMap" resultType="int"> -->
   <!-- <select id="checkPasswd" parameterType="ReplyVO" resultType="int"> -->
   <select id="checkPasswd" parameterType="Map" resultType="int">
     SELECT COUNT(*) as cnt
     FROM reply
     WHERE replyno=#{replyno} AND passwd=#{passwd}
+  </select>
+  
+    <select id="read" parameterType="int" resultType="dev.mvc.reply.ReplyMemberVO">
+			SELECT replyno, fboardno, memberno, content, passwd, rdate
+			FROM reply
+			WHERE replyno = #{replyno} AND fboardno = #{fboardno}
   </select>
   
     <!-- 수정 -->
@@ -53,6 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE replyno = #{replyno} AND fboardno = #{fboardno}
   </update>
   
+  <!-- 삭제 -->
   <delete id="delete" parameterType="int">
     DELETE FROM reply
     WHERE replyno=#{replyno}

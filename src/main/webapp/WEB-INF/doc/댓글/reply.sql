@@ -138,21 +138,21 @@ WHERE r <= 1000;
 10) 댓글 조회
 SELECT replyno, fboardno, memberno, content, passwd, rdate
 FROM reply
-WHERE replyno = 1;
+WHERE replyno = 1 AND fboardno = 1;
 
 11) 텍스트 수정: 예외 컬럼: 추천수, 조회수, 댓글 수
 UPDATE reply
-SET content='oh'
+SET content='ohh'
 WHERE replyno = 1 AND fboardno = 1;
 
 commit;
 
 12) 최신 댓글 10건이나 20건 읽어와 조회 화면 화단에 출력
-SELECT id, replyno, fboardno, memberno, content, passwd, rdate, r
+SELECT mname, replyno, fboardno, memberno, content, passwd, rdate, r
   FROM (
-          SELECT id, replyno, fboardno, memberno, content, passwd, rdate, rownum as r
+          SELECT mname, replyno, fboardno, memberno, content, passwd, rdate, rownum as r
           FROM (
-                    SELECT m.id, r.replyno, r.fboardno, r.memberno, r.content, r.passwd, r.rdate
+                    SELECT m.mname, r.replyno, r.fboardno, r.memberno, r.content, r.passwd, r.rdate
                     FROM reply r, member m
                     WHERE (m.memberno = r.memberno) AND r.fboardno = 2
                     ORDER BY r.replyno DESC

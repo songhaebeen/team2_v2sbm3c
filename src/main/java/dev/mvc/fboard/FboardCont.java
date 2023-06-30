@@ -242,9 +242,9 @@ public class FboardCont {
     
     	mav.addObject("fboardVO", fboardVO); // request.setAttribute("fboardVO", fboardVO);
 
-    	 //회원 번호: memberno -> MemberVO -> mname
-    	String mname = this.memberProc.read(fboardVO.getMemberno()).getMname();
-    	mav.addObject("mname", mname);
+    	 //회원 번호: memberno -> MemberVO -> id
+    	String id = this.memberProc.read(fboardVO.getMemberno()).getId();
+    	mav.addObject("mname", id);
     	
     	//mav.setViewName("/fboard/read"); // /WEB-INF/views/fboard/read.jsp
     	
