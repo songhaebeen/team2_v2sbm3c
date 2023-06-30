@@ -69,7 +69,7 @@
   <select id="find_id" resultType="int" parameterType="HashMap">
     SELECT id
     FROM member
-    WHERE 
+    WHERE email = #{email}
   </select>
   
 
