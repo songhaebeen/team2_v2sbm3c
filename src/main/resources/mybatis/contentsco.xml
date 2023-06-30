@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dev.mvc.contentsco.ContentscoDAOInter">
+  <!-- 등록한 레코드 갯수 1 리턴 -->
+  <insert id="create" parameterType="dev.mvc.contentsco.ContentscoVO">
+    INSERT INTO contentsco(contentscono, adminno, cateno, title, content, passwd, word,
+                                     file1, file1saved, thumb1, size1, rdate)
+    VALUES(contentsco_seq.nextval, #{adminno}, #{catecono}, #{title}, #{content}, #{passwd}, #{word},
+                #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate)
+  </insert>
+
+         
+</mapper> 

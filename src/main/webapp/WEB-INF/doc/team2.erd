@@ -1752,8 +1752,8 @@
                   <constraint>
                     <height>-1</height>
                     <width>-1</width>
-                    <x>915</x>
-                    <y>594</y>
+                    <x>909</x>
+                    <y>579</y>
                   </constraint>
                   <sourceConnections>
                     <net.java.amateras.db.visual.model.ForeignKeyModel>
@@ -1790,7 +1790,7 @@
                         <error></error>
                         <linkedPath></linkedPath>
                         <tableName>CATECO</tableName>
-                        <logicalName>카테고리</logicalName>
+                        <logicalName>화장품 뉴스</logicalName>
                         <description></description>
                         <columns>
                           <net.java.amateras.db.visual.model.ColumnModel>
@@ -1897,7 +1897,7 @@
                   <error></error>
                   <linkedPath></linkedPath>
                   <tableName>CONTENTSCO</tableName>
-                  <logicalName>컨텐츠</logicalName>
+                  <logicalName>뉴스 컨텐츠</logicalName>
                   <description></description>
                   <columns>
                     <net.java.amateras.db.visual.model.ColumnModel>

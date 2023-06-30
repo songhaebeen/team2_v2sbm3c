@@ -27,7 +27,8 @@ import com.zaxxer.hikari.HikariDataSource;
                                          "dev.mvc.cosmetype",
                                          "dev.mvc.ingred",
                                          "dev.mvc.cosme"
-                                         ,"dev.mvc.reply"})    
+                                         ,"dev.mvc.reply",
+                                         "dev.mvc.contentsco"})    
 public class DatabaseConfiguration {
     
     @Autowired
