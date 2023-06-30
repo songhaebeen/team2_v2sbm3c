@@ -81,6 +81,14 @@ public interface MemberProcInter {
    * 로그인 처리
    */
   public int login(HashMap<String, Object> map);
+  
+  /**
+   * 회원탈퇴
+   * @param memberVO
+   * @return
+   */
+  public int member_out(MemberVO memberVO);
+  
 
 
   

@@ -99,6 +99,12 @@ public class MemberProc implements MemberProcInter {
     return cnt;
   }
   
+  @Override
+  public int member_out(MemberVO memberVO) {
+    int cnt = this.memberDAO.member_out(memberVO);
+    return cnt;
+  }
+  
 
 }
 

@@ -63,7 +63,14 @@
     SELECT COUNT(memberno) as cnt
     FROM member
     WHERE id=#{id} AND passwd=#{passwd}
-  </select>  
+  </select>
+  
+    <!-- 회원탈퇴 -->
+    <update id="member_out" parameterType="HashMap">
+      UPDATE member
+      SET grade = 99
+      WHERE id=#{id}
+    </update>
 
   
 </mapper> 
