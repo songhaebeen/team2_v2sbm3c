@@ -26,16 +26,14 @@ import com.zaxxer.hikari.HikariDataSource;
                                          "dev.mvc.cosme_cate",
                                          "dev.mvc.cosmetype",
                                          "dev.mvc.ingred",
-<<<<<<< HEAD
                                          "dev.mvc.cosme"
                                          ,"dev.mvc.reply",
-                                         "dev.mvc.contentsco"})    
-=======
+                                         "dev.mvc.contentsco",    
                                          "dev.mvc.cosme",
                                          "dev.mvc.reply",
                                          "dev.mvc.cosme_youtube_tip"
                                          })    
->>>>>>> 2bc76ad0f4b03b3f0c457fbdd5a91788c86b5d8e
+
 public class DatabaseConfiguration {
     
     @Autowired
