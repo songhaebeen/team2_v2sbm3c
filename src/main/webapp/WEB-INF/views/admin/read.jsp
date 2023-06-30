@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import ="dev.mvc.admin.AdminVO" %>
 
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -188,23 +189,30 @@
       </label>
     </div>  
     
-    <%
-      String departs = "생산부/영업부/전산부/총무부/인사부";
-      String[] departs_array = departs.split("/");
-    %>
-    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
-      <label>부서*:
-        <SELECT name="departs">
-              <%
-              for (int i=0; i < departs_array.length; i++) { // 0 ~ 4
+    <c:set var="departs_origin" value="${adminVO.departs }" />
+
+         <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
+         <label>부서*:
+           <select name='order'>
+            <%
+            AdminVO adminVO = (AdminVO)request.getAttribute("adminVO");
+            
+            String[] departs = {"생산부", "영업부", "전산부", "총무부", "인사부"};
+            for (int index=0; index < departs.length; index++ ) {
+              if (adminVO.getDeparts().equals(departs[index])){
               %>
-                <OPTION value="<%=departs_array[i] %>"><%=departs_array[i] %></OPTION>
+                <option value="<%=departs[index] %>" selected="selected"><%=departs[index] %></option>
+              <%  
+              } else {
+                %>
+                <option value="<%=departs[index] %>"><%=departs[index] %></option>
               <%  
               }
-              %>
-        </SELECT>
-      </label>
-    </div> 
+            }
+            %>
+            </select>
+           </label>
+    </div>
 
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
       <label>전화 번호:

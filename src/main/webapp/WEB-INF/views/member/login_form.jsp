@@ -28,7 +28,7 @@
 
   // 테스트용 기본값 로딩
   function loadDefault() {
-    $('#id').val('user1@gmail.com');
+    $('#id').val('user1');
     $('#passwd').val('1234');
   }
     

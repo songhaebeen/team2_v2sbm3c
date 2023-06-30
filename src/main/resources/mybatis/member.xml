@@ -63,7 +63,16 @@
     SELECT COUNT(memberno) as cnt
     FROM member
     WHERE id=#{id} AND passwd=#{passwd}
-  </select>  
+  </select>
+  
+    <!-- 아이디 찾기 -->
+  <select id="find_id" resultType="int" parameterType="HashMap">
+    SELECT id
+    FROM member
+    WHERE 
+  </select>
+  
+
 
   
 </mapper> 

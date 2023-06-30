@@ -13,8 +13,8 @@
 
    <!-- 관리자 가입 -->
    <insert id="create" parameterType="dev.mvc.admin.AdminVO">
-    INSERT INTO admin(adminno, id, passwd, mname, tel, zipcode, address1, address2, depart, mdate, grade)
-    VALUES(admin_seq.nextval, #{id}, #{passwd}, #{mname},#{tel}, #{zipcode}, #{address1}, #{address2},#{depart}, sysdate, #{grade})
+    INSERT INTO admin(adminno, id, passwd, mname, tel, zipcode, address1, address2, departs, mdate, grade)
+    VALUES(admin_seq.nextval, #{id}, #{passwd}, #{mname},#{tel}, #{zipcode}, #{address1}, #{address2},#{departs}, sysdate, #{grade})
   </insert>
   
  
@@ -27,21 +27,21 @@
   
   <!-- 회원 정보 -->
   <select id="read_by_id" resultType="dev.mvc.admin.AdminVO" parameterType ="String" >
-    SELECT adminno, id, passwd, mname, tel, zipcode, address1, address2, depart, mdate, grade 
+    SELECT adminno, id, passwd, mname, tel, zipcode, address1, address2, departs, mdate, grade 
     FROM admin
     WHERE id=#{id}
   </select>
 
   <!-- adminno를 통한 회원 정보 -->
   <select id="read" resultType="dev.mvc.admin.AdminVO" parameterType ="int" >
-    SELECT adminno, id, passwd, mname, tel, zipcode, address1, address2, depart, mdate, grade 
+    SELECT adminno, id, passwd, mname, tel, zipcode, address1, address2, departs, mdate, grade 
     FROM admin
     WHERE adminno=#{adminno}
   </select>
   
   <!-- 관리자 목록 -->
   <select id="list" resultType="dev.mvc.admin.AdminVO">
-    SELECT adminno, id, passwd, mname, tel, zipcode, address1, address2, depart, mdate, grade
+    SELECT adminno, id, passwd, mname, tel, zipcode, address1, address2, departs, mdate, grade
     FROM admin
     ORDER BY adminno DESC
   </select>
@@ -49,7 +49,7 @@
   <!-- 관리자 수정 -->
   <update id="update" parameterType="dev.mvc.admin.AdminVO">
     UPDATE admin 
-    SET id=#{id}, mname=#{mname}, tel=#{tel}, zipcode=#{zipcode}, address1=#{address1}, address2=#{address2}, depart=#{depart}
+    SET id=#{id}, mname=#{mname}, tel=#{tel}, zipcode=#{zipcode}, address1=#{address1}, address2=#{address2}, departs=#{departs}
     WHERE adminno=#{adminno}
   </update>
   
@@ -72,6 +72,8 @@
     SET passwd=#{passwd}
     WHERE adminno=#{adminno}
   </update>
+  
+
   
 
   

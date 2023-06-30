@@ -1,6 +1,7 @@
 package dev.mvc.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -68,6 +69,21 @@ public interface AdminProcInter {
    * @return
    */
   public int delete(int adminno);
+  
+  /**
+   * 관리자 현재 패스워드 검사
+   * @param map
+   * @return
+   */
+  public int passwd_check(HashMap<Object, Object> map);  
+  
+  /**
+   * 관리자 현재 패스워드 변경
+   * @param map
+   * @return
+   */
+  public int passwd_update(HashMap<Object, Object> map);
+
   
   
 }

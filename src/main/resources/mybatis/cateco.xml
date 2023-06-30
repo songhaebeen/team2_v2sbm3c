@@ -10,10 +10,59 @@
   </insert>
   
 <!-- 목록 -->
+  <select id="list_all" resultType="dev.mvc.cateco.CatecoVO">
+    SELECT catecono, name, cnt, rdate, seqno
+    FROM cateco  
+    ORDER BY seqno ASC
+  </select>
+  
+  <!-- 조회 -->
+  <select id="read" resultType="dev.mvc.cateco.CatecoVO" parameterType="int">
+    SELECT catecono, name, cnt, rdate, seqno
+    FROM cateco
+    WHERE catecono=#{catecono}
+  </select>
 
+  <!-- 수정 -->
+  <update id="update" parameterType="dev.mvc.cateco.CatecoVO">
+    UPDATE cateco
+    SET name=#{name}, seqno=#{seqno}
+    WHERE catecono=#{catecono}
+  </update> 
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM cateco
+    WHERE catecono=#{catecono}
+  </delete>
+  
+  <!-- 출력 순서 상향 -->
+  <update id="update_seqno_decrease" parameterType="int">
+    UPDATE cateco
+    SET seqno = seqno - 1
+    WHERE catecono=#{catecono}
+  </update>
+  
+  <!-- 출력 순서 하향(10등 -> 1등) -->
+  <update id="update_seqno_increase" parameterType="int">
+    UPDATE cateco
+    SET seqno = seqno + 1
+    WHERE catecono=#{catecono}    
+  </update>
+  
+  <!-- 자료수 증가, cnt 컬럼 1씩 증가, id: update_cnt_add -->
+  <update id="update_cnt_add" parameterType="int">
+    UPDATE cateco
+    SET cnt = cnt + 1 
+    WHERE catecono = #{catecono}
+  </update>
 
-
-          
+  <!-- 자료수 감소, cnt 컬럼 1씩 증가, id: update_cnt_add -->
+  <update id="update_cnt_sub" parameterType="int">
+    UPDATE cateco
+    SET cnt = cnt - 1 
+    WHERE catecono = #{catecono}
+  </update>
 </mapper>
 
 
