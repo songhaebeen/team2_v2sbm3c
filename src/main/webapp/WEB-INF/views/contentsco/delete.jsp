@@ -2,13 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="contentsno" value="${contentsVO.contentsno }" />
-<c:set var="cateno" value="${contentsVO.cateno }" />
-<c:set var="title" value="${contentsVO.title }" />
-<c:set var="file1saved" value="${contentsVO.file1saved.toLowerCase() }" />
-<c:set var="file1" value="${contentsVO.file1 }" />
-<c:set var="thumb1" value="${contentsVO.thumb1 }" />
-<c:set var="size1" value="${contentsVO.size1 }" />
+<c:set var="contentsno" value="${contentscoVO.contentsno }" />
+<c:set var="cateno" value="${contentscoVO.cateno }" />
+<c:set var="title" value="${contentscoVO.title }" />
+<c:set var="file1saved" value="${contentscoVO.file1saved.toLowerCase() }" />
+<c:set var="file1" value="${contentscoVO.file1 }" />
+<c:set var="thumb1" value="${contentscoVO.thumb1 }" />
+<c:set var="size1" value="${contentscoVO.size1 }" />
            
 <!DOCTYPE html> 
 <html lang="ko"> 

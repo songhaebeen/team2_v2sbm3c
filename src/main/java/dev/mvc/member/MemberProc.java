@@ -99,6 +99,12 @@ public class MemberProc implements MemberProcInter {
     return cnt;
   }
   
+  @Override
+  public int find_id(HashMap<String, Object> map) {
+    int cnt = this.memberDAO.find_id(map);
+    return cnt;
+  }
+  
 
 
   

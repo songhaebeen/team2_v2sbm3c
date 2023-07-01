@@ -184,7 +184,8 @@ Cookie[] cookies = request.getCookies();
           if (cookies[i].getName().equals("cookie"+noticeno)){ 
               //System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
               viewCookie = cookies[i];
-              viewCookie.setMaxAge(30); // 30 seconds
+              //viewCookie.setMaxAge(30); // 30 seconds
+              viewCookie.setMaxAge(60 * 60 * 24); // 1 day
           }
       }
   }
@@ -200,7 +201,8 @@ Cookie[] cookies = request.getCookies();
       
       // 쿠키 생성(이름, 값)
       Cookie newCookie = new Cookie("cookie"+noticeno, "|" + noticeno + "|");
-      newCookie.setMaxAge(30); // 30 seconds
+      //newCookie.setMaxAge(30); // 30 seconds
+      newCookie.setMaxAge(60 * 60 * 24); // 1 day
       
       // 쿠키 추가
       response.addCookie(newCookie);
@@ -221,8 +223,8 @@ Cookie[] cookies = request.getCookies();
       
       // 쿠키 값 받아옴.
       String value = viewCookie.getValue();
-      //viewCookie.setMaxAge(60 * 60 * 24); // 1 day
-      viewCookie.setMaxAge(30); // 30 seconds
+      viewCookie.setMaxAge(60 * 60 * 24); // 1 day
+      //viewCookie.setMaxAge(30); // 30 seconds
       //System.out.println("cookie 값 : " + value);
   
     }

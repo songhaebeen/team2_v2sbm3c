@@ -10,32 +10,29 @@
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
- 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
 </head>
  
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'>${cateVO.name } > 글 등록</DIV>
+<DIV class='title_line'>${catecoVO.name } > 글 등록</DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <A href="./create.do?cateno=${cateVO.cateno }">등록</A>
+    <A href="./create.do?catecono=${catecoVO.catecono }">등록</A>
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>
-    <A href="./list_by_cateno.do?cateno=${cateVO.cateno }">기본 목록형</A>    
+    <A href="./list_by_catecono_search_paging.do?catecono=${catecoVO.catecono }">기본 목록형</A>    
     <span class='menu_divide' >│</span>
-    <A href="./list_by_cateno_grid.do?cateno=${cateVO.cateno }">갤러리형</A>
+    <A href="./list_by_catecono_grid.do?catecono=${catecoVO.catecono }">갤러리형</A>
   </ASIDE> 
   
   <DIV style="text-align: right; clear: both;">  
-    <form name='frm' id='frm' method='get' action='./list_by_cateno.do'>
-      <input type='hidden' name='cateno' value='${cateVO.cateno }'>  <%-- 게시판의 구분 --%>
+    <form name='frm' id='frm' method='get' action='./list_by_cateno_search_paging.do'>
+      <input type='hidden' name='catecono' value='${catecoVO.catecono }'>  <%-- 게시판의 구분 --%>
       
       <c:choose>
         <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
@@ -48,7 +45,7 @@
       <button type='submit' class='btn btn-info btn-sm'>검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' class='btn btn-info btn-sm' 
-                    onclick="location.href='./list_by_cateno.do?cateno=${cateVO.cateno}&word='">검색 취소</button>  
+                    onclick="location.href='./list_by_catecono_search.do?catecono=${catecoVO.catecono}&word='">검색 취소</button>  
       </c:if>    
     </form>
   </DIV>
@@ -56,20 +53,20 @@
   <DIV class='menu_line'></DIV>
   
   <FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
-    <input type="hidden" name="cateno" value="${param.cateno }">
+    <input type="hidden" name="catecono" value="${param.catecono }">
     
     <div>
        <label>제목</label>
-       <input type='text' name='title' value='서울 우수 야경' required="required" 
+       <input type='text' name='title' value='화장품 소식' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 100%;'>
     </div>
     <div>
        <label>내용</label>
-       <textarea name='content' required="required" class="form-control" rows="12" style='width: 100%;'>한강 야경보며 멍때리기</textarea>
+       <textarea name='content' required="required" class="form-control" rows="12" style='width: 100%;'>오늘 화장품 관련 소식은 뭘까요</textarea>
     </div>
     <div>
        <label>검색어</label>
-       <input type='text' name='word' value='서울,야경,힐링,산책,한강,전철,여행,응봉산,응봉역' required="required" 
+       <input type='text' name='word' value='토너, 저자극, 이슈' required="required" 
                  class="form-control" style='width: 100%;'>
     </div>   
     <div>
@@ -84,7 +81,7 @@
     </div>   
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-primary">등록</button>
-      <button type="button" onclick="location.href='./list_by_cateno.do?cateno=${param.cateno}'" class="btn btn-primary">목록</button>
+      <button type="button" onclick="location.href='./list_by_catecono_search_paging.do?catecono=${param.catecono}'" class="btn btn-primary">목록</button>
     </div>
   
   </FORM>
@@ -94,4 +91,3 @@
 </body>
  
 </html>
-
