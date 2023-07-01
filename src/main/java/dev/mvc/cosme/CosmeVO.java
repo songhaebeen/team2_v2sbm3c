@@ -19,6 +19,7 @@ public class CosmeVO{
     private int adminno;
     /** 화장품 종류 번호 */
     private int cosme_cateno;
+    private int cnt;
     /** 화장품 사진 파일 */
     private String file1 = "";
     /** 화장품 사진 저장 */
@@ -76,6 +77,14 @@ public class CosmeVO{
       this.cosme_cateno = cosme_cateno;
     }
 
+    public int getCnt() {
+      return cnt;
+    }
+    
+    public void setCnt(int cnt) {
+      this.cnt = cnt;
+    }
+    
     public String getFile1() {
       return file1;
     }

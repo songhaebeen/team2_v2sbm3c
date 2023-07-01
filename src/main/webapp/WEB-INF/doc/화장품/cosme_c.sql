@@ -14,6 +14,7 @@ CREATE TABLE COSME(
     RDATE                             DATE     NOT NULL,
     adminno                          NUMBER(10)     NULL ,
     cosme_cateno                      NUMBER(10)     NULL ,
+    cnt                      NUMBER(7)		 DEFAULT 0	NOT NULL,
     file1                        VARCHAR2(500)    NULL ,
     file1saved                  VARCHAR2(500)    NULL ,
     thumb1                VARCHAR2(500)    NULL ,
@@ -29,6 +30,7 @@ COMMENT ON COLUMN COSME.COSMENAME is '화장품 이름';
 COMMENT ON COLUMN COSME.RDATE is '등록일';
 COMMENT ON COLUMN COSME.adminno is '관리자 번호';
 COMMENT ON COLUMN COSME.cosme_cateno is '화장품 종류 번호';
+COMMENT ON COLUMN cateco.cnt is '관련 자료수';
 COMMENT ON COLUMN COSME.file1 is '화장품 사진 파일';
 COMMENT ON COLUMN COSME.file1saved is '화장품 사진 저장';
 COMMENT ON COLUMN COSME.thumb1 is '화장품 사진 미리보기';

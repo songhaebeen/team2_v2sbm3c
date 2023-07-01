@@ -94,4 +94,5 @@ public interface CosmeDAOInter {
    */
   public ArrayList<CosmeVO>list_by_cate_all(int cosme_cateno);
   
+  
 }

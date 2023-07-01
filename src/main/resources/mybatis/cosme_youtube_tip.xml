@@ -4,23 +4,23 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="dev.mvc.cosme.Cosme_youtube_tipDAOInter">
+<mapper namespace="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipDAOInter">
    <!-- 유튜브 및 글 등록 -->
   <insert id= "create" parameterType="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipVO">
-    INSERT INTO cosme_youtube_tip(youtubeno, cosmeno, youtubetitle, youtubecontent, rdate, address, seqno, visible)
-    VALUES(cosme_youtube_tip_seq.nextval, #{cosmeno}, #{youtubetitle}, #{youtubecontent}, sysdate, #{address}, #{seqno}, #{visible});
+    INSERT INTO cosme_youtube_tip(youtubeno, cosmeno, youtubetitle, youtubecontent, rdate, youtube, seqno, visible)
+    VALUES(cosme_youtube_tip_seq.nextval, #{cosmeno}, #{youtubetitle}, #{youtubecontent}, sysdate, #{youtube}, #{seqno}, #{visible})
   </insert>
 
   <!-- 유튜브 목록 -->
   <select id="list_youtube_all" resultType="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipVO">
-    SELECT youtubeno, COSMENO, youtubetitle, youtubecontent, views, rdate, address, seqno, visible 
+    SELECT youtubeno, COSMENO, youtubetitle, youtubecontent, views, rdate, youtube, seqno, visible 
     FROM cosme_youtube_tip 
     ORDER BY youtubeno ASC
   </select>
   
   <!-- 특정 화장품에 대한 유튜브 목록 -->
   <select id="list_youtube_cosmeno" resultType="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipVO" parameterType="int">
-    SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, address, seqno, visible 
+    SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, youtube, seqno, visible 
     FROM cosme_youtube_tip
     WHERE cosmeno=#{cosmeno}
     ORDER BY youtubeno DESC
@@ -29,14 +29,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <!-- 일반적인 조회 -->
   <select id="read" resultType="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipVO" parameterType="int">
-    SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, address, seqno, visible 
+    SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, youtube, seqno, visible 
     FROM cosme_youtube_tip
     WHERE youtubeno = #{youtubeno}
   </select>
   
     <!-- 화장품별 검색 목록 -->
     <select id="list_by_cosmeno_search" resultType="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipVO" parameterType="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipVO">
-    SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, address, seqno, visible 
+    SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, youtube, seqno, visible 
     FROM cosme_youtube_tip
     <choose>
       <when test="word == null or word == ''"> <!-- 검색하지 않는 경우, 모든 레코드 -->
@@ -69,11 +69,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <!-- 카테고리별 검색 + 페이징 목록 -->
   <select id="list_by_cosmeno_search_paging" resultType="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipVO" parameterType="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipVO">
-   SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, address, seqno, visible, r
+   SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, youtube, seqno, visible, r
    FROM (
-              SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, address, seqno, visible, rownum as r
+              SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, youtube, seqno, visible, rownum as r
               FROM (
-                        SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, address, seqno, visible
+                        SELECT youtubeno, cosmeno, youtubetitle, youtubecontent, views, rdate, youtube, seqno, visible
                         FROM cosme_youtube_tip
                         <choose>
                           <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
@@ -98,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 유튜브 글 수정 -->
   <update id="update_tip" parameterType="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipVO">
     UPDATE cosme_youtube_tip
-    SET youtubetitle=#{youtubetitle}, youtubecontent=#{youtubecontent}, address=#{address}
+    SET youtubetitle=#{youtubetitle}, youtubecontent=#{youtubecontent}, youtube=#{youtube}
     WHERE youtubeno=#{youtubeno}
   </update>
   

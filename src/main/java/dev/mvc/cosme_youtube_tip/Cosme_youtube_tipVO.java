@@ -23,7 +23,7 @@ public class Cosme_youtube_tipVO {
   /** 등록일 */
   private String rdate;
   /** 유튜브 주소 */
-  private String address = "";
+  private String youtube = "";
   /** 출력순서 */
   private int seqno;
   /** 출력 모드 */

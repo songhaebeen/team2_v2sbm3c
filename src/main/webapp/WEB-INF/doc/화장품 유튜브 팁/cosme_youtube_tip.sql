@@ -15,7 +15,7 @@ CREATE TABLE cosme_youtube_tip(
 		youtubecontent                		VARCHAR2(4000)		 NULL ,
 		views                         		NUMBER(10)		 NULL ,
 		rdate                         		DATE		 NULL ,
-		address                    VARCHAR2(1000)     NULL ,
+		youtube                    VARCHAR2(1000)     NULL ,
     seqno                             NUMBER(10)     NULL ,
     visible                           CHAR(1)    NULL ,
         FOREIGN KEY (cosmeno) REFERENCES cosme (cosmeno)
@@ -30,7 +30,7 @@ COMMENT ON COLUMN cosme_youtube_tip.word is '검색어';
 COMMENT ON COLUMN cosme_youtube_tip.youtubecontent is '내용';
 COMMENT ON COLUMN cosme_youtube_tip.views is '조회수';
 COMMENT ON COLUMN cosme_youtube_tip.rdate is '등록일';
-COMMENT ON COLUMN cosme_youtube_tip.address is '유튜브 주소';
+COMMENT ON COLUMN cosme_youtube_tip.youtube is '유튜브 주소';
 COMMENT ON COLUMN cosme_youtube_tip.seqno is '출력순서';
 COMMENT ON COLUMN cosme_youtube_tip.visible is '출력 모드';
 
@@ -43,16 +43,16 @@ CREATE SEQUENCE cosme_youtube_tip_seq
   CACHE 2                        -- 2번은 메모리에서만 계산
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
 
-INSERT INTO cosme_youtube_tip(youtubeno, COSMENO, youtubetitle, youtubecontent, rdate, address, seqno, visible)
+INSERT INTO cosme_youtube_tip(youtubeno, COSMENO, youtubetitle, youtubecontent, rdate, youtube, seqno, visible)
 VALUES(cosme_youtube_tip_seq.nextval, 1, '피부에 좋은 화장품 소개 영상', '내용입니다', sysdate, 'youtube address', 2, 'y');
 
 commit;
 
-SELECT youtubeno, COSMENO, youtubetitle, youtubecontent, views, rdate, address, seqno, visible FROM cosme_youtube_tip ORDER BY youtubeno ASC;
+SELECT youtubeno, COSMENO, youtubetitle, youtubecontent, views, rdate, youtube, seqno, visible FROM cosme_youtube_tip ORDER BY youtubeno ASC;
 
 /* 전체 수정 */
 UPDATE cosme_youtube_tip
-SET cosmeno=2, youtubetitle='기분 좋은 화장품 소개', youtubecontent='수정된 내용입니다', address='유튜브 주소'
+SET cosmeno=2, youtubetitle='기분 좋은 화장품 소개', youtubecontent='수정된 내용입니다', youtube='유튜브 주소'
 WHERE youtubeno=1
 
 DELETE FROM cosme_youtube_tip

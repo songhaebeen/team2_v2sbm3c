@@ -507,4 +507,29 @@ public class CosmeCont {
       
       return mav;
     }
+    
+    // 글수 증가
+    // http://localhost:9093/cosmeno/update_cnt_add.do?cosmeno=1
+   @RequestMapping(value = "/cosme/update_cnt_add.do", method = RequestMethod.GET)
+   public ModelAndView update_cnt_add(int cosmeno) {
+     ModelAndView mav = new ModelAndView();
+     mav.setViewName("redirect:/cosme/list_all.do");
+     
+     this.cosmeProc.update_cnt_add(cosmeno);
+     
+     return mav;
+   }
+   
+
+    // 글수 감소
+    // http://localhost:9093/cosmeno/update_cnt_sub.do?catecono=1
+   @RequestMapping(value = "/cosme/update_cnt_sub.do", method = RequestMethod.GET)
+   public ModelAndView update_cnt_sub(int cosmeno) {
+     ModelAndView mav = new ModelAndView();
+     mav.setViewName("redirect:/cosme/list_all.do");
+     
+     this.cosmeProc.update_cnt_sub(cosmeno);
+     
+     return mav;
+   }
 }
