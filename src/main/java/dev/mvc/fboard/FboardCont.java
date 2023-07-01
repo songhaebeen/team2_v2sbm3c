@@ -181,7 +181,8 @@ public class FboardCont {
           if (cookies[i].getName().equals("cookie"+fboardno)){ 
               //System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
               viewCookie = cookies[i];
-              viewCookie.setMaxAge(30); // 30 seconds
+              //viewCookie.setMaxAge(30); // 30 seconds
+              viewCookie.setMaxAge(60 * 60 * 24); // 1 day
           }
       }
   }
@@ -218,8 +219,8 @@ public class FboardCont {
 	    
 	    // 쿠키 값 받아옴.
 	    String value = viewCookie.getValue();
-	    //viewCookie.setMaxAge(60 * 60 * 24); // 1 day
-	    viewCookie.setMaxAge(30); // 30 seconds
+	    viewCookie.setMaxAge(60 * 60 * 24); // 1 day
+	    //viewCookie.setMaxAge(30); // 30 seconds
 	    //System.out.println("cookie 값 : " + value);
 	
 		}
