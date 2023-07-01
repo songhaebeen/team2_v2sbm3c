@@ -22,7 +22,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-  ${cateVO.name }
+  ${catecoVO.name }
 </DIV>
 
 <DIV class='content_body'>
@@ -31,11 +31,11 @@
     <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
     <c:if test="${sessionScope.admin_id != null }">
       <%--
-      http://localhost:9091/contents/create.do?cateno=1
-      http://localhost:9091/contents/create.do?cateno=2
-      http://localhost:9091/contents/create.do?cateno=3
+      http://localhost:9093/contentsco/create.do?catecono=1
+      http://localhost:9093/contentsco/create.do?catecono=2
+      http://localhost:9093/contentsco/create.do?catecono=3
       --%>
-      <A href="./create.do?cateno=${cateVO.cateno }">등록</A>
+      <A href="./create.do?catecono=${catecoVO.catecono }">등록</A>
       <span class='menu_divide' >│</span>
     </c:if>
     
@@ -61,22 +61,22 @@
     </thead> -->
     
     <tbody>
-      <c:forEach var="contentsVO" items="${list}">
-        <c:set var="title" value="${contentsVO.title }" />
-        <c:set var="content" value="${contentsVO.content }" />
-        <c:set var="cateno" value="${contentsVO.cateno }" />
-        <c:set var="contentsno" value="${contentsVO.contentsno }" />
-        <c:set var="thumb1" value="${contentsVO.thumb1 }" />
+      <c:forEach var="contentscoVO" items="${list}">
+        <c:set var="title" value="${contentscoVO.title }" />
+        <c:set var="content" value="${contentscoVO.content }" />
+        <c:set var="catecono" value="${contentscoVO.catecono }" />
+        <c:set var="contentscono" value="${contentscoVO.contentscono }" />
+        <c:set var="thumb1" value="${contentscoVO.thumb1 }" />
         
-         <tr style="height: 112px;" onclick="location.href='./read.do?contentsno=${contentsno }'" class='hover'>
+         <tr style="height: 112px;" onclick="location.href='./read.do?contentscono=${contentscono }'" class='hover'>
           <td style='vertical-align: middle; text-align: center; '>
             <c:choose>
               <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>
-                <%-- registry.addResourceHandler("/contents/storage/**").addResourceLocations("file:///" +  Contents.getUploadDir()); --%>
-                <img src="/contents/storage/${thumb1 }" style="width: 120px; height: 90px;">
+                <%-- registry.addResourceHandler("/contentsco/storage/**").addResourceLocations("file:///" +  Contents.getUploadDir()); --%>
+                <img src="/contentsco/storage/${thumb1 }" style="width: 120px; height: 90px;">
               </c:when>
-              <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/contents/images/none1.png -->
-                <IMG src="/contents/images/none1.png" style="width: 120px; height: 90px;">
+              <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/contentsco/images/none1.png -->
+                <IMG src="/contentsco/images/none.png" style="width: 120px; height: 90px;">
               </c:otherwise>
             </c:choose>
           </td>  
@@ -92,8 +92,7 @@
             </c:choose>
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
-            <A href="/contents/map.do?cateno=${cateno }&contentsno=${contentsno}" title="지도"><IMG src="/contents/images/map.png" class="icon"></A>
-            <A href="/contents/youtube.do?cateno=${cateno }&contentsno=${contentsno}" title="Youtube"><IMG src="/contents/images/youtube.png" class="icon"></A>
+            <A href="/contentsco/youtube.do?catecono=${catecono }&contentscono=${contentscono}" title="Youtube"><IMG src="/contentsco/images/youtube.png" class="icon"></A>
           </td>
         </tr>
         

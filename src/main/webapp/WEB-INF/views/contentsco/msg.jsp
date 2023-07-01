@@ -23,7 +23,7 @@
 
 <c:set var="code" value="${param.code }" /> <%--mav.addObject("code", "create_success"); --%>
 <c:set var="cnt" value="${param.cnt }" />     <%-- mav.addObject("cnt", cnt); --%>
-<c:set var="cateno" value="${param.cateno }" /> <%-- mav.addObject("cateno", contentsVO.getCateno()); // redirect parameter 적용 --%>
+<c:set var="catecono" value="${param.catecono }" /> <%-- mav.addObject("cateno", contentsVO.getCateno()); // redirect parameter 적용 --%>
 
 <DIV class='message'>
   <fieldset class='fieldset_basic'>
@@ -82,9 +82,9 @@
             </c:when>
         </c:choose>
         
-        <button type='button' onclick="location.href='./create.do?cateno=${cateno}'" class="btn btn-info btn-sm">새로운 컨텐츠 등록</button>
-        <button type='button' onclick="location.href='./list_by_cateno.do?cateno=${cateno}'" class="btn btn-info btn-sm">목록</button>
-        <button type='button' onclick="location.href='./list_by_cateno_grid.do?cateno=${cateno}'" class="btn btn-info btn-sm">갤러리 목록</button>
+        <button type='button' onclick="location.href='./create.do?catecono=${catecono}'" class="btn btn-info btn-sm">새로운 컨텐츠 등록</button>
+        <button type='button' onclick="location.href='./list_by_catecono.do?catecono=${catecono}'" class="btn btn-info btn-sm">목록</button>
+        <button type='button' onclick="location.href='./list_by_catecono_grid.do?catecono=${catecono}'" class="btn btn-info btn-sm">갤러리 목록</button>
       </LI>
     </UL>
   </fieldset>

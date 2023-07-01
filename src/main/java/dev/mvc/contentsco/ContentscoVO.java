@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ContentscoVO {
     /** 컨텐츠 번호 */
-    private int contentsno;
+    private int contentscono;
     /** 관리자 번호 */
     private int adminno;
     /** 카테고리 번호 */
@@ -85,12 +85,14 @@ public class ContentscoVO {
     /** 현재 페이지 */
     private int now_page = 1;
 
-    public int getContentsno() {
-      return contentsno;
+
+
+    public int getContentscono() {
+      return contentscono;
     }
 
-    public void setContentsno(int contentsno) {
-      this.contentsno = contentsno;
+    public void setContentscono(int contentscono) {
+      this.contentscono = contentscono;
     }
 
     public int getAdminno() {
@@ -110,7 +112,7 @@ public class ContentscoVO {
     }
 
     public String getTitle() {
-      return title;
+      return (title  != null)?title:"";
     }
 
     public void setTitle(String title) {
@@ -118,7 +120,7 @@ public class ContentscoVO {
     }
 
     public String getContent() {
-      return content;
+      return (content != null)?content:"";
     }
 
     public void setContent(String content) {
@@ -174,7 +176,7 @@ public class ContentscoVO {
     }
 
     public String getFile1() {
-      return file1;
+      return (file1 != null)?file1:"";
     }
 
     public void setFile1(String file1) {

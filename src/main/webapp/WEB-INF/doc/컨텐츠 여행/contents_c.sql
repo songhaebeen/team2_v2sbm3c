@@ -307,7 +307,7 @@ commit;
 -- youtube                                   VARCHAR2(1000)         NULL ,
 -- ----------------------------------------------------------------------------
 -- youtube 등록/수정
-UPDATE contentsco SET youtube='Youtube 스크립트' WHERE contentscono=1;
+UPDATE contentsco SET youtube='Youtube 스크립트' WHERE contentscono=13;
 
 -- youtube 삭제
 UPDATE contentsco SET youtube='' WHERE contentscono=1;

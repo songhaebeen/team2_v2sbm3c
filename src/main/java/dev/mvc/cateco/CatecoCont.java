@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
+import dev.mvc.contentsco.Contentsco;
+import dev.mvc.contentsco.ContentscoProcInter;
+import dev.mvc.contentsco.ContentscoVO;
 import dev.mvc.tool.Tool;
 
 @Controller
@@ -26,6 +29,9 @@ public class CatecoCont {
   @Qualifier("dev.mvc.admin.AdminProc") 
   private AdminProcInter adminProc;
   
+  @Autowired
+  @Qualifier("dev.mvc.contentsco.ContentscoProc")
+  private ContentscoProcInter contentscoProc;
   
   public CatecoCont() {
     System.out.println("-> CatecoCont created.");

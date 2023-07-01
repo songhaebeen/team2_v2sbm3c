@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="dev.mvc.cosme_cate.Cosme_cateVO" %>
+<%@ page import="dev.mvc.cateco.CatecoVO" %>
+
 
 <script type="text/javascript">
 function recommend() {
@@ -42,7 +43,9 @@ function recommend() {
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                     <a class="nav-link" href="/fboard/list_all.do">자유게시판</a>
                   </li>
-                  
+                
+
+                                   
                   <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">화장품</a>
                       <div class="dropdown-menu">

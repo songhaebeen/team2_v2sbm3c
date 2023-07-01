@@ -18,21 +18,21 @@
 <body>
 <c:import url="/menu/top.do" />
 
-<DIV class='title_line'><A href="/contents/list_by_cateno.do?cateno=${cateVO.cateno }" class="title_link">${cateVO.name }</A> > ${contentsVO.title } > Youtube 등록/수정/삭제</DIV>
+<DIV class='title_line'><A href="/contentsco/list_by_catecono.do?catecono=${catecoVO.catecono }" class="title_link">${catecoVO.name }</A> > ${contentscoVO.title } > Youtube 등록/수정/삭제</DIV>
  
 <DIV class='content_body'>
   <ASIDE class="aside_right">
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>    
-    <A href="./list_by_cateno.do?cateno=${param.cateno }&now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">기본 목록형</A>    
+    <A href="./list_by_catecono.do?catecono=${param.catecono }&now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">기본 목록형</A>    
     <span class='menu_divide' >│</span>
-    <A href="./list_by_cateno_grid.do?cateno=${param.cateno }&now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">갤러리형</A>
+    <A href="./list_by_catecono_grid.do?catecono=${param.catecono }&now_page=${param.now_page == null ? 1 : param.now_page}&word=${param.word }">갤러리형</A>
 
   </ASIDE>
   
   <DIV style="text-align: right; clear: both;">  
-    <form name='frm' id='frm' method='get' action='./list_by_cateno.do'>
-      <input type='hidden' name='cateno' value='${cateVO.cateno }'>  <%-- 게시판의 구분 --%>
+    <form name='frm' id='frm' method='get' action='./list_by_catecono.do'>
+      <input type='hidden' name='catecono' value='${catecoVO.catecono }'>  <%-- 게시판의 구분 --%>
       
       <c:choose>
         <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
@@ -45,7 +45,7 @@
       <button type='submit' class='btn btn-info btn-sm'>검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' class='btn btn-info btn-sm' 
-                    onclick="location.href='./list_by_cateno.do?cateno=${cateVO.cateno}&word='">검색 취소</button>  
+                    onclick="location.href='./list_by_catecono.do?catecono=${catecoVO.catecono}&word='">검색 취소</button>  
       </c:if>    
     </form>
   </DIV>   
@@ -57,7 +57,7 @@
     
     <div>
        <label>Youtube 스크립트</label>
-       <textarea name='youtube' class="form-control" rows="12" style='width: 100%;'>${contentsVO.youtube }</textarea>
+       <textarea name='youtube' class="form-control" rows="12" style='width: 100%;'>${contentscoVO.youtube }</textarea>
     </div>
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-primary">저장</button>
@@ -70,8 +70,8 @@
   <HR>
   <DIV style="text-align: center;">
       <H5>[참고] Youtube의 등록 방법</H5>
-      <IMG src='/contents/images/youtube01.jpg' style='width: 60%;'><br><br>
-      <IMG src='/contents/images/youtube02.jpg' style='width: 60%;'><br>
+      <IMG src='/contentsco/images/youtube01.jpg' style='width: 60%;'><br><br>
+      <IMG src='/contentsco/images/youtube02.jpg' style='width: 60%;'><br>
   </DIV>
   
 </DIV>
