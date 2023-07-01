@@ -198,7 +198,8 @@ public class FboardCont {
 	    
 	    // 쿠키 생성(이름, 값)
 	    Cookie newCookie = new Cookie("cookie"+fboardno, "|" + fboardno + "|");
-	    newCookie.setMaxAge(30); // 30 seconds
+	    //newCookie.setMaxAge(30); // 30 seconds
+	    newCookie.setMaxAge(60 * 60 * 24); // 1 day
 	    
 	    // 쿠키 추가
 	    response.addCookie(newCookie);
