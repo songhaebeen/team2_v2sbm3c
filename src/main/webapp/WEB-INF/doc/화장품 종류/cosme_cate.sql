@@ -35,7 +35,22 @@ INSERT INTO cosme_cate(cosme_cateno, cosme_catename, cnt, rdate, seqno) VALUES(c
 INSERT INTO cosme_cate(cosme_cateno, cosme_catename, cnt, rdate, seqno) VALUES(cosme_cate_seq.nextval, '앰플, 세럼', 0, sysdate, 0);
 INSERT INTO cosme_cate(cosme_cateno, cosme_catename, cnt, rdate, seqno) VALUES(cosme_cate_seq.nextval, '오일, 밤', 0, sysdate, 0);
 commit;
+select * from cosme;
+delete from cosme;
+select * from cosmetype;
 
+delete from recommend;
+ALTER TABLE cosme_ingred_relate
+ADD CONSTRAINT ingredfk
+FOREIGN KEY (ingredno) REFERENCES ingred(ingredno)
+ON DELETE cascade;
+ALTER TABLE cosme_type_relate
+ADD CONSTRAINT cosmetypefk
+FOREIGN KEY (cosmetypeno) REFERENCES cosmetype(cosmetypeno)
+
+select * from cosme_ingred_relate;
+select * from cosme_type_relate;
+commit;
 SELECT * FROM cosme_cate;
 
 UPDATE cosme_cate
@@ -72,3 +87,34 @@ UPDATE cosme_cate SET cnt = cnt + 1 WHERE cosme_cateno=1;
 UPDATE cosme_cate SET cnt = cnt - 1 WHERE cosme_cateno=1;
  
 commit;
+
+
+DROP TABLE cosme_type_relate;
+
+
+
+CREATE TABLE cosme_type_relate (
+  -- 테이블 열 정의
+  cosmetypeno INT,
+  cosmeno int,  
+  CONSTRAINT cosmetypefk FOREIGN KEY (cosmetypeno) REFERENCES cosmetype(cosmetypeno) ON DELETE CASCADE,
+  CONSTRAINT cosmefk FOREIGN KEY (cosmeno) REFERENCES cosme(cosmeno) ON DELETE CASCADE
+);
+
+DROP TABLE cosme_ingred_relate;
+
+
+
+CREATE TABLE cosme_ingred_relate (
+  -- 테이블 열 정의
+  ingredno INT,
+  cosmeno int,  
+  CONSTRAINT ingredfk FOREIGN KEY (ingredno) REFERENCES ingred(ingredno) ON DELETE CASCADE,
+  CONSTRAINT cosmefkinged FOREIGN KEY (cosmeno) REFERENCES cosme(cosmeno) ON DELETE CASCADE
+);
+
+
+
+
+
+
