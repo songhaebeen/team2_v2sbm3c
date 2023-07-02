@@ -7,11 +7,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import dev.mvc.contentsco.Contentsco;
 import dev.mvc.cosme.Cosme;
 import dev.mvc.fboard.Fboard;
-<<<<<<< HEAD
 import dev.mvc.tool.Tool;
-=======
 import dev.mvc.notice.Notice;
->>>>>>> f5bd9bda42d72328d16bacad83f67fa8c7405472
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer{
@@ -25,15 +22,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer{
       
         // JSP 인식되는 경로: http://localhost:9091/contents/storage";
         registry.addResourceHandler("/fboard/storage/**").addResourceLocations("file:///" +  Fboard.getUploadDir());
-<<<<<<< HEAD
         registry.addResourceHandler("/cosme/storage/**").addResourceLocations("file:///" +  Cosme.getUploadDir());
         
-=======
         registry.addResourceHandler("/notice/storage/**").addResourceLocations("file:///" +  Notice.getUploadDir());
         registry.addResourceHandler("/cosme/storage/**").addResourceLocations("file:///" +  Cosme.getUploadDir());
         registry.addResourceHandler("/contentsco/storage/**").addResourceLocations("file:///" +  Contentsco.getUploadDir());
-
->>>>>>> f5bd9bda42d72328d16bacad83f67fa8c7405472
         // JSP 인식되는 경로: http://localhost:9091/attachfile/storage";
         // registry.addResourceHandler("/contents/storage/**").addResourceLocations("file:///" +  Tool.getOSPath() + "/attachfile/storage/");
         
