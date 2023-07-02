@@ -44,7 +44,108 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SET youtube=#{youtube} 
     WHERE contentscono=#{contentscono}
   </update>
+ 
+  <!-- 카테고리별 검색 목록 -->
+  <select id="list_by_catecono_search" resultType="dev.mvc.contentsco.ContentscoVO" parameterType="dev.mvc.contentsco.ContentscoVO">
+    SELECT contentscono, adminno, catecono, title, content, recom, cnt, replycnt, word, rdate,
+            file1, file1saved, thumb1, size1, map, youtube
+    FROM contentsco
+    <choose>
+      <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+        WHERE catecono=#{catecono}
+      </when>
+      <otherwise> <!-- 검색하는 경우 -->
+        WHERE catecono=#{catecono} AND (UPPER(title) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+      </otherwise>
+    </choose>
+    ORDER BY contentscono DESC   
+  </select>
+   
+  <!-- 카테고리별 검색 레코드 갯수 -->
+  <select id="search_count" resultType="int" parameterType="dev.mvc.contentsco.ContentscoVO">
+    SELECT COUNT(*) as cnt
+    FROM contentsco
+    <choose>
+      <when test="word == null or word == ''"> <!-- 검색하지 않는 경우의 레코드 갯수 -->
+        WHERE catecono=#{catecono}
+      </when>
+      <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
+        WHERE catecono=#{catecono} AND (UPPER(title) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%' 
+                                                  OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+      </otherwise>
+    </choose>
+  </select>  
   
+   <!-- 카테고리별 검색 + 페이징 목록 -->
+  <select id="list_by_catecono_search_paging" resultType="dev.mvc.contentsco.ContentscoVO" parameterType="dev.mvc.contentsco.ContentscoVO">
+    SELECT contentscono, adminno, catecono, title, content, recom, cnt, replycnt, rdate, file1, file1saved, thumb1, size1, map, youtube, r
+    FROM (
+      SELECT contentscono, adminno, catecono, title, content, recom, cnt, replycnt, rdate, file1, file1saved, thumb1, size1, map, youtube, rownum as r
+      FROM (
+        SELECT contentscono, adminno, catecono, title, content, recom, cnt, replycnt, rdate, file1, file1saved, thumb1, size1, map, youtube
+        FROM contentsco
+        <choose>
+          <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+            WHERE catecono=#{catecono}
+          </when>
+          <otherwise>
+            WHERE catecono=#{catecono} AND (UPPER(title) LIKE '%' || UPPER(#{word}) || '%' 
+                                            OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%' 
+                                            OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+          </otherwise>
+        </choose>
+        ORDER BY contentscono DESC
+      )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+   
+    <!-- 1 page: WHERE r >= 1 AND r <= 10; 
+         2 page: WHERE r >= 11 AND r <= 20;
+         3 page: WHERE r >= 21 AND r <= 30; -->
+  </select>
   
+    <!-- 패스워드 검사 -->
+  <select id="password_check" resultType="int" parameterType="dev.mvc.contentsco.ContentscoVO">
+    SELECT COUNT(*) as cnt 
+    FROM contentsco
+    WHERE contentscono = #{contentscono} AND passwd=#{passwd}
+  </select>
   
+  <!-- 글 수정 -->
+  <update id="update_text" parameterType="dev.mvc.contentsco.ContentscoVO">
+    UPDATE contentsco
+    SET title=#{title}, content=#{content},  word=#{word}
+    WHERE contentscono = #{contentscono}
+  </update>
+
+  <!-- 파일 수정 -->
+  <update id="update_file" parameterType="dev.mvc.contentsco.ContentscoVO">
+    UPDATE contentsco
+    SET file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
+    WHERE contentscono = #{contentscono}
+  </update>
+  
+  <!-- 삭제 -->
+   <delete id="delete" parameterType="int">
+    DELETE FROM contentsco
+    WHERE contentscono=#{contentscono}
+  </delete>
+  
+    <!-- 특정 카테고리에 속한 레코드 갯수를 리턴 -->
+  <select id="count_by_catecono" resultType="int" parameterType="int">
+    SELECT COUNT(*) as cnt 
+    FROM contentsco
+    WHERE catecono=#{catecono}
+  </select>
+  
+    <!-- 특정 카테고리에 속한 모든 레코드 삭제 -->
+  <delete id="delete_by_catecono" parameterType="int">
+    DELETE FROM contentsco
+    WHERE catecono=#{catecono}
+  </delete>
+  
+
 </mapper> 

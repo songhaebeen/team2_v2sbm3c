@@ -246,7 +246,7 @@ FROM (
                      ORDER BY contentscono DESC
            )          
 )
-WHERE r >= 1 AND r <= 3;
+WHERE r >= 1 AND r <= 5;
 
 -- step 3, 2 page
 SELECT contentscono, adminno, catecono, title, content, recom, cnt, replycnt, rdate,
@@ -262,7 +262,7 @@ FROM (
                      ORDER BY contentscono DESC
            )          
 )
-WHERE r >= 4 AND r <= 6;
+WHERE r >= 6 AND r <= 10;
 
 -- 대소문자를 처리하는 페이징 쿼리
 SELECT contentscono, adminno, catecono, title, content, recom, cnt, replycnt, rdate,
@@ -280,7 +280,7 @@ FROM (
                      ORDER BY contentscono DESC
            )          
 )
-WHERE r >= 1 AND r <= 3;
+WHERE r >= 1 AND r <= 5;
 
 -- ----------------------------------------------------------------------------
 -- 조회
@@ -459,7 +459,7 @@ FROM (
      FROM vcontents -- View
      WHERE catecono=14 AND (title LIKE '%야경%' OR content LIKE '%야경%' OR word LIKE '%야경%')
 )
-WHERE r >= 1 AND r <= 3;
+WHERE r >= 1 AND r <= 5;
 
 -- 2 page
 SELECT contentscono, adminno, catecono, title, content, recom, cnt, replycnt, rdate,
@@ -470,4 +470,6 @@ FROM (
      FROM vcontents -- View
      WHERE catecono=14 AND (title LIKE '%야경%' OR content LIKE '%야경%' OR word LIKE '%야경%')
 )
-WHERE r >= 4 AND r <= 6;
+WHERE r >= 6 AND r <= 10;
+
+commit;

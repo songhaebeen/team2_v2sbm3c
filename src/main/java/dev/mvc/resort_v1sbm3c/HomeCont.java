@@ -21,6 +21,10 @@ public class HomeCont {
   @Qualifier("dev.mvc.cosme_cate.Cosme_cateProc")
   private Cosme_cateProcInter cosme_cateProc;
   
+  @Autowired
+  @Qualifier("dev.mvc.cateco.CatecoProc")
+  private CatecoProcInter catecoProc;
+  
   public HomeCont() {
     System.out.println("-> HomeCont created.");
   }
@@ -44,6 +48,9 @@ public class HomeCont {
     
     ArrayList<Cosme_cateVO> list = this.cosme_cateProc.list_all();
     mav.addObject("list", list);
+    
+//    ArrayList<CatecoVO> list = this.catecoProc.list_all();
+//    mav.addObject("list", list);
     
     mav.setViewName("/menu/top"); // /WEB-INF/views/menu/top.jsp
     

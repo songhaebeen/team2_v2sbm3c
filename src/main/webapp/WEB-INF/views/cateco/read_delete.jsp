@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dev.mvc.cateco.CatecoVO" %>
 
@@ -28,10 +30,27 @@ CatecoVO catecoVO_read = (CatecoVO)request.getAttribute("catecoVO");
     <FORM name='frm_delete' id='frm_delete' method='POST' action='./delete.do'>
       <input type="hidden" name="catecono" value="<%=catecoVO_read.getCatecono() %>">
       
-      <div class="msg_warning">카테고리를 삭제하면 복구 할 수 없습니다.</div>
-      <label>카테고리 이름</label>: <%=catecoVO_read.getName() %>
-  
-      <button type="submit" id='submit' class='btn btn-info btn-sm' style='height: 28px; margin-bottom: 5px;'>삭제</button>
+      <c:choose>
+        <c:when test="${count_by_catecono >= 1 }"> <%-- 자식 레코드가 있는 상황 --%>
+          <div class="msg_warning">
+            관련 자료 ${count_by_catecono } 건이 발견되었습니다.<br>
+            관련 자료와 카테고리를 모두 삭제하시겠습니까?
+          </div>
+            
+          <label>관련 카테고리 이름</label>: <%=catecoVO_read.getName() %> 
+          <a href="../contentsco/list_by_catecono.do?catecono=${catecoVO.cateno }" title="관련 카테고리로 이동"><img src='/cateco/images/link.png'></a>
+          &nbsp;      
+          <button type="submit" id='submit' class='btn btn-danger btn-sm' style='height: 28px; margin-bottom: 5px;'>관련 자료와 함게 카테고리 삭제</button>
+          
+        </c:when>
+        <c:otherwise>
+          <div class="msg_warning">카테고리를 삭제하면 복구 할 수 없습니다.</div>
+          <label>카테고리 이름</label>: <%=catecoVO_read.getName() %>
+      
+          <button type="submit" id='submit' class='btn btn-warning btn-sm' style='height: 28px; margin-bottom: 5px;'>삭제</button>          
+        </c:otherwise>
+      </c:choose>      
+
       <button type="button" onclick="location.href='/cateco/list_all.do'" class='btn btn-info btn-sm' style='height: 28px; margin-bottom: 5px;'>취소</button>
     </FORM>
   </DIV>

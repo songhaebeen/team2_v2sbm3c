@@ -43,6 +43,7 @@ public class Cosme_cateVO {
   public void setSeqno(int seqno) {
     this.seqno = seqno;
   }
+
   
   
   

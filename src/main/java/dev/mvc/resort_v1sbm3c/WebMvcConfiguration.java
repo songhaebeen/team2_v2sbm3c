@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import dev.mvc.contentsco.Contentsco;
 import dev.mvc.cosme.Cosme;
 import dev.mvc.fboard.Fboard;
 import dev.mvc.notice.Notice;
@@ -22,6 +23,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer{
         registry.addResourceHandler("/fboard/storage/**").addResourceLocations("file:///" +  Fboard.getUploadDir());
         registry.addResourceHandler("/notice/storage/**").addResourceLocations("file:///" +  Notice.getUploadDir());
         registry.addResourceHandler("/cosme/storage/**").addResourceLocations("file:///" +  Cosme.getUploadDir());
+        registry.addResourceHandler("/contentsco/storage/**").addResourceLocations("file:///" +  Contentsco.getUploadDir());
 
         // JSP 인식되는 경로: http://localhost:9091/attachfile/storage";
         // registry.addResourceHandler("/contents/storage/**").addResourceLocations("file:///" +  Tool.getOSPath() + "/attachfile/storage/");

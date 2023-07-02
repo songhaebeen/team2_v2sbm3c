@@ -26,15 +26,8 @@ function recommend() {
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle Navigation">
               <span class="navbar-toggler-icon"></span>
             </button>    
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                  <%-- <c:forEach var="cosme_cateVO" items="${list}">--%>
-                    <%--<c:set var="cosme_cateno" value="${cosme_cateVO.cosme_cateno }" />
-                    <c:set var="cosme_catename" value="${cosme_cateVO.cosme_catename }" />
-                    <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%><%--
-                      <a class="nav-link" href="/cosme_cate/cosme_cateno.do?cosme_cateno=${cosme_cateno }&now_page=1" >${cosme_catename }</a>
-                    </li>
-                  </c:forEach> 댓글 목록이 안 나와서 잠시 주석 걸겠습니다--%>
+            
+
                                     
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                    <a class="nav-link" href="/notice/list_all.do">공지사항</a>
@@ -44,7 +37,7 @@ function recommend() {
                     <a class="nav-link" href="/fboard/list_all.do">자유게시판</a>
                   </li>
                 
-
+                
                                    
                   <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">화장품</a>

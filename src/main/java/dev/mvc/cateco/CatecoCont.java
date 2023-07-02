@@ -187,7 +187,11 @@ public class CatecoCont {
       ArrayList<CatecoVO> list = this.catecoProc.list_all(); // 목록 출력용 데이터
       mav.addObject("list", list);
       
-      mav.setViewName("/cate/read_delete");
+      // 특정 카테고리에 속한 레코드 갯수를 리턴
+      int count_by_catecono = this.contentscoProc.count_by_catecono(catecono);
+      mav.addObject("count_by_catecono", count_by_catecono);
+      
+      mav.setViewName("/cateco/read_delete");
       
       } else {
         mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
@@ -202,6 +206,25 @@ public class CatecoCont {
       ModelAndView mav = new ModelAndView();
           
       if (this.adminProc.isAdmin(session) == true) {
+        ArrayList<ContentscoVO> list = this.contentscoProc.list_by_catecono(catecono); // 자식 레코드 목록 읽기
+        
+        for(ContentscoVO contentscoVO : list) { // 자식 레코드 관련 파일 삭제
+          // -------------------------------------------------------------------
+          // 파일 삭제 시작
+          // -------------------------------------------------------------------
+          String file1saved = contentscoVO.getFile1saved();
+          String thumb1 = contentscoVO.getThumb1();
+          
+          String uploadDir = Contentsco.getUploadDir();
+          Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
+          Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
+          // -------------------------------------------------------------------
+          // 파일 삭제 종료
+          // -------------------------------------------------------------------
+        }
+        
+      this.contentscoProc.delete_by_catecono(catecono); // 자식 레코드 삭제
+      
       int cnt = this.catecoProc.delete(catecono);
       
       if (cnt == 1) {

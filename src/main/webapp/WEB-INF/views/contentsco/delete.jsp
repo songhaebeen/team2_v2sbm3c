@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="contentsno" value="${contentscoVO.contentsno }" />
-<c:set var="cateno" value="${contentscoVO.cateno }" />
+<c:set var="contentscono" value="${contentscoVO.contentscono }" />
+<c:set var="catecono" value="${contentscoVO.catecono }" />
 <c:set var="title" value="${contentscoVO.title }" />
 <c:set var="file1saved" value="${contentscoVO.file1saved.toLowerCase() }" />
 <c:set var="file1" value="${contentscoVO.file1 }" />
@@ -29,27 +29,27 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'><A href="./list_by_cateno_search_paging.do?cateno=${cateno }" class='title_link'>${cateVO.name }</A> > ${title } 삭제</DIV>
+<DIV class='title_line'><A href="./list_by_catecono_search_paging.do?catecono=${catecono }" class='title_link'>${catecoVO.name }</A> > ${title } 삭제</DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <A href="./create.do?cateno=${cateno }">등록</A>
+    <A href="./create.do?catecono=${catecono }">등록</A>
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>
-    <A href="./list_by_cateno_search_paging.do?cateno=${cateno }">기본 목록형</A>    
+    <A href="./list_by_catecono_search_paging.do?catecono=${catecono }">기본 목록형</A>    
     <span class='menu_divide' >│</span>
-    <A href="./list_by_cateno_grid.do?cateno=${cateno }">갤러리형</A>
+    <A href="./list_by_catecono_grid.do?catecono=${catecono }">갤러리형</A>
     <span class='menu_divide' >│</span>
-    <A href="./update_text.do?contentsno=${contentsno}">수정</A>
+    <A href="./update_text.do?contentscono=${contentscono}">수정</A>
     <span class='menu_divide' >│</span>
-    <A href="./update_file.do?contentsno=${contentsno}">파일 수정</A>  
+    <A href="./update_file.do?contentscono=${contentscono}">파일 수정</A>  
   </ASIDE> 
   
   <%-- 검색 폼 --%>
   <DIV style="text-align: right; clear: both;">  
-    <form name='frm' id='frm' method='get' action='./list_by_cateno.do'>
-      <input type='hidden' name='cateno' value='${cateno }'>  <%-- 게시판의 구분 --%>
+    <form name='frm' id='frm' method='get' action='./list_by_catecono.do'>
+      <input type='hidden' name='catecono' value='${catecono }'>  <%-- 게시판의 구분 --%>
       
       <c:choose>
         <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
@@ -62,7 +62,7 @@
       <button type='submit'>검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' 
-                     onclick="location.href='./list_by_cateno.do?cateno=${cateno}&word='">검색 취소</button>  
+                     onclick="location.href='./list_by_catecono.do?catecono=${catecono}&word='">검색 취소</button>  
       </c:if>    
     </form>
   </DIV>
@@ -76,7 +76,7 @@
 
           <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
-              <img src="/contents/storage/${file1saved }" style='width: 90%;'> 
+              <img src="/contentsco/storage/${file1saved }" style='width: 90%;'> 
             </c:when>
             <c:otherwise> <!-- 이미지가 없는 경우 -->
               상품 관련 이미지가 없습니다.
@@ -91,8 +91,8 @@
           </c:if>
           <br>
           <FORM name='frm' method='POST' action='./delete.do'>
-              <input type='hidden' name='contentsno' value='${contentsno}'>
-              <input type='hidden' name='cateno' value='${cateno}'>
+              <input type='hidden' name='contentscono' value='${contentscono}'>
+              <input type='hidden' name='catecono' value='${catecono}'>
               <input type='hidden' name='now_page' value='${param.now_page}'>
               <br><br>
               <div style='text-align: center; margin: 10px auto;'>
