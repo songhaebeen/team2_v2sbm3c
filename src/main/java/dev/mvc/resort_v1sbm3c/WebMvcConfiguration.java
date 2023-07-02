@@ -9,10 +9,6 @@ import dev.mvc.cosme.Cosme;
 import dev.mvc.fboard.Fboard;
 import dev.mvc.tool.Tool;
 import dev.mvc.notice.Notice;
-<<<<<<< HEAD
-=======
-
->>>>>>> e21faab9082d7777538dc763976a3368f9078300
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer{
@@ -26,19 +22,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer{
       
         // JSP 인식되는 경로: http://localhost:9091/contents/storage";
         registry.addResourceHandler("/fboard/storage/**").addResourceLocations("file:///" +  Fboard.getUploadDir());
-<<<<<<< HEAD
-        registry.addResourceHandler("/cosme/storage/**").addResourceLocations("file:///" +  Cosme.getUploadDir());
-        
-        registry.addResourceHandler("/notice/storage/**").addResourceLocations("file:///" +  Notice.getUploadDir());
-        registry.addResourceHandler("/cosme/storage/**").addResourceLocations("file:///" +  Cosme.getUploadDir());
-        registry.addResourceHandler("/contentsco/storage/**").addResourceLocations("file:///" +  Contentsco.getUploadDir());
-=======
         registry.addResourceHandler("/notice/storage/**").addResourceLocations("file:///" +  Notice.getUploadDir());
         registry.addResourceHandler("/cosme/storage/**").addResourceLocations("file:///" +  Cosme.getUploadDir());
         registry.addResourceHandler("/contentsco/storage/**").addResourceLocations("file:///" +  Contentsco.getUploadDir());
 
 
->>>>>>> e21faab9082d7777538dc763976a3368f9078300
         // JSP 인식되는 경로: http://localhost:9091/attachfile/storage";
         // registry.addResourceHandler("/contents/storage/**").addResourceLocations("file:///" +  Tool.getOSPath() + "/attachfile/storage/");
         
