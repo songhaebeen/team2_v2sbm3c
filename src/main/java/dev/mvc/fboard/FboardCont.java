@@ -610,7 +610,7 @@ public class FboardCont {
     String thumb1 = fboardVO.getThumb1();
     
     String uploadDir = Fboard.getUploadDir();
-    Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
+    Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일 삭제
     Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
     // -------------------------------------------------------------------
     // 파일 삭제 종료
