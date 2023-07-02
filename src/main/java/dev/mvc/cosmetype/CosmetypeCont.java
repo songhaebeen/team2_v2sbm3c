@@ -196,7 +196,7 @@ public ModelAndView delete(HttpSession session, int cosmetypeno) {
       mav.setViewName("/cosmetype/msg"); 
     }
     
-    mav.addObject("cnt", cnt);
+    mav.addObject("cnt", cnt); 
     
   } else {
     mav.setViewName("/admin/login_need"); 
