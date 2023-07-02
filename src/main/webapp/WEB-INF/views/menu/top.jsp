@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dev.mvc.cateco.CatecoVO" %>
 
@@ -27,7 +27,13 @@ function recommend() {
               <span class="navbar-toggler-icon"></span>
             </button>    
             
-
+                <li class="nav-item">
+                  <c:forEach var="catecoVO" items="${list}">
+                    <c:set var="catecono" value="${catecoVO.catecono }" />
+                    <c:set var="name" value="${catecoVO.name }" />
+                    <a class="nav-link" href="/contentsco/list_by_catecono.do?catecono=${catecono }&now_page = 1" class="menu_link">${name }</a><span class='top_menu_sep'> </span>        
+                  </c:forEach>
+                </li>
                                     
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                    <a class="nav-link" href="/notice/list_all.do">공지사항</a>

@@ -46,7 +46,7 @@ public class HomeCont {
   public ModelAndView top() {
     ModelAndView mav = new ModelAndView();
     
-    ArrayList<Cosme_cateVO> list = this.cosme_cateProc.list_all();
+    ArrayList<CatecoVO> list = this.catecoProc.list_all();
     mav.addObject("list", list);
     
 //    ArrayList<CatecoVO> list = this.catecoProc.list_all();
