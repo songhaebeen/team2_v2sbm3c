@@ -1,11 +1,13 @@
 package dev.mvc.member;
  
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -131,7 +133,7 @@ public class MemberCont {
       mav.setViewName("/member/list"); // /webapp/WEB-INF/views/member/list.jsp
 
     } else {
-      mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+      mav.setViewName("redirect:/index.do"); // /WEB-INF/views/admin/login_need.jsp
     }
         
     return mav;
@@ -254,9 +256,10 @@ public class MemberCont {
     return mav;
   }
   
+  
   /**
    * 패스워드 변경폼
-   * 회원로그인시 가능
+   * 관리자, 회원 본인만 가능
    * @param memberno
    * @return
    */
@@ -265,11 +268,14 @@ public class MemberCont {
     ModelAndView mav = new ModelAndView();
     
     int memberno = 0;
-    if (this.memberProc.isMember(session)) { 
-      //회원 로그인한 경우
+    if (this.memberProc.isMember(session) || this.adminProc.isAdmin(session)) { 
+      // 로그인한 경우
 
       if (this.memberProc.isMember(session)) { // 회원으로 로그인
         memberno = (int)session.getAttribute("memberno"); // 본인의 회원 정보 조회
+        
+      } else if (this.adminProc.isAdmin(session)) { // 관리자로 로그인
+        memberno = Integer.parseInt(request.getParameter("memberno")); // 관리자는 누구나 조회 가능
         
       }
 
@@ -278,8 +284,8 @@ public class MemberCont {
       mav.setViewName("/member/passwd_update"); // /member/read.jsp
       
     } else {
-      // 회원 로그인을 하지 않은 경우
-      mav.setViewName("/member/login_need"); // /webapp/WEB-INF/views/member/login_need.jsp
+      // 로그인을 하지 않은 경우
+      mav.setViewName("/admin/login_need"); // /webapp/WEB-INF/views/member/login_need.jsp
     }
     
     return mav; // forward
@@ -531,8 +537,14 @@ public class MemberCont {
        
     return mav;
   }
-      
   
+
+  
+
+  
+  
+
+
 }
 
 

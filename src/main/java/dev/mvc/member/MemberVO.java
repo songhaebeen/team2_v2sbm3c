@@ -15,8 +15,10 @@ public class MemberVO {
 
     /** 회원 번호 */
     private int memberno;
-    /** 아이디(이메일) */
+    /** 아이디 */
     private String id = "";
+    /** 이메일 */
+    private String email = "";
     /** 패스워드 */
     private String passwd = "";
     /** 회원 성명 */
@@ -127,6 +129,14 @@ public class MemberVO {
     public void setUrl_address(String url_address) {
         this.url_address = url_address;
     }
+    public String getEmail() {
+      return email;
+    }
+    public void setEmail(String email) {
+      this.email = email;
+    }
+    
+    
 
     
     

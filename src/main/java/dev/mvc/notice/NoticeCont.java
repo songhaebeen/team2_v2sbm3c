@@ -16,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
-import dev.mvc.fboard.Fboard;
-import dev.mvc.fboard.FboardVO;
 import dev.mvc.member.MemberProcInter;
-
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -27,11 +24,11 @@ import dev.mvc.tool.Upload;
 public class NoticeCont {
   @Autowired
   @Qualifier("dev.mvc.admin.AdminProc") 
-  private AdminProcInter adminProc = null;;
+  private AdminProcInter adminProc = null;
   
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
-  private MemberProcInter memberProc = null;;
+  private MemberProcInter memberProc = null;
   
   @Autowired
   @Qualifier("dev.mvc.notice.NoticeProc") 
@@ -67,7 +64,13 @@ public class NoticeCont {
   public ModelAndView create(HttpServletRequest request, HttpSession session, NoticeVO noticeVO) {
     ModelAndView mav = new ModelAndView();
     
-    if (adminProc.isAdmin(session)) { // 관리자로 로그인한 경우   
+    if (noticeVO.getYoutube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경
+        // youtube 영상의 크기를 width 기준 640 px로 변경 
+        String youtube = Tool.youtubeResize(noticeVO.getYoutube().trim());
+        noticeVO.setYoutube(youtube);
+      }
+    
+    if (adminProc.isAdmin(session)) { // 관리자로 로그인한 경우 
     	// ------------------------------------------------------------------------------
         // 파일 전송 코드 시작
         // ------------------------------------------------------------------------------
@@ -106,7 +109,7 @@ public class NoticeCont {
         // ------------------------------------------------------------------------------
         // 파일 전송 코드 종료
         // ------------------------------------------------------------------------------
-       
+        
         // Call By Reference: 메모리 공유, Hashcode 전달
         int adminno = (int)session.getAttribute("adminno"); // adminno FK
         noticeVO.setAdminno(adminno);
@@ -139,24 +142,24 @@ public class NoticeCont {
 
 	}
   
-  /**
-   * 목록
-   * http://localhost:9093/notice/list.all.do
-   * @return
-   */
-  @RequestMapping(value="/notice/list_all.do", method=RequestMethod.GET)
-  public ModelAndView list_all() {
-    ModelAndView mav = new ModelAndView();
-    
-    mav.setViewName("/notice/list_all"); // /WEB-INF/views/notice/list_all.jsp
-  
-    ArrayList<NoticeVO> list = this.noticeProc.list_all();
-    mav.addObject("list", list); 
-    
-    mav.setViewName("/notice/list_all"); // /webapp/WEB-INF/views/notice/list_all.jsp
-
-    return mav;
-  }
+//  /**
+//   * 목록
+//   * http://localhost:9093/notice/list.all.do
+//   * @return
+//   */
+//  @RequestMapping(value="/notice/list_all.do", method=RequestMethod.GET)
+//  public ModelAndView list_all() {
+//    ModelAndView mav = new ModelAndView();
+//    
+//    mav.setViewName("/notice/list_all"); // /WEB-INF/views/notice/list_all.jsp
+//  
+//    ArrayList<NoticeVO> list = this.noticeProc.list_all();
+//    mav.addObject("list", list); 
+//    
+//    mav.setViewName("/notice/list_all"); // /webapp/WEB-INF/views/notice/list_all.jsp
+//
+//    return mav;
+//  }
   
   /**
    * 조회
@@ -181,7 +184,8 @@ Cookie[] cookies = request.getCookies();
           if (cookies[i].getName().equals("cookie"+noticeno)){ 
               //System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
               viewCookie = cookies[i];
-              viewCookie.setMaxAge(30); // 30 seconds
+              //viewCookie.setMaxAge(30); // 30 seconds
+              viewCookie.setMaxAge(60 * 60 * 24); // 1 day
           }
       }
   }
@@ -197,7 +201,8 @@ Cookie[] cookies = request.getCookies();
       
       // 쿠키 생성(이름, 값)
       Cookie newCookie = new Cookie("cookie"+noticeno, "|" + noticeno + "|");
-      newCookie.setMaxAge(30); // 30 seconds
+      //newCookie.setMaxAge(30); // 30 seconds
+      newCookie.setMaxAge(60 * 60 * 24); // 1 day
       
       // 쿠키 추가
       response.addCookie(newCookie);
@@ -218,8 +223,8 @@ Cookie[] cookies = request.getCookies();
       
       // 쿠키 값 받아옴.
       String value = viewCookie.getValue();
-      //viewCookie.setMaxAge(60 * 60 * 24); // 1 day
-      viewCookie.setMaxAge(30); // 30 seconds
+      viewCookie.setMaxAge(60 * 60 * 24); // 1 day
+      //viewCookie.setMaxAge(30); // 30 seconds
       //System.out.println("cookie 값 : " + value);
   
     }
@@ -290,6 +295,7 @@ Cookie[] cookies = request.getCookies();
       // youtube 영상의 크기를 width 기준 640 px로 변경 
       String youtube = Tool.youtubeResize(noticeVO.getYoutube());
       noticeVO.setYoutube(youtube);
+      
     }
     
     this.noticeProc.youtube(noticeVO);
@@ -297,6 +303,43 @@ Cookie[] cookies = request.getCookies();
     mav.setViewName("redirect:/notice/read.do?noticeno=" + noticeVO.getNoticeno()); 
     // /webapp/WEB-INF/views/notice/read.jsp
     
+    return mav;
+  }
+  
+  /**
+   * 목록 + 검색 + 페이징 지원
+   * http://localhost:9093/notice/list_all.do?word=공지&now_page=1
+   * @return
+   */
+  @RequestMapping(value="/notice/list_all.do", method=RequestMethod.GET)
+  public ModelAndView list_by_search_paging(NoticeVO noticeVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    // 검색된 전체 글 수
+    int search_count = this.noticeProc.search_count(noticeVO);
+    mav.addObject("search_count", search_count);
+
+    // 검색 목록: 검색된 레코드를 페이지 단위로 분할하여 가져옴
+    ArrayList <NoticeVO> list= this.noticeProc.list_by_search_paging(noticeVO);
+    mav.addObject("list", list);
+    
+    /*
+     * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17
+     * 18 19 20 [다음]
+     * @param now_page 현재 페이지
+     * @param word 검색어
+     * @return 페이징용으로 생성된 HTML/CSS tag 문자열
+     */
+    //System.out.println("-> now_page: " +fboardVO.getNow_page() );
+    //System.out.println("-> word: " +fboardVO.getWord() );
+    
+    String paging = noticeProc.pagingBox(noticeVO.getNow_page(), noticeVO.getWord(), "list_all.do");
+    mav.addObject("paging", paging);
+
+    // mav.addObject("now_page", now_page);
+
+    mav.setViewName("/notice/list_by_search_paging"); // /WEB-INF/views/notice/list_by_search_paging.jsp
+        
     return mav;
   }
   
@@ -351,6 +394,12 @@ Cookie[] cookies = request.getCookies();
   public ModelAndView update(HttpSession session, NoticeVO noticeVO) {
     ModelAndView mav = new ModelAndView();
     //System.out.println("title: " + noticeVO.getNtitle());   
+    
+    if (noticeVO.getYoutube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경
+        // youtube 영상의 크기를 width 기준 640 px로 변경 
+        String youtube = Tool.youtubeResize(noticeVO.getYoutube().trim());
+        noticeVO.setYoutube(youtube);
+      }  
     
     if (this.adminProc.isAdmin(session)) { // 관리자 로그인
       this.noticeProc.update(noticeVO);  
@@ -469,7 +518,6 @@ Cookie[] cookies = request.getCookies();
                 
     } else {
       mav.addObject("url", "/admin/login_need"); // login_need.jsp, redirect parameter 적용
-      mav.setViewName("redirect:/notice/msg.do"); // GET
     }
     
     return mav; // forward
@@ -516,7 +564,7 @@ Cookie[] cookies = request.getCookies();
     String file1saved = noticeVO.getFile1saved();
     String thumb1 = noticeVO.getThumb1();
     
-    String uploadDir = Fboard.getUploadDir();
+    String uploadDir = Notice.getUploadDir();
     Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
     Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
     // -------------------------------------------------------------------

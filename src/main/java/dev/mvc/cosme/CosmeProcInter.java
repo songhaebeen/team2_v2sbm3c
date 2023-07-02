@@ -82,5 +82,17 @@ public interface CosmeProcInter {
   
   public ArrayList<CosmeVO>list_by_type(String cosmetype);
   
+  /**
+   *  특정 카테고리의 등록된 화장품 목록
+   *  spring framework이 JDBC 관련 코드를 모두 생성해줌
+   * @return
+   */
   public ArrayList<CosmeVO>list_by_cate(String cosme_cateno);
+  
+  /**
+   *  특정 카테고리의 등록된 화장품 목록
+   *  spring framework이 JDBC 관련 코드를 모두 생성해줌
+   * @return
+   */
+  public ArrayList<CosmeVO>list_by_cate_all(int cosme_cateno);
 }

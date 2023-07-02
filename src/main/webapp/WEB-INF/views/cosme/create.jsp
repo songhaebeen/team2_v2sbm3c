@@ -38,11 +38,6 @@
                  class="form-control" style='width: 100%;'>
     </div>
     <br>
-    <div>
-       <label class="">화장품 관련 유튜브 채널</label>
-       <input type='text' name='cosme_youtube' placeholder='화장품 유튜브 채널' 
-                 class="form-control" style='width: 100%;'>
-    </div>
     <br>
     <div>
        <label>이미지</label>
@@ -78,14 +73,7 @@
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-info">등록</button>
       <button type="button" onclick="location.href='./list_by_type.do'" class="btn btn-info">목록</button>
-    </div>/
-    
-    <HR>
-    <DIV style="text-align: center;">
-        <H5>[참고] Youtube의 등록 방법</H5>
-        <IMG src='/cosme/images/youtube01.jpg' style='width: 60%;'><br><br>
-        <H5>이후 해당 소스를 위의 화장품 유튜브 채널에 붙이세요.</H5>
-    </DIV>  
+    </div>
   
   </FORM>
 </DIV>

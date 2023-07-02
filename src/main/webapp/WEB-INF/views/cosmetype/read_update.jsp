@@ -38,11 +38,9 @@ CosmetypeVO cosmetypeVO_read = (CosmetypeVO)request.getAttribute("cosmetypeVO");
 
   <TABLE class='table table-hover'>
     <colgroup>
-      <col style='width: 10%;'/>
-      <col style='width: 50%;'/>
-      <col style='width: 10%;'/>    
       <col style='width: 20%;'/>
-      <col style='width: 10%;'/>
+      <col style='width: 45%;'/>
+      <col style='width: 20%;'/>    
     </colgroup>
    
     <thead>  
@@ -61,7 +59,7 @@ CosmetypeVO cosmetypeVO_read = (CosmetypeVO)request.getAttribute("cosmetypeVO");
       CosmetypeVO cosmetypeVO = list.get(i);
     %>
       <TR class="th_bs">
-        <TD class='td_bs'><%= cosmetypeVO.getCosmetypeno() %></TD>
+        <TD class='td_bs'><%= cosmetypeVO.getSeqno() %></TD>
         <TD><%=cosmetypeVO.getCosmetypename() %></TD>
         <TD>
           <A href="./read_update.do?cosmetypeno=<%=cosmetypeVO.getCosmetypeno() %>" title="수정"><IMG src="/cosme_cate/images/update.png" class="icon"></A>

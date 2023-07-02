@@ -85,6 +85,8 @@ UPDATE cosme_cate SET cnt = cnt + 1 WHERE cosme_cateno=1;
 
 -- 자료수 감소, cnt 커럼 1씩 감소, id: update_cnt_sub
 UPDATE cosme_cate SET cnt = cnt - 1 WHERE cosme_cateno=1;
+
+
  
 commit;
 

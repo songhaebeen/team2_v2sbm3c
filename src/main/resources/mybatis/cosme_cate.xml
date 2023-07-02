@@ -34,7 +34,7 @@
 <!-- 수정 --> 
 <update id="update" parameterType="dev.mvc.cosme_cate.Cosme_cateVO">
   UPDATE cosme_cate 
-  SET cosme_catename=#{cosme_catename}
+  SET cosme_catename=#{cosme_catename}, cnt=#{cnt}
   WHERE cosme_cateno=#{cosme_cateno} 
 </update>
   

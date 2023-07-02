@@ -2,7 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="dev.mvc.cosme_cate.Cosme_cateVO" %>
+<%@ page import="dev.mvc.cateco.CatecoVO" %>
+
+
+<script type="text/javascript">
+function recommend() {
+
+    var url = 'http://43.201.58.46:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
+    var win = window.open(url, '공지 사항', 'width=1300px, height=850px');
+    
+    var x = (screen.width - 1300) / 2;
+    var y = (screen.height - 850) / 2;
+    
+    win.moveTo(x, y); // 화면 중앙으로 이동
+}
+</script>
 
 <DIV class='container_main'> 
     <!-- 헤더 start -->
@@ -14,13 +28,13 @@
             </button>    
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                  <c:forEach var="cosme_cateVO" items="${list}">
-                    <c:set var="cosme_cateno" value="${cosme_cateVO.cosme_cateno }" />
+                  <%-- <c:forEach var="cosme_cateVO" items="${list}">--%>
+                    <%--<c:set var="cosme_cateno" value="${cosme_cateVO.cosme_cateno }" />
                     <c:set var="cosme_catename" value="${cosme_cateVO.cosme_catename }" />
-                    <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
+                    <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%><%--
                       <a class="nav-link" href="/cosme_cate/cosme_cateno.do?cosme_cateno=${cosme_cateno }&now_page=1" >${cosme_catename }</a>
                     </li>
-                  </c:forEach>
+                  </c:forEach> 댓글 목록이 안 나와서 잠시 주석 걸겠습니다--%>
                                     
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                    <a class="nav-link" href="/notice/list_all.do">공지사항</a>
@@ -29,13 +43,16 @@
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                     <a class="nav-link" href="/fboard/list_all.do">자유게시판</a>
                   </li>
-                  
+                
+
+                                   
                   <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">화장품</a>
                       <div class="dropdown-menu">
+                          <a class="dropdown-item" href="javascript: recommend();">화장품 추천</a>
                           <a class="dropdown-item" href="/cosme/create.do">화장품 등록</a>
                           <a class="dropdown-item" href="/cosme/cosme_by_cate.do">종류별 리스트</a>
-                          <a class="dropdown-item" href="#"">타입별 리스트</a>
+                          <a class="dropdown-item" href="/cosme/list_by_typet.do">타입별 리스트</a>
                           <a class="dropdown-item" href="#">성분별 리스트</a>
                       </div>
                   </li>
@@ -54,17 +71,15 @@
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">회원</a>
                       <div class="dropdown-menu">
                           <a class="dropdown-item" href="/member/create.do">회원 가입</a>
-                          <a class="dropdown-item" href="/member/read.do">가입 정보</a>
+                          <a class="dropdown-item" href="/member/read.do?memberno=${memberno }">가입 정보</a>
                           <a class="dropdown-item" href="#">아이디 찾기</a>
-                          <a class="dropdown-item" href="#">비밀번호 찾기</a>
-                          
+                          <a class="dropdown-item" href="#">비밀번호 찾기</a>                      
                           <a class="dropdown-item" href="/member/passwd_update.do?memberno=${memberno }">비밀번호 변경</a> 
-                          <a class="dropdown-item" href="#">회원 정보 수정</a>
-                          <a class="dropdown-item" href="/member/deltet.do">회원 탈퇴</a>
+                          <a class="dropdown-item" href="/member/read.do">회원 정보 수정</a>
+                          <a class="dropdown-item" href="#">회원 탈퇴</a>
                       </div>
                   </li>
               
-                  
                   <c:choose>
                     <c:when test="${sessionScope.admin_id == null }">
                       <li class="nav-item">
@@ -75,8 +90,12 @@
                       <li class="nav-item dropdown"> <%-- 관리자 서브 메뉴 --%>
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">관리자</a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href='/cate/list_all.do'>카테고리 전체 목록</a>
+                          <a class="dropdown-item" href='/admin/create.do'>관리자 가입</a>
+                          <a class="dropdown-item" href='/admin/list.do'>관리자 목록</a>
                           <a class="dropdown-item" href='/member/list.do'>회원 목록</a>
+                          <%--<A class='dropdown-item'  href='/reply/list.do'>댓글 목록</A> --%>
+                           <A class='dropdown-item'  href='/reply/list_join.do'>댓글 목록</A>
+                           <a class="dropdown-item" href='/cate/list_all.do'>카테고리 전체 목록</a>
                           <a class="dropdown-item" href='/admin/logout.do'>관리자 ${sessionScope.admin_id } 로그아웃</a>
                         </div>
                       </li>

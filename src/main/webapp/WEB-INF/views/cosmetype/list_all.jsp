@@ -38,19 +38,20 @@
 
   <TABLE class='table table-hover'>
     <colgroup>
-      <col style='width: 10%;'/>
-      <col style='width: 45%;'/>
-      <col style='width: 10%;'/>    
       <col style='width: 20%;'/>
-      <col style='width: 15%;'/>
+      <col style='width: 45%;'/>
+      <col style='width: 20%;'/>    
     </colgroup>
    
     <thead>  
-    <TR>
-      <TH class="th_bs">순서</TH>
-      <TH class="th_bs">화장품 타입 이름</TH>
-    </TR>
+      <tr>
+        <th class="th_bs">순서</th>
+        <th class="th_bs">화장품 타입 이름</th>
+        <th class="th_bs">기타</th>
+      </tr>
     </thead>
+
+
     
     <tbody>
     <%
@@ -60,11 +61,13 @@
       CosmetypeVO cosmetypeVO = list.get(i);
     %>
       <TR class="th_bs">
-        <TD class='td_bs'><%= cosmetypeVO.getCosmetypeno() %></TD>
-        <TD><%=cosmetypeVO.getCosmetypename() %></TD>
+        <TD class='td_bs'><%= cosmetypeVO.getSeqno() %></TD>
+        <TD><a href="/cosme/cosme_by_cate.do?cosme_cateno=<%=cosmetypeVO.getCosmetypeno() %>&now_page=1"><%=cosmetypeVO.getCosmetypename() %></a></TD>
         <TD>
           <A href="./read_update.do?cosmetypeno=<%=cosmetypeVO.getCosmetypeno() %>" title="수정"><IMG src="/cosme_cate/images/update.png" class="icon"></A>
           <A href="./read_delete.do?cosmetypeno=<%=cosmetypeVO.getCosmetypeno() %>" title="삭제"><IMG src="/cosme_cate/images/delete.png" class="icon"></A>
+          <A href="./update_seqno_decrease.do?cosmetypeno=<%=cosmetypeVO.getCosmetypeno() %>" title="우선순위 높이기"><IMG src="/cosme_cate/images/decrease.png" class="icon"></A>
+          <A href="./update_seqno_increase.do?cosmetypeno=<%=cosmetypeVO.getCosmetypeno() %>" title="우선순위 낮추기"><IMG src="/cosme_cate/images/increase.png" class="icon"></A>
           </TD>
       </TR>
     <%  

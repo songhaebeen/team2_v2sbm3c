@@ -81,6 +81,20 @@ public interface MemberDAOInter {
    */
   public int login(HashMap<String, Object> map);
   
+  
+  /**
+   * 아이디 찾기
+   * @param map
+   * @return
+   */
+  public int find_id(HashMap<String, Object> map);
+  
+ 
+  
+
+  
+
+  
 }
  
 

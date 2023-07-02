@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dev.mvc.contentsco.ContentscoDAOInter">
+  <!-- 등록한 레코드 갯수 1 리턴 -->
+  <insert id="create" parameterType="dev.mvc.contentsco.ContentscoVO">
+    INSERT INTO contentsco(contentscono, adminno, catecono, title, content, passwd, word,
+                                     file1, file1saved, thumb1, size1, rdate)
+    VALUES(contentsco_seq.nextval, #{adminno}, #{catecono}, #{title}, #{content}, #{passwd}, #{word},
+                #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate)
+  </insert>
+  
+  <!-- 모든 컨텐츠 글 목록 -->
+  <select id="list_all" resultType="dev.mvc.contentsco.ContentscoVO">
+    SELECT contentscono, adminno, catecono, title, content, recom, cnt, replycnt, passwd, word, rdate,
+               file1, file1saved, thumb1, size1
+    FROM contentsco
+    ORDER BY contentscono ASC
+  </select>
+
+  <!-- 특정 카테고리의 등록된 글목록 -->
+  <select id="list_by_catecono" resultType="dev.mvc.contentsco.ContentscoVO" parameterType="int">
+    SELECT contentscono, adminno, catecono, title, content, recom, cnt, replycnt, rdate, passwd, word,
+              file1, file1saved, thumb1, size1, youtube
+    FROM contentsco
+    WHERE catecono = #{catecono}
+    ORDER BY contentscono DESC
+  </select> 
+         
+  <!--조회 -->
+  <select id="read" resultType="dev.mvc.contentsco.ContentscoVO" parameterType="int">
+    SELECT contentscono, adminno, catecono, title, content, recom, cnt, replycnt, passwd, word, rdate,
+              file1, file1saved, thumb1, size1, map, youtube
+    FROM contentsco
+    WHERE contentscono = #{contentscono}
+  </select>
+  
+  <!-- Youtube 등록, 수정, 삭제 -->
+  <update id="youtube" parameterType="dev.mvc.contentsco.ContentscoVO">
+    UPDATE contentsco
+    SET youtube=#{youtube} 
+    WHERE contentscono=#{contentscono}
+  </update>
+  
+  
+  
+</mapper> 

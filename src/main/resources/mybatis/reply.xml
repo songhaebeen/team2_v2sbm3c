@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "dev.mvc.reply.ReplyDAOInter">
+  <insert id="create">
+    INSERT INTO reply(replyno, fboardno, memberno, content, passwd, rdate)
+    VALUES(reply_seq.nextval, #{fboardno}, #{memberno}, #{content}, #{passwd}, sysdate)
+  </insert>
+  
+  <!-- 전체 목록 -->
+  <select id="list" resultType="dev.mvc.reply.ReplyVO">
+    SELECT replyno, fboardno, memberno, content, passwd, rdate
+    FROM reply
+    ORDER BY replyno ASC
+  </select>
+
+  <select id="list_by_fboardno" resultType="dev.mvc.reply.ReplyVO" parameterType="int">
+    SELECT replyno, fboardno, memberno, content, passwd, rdate
+    FROM reply
+    WHERE fboardno=#{fboardno}
+    ORDER BY replyno ASC
+  </select>
+
+  <select id="list_by_fboardno_join" resultType="dev.mvc.reply.ReplyMemberVO" parameterType="int">
+    SELECT m.id,
+               r.replyno, r.fboardno, r.memberno, r.content, r.passwd, r.rdate
+    FROM member m,  reply r
+    WHERE (m.memberno = r.memberno) AND r.fboardno=#{fboardno}
+    ORDER BY r.replyno ASC
+  </select>
+  
+  <!-- 전체 댓글 목록 -->
+    <select id="list_member_join" resultType="dev.mvc.reply.ReplyMemberVO">
+    SELECT m.id, r.replyno, r.fboardno, r.memberno, r.content, r.passwd, r.rdate
+    FROM member m, reply r
+    WHERE m.memberno = r.memberno
+    ORDER BY r.replyno ASC
+  </select>
+  
+  <!-- 패스워드 검사 -->
+  <!-- <select id="checkPasswd" parameterType="HashMap" resultType="int"> -->
+  <!-- <select id="checkPasswd" parameterType="ReplyVO" resultType="int"> -->
+  <select id="checkPasswd" parameterType="Map" resultType="int">
+    SELECT COUNT(*) as cnt
+    FROM reply
+    WHERE replyno=#{replyno} AND passwd=#{passwd}
+  </select>
+  
+    <select id="read" parameterType="int" resultType="dev.mvc.reply.ReplyMemberVO">
+			SELECT replyno, fboardno, memberno, content, passwd, rdate
+			FROM reply
+			WHERE replyno = #{replyno} AND fboardno = #{fboardno}
+  </select>
+  
+    <!-- 수정 -->
+  <update id="update" parameterType="dev.mvc.reply.ReplyMemberVO">
+		UPDATE reply
+		SET content=#{content}
+		WHERE replyno = #{replyno} AND fboardno = #{fboardno}
+  </update>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM reply
+    WHERE replyno=#{replyno}
+  </delete>
+  
+    <select id="list_by_fboardno_join_add" resultType="dev.mvc.reply.ReplyMemberVO" parameterType="int">
+    SELECT id, replyno, fboardno, memberno, content, passwd, rdate, r
+      FROM (
+        SELECT id, replyno, fboardno, memberno, content, passwd, rdate, rownum as r
+            FROM (
+              SELECT m.id, r.replyno, r.fboardno, r.memberno, r.content, r.passwd, r.rdate
+                FROM member m,  reply r
+                  WHERE (m.memberno = r.memberno) AND r.fboardno=#{fboardno}
+                    ORDER BY r.replyno ASC
+        )
+    )
+    WHERE <![CDATA[ r <= 1000 ]]>
+  </select>
+  
+  <!-- 최신 댓글 10건 읽어와 조회 화면 화단에 출력 -->
+    <select id="list_ten" resultType="dev.mvc.reply.ReplyMemberVO" parameterType="int">
+	   SELECT id, replyno, fboardno, memberno, content, passwd, rdate r
+	      FROM (
+	              SELECT id, replyno, fboardno, memberno, content, passwd, rdate, rownum as r
+	              FROM (
+	                        SELECT m.id, r.replyno, r.fboardno, r.memberno, r.content, r.passwd, r.rdate
+	                           FROM reply r, member m
+	                             WHERE (m.memberno = r.memberno) AND r.fboardno = #{fboardno}
+	                             ORDER BY r.replyno DESC
+	               )
+	    )
+	    WHERE <![CDATA[ r <= 10 ]]>
+	     
+	  </select>
+    
+</mapper> 

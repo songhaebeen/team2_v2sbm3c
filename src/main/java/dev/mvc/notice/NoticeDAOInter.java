@@ -34,6 +34,27 @@ public interface NoticeDAOInter {
   public int youtube(NoticeVO noticeVO);
   
   /**
+   *  공지사항에 검색된 글 목록
+   *  spring framework이 JDBC 관련 코드를 모두 생성해줌
+   * @return
+   */
+  public ArrayList<NoticeVO> list_by_search(NoticeVO noticeVO);
+  
+  /**
+   * 검색된 레코드 갯수 리턴
+   * @param fboardVO
+   * @return
+   */
+  public int search_count(NoticeVO noticeVO);
+  
+  /**
+   *  검색 + 페이징된 글 목록
+   *  spring framework이 JDBC 관련 코드를 모두 생성해줌
+   * @return
+   */
+  public ArrayList<NoticeVO> list_by_search_paging(NoticeVO noticeVO);
+  
+  /**
    * 패스워드 검사  
    * @param contentsVO
    * @return 1: 패스워드 일치, 0: 패스워드 불일치

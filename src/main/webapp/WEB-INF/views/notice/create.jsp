@@ -15,10 +15,6 @@
 </head>
  
 <body>
-    
-</head>
- 
-<body>
 <c:import url="/menu/top.do" />
 
 <DIV class='title_line'>공지사항 등록</DIV>
@@ -44,11 +40,16 @@
        <label>내용</label>
        <textarea name='ncontent' required="required" class="form-control" rows="12" style='width: 100%;'>필독</textarea>
     </div>
+       <div>
+       <label>youtube</label>
+       <input type='text' name='youtube' value='' placeholder="소스 코드 입력"
+       class="form-control" style='width: 100%;'>
+    </div> 
     <div>
      <label>이미지</label>
      <input type='file' class="form-control" name='file1MF' id='file1MF' 
-               value='' placeholder="파일 선택">
-  </div>  
+               value='' placeholder="파일 선택" style='width: 30%;'>
+    </div>  
     <div>
        <label>패스워드</label>
        <input type='password' name='passwd' value='1234' required="required" 
@@ -60,6 +61,10 @@
     </div>
   
   </FORM>
+      <DIV style="text-align: center;">
+      <H5>[참고] Youtube의 등록 방법</H5>
+      <IMG src='/notice/images/youtube1.png' style='width: 60%;'><br><br>
+  </DIV>
 </DIV>
   <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>

@@ -64,6 +64,12 @@ public class FboardCont {
   public ModelAndView create(HttpServletRequest request, HttpSession session, FboardVO fboardVO) {
     ModelAndView mav = new ModelAndView();
     
+    if (fboardVO.getYoutube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경
+        // youtube 영상의 크기를 width 기준 640 px로 변경 
+        String youtube = Tool.youtubeResize(fboardVO.getYoutube().trim());
+        fboardVO.setYoutube(youtube);
+      }
+    
     if (memberProc.isMember(session)) {  // 회원으로 로그인한 경우
       // ------------------------------------------------------------------------------
       // 파일 전송 코드 시작
@@ -153,7 +159,7 @@ public class FboardCont {
 //  }
   
   /**
-   * 조회, 조회수 증가
+   * 조회, 조회수 증가, 댓글수
    *  http://localhost:9093/fboard/read.do
    * @return
    */
@@ -175,7 +181,8 @@ public class FboardCont {
           if (cookies[i].getName().equals("cookie"+fboardno)){ 
               //System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
               viewCookie = cookies[i];
-              viewCookie.setMaxAge(30); // 30 seconds
+              //viewCookie.setMaxAge(30); // 30 seconds
+              viewCookie.setMaxAge(60 * 60 * 24); // 1 day
           }
       }
   }
@@ -191,7 +198,8 @@ public class FboardCont {
 	    
 	    // 쿠키 생성(이름, 값)
 	    Cookie newCookie = new Cookie("cookie"+fboardno, "|" + fboardno + "|");
-	    newCookie.setMaxAge(30); // 30 seconds
+	    //newCookie.setMaxAge(30); // 30 seconds
+	    newCookie.setMaxAge(60 * 60 * 24); // 1 day
 	    
 	    // 쿠키 추가
 	    response.addCookie(newCookie);
@@ -212,13 +220,13 @@ public class FboardCont {
 	    
 	    // 쿠키 값 받아옴.
 	    String value = viewCookie.getValue();
-	    //viewCookie.setMaxAge(60 * 60 * 24); // 1 day
-	    viewCookie.setMaxAge(30); // 30 seconds
+	    viewCookie.setMaxAge(60 * 60 * 24); // 1 day
+	    //viewCookie.setMaxAge(30); // 30 seconds
 	    //System.out.println("cookie 값 : " + value);
 	
 		}
 	}
-  
+	
     if (memberProc.isMember(session) || adminProc.isAdmin(session)) { // 관리자, 회원으로 로그인한 경우        
     	FboardVO fboardVO = this.fboardProc.read(fboardno);
     
@@ -236,11 +244,19 @@ public class FboardCont {
     
     	mav.addObject("fboardVO", fboardVO); // request.setAttribute("fboardVO", fboardVO);
 
-    	 //회원 번호: memberno -> MemberVO -> mname
-    	String mname = this.memberProc.read(fboardVO.getMemberno()).getMname();
-    	mav.addObject("mname", mname);
+    	 //회원 번호: memberno -> MemberVO -> id
+    	String id = this.memberProc.read(fboardVO.getMemberno()).getId();
+    	mav.addObject("mname", id);
     	
-    	mav.setViewName("/fboard/read"); // /WEB-INF/views/fboard/read.jsp
+    	//mav.setViewName("/fboard/read"); // /WEB-INF/views/fboard/read.jsp
+    	
+    	// 댓글 기능 추가 
+        //mav.setViewName("/fboard/read_ck_reply"); // /WEB-INF/views/fboard/read_cookie_reply.jsp
+    	
+    	// 댓글 + 더보기 버튼 기능 추가 
+        mav.setViewName("/fboard/read_ck_reply_add"); // /WEB-INF/views/fboard/read_ck_reply_add.jsp
+        
+        // -------------------------------------------------------------------------------
     	} else{ // 정상적인 로그인이 아닌 경우
     		mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
     		}
@@ -282,7 +298,7 @@ public class FboardCont {
     
     if (fboardVO.getYoutube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경
       // youtube 영상의 크기를 width 기준 640 px로 변경 
-      String youtube = Tool.youtubeResize(fboardVO.getYoutube());
+      String youtube = Tool.youtubeResize(fboardVO.getYoutube().trim());
       fboardVO.setYoutube(youtube);
     }
     
@@ -395,19 +411,19 @@ public class FboardCont {
   
   /**
    * 수정 폼
-   * http://localhost:9093/fboard/update_text.do?fboardno=12
+   * http://localhost:9093/fboard/update.do?fboardno=12
    * 
    * @return
    */
-  @RequestMapping(value = "/fboard/update_text.do", method = RequestMethod.GET)
-  public ModelAndView update_text(HttpSession session, int fboardno) {
+  @RequestMapping(value = "/fboard/update.do", method = RequestMethod.GET)
+  public ModelAndView update(HttpSession session, int fboardno) {
     ModelAndView mav = new ModelAndView();
     
     if (this.memberProc.isMember(session)) { // 로그인
       FboardVO fboardVO = this.fboardProc.read(fboardno);
       mav.addObject("fboardVO", fboardVO);
     
-      mav.setViewName("/fboard/update_text"); // /WEB-INF/views/fboard/update_text.jsp
+      mav.setViewName("/fboard/update"); // /WEB-INF/views/fboard/update.jsp
       // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
       // mav.addObject("fboard", fboard);
       }else{ // 정상적인 로그인이 아닌 경우
@@ -419,24 +435,30 @@ public class FboardCont {
   
   /**
    * 수정 처리
-   * http://localhost:9093/fboard/update_text.do?fboardno=1
+   * http://localhost:9093/fboard/update.do?fboardno=1
    * 
    * @return
    */
-  @RequestMapping(value = "/fboard/update_text.do", method = RequestMethod.POST)
-  public ModelAndView update_text(HttpSession session, FboardVO fboardVO) {
+  @RequestMapping(value = "/fboard/update.do", method = RequestMethod.POST)
+  public ModelAndView update(HttpSession session, FboardVO fboardVO) {
     ModelAndView mav = new ModelAndView();
+    
+    if (fboardVO.getYoutube().trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경
+        // youtube 영상의 크기를 width 기준 640 px로 변경 
+        String youtube = Tool.youtubeResize(fboardVO.getYoutube().trim());
+        fboardVO.setYoutube(youtube);
+      }
     
     // System.out.println("-> word: " + fboardVO.getWord());
     
     if (this.memberProc.isMember(session)) { // 로그인
-      this.fboardProc.update_text(fboardVO);  
+      this.fboardProc.update(fboardVO);  
       
       mav.addObject("fboardno", fboardVO.getFboardno());
       mav.setViewName("redirect:/fboard/read.do");
     } else { // 정상적인 로그인이 아닌 경우
       if (this.fboardProc.password_check(fboardVO) == 1) {
-        this.fboardProc.update_text(fboardVO);  
+        this.fboardProc.update(fboardVO);  
          
         // mav 객체 이용
         mav.addObject("fboardno", fboardVO.getFboardno());
@@ -546,11 +568,7 @@ public class FboardCont {
                 
     } else {
       mav.addObject("url", "/member/login_need"); // login_need.jsp, redirect parameter 적용
-      mav.setViewName("redirect:/fboard/msg.do"); // GET
     }
-
-    // redirect하게되면 전부 데이터가 삭제됨으로 mav 객체에 다시 저장
-    mav.addObject("now_page", fboardVO.getNow_page());
     
     return mav; // forward
   }   

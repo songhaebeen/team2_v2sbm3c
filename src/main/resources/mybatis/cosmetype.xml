@@ -7,20 +7,20 @@
 
   <!-- 등록 -->
   <insert id="create"  parameterType="dev.mvc.cosmetype.CosmetypeVO">
-  	 INSERT INTO cosmetype(cosmetypeno, cosmetypename)
-     VALUES(cosmetype_seq.nextval, #{cosmetypename})
+  	 INSERT INTO cosmetype(cosmetypeno, cosmetypename, seqno)
+     VALUES(cosmetype_seq.nextval, #{cosmetypename}, #{seqno})
   </insert>
   
   <!-- 목록 -->
   <select id="list_all" resultType="dev.mvc.cosmetype.CosmetypeVO">
-    SELECT cosmetypeno, cosmetypename
+    SELECT cosmetypeno, cosmetypename, seqno
     FROM cosmetype
-    ORDER BY cosmetypeno ASC
+    ORDER BY seqno ASC
   </select>
   
    <!-- 조회 --> 
  <select id = "read" resultType = "dev.mvc.cosmetype.CosmetypeVO" parameterType = "int">
-  SELECT cosmetypeno, cosmetypename
+  SELECT cosmetypeno, cosmetypename, seqno
   FROM cosmetype
   WHERE cosmetypeno=#{cosmetypeno}
  </select>
@@ -37,4 +37,18 @@
   DELETE FROM cosmetype 
   WHERE cosmetypeno=#{cosmetypeno}
 </delete>
+
+<!-- 출력 순서 올림 -->
+ <update id="update_seqno_decrease" parameterType="int">
+  UPDATE cosmetype
+  SET seqno = seqno - 1
+  WHERE cosmetypeno = #{cosmetypeno}
+ </update>
+ 
+ <!-- 출력 순서 내림 -->
+ <update id="update_seqno_increase" parameterType="int">
+  UPDATE cosmetype
+  SET seqno = seqno + 1
+  WHERE cosmetypeno = #{cosmetypeno}
+ </update>
 </mapper> 

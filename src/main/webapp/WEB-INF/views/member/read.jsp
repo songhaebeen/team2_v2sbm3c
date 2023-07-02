@@ -7,7 +7,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, width=device-width" /> 
-<title>Resort world</title>
+<title>Team2</title>
 
 <link href="/css/style.css" rel="Stylesheet" type="text/css">  <!-- /static -->
 
@@ -180,7 +180,14 @@
         <input type='text' class="form-control form-control-sm" name='id' id='id' value='${memberVO.id }' required="required" placeholder="아이디*" autofocus="autofocus">
       </label>
       <button type='button' id="btn_checkID" onclick="checkID()" class="btn btn-info btn-sm">중복확인</button>
-    </div>   
+    </div>  
+    
+    <div class="form-group"> <%-- 줄이 변경되지 않는 패턴 --%>
+      <label>이메일*:
+        <input type='text' class="form-control form-control-sm" name='id' id='id' value='${memberVO.email }' required="required" placeholder="이메일*" autofocus="autofocus">
+      </label>
+      <button type='button' id="btn_checkID" onclick="checkID()" class="btn btn-info btn-sm">중복확인</button>
+    </div>    
   
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
       <label>성명*:

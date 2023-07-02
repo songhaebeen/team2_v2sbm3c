@@ -33,7 +33,7 @@ public interface FboardProcInter {
   public int youtube(FboardVO fboardVO);
   
   /**
-   *  특정 카테고리의 검색된 글목록
+   *  자유게시판에 검색된 글목록
    *  spring framework이 JDBC 관련 코드를 모두 생성해줌
    * @return
    */
@@ -73,6 +73,13 @@ public interface FboardProcInter {
   public int password_check(FboardVO fboardVO);
   
   /**
+   * 수정
+   * @param fboardVO
+   * @return 처리된 레코드 갯수
+   */
+  public int update(FboardVO fboardVO);
+  
+  /**
    * 글 정보 수정
    * @param fboardVO
    * @return 처리된 레코드 갯수
@@ -99,6 +106,20 @@ public interface FboardProcInter {
    * @return 처리된 레코드 갯수
    */
   public int views(int fboardno);
+  
+  /**
+   * 댓글 수 증가
+   * @param 
+   * @return
+   */ 
+  public int increaseReplycnt(int fboardno);
+ 
+  /**
+   * 댓글 수 감소
+   * @param 
+   * @return
+   */   
+  public int decreaseReplycnt(int fboardno);
 	
 
 }

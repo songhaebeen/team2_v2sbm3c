@@ -19,6 +19,7 @@ public class CosmeVO{
     private int adminno;
     /** 화장품 종류 번호 */
     private int cosme_cateno;
+    private int cnt;
     /** 화장품 사진 파일 */
     private String file1 = "";
     /** 화장품 사진 저장 */
@@ -27,8 +28,6 @@ public class CosmeVO{
     private String thumb1 = "";
     /** 화장품 사진 크기 */
     private long size1;
-    /** 화장품 유튜브 영상 */
-    private String cosme_youtube = "";
     
     public int getCosmeno() {
       return cosmeno;
@@ -78,6 +77,14 @@ public class CosmeVO{
       this.cosme_cateno = cosme_cateno;
     }
 
+    public int getCnt() {
+      return cnt;
+    }
+    
+    public void setCnt(int cnt) {
+      this.cnt = cnt;
+    }
+    
     public String getFile1() {
       return file1;
     }
@@ -108,14 +115,6 @@ public class CosmeVO{
 
     public void setSize1(long size1) {
       this.size1 = size1;
-    }
-
-    public String getCosme_youtube() {
-      return cosme_youtube;
-    }
-
-    public void setCosme_youtube(String cosme_youtube) {
-      this.cosme_youtube = cosme_youtube;
     }
 
     public MultipartFile getFile1MF() {

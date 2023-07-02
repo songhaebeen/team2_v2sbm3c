@@ -64,26 +64,28 @@
       <c:choose>
         <c:when test="${sessionScope.admin_id != null }">
           <col style="width: 10%;"></col>
-          <col style="width: 60%;"></col>
+          <col style="width: 50%;"></col>
           <col style="width: 10%;"></col>     
-          <col style="width: 10%;"></col>   
+          <col style="width: 20%;"></col>   
         </c:when>
         <c:otherwise>
           <col style="width: 10%;"></col>
           <col style="width: 60%;"></col>
-          
+          <col style="width: 10%;"></col>    
+          <col style="width: 20%;"></col>
         </c:otherwise>
       </c:choose>
     </colgroup>
-
-<!--     <thead>
-      <tr>
-        <th style='text-align: center;'>파일</th>
-        <th style='text-align: center;'>제목</th>
-        <th style='text-align: center;'>기타</th>
-      </tr>
     
-    </thead> -->
+              
+          <thead>
+      <tr>
+        <th style='text-align: center;'></th>
+        <th style='text-align: left;'>제목</th>
+        <th style='text-align: center;'>조회수</th>
+        <th style='text-align: center;'>등록일</th>
+      </tr>
+    </thead>
     
     <tbody>
       <c:forEach var="fboardVO" items="${list}">
@@ -133,8 +135,7 @@
               </td>
             </c:when>
             <c:otherwise>
-            <td style='vertical-align: middle; text-align: center;'>
-            <A href="/fboard/youtube.do?fboardno=${fboardno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="Youtube 등록"><IMG src="/fboard/images/youtube.png" class="icon"></A>
+            
             </c:otherwise>
           </c:choose>
 

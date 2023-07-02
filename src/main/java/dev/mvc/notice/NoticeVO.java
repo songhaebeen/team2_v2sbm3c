@@ -11,6 +11,9 @@ public class NoticeVO {
 	private String rdate="";
 	private int views;
 	
+	/** 검색어 */
+	private String word="";
+	
 	/** 메인 이미지 */
     private String file1 = "";
     /** 실제 저장된 메인 이미지 */
@@ -31,6 +34,12 @@ public class NoticeVO {
     
     /** Youtube */
     private String youtube;
+    
+    /** 시작 rownum */
+    private int start_num;
+    
+    /** 종료 rownum */
+    private int end_num;   
     
     /** 현재 페이지 */
     private int now_page = 1;
@@ -70,6 +79,12 @@ public class NoticeVO {
 	}
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
+	}
+	public String getWord() {
+		return word;
+	}
+	public void setWord(String word) {
+		this.word = word;
 	}
 	public int getViews() {
 		return views;
@@ -119,7 +134,19 @@ public class NoticeVO {
 	public void setYoutube(String youtube) {
 		this.youtube = youtube;
 	}
-  public int getNow_page() {
+  public int getStart_num() {
+		return start_num;
+	}
+	public void setStart_num(int start_num) {
+		this.start_num = start_num;
+	}
+	public int getEnd_num() {
+		return end_num;
+	}
+	public void setEnd_num(int end_num) {
+		this.end_num = end_num;
+	}
+public int getNow_page() {
     return now_page;
   }
   public void setNow_page(int now_page) {

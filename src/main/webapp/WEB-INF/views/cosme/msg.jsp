@@ -80,8 +80,7 @@
             </c:when>
         </c:choose>
         
-        <button type='button' onclick="location.href='./update.do?cosmeno=${cosmeno}'" class="btn btn-info btn-sm">기존 화장품 수정</button>
-        <button type='button' onclick="location.href='./create.do?cosmeno=${cosmeno}'" class="btn btn-info btn-sm">새로운 화장품 등록</button>
+        <button type='button' onclick="location.href='./create.do?cosmeno=${cosmeno}'" class="btn btn-info btn-sm">새로운 화장품 등록</button>        
       </LI>
     </UL>
   </fieldset>

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import dev.mvc.cate.CateProcInter;
-import dev.mvc.cate.CateVO;
+import dev.mvc.cateco.CatecoProcInter;
+import dev.mvc.cateco.CatecoVO;
 import dev.mvc.cosme_cate.Cosme_cateProcInter;
 import dev.mvc.cosme_cate.Cosme_cateVO;
 
@@ -41,7 +41,7 @@ public class HomeCont {
   @RequestMapping(value= {"/menu/top.do"}, method=RequestMethod.GET)
   public ModelAndView top() {
     ModelAndView mav = new ModelAndView();
-
+    
     ArrayList<Cosme_cateVO> list = this.cosme_cateProc.list_all();
     mav.addObject("list", list);
     

@@ -40,10 +40,9 @@ IngredVO ingredVO_read = (IngredVO)request.getAttribute("ingredVO");
 
   <TABLE class='table table-hover'>
     <colgroup>
-      <col style='width: 10%;'/>
-      <col style='width: 50%;'/>
-      <col style='width: 10%;'/>    
-      <col style='width: 20%;'/>
+      <col style='width: 15%;'/>
+      <col style='width: 40%;'/>
+      <col style='width: 15%;'/>    
       <col style='width: 10%;'/>
     </colgroup>
    
@@ -63,7 +62,7 @@ IngredVO ingredVO_read = (IngredVO)request.getAttribute("ingredVO");
       IngredVO ingredVO = list.get(i);
     %>
       <TR class="th_bs">
-        <TD class='td_bs'><%= ingredVO.getIngredno() %></TD>
+        <TD class='td_bs'><%= ingredVO.getSeqno() %></TD>
         <TD><%=ingredVO.getIngredname() %></TD>
         <TD><%=ingredVO.getIngredeffect() %></TD>
         <TD>
