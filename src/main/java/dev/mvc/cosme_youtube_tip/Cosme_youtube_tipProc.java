@@ -41,8 +41,8 @@ public class Cosme_youtube_tipProc implements Cosme_youtube_tipProcInter {
   }
 
   @Override
-  public ArrayList<Cosme_youtube_tipVO> list_youtube_cosmeno() {
-    ArrayList <Cosme_youtube_tipVO> list = this.cosme_youtube_tipDAO.list_youtube_cosmeno();
+  public ArrayList<Cosme_youtube_tipVO> list_youtube_cosmeno(int cosmeno) {
+    ArrayList <Cosme_youtube_tipVO> list = this.cosme_youtube_tipDAO.list_youtube_cosmeno(cosmeno);
     // for 문을 사용하여 객체를 추출, Call By Reference 기반의 원본 객체 값 변경
     for (Cosme_youtube_tipVO cosme_youtube_tipVO : list) {
       String youtubetitle = cosme_youtube_tipVO.getYoutubetitle();
@@ -128,8 +128,8 @@ public class Cosme_youtube_tipProc implements Cosme_youtube_tipProcInter {
   }
 
   @Override
-  public int update_tip(Cosme_youtube_tipVO cosme_youtube_tipVO) {
-    int cnt = this.cosme_youtube_tipDAO.update_tip(cosme_youtube_tipVO);
+  public int update(Cosme_youtube_tipVO cosme_youtube_tipVO) {
+    int cnt = this.cosme_youtube_tipDAO.update(cosme_youtube_tipVO);
     return cnt;
   }
 
