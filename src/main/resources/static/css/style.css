@@ -521,3 +521,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .btn-wrap {
     text-align: center;
 }
+
+.right-align {
+  text-align: right;
+}
