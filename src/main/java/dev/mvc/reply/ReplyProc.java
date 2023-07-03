@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import dev.mvc.fboard.FboardVO;
 import dev.mvc.tool.Tool;
 
 @Component("dev.mvc.reply.ReplyProc")
@@ -129,6 +130,11 @@ public List<ReplyMemberVO> list_memberno(int memberno) {
   return list;
 }
 
+@Override
+public ReplyMemberVO read(int replyno) {
+  ReplyMemberVO replyMemberVO = this.replyDAO.read(replyno);
 
+  return replyMemberVO;
+}
    
 }

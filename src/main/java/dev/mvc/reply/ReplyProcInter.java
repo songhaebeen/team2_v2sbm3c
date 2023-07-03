@@ -80,5 +80,8 @@ public interface ReplyProcInter {
    * @return
    */
   public List<ReplyMemberVO> list_memberno(int memberno);
+
+  public ReplyMemberVO read(int replyno);
+
   
 }

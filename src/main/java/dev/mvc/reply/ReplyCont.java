@@ -220,34 +220,34 @@ public String posttWirte(ReplyVO replyVO) throws Exception {
     return obj.toString();
   }
   
-  /**
-   * 패스워드 입력폼 
-   * http://localhost:9093/reply/update.do?replyno=1&passwd=1234
-   * {"delete_cnt":0,"passwd_cnt":0}
-   * {"delete_cnt":1,"passwd_cnt":1}
-   * @param replyno
-   * @param passwd
-   * @return
-   */
-  @ResponseBody
-  @RequestMapping(value = "/reply/update.do", 
-                              method = RequestMethod.POST,
-                              produces = "text/plain;charset=UTF-8")
-  public String update_passwd(ReplyMemberVO replyMemberVO, String passwd) {
-    Map<String, Object> map = new HashMap<String, Object>();
-    map.put("replyMemberVO", replyMemberVO);
-    map.put("passwd", passwd);
-    
-    int passwd_cnt = replyProc.checkPasswd(map); // 패스워드 일치 여부, 1: 일치, 0: 불일치
-    if (passwd_cnt == 1) { // 패스워드가 일치할 경우
-      replyProc.update(replyMemberVO); // 댓글 수정
-    }
-    
-    JSONObject obj = new JSONObject();
-    obj.put("passwd_cnt", passwd_cnt); // 패스워드 일치 여부, 1: 일치, 0: 불일치
-    
-    return obj.toString();
-  }
+//  /**
+//   * 패스워드 입력폼 
+//   * http://localhost:9093/reply/update.do?replyno=1&passwd=1234
+//   * {"delete_cnt":0,"passwd_cnt":0}
+//   * {"delete_cnt":1,"passwd_cnt":1}
+//   * @param replyno
+//   * @param passwd
+//   * @return
+//   */
+//  @ResponseBody
+//  @RequestMapping(value = "/reply/update.do", 
+//                              method = RequestMethod.POST,
+//                              produces = "text/plain;charset=UTF-8")
+//  public String update_passwd(ReplyMemberVO replyMemberVO, String passwd) {
+//    Map<String, Object> map = new HashMap<String, Object>();
+//    map.put("replyMemberVO", replyMemberVO);
+//    map.put("passwd", passwd);
+//    
+//    int passwd_cnt = replyProc.checkPasswd(map); // 패스워드 일치 여부, 1: 일치, 0: 불일치
+//    if (passwd_cnt == 1) { // 패스워드가 일치할 경우
+//      replyProc.update(replyMemberVO); // 댓글 수정
+//    }
+//    
+//    JSONObject obj = new JSONObject();
+//    obj.put("passwd_cnt", passwd_cnt); // 패스워드 일치 여부, 1: 일치, 0: 불일치
+//    
+//    return obj.toString();
+//  }
   
 //  /**
 //   * 패스워드를 검사한 후 수정 
@@ -365,7 +365,7 @@ public String posttWirte(ReplyVO replyVO) throws Exception {
   }
   
   /**
-   * 내가 단 댓글
+   * 내가 단 댓글 목록
   * http://localhost:9093/reply/list_memberno.do
    * @param memberno
    * @return
@@ -374,6 +374,9 @@ public String posttWirte(ReplyVO replyVO) throws Exception {
   public ModelAndView list_memberno(HttpSession session) {
     ModelAndView mav = new ModelAndView();
     int memberno = (int)(session.getAttribute("memberno"));
+    
+    Integer integer = null;
+    int value = integer.intValue();
     
     List<ReplyMemberVO> list = replyProc.list_memberno(memberno);
     
@@ -384,5 +387,28 @@ public String posttWirte(ReplyVO replyVO) throws Exception {
     return mav;
   }
   
+  /**
+   * 수정 폼
+   * http://localhost:9093/reply/update_reply.do
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/reply/update_reply.do", method = RequestMethod.GET)
+  public ModelAndView update(HttpSession session, int replyno) {
+    ModelAndView mav = new ModelAndView();
+    
+    if (this.memberProc.isMember(session)) { // 로그인
+      ReplyMemberVO replyMemberVO = this.replyProc.read(replyno);
+      mav.addObject("replyMemberVO", replyMemberVO);
+    
+      mav.setViewName("/reply/update_reply"); // /WEB-INF/views/reply/update.jsp
+      // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
+      // mav.addObject("reply", reply);
+      }else{ // 정상적인 로그인이 아닌 경우
+     mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+     }
+
+    return mav; // forward
+  }
   
 }

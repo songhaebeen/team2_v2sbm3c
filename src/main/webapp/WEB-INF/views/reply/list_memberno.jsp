@@ -17,13 +17,9 @@
 <body>
 <c:import url="/menu/top.do" />
    <DIV class="title_line">
-    해당 글의 최신 댓글 10개만 출력
+    회원 별 댓글 목록
   </DIV>
     <ASIDE class='aside_right'> 
-    <c:if test="${sessionScope.admin_id != null }">
-    <A href="./list_join.do">모든 댓글</A>
-    <span class='menu_divide' >│</span>  
-    </c:if>
     <A href="javascript:history.back();">돌아가기</A>
   </ASIDE>
   
@@ -73,7 +69,7 @@
               <A href='../fboard/read.do?fboardno=${fboardno }'>${fboardno}</A>
             </td>
             <td style='text-align: center; vertical-align: middle;'>
-              <A href='../member/read.do?memberno=${memberno }'></A><span> ${memberno }</span>
+              <A href='../member/read.do?memberno=${memberno }'><span> ${memberno }</span></A>
             </td>
               <td style='text-align: center; vertical-align: middle;'>
              ${ftitle }
@@ -83,7 +79,7 @@
               ${rdate.substring(0,10)}
             </td>
             <td style='text-align: center; vertical-align: middle;'>
-            <a href="./update.do?replyno=${replyno}"><img src="/reply/images/update.png" title="삭제"  border='0' /></a>
+            <a href="./update_reply.do?replyno=${replyno}"><img src="/reply/images/update.png" title="수정"  border='0' /></a>
               <a href="./delete.do?replyno=${replyno}"><img src="/reply/images/delete.png" title="삭제"  border='0' /></a>
             </td>
           </tr>

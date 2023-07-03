@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <update id="update" parameterType="dev.mvc.reply.ReplyMemberVO">
 		UPDATE reply
 		SET content=#{content}
-		WHERE replyno = #{replyno} AND fboardno = #{fboardno}
+		WHERE replyno = #{replyno}
   </update>
   
   <!-- 삭제 -->
