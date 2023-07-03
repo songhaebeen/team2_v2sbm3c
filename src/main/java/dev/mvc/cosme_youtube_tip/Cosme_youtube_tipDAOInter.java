@@ -27,7 +27,7 @@ public interface Cosme_youtube_tipDAOInter {
    *  spring framework이 JDBC 관련 코드를 모두 생성해줌
    * @return
    */
-  public ArrayList<Cosme_youtube_tipVO> list_youtube_cosmeno();
+  public ArrayList<Cosme_youtube_tipVO> list_youtube_cosmeno(int cosmeno);
   
   /**
    * 조회
@@ -62,7 +62,7 @@ public interface Cosme_youtube_tipDAOInter {
    * @param cosme_youtube_tipVO
    * @return 변경된 레코드 갯수
    */
-  public int update_tip(Cosme_youtube_tipVO cosme_youtube_tipVO);
+  public int update(Cosme_youtube_tipVO cosme_youtube_tipVO);
   
   /**
    * 내용 삭제

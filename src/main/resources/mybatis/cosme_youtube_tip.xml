@@ -96,7 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select>
   
   <!-- 유튜브 글 수정 -->
-  <update id="update_tip" parameterType="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipVO">
+  <update id="update" parameterType="dev.mvc.cosme_youtube_tip.Cosme_youtube_tipVO">
     UPDATE cosme_youtube_tip
     SET youtubetitle=#{youtubetitle}, youtubecontent=#{youtubecontent}, youtube=#{youtube}
     WHERE youtubeno=#{youtubeno}

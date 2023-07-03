@@ -174,7 +174,7 @@ public class CosmeCont {
 
       } else {
         mav.addObject("url", "/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
-        mav.setViewName("redirect:/cosme/msg.do"); 
+        mav.setViewName("redirect:/admin/msg.do"); 
       }
       
       return mav; // forward

@@ -91,7 +91,7 @@
               <img src="/contentsco/storage/${file1saved }" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/contentsco/images/none.png" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/contentsco/images/none.jpg" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
             </c:otherwise>
           </c:choose>
 
