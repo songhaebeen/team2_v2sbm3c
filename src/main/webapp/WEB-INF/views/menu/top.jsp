@@ -27,13 +27,13 @@ function recommend() {
               <span class="navbar-toggler-icon"></span>
             </button>    
             
-                <li class="nav-item">
                   <c:forEach var="catecoVO" items="${list}">
                     <c:set var="catecono" value="${catecoVO.catecono }" />
                     <c:set var="name" value="${catecoVO.name }" />
-                    <a class="nav-link" href="/contentsco/list_by_catecono.do?catecono=${catecono }&now_page = 1" class="menu_link">${name }</a><span class='top_menu_sep'> </span>        
+                    <li class="nav-item"> 
+                    <a class="nav-link" href="/contentsco/list_by_catecono.do?catecono=${catecono }&now_page = 1" class="menu_link">${name }</a>   
                   </c:forEach>
-                </li>
+                  </li>
                                     
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                    <a class="nav-link" href="/notice/list_all.do">공지사항</a>
@@ -69,6 +69,7 @@ function recommend() {
                   <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">회원</a>
                       <div class="dropdown-menu">
+                          <a class="dropdown-item" href="/reply/list_memberno.do?memberno=${memberno }">내가 쓴 댓글</a>
                           <a class="dropdown-item" href="/member/create.do">회원 가입</a>
                           <a class="dropdown-item" href="/member/read.do?memberno=${memberno }">가입 정보</a>
                           <a class="dropdown-item" href="#">아이디 찾기</a>

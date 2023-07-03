@@ -44,16 +44,6 @@
     $('#content', frm_reply).on('click', check_login);  // 댓글 작성 시 로그인 여부 확인
     $('#btn_create', frm_reply).on('click', reply_create);  // 댓글 작성 시 로그인 여부 확인
 
-    /* 리뷰 수정 버튼 */
-    $(document).on('click', '.update_reply', function(e){
-    	e.preventDefault();
-        let replyId = $(this).attr("href");    
-        let popUrl = "/replyUpdate?fboarno=" + fboarno + "&replyno=" + '${replyMemberVO.replyno}';
-        let popOption = "width = 490px, height=490px, top=300px, left=300px, scrollbars=yes"      
-
-          window.open(popUrl,"리뷰 수정",popOption);
-            });
-
     list_by_fboardno_join(); //댓글 목록
 
     $('#btn_add').on('click', list_by_fboardno_join_add);  // [더보기] 버튼
@@ -61,7 +51,15 @@
     
   });
 
- //좋아요
+	 /* 리뷰 수정 버튼 -> 패스워드 입력 폼 출력 */
+	 function update_reply(replyno) {
+	     let popUrl = "/reply/update.do?fboardno=${fboardno}&replyno=" + replyno;
+	     let popOption = "width=490px, height=490px, top=300px, left=300px, scrollbars=yes";
+	     window.open(popUrl, "리뷰 수정", popOption);
+	 }
+
+ 
+  //좋아요
   function update_recom_ajax(fboardno) {
     // console.log('-> fboardno:' + fboardno);
     var params = "";
@@ -269,7 +267,8 @@
               }
           
           if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치 여부 확인, 본인의 글만 수정, 삭제 가능함 ★
-        	  msg += " <A href='javascript:update_reply("+row.replyno+")'><IMG src='/reply/images/update.png'></A>";           
+        	  msg += " <a href='javascript:void(0);' onclick='update_reply(" + row.replyno + ")'><img src='/reply/images/update.png'></a>";
+           
             msg += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='/reply/images/delete.png'></A>";           
           }
           
@@ -368,7 +367,8 @@
             }
 
       if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치여부 확인, 본인의 글만 삭제 가능함 ★
-    	  msg += " <A href='javascript:update_reply("+row.replyno+")'><IMG src='/reply/images/update.png'></A>";           
+    	  msg += " <a href='javascript:void(0);' onclick='update_reply(" + row.replyno + ")'><img src='/reply/images/update.png'></a>";
+           
         msg += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='/reply/images/delete.png'></A>";
         }
         msg += "  " + "<br>";

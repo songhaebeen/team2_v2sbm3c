@@ -94,7 +94,7 @@
             <img src="/contentsco/storage/${thumb1 }" style="width: 100%; height: 140px;">
           </c:when>
           <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/contentsco/images/none1.png -->
-            <IMG src="/contentsco/images/none.png" style="width: 100%; height: 140px;">
+            <IMG src="/contentsco/images/none.jpg" style="width: 100%; height: 140px;">
           </c:otherwise>
         </c:choose>
         

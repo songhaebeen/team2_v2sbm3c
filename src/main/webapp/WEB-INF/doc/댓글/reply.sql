@@ -57,7 +57,7 @@ FROM member m,  reply r
 WHERE m.memberno = r.memberno
 ORDER BY r.replyno DESC;
 
-4) reply + member join + 특정 contentsno 별 목록
+4) reply + member join + 특정 fboardno 별 목록
 SELECT m.id,
            r.replyno, r.fboardno, r.memberno, r.content, r.passwd, r.rdate
 FROM member m,  reply r
@@ -69,7 +69,12 @@ ID                                REPLYNO   FBOARDNO   MEMBERNO CONTENT    PASSW
 user1@gmail.com                         3          5          3 댓글3       1234         2023-06-27 10:19:40
 user1@gmail.com                         2          5          3 댓글2       1234         2023-06-27 10:19:40
 user1@gmail.com                         1          5          3 댓글1       1234         2023-06-27 10:19:24
- 
+
+4) fboard + reply join + 특정 memberno 별 목록
+SELECT r.replyno, m.memberno, r.fboardno, f.ftitle, r.content, r.rdate
+FROM fboard f, reply r, member m
+WHERE (f.fboardno = r.fboardno) AND m.memberno=2
+ORDER BY r.replyno DESC;
 
 5) 삭제
 -- 패스워드 검사
