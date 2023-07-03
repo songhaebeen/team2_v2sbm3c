@@ -115,6 +115,20 @@ public int update(ReplyMemberVO replyMemberVO) {
   return cnt;
 }
 
+@Override
+public List<ReplyMemberVO> list_memberno(int memberno) {
+  List<ReplyMemberVO> list = replyDAO.list_memberno(memberno);
+  String content = "";
+  
+  // 특수 문자 변경
+  for (ReplyMemberVO replyMemberVO:list) {
+    content = replyMemberVO.getContent();
+    content = Tool.convertChar(content);
+    replyMemberVO.setContent(content);
+  }
+  return list;
+}
+
 
    
 }

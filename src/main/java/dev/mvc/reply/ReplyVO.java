@@ -6,6 +6,8 @@ public class ReplyVO {
   private int replyno;
   /** 관련 글 번호 */
   private int fboardno;
+  /** 관련 글 제목 */
+  private String ftitle;
   /** 회원 번호 */
   private int memberno;
   /** 내용 */
@@ -27,7 +29,13 @@ public class ReplyVO {
 	public void setFboardno(int fboardno) {
 		this.fboardno = fboardno;
 	}
-	public int getMemberno() {
+	public String getFtitle() {
+    return ftitle;
+  }
+  public void setFtitle(String ftitle) {
+    this.ftitle = ftitle;
+  }
+  public int getMemberno() {
 		return memberno;
 	}
 	public void setMemberno(int memberno) {

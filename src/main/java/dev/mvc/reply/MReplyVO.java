@@ -1,9 +1,6 @@
 package dev.mvc.reply;
 
-public class ReplyMemberVO {
- /** 아이디 */
-  private String id = "";
-  
+public class MReplyVO {
   /** 댓글 번호 */
   private int replyno;
   /** 관련 글 번호 */
@@ -14,35 +11,27 @@ public class ReplyMemberVO {
   private int memberno;
   /** 내용 */
   private String content;
-  /** 패스워드 */
-  private String passwd;
   /** 등록일 */
   private String rdate;
-	  
-  public String getId() {
-    return id;
-  }
-  public void setId(String id) {
-    this.id = id;
-  }
+  
   public int getReplyno() {
     return replyno;
   }
   public void setReplyno(int replyno) {
     this.replyno = replyno;
   }
-	public int getFboardno() {
-		return fboardno;
-	}
-	public void setFboardno(int fboardno) {
-		this.fboardno = fboardno;
-	}
-	 public String getFtitle() {
-	    return ftitle;
-	  }
-	  public void setFtitle(String ftitle) {
-	    this.ftitle = ftitle;
-	  }
+  public int getFboardno() {
+    return fboardno;
+  }
+  public void setFboardno(int fboardno) {
+    this.fboardno = fboardno;
+  }
+  public String getFtitle() {
+    return ftitle;
+  }
+  public void setFtitle(String ftitle) {
+    this.ftitle = ftitle;
+  }
   public int getMemberno() {
     return memberno;
   }
@@ -55,12 +44,6 @@ public class ReplyMemberVO {
   public void setContent(String content) {
     this.content = content;
   }
-  public String getPasswd() {
-    return passwd;
-  }
-  public void setPasswd(String passwd) {
-    this.passwd = passwd;
-  }
   public String getRdate() {
     return rdate;
   }
@@ -69,6 +52,5 @@ public class ReplyMemberVO {
   }
   
   
+
 }
-
-

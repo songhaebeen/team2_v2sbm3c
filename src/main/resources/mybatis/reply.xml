@@ -73,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT id, replyno, fboardno, memberno, content, passwd, rdate, rownum as r
             FROM (
               SELECT m.id, r.replyno, r.fboardno, r.memberno, r.content, r.passwd, r.rdate
-                FROM member m,  reply r
+                FROM member m, reply r
                   WHERE (m.memberno = r.memberno) AND r.fboardno=#{fboardno}
                     ORDER BY r.replyno ASC
         )
@@ -96,5 +96,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    WHERE <![CDATA[ r <= 10 ]]>
 	     
 	  </select>
+	  
+  <!-- fboard + reply join + 특정 memberno 별 목록 -->
+   <select id="list_memberno" resultType="dev.mvc.reply.ReplyMemberVO" parameterType="int">
+      SELECT r.replyno, m.memberno, r.fboardno, f.ftitle, r.content, r.rdate
+      FROM fboard f, reply r, member m
+      WHERE (f.fboardno = r.fboardno) AND m.memberno=${memberno}
+      ORDER BY r.replyno DESC
+  </select>
+	  
     
 </mapper> 
