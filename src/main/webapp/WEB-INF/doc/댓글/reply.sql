@@ -73,7 +73,7 @@ user1@gmail.com                         1          5          3 댓글1       12
 4) fboard + reply join + 특정 memberno 별 목록
 SELECT r.replyno, m.memberno, r.fboardno, f.ftitle, r.content, r.rdate
 FROM fboard f, reply r, member m
-WHERE (f.fboardno = r.fboardno) AND m.memberno=2
+WHERE (f.fboardno = r.fboardno) AND m.memberno=3
 ORDER BY r.replyno DESC;
 
 5) 삭제
@@ -143,7 +143,7 @@ WHERE r <= 1000;
 10) 댓글 조회
 SELECT replyno, fboardno, memberno, content, passwd, rdate
 FROM reply
-WHERE memberno = 3 AND fboardno = 15;
+WHERE replyno = 3;
 
 11) 텍스트 수정: 예외 컬럼: 추천수, 조회수, 댓글 수
 UPDATE reply

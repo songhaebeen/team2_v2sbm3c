@@ -50,9 +50,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <!-- 조회 -->
     <select id="read" parameterType="int" resultType="dev.mvc.reply.ReplyMemberVO">
-			SELECT replyno, fboardno, memberno, content, passwd, rdate
-			FROM reply
-			WHERE replyno = #{replyno} AND fboardno = #{fboardno}
+      SELECT replyno, fboardno, memberno, content, passwd, rdate
+      FROM reply
+      WHERE replyno = #{replyno}
   </select>
   
     <!-- 수정 -->
