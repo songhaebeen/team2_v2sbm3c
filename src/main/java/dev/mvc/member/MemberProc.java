@@ -100,9 +100,9 @@ public class MemberProc implements MemberProcInter {
   }
   
   @Override
-  public ArrayList<MemberVO> user_out(int memberno) {
-    ArrayList<MemberVO> list = this.memberDAO.user_out(memberno);
-    return list;
+  public int user_out(int memberno) {
+    int cnt = this.memberDAO.user_out(memberno);
+    return cnt;
   }
 
   

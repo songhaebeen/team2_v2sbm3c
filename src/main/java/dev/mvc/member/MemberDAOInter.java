@@ -86,7 +86,7 @@ public interface MemberDAOInter {
    * @param map
    * @return
    */
-  public ArrayList<MemberVO> user_out(int memberno);
+  public int user_out(int memberno);
   
 
  

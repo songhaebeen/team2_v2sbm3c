@@ -538,6 +538,18 @@ public class MemberCont {
     return mav;
   }
   
+//http://localhost:9093/member/user_out.do
+ /**
+ * 등록 폼
+ * @return
+ */
+ @RequestMapping(value="/member/user_out.do", method=RequestMethod.GET )
+ public ModelAndView user_out() {
+   ModelAndView mav = new ModelAndView();
+   mav.setViewName("/member/user_out"); // /WEB-INF/views/member/user_out.jsp
+  
+   return mav; // forward
+ }
  
    
    

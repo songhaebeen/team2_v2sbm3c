@@ -66,7 +66,7 @@
   </select>
   
  <!-- 회원탈퇴 -->
- <update id = "user_out" parameterType="dev.mvc.member.MemberVO">
+ <update id = "user_out" parameterType="int">
   UPDATE member
   SET grade = 99
   WHERE memberno = #{memberno}
