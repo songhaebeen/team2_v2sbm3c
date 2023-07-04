@@ -10,7 +10,11 @@
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
  
+<script type="text/JavaScript"
+          src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
  
 </head>
  
@@ -79,7 +83,7 @@
               ${rdate.substring(0,10)}
             </td>
             <td style='text-align: center; vertical-align: middle;'>
-            <a href="./update_reply.do?replyno=${replyno}"><img src="/reply/images/update.png" title="수정"  border='0' /></a>
+            <a href="./update.do?replyno=${replyno}"><img src="/reply/images/update.png" title="수정"  border='0' /></a>
               <a href="./delete.do?replyno=${replyno}"><img src="/reply/images/delete.png" title="삭제"  border='0' /></a>
             </td>
           </tr>

@@ -49,20 +49,6 @@ public interface ReplyDAOInter {
   public int checkPasswd(Map<String, Object> map);
   
   public int password_check(ReplyMemberVO replyMemberVO);
-
-  /**
-   * 수정
-   * @param fboardVO
-   * @return 처리된 레코드 갯수
-   */
-  public int update(ReplyMemberVO replyMemberVO);
-  
-  /**
-   * 삭제
-   * @param replyVO
-   * @return
-   */
-  public int delete(int replyno);
   
   /**
    * 특정 글 관련 전체 댓글 목록
@@ -85,7 +71,26 @@ public interface ReplyDAOInter {
    */
   public List<ReplyMemberVO> list_memberno(int memberno);
   
+  /**
+   * 조회
+   * @param replyMemberVO
+   * @return
+   */
   public ReplyMemberVO read(int replyno);
+  
+  /**
+   * 수정
+   * @param fboardVO
+   * @return 처리된 레코드 갯수
+   */
+  public int update(ReplyMemberVO replyMemberVO);
+  
+  /**
+   * 삭제
+   * @param replyVO
+   * @return
+   */
+  public int delete(int replyno);
   
 
 }

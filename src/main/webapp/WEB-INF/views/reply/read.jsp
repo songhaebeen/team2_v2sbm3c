@@ -15,7 +15,11 @@
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
  
+<script type="text/JavaScript"
+          src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
 </head>
  
@@ -34,6 +38,7 @@
   <FORM name='frm' method='POST' action='./update_reply.do'>
 
     <div>
+    <label>내용</label>
        <textarea name='content' required="required" class="form-control" rows="4" style='width: 80%;'>${content }</textarea>
     </div>
     <c:choose>

@@ -374,9 +374,13 @@ public String posttWirte(ReplyVO replyVO) throws Exception {
   @RequestMapping(value="/reply/list_memberno.do", method=RequestMethod.GET)
   public ModelAndView list_memberno(HttpSession session) {
     ModelAndView mav = new ModelAndView();
+    System.out.println("-> memberno :" + session.getAttribute("memberno"));
+    int memberno = 0;
     
     if (this.memberProc.isMember(session)) { // 회원으로 로그인
-      int memberno = (int)session.getAttribute("memberno");
+      if (session.getAttribute("memberno") != null) {
+        memberno = (int)session.getAttribute("memberno");
+      }
     
 
       List<ReplyMemberVO> list = replyProc.list_memberno(memberno);
@@ -422,21 +426,24 @@ public String posttWirte(ReplyVO replyVO) throws Exception {
   
   /**
    * 수정 폼
-   * http://localhost:9093/reply/update_reply.do
+   * http://localhost:9093/reply/update.do
    * 
    * @return
    */
-  @RequestMapping(value = "/reply/update_reply.do", method = RequestMethod.GET)
+  @RequestMapping(value = "/reply/update.do", method = RequestMethod.GET)
   public ModelAndView update(HttpSession session, int replyno) {
     ModelAndView mav = new ModelAndView();
+    System.out.println("-> memberno :" + session.getAttribute("memberno"));
+    System.out.println("-> id :" + session.getAttribute("id"));
+    System.out.println("-> public ModelAndView update(HttpSession session, int replyno) 호출");
+    
     
     if (this.memberProc.isMember(session)) { // 로그인
       ReplyMemberVO replyMemberVO = this.replyProc.read(replyno);
       mav.addObject("replyMemberVO", replyMemberVO);
     
-      mav.setViewName("/reply/update_reply"); // /WEB-INF/views/reply/update.jsp
-      // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
-      // mav.addObject("reply", reply);
+      mav.setViewName("/reply/update"); // /WEB-INF/views/reply/update.jsp
+
       }else{ // 정상적인 로그인이 아닌 경우
      mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
      }
@@ -446,23 +453,31 @@ public String posttWirte(ReplyVO replyVO) throws Exception {
   
   /**
    * 수정 처리
-   * http://localhost:9093/reply/update_reply.do
+   * http://localhost:9093/reply/update.do
    * 
    * @return
    */
-  @RequestMapping(value = "/reply/update_reply.do", method = RequestMethod.POST)
+  @RequestMapping(value = "/reply/update.do", method = RequestMethod.POST)
   public ModelAndView update(HttpSession session, ReplyMemberVO replyMemberVO) {
     ModelAndView mav = new ModelAndView();
-    
+    System.out.println("-> memberno :" + session.getAttribute("memberno"));
+    System.out.println("-> id :" + session.getAttribute("id"));
+    System.out.println("-> public ModelAndView update(HttpSession session, ReplyMemberVO replyMemberVO) 호출");
+        
     if (this.memberProc.isMember(session) && this.replyProc.password_check(replyMemberVO) == 1 ) {
        this.replyProc.update(replyMemberVO);  
+
          
        // mav 객체 이용
        mav.addObject("replyno", replyMemberVO.getReplyno());
        mav.setViewName("redirect:/reply/list_memberno.do");
     } else {
+      mav.addObject("replyMemberVO", replyMemberVO);
+
        mav.addObject("url", "/reply/passwd_check"); // /WEB-INF/views/reply/passwd_check.jsp
     }    
+    
+    
    
     return mav; // forward
   }

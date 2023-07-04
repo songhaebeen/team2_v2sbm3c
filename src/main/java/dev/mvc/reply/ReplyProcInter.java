@@ -34,33 +34,19 @@ public interface ReplyProcInter {
   
   /**
    * 댓글
-   * @param replyVO
+   * @param replyMemberVO
    * @return
    */
   public List<ReplyMemberVO> list_by_fboardno_join(int fboardno);
   
   /**
    * 패스워드 확인
-   * @param replyVO
+   * @param replyMemberVO
    * @return
    */
   public int checkPasswd(Map<String, Object> map);
   
   public int password_check(ReplyMemberVO replyMemberVO);
-  
-  /**
-   * 수정
-   * @param fboardVO
-   * @return 처리된 레코드 갯수
-   */
-  public int update(ReplyMemberVO replyMemberVO);
-
-  /**
-   * 삭제
-   * @param replyVO
-   * @return
-   */
-  public int delete(int replyno);
   
   /**
    * 특정 글 관련 전체 댓글 목록
@@ -78,12 +64,31 @@ public interface ReplyProcInter {
   
   /**
    * 회원별 댓글 목록
-   * @param replyVO
+   * @param replyMemberVO
    * @return
    */
   public List<ReplyMemberVO> list_memberno(int memberno);
 
+  /**
+   * 조회
+   * @param replyMemberVO
+   * @return
+   */
   public ReplyMemberVO read(int replyno);
+  
+  /**
+   * 수정
+   * @param replyMemberVO
+   * @return 처리된 레코드 갯수
+   */
+  public int update(ReplyMemberVO replyMemberVO);
+
+  /**
+   * 삭제
+   * @param replyVO
+   * @return
+   */
+  public int delete(int replyno);
 
   
 

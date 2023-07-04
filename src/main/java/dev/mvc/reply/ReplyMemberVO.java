@@ -18,6 +18,9 @@ public class ReplyMemberVO {
   private String passwd;
   /** 등록일 */
   private String rdate;
+  
+  /** 현재 페이지 */
+  private int now_page = 1;
 	  
   public String getId() {
     return id;
@@ -66,6 +69,12 @@ public class ReplyMemberVO {
   }
   public void setRdate(String rdate) {
     this.rdate = rdate;
+  }
+  public int getNow_page() {
+    return now_page;
+  }
+  public void setNow_page(int now_page) {
+    this.now_page = now_page;
   }
   
   

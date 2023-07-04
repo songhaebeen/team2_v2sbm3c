@@ -110,11 +110,7 @@ public List<ReplyMemberVO> list_ten(int fboardno) {
   return list;
 }
 
-@Override
-public int update(ReplyMemberVO replyMemberVO) {
-  int cnt = this.replyDAO.update(replyMemberVO);
-  return cnt;
-}
+
 
 @Override
 public List<ReplyMemberVO> list_memberno(int memberno) {
@@ -130,11 +126,19 @@ public List<ReplyMemberVO> list_memberno(int memberno) {
   return list;
 }
 
+//조회
 @Override
 public ReplyMemberVO read(int replyno) {
   ReplyMemberVO replyMemberVO = this.replyDAO.read(replyno);
 
   return replyMemberVO;
+}
+
+//수정
+@Override
+public int update(ReplyMemberVO replyMemberVO) {
+  int cnt = this.replyDAO.update(replyMemberVO);
+  return cnt;
 }
 
 @Override
