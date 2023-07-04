@@ -143,12 +143,12 @@ WHERE r <= 1000;
 10) 댓글 조회
 SELECT replyno, fboardno, memberno, content, passwd, rdate
 FROM reply
-WHERE replyno = 1 AND fboardno = 1;
+WHERE memberno = 3 AND fboardno = 15;
 
 11) 텍스트 수정: 예외 컬럼: 추천수, 조회수, 댓글 수
 UPDATE reply
-SET content='ohh'
-WHERE replyno = 1 AND fboardno = 1;
+SET content='ohhhhhh'
+WHERE replyno = 50;
 
 commit;
 
