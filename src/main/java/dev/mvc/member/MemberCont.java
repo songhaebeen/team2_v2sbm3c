@@ -540,19 +540,49 @@ public class MemberCont {
   
 //http://localhost:9093/member/user_out.do
  /**
- * 등록 폼
+ * 회원 탈퇴
  * @return
  */
  @RequestMapping(value="/member/user_out.do", method=RequestMethod.GET )
- public ModelAndView user_out() {
+ public ModelAndView user_out(HttpSession session) {
    ModelAndView mav = new ModelAndView();
-   mav.setViewName("/member/user_out"); // /WEB-INF/views/member/user_out.jsp
+   
+   if (this.memberProc.isMember(session)) {
+     mav.setViewName("/member/user_out");
+   } else {
+     mav.setViewName("/member/login_need"); // /WEB-INF/views/member/user_out.jsp
+   }
+   
   
    return mav; // forward
  }
  
+ /**
+  * 회원 정보 수정 처리
+  * @param memberVO
+  * @return
+  */
+ @RequestMapping(value="/member/user_out.do", method=RequestMethod.POST)
+ public ModelAndView user_out(MemberVO memberVO){
+   ModelAndView mav = new ModelAndView();
    
+   int cnt= this.memberProc.update(memberVO);
    
+   if (cnt == 1) {
+     mav.addObject("code", "update_success");
+     mav.addObject("grade", memberVO.getGrade());
+   } else {
+     mav.addObject("code", "update_fail");
+   }
+
+   mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+   mav.addObject("url", "/member/msg");  // /member/msg -> /member/msg.jsp
+   
+   mav.setViewName("redirect:/member/msg.do");
+   
+   return mav;
+ }
+ 
 }
 
 

@@ -8,8 +8,8 @@ DROP TABLE member CASCADE CONSTRAINTS;
  
 CREATE TABLE member (
   memberno NUMBER(10) NOT NULL, -- 회원 번호, 레코드를 구분하는 컬럼 
-  id         VARCHAR(20)   NOT NULL UNIQUE, -- 아이디, 중복 안됨, 레코드를 구분 
-  email      VARCHAR(30)   NOT NULL,
+  id         VARCHAR(50)   NOT NULL UNIQUE, -- 아이디, 중복 안됨, 레코드를 구분 
+  email      VARCHAR(80)   NOT NULL,
   passwd     VARCHAR(60)   NOT NULL, -- 패스워드, 영숫자 조합
   mname      VARCHAR(30)   NOT NULL, -- 성명, 한글 10자 저장 가능
   tel         VARCHAR(14)       NULL, -- 전화번호

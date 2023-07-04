@@ -35,7 +35,7 @@
    
    
     <DIV class='message'>
-      <FORM name='frm' method='POST' action='./delete.do'>
+      <FORM name='frm' method='POST' action='./user_out.do'>
         '${sessionScope.mname }(${sessionScope.id })' 회원을 탈퇴하면 복구 할 수 없습니다.<br><br>
         정말로 탈퇴하시겠습니까?<br><br>         
         <input type='hidden' name='memberno' value='${memberVO.memberno}'>     
