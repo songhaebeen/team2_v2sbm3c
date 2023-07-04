@@ -375,6 +375,8 @@ public String posttWirte(ReplyVO replyVO) throws Exception {
   public ModelAndView list_memberno(HttpSession session) {
     ModelAndView mav = new ModelAndView();
     System.out.println("-> memberno :" + session.getAttribute("memberno"));
+    System.out.println("-> id :" + session.getAttribute("id"));
+
     int memberno = 0;
     
     if (this.memberProc.isMember(session)) { // 회원으로 로그인

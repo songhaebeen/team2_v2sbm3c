@@ -80,71 +80,69 @@ public List<ReplyMemberVO> list_member_join() {
     return list;
 	}
 
-//목록
-@Override
-public List<ReplyMemberVO> list_by_fboardno_join_add(int fboardno) {
-  List<ReplyMemberVO> list = replyDAO.list_by_fboardno_join_add(fboardno);
-  String content = "";
-  
-  // 특수 문자 변경
-  for (ReplyMemberVO replyMemberVO:list) {
-    content = replyMemberVO.getContent();
-    content = Tool.convertChar(content);
-    replyMemberVO.setContent(content);
+  //목록
+  @Override
+  public List<ReplyMemberVO> list_by_fboardno_join_add(int fboardno) {
+    List<ReplyMemberVO> list = replyDAO.list_by_fboardno_join_add(fboardno);
+    String content = "";
+    
+    // 특수 문자 변경
+    for (ReplyMemberVO replyMemberVO:list) {
+      content = replyMemberVO.getContent();
+      content = Tool.convertChar(content);
+      replyMemberVO.setContent(content);
+    }
+    return list;
   }
-  return list;
-}
 
-//10건만 출력
-@Override
-public List<ReplyMemberVO> list_ten(int fboardno) {
-  List<ReplyMemberVO> list = replyDAO.list_ten(fboardno);
-  String content = "";
-  
-  // 특수 문자 변경
-  for (ReplyMemberVO replyMemberVO:list) {
-    content = replyMemberVO.getContent();
-    content = Tool.convertChar(content);
-    replyMemberVO.setContent(content);
+  //10건만 출력
+  @Override
+  public List<ReplyMemberVO> list_ten(int fboardno) {
+    List<ReplyMemberVO> list = replyDAO.list_ten(fboardno);
+    String content = "";
+    
+    // 특수 문자 변경
+    for (ReplyMemberVO replyMemberVO:list) {
+      content = replyMemberVO.getContent();
+      content = Tool.convertChar(content);
+      replyMemberVO.setContent(content);
+    }
+    return list;
   }
-  return list;
-}
 
-
-
-@Override
-public List<ReplyMemberVO> list_memberno(int memberno) {
-  List<ReplyMemberVO> list = replyDAO.list_memberno(memberno);
-  String content = "";
-  
-  // 특수 문자 변경
-  for (ReplyMemberVO replyMemberVO:list) {
-    content = replyMemberVO.getContent();
-    content = Tool.convertChar(content);
-    replyMemberVO.setContent(content);
+  @Override
+  public List<ReplyMemberVO> list_memberno(int memberno) {
+    List<ReplyMemberVO> list = replyDAO.list_memberno(memberno);
+    String content = "";
+    
+    // 특수 문자 변경
+    for (ReplyMemberVO replyMemberVO:list) {
+      content = replyMemberVO.getContent();
+      content = Tool.convertChar(content);
+      replyMemberVO.setContent(content);
+    }
+    return list;
   }
-  return list;
-}
 
-//조회
-@Override
-public ReplyMemberVO read(int replyno) {
-  ReplyMemberVO replyMemberVO = this.replyDAO.read(replyno);
-
-  return replyMemberVO;
-}
-
-//수정
-@Override
-public int update(ReplyMemberVO replyMemberVO) {
-  int cnt = this.replyDAO.update(replyMemberVO);
-  return cnt;
-}
-
-@Override
-public int password_check(ReplyMemberVO replyMemberVO) {
-  int cnt = this.replyDAO.password_check(replyMemberVO);
-  return cnt;
-}
+  //조회
+  @Override
+  public ReplyMemberVO read(int replyno) {
+    ReplyMemberVO replyMemberVO = this.replyDAO.read(replyno);
+  
+    return replyMemberVO;
+  }
+  
+  //수정
+  @Override
+  public int update(ReplyMemberVO replyMemberVO) {
+    int cnt = this.replyDAO.update(replyMemberVO);
+    return cnt;
+  }
+  
+  @Override
+  public int password_check(ReplyMemberVO replyMemberVO) {
+    int cnt = this.replyDAO.password_check(replyMemberVO);
+    return cnt;
+  }
    
 }
