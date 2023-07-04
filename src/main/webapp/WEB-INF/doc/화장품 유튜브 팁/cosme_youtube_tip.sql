@@ -44,7 +44,7 @@ CREATE SEQUENCE cosme_youtube_tip_seq
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
 
 INSERT INTO cosme_youtube_tip(youtubeno, COSMENO, youtubetitle, youtubecontent, rdate, youtube, seqno, visible)
-VALUES(cosme_youtube_tip_seq.nextval, 1, '피부에 좋은 화장품 소개 영상', '내용입니다', sysdate, 'youtube address', 2, 'y');
+VALUES(cosme_youtube_tip_seq.nextval, 2, '피부에 좋은 화장품 소개 영상', '내용입니다', sysdate, 'youtube address', 2, 'y');
 
 commit;
 
@@ -52,8 +52,8 @@ SELECT youtubeno, COSMENO, youtubetitle, youtubecontent, views, rdate, youtube, 
 
 /* 전체 수정 */
 UPDATE cosme_youtube_tip
-SET cosmeno=2, youtubetitle='기분 좋은 화장품 소개', youtubecontent='수정된 내용입니다', youtube='유튜브 주소'
-WHERE youtubeno=1
+SET youtubetitle='기분 좋은 화장품 소개', youtubecontent='수정된 내용입니다', youtube='유튜브 주소'
+WHERE youtubeno=3
 
 DELETE FROM cosme_youtube_tip
 WHERE youtubeno=1

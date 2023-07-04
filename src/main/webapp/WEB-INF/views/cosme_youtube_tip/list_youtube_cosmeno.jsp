@@ -73,8 +73,10 @@
           
           <c:choose>
             <c:when test="${sessionScope.admin_id != null }"> 
+
               <td style='vertical-align: middle; text-align: center;'>
-                <A href="/cosme_youtube_tip/delete.do?cosmeno=${cosmeno }&youtubeno=${youtubeno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="삭제"><IMG src="/cosme_youtube_tip/images/delete.png" class="icon"></A>
+                 <A href="/cosme_youtube_tip/delete.do?cosmeno=${cosmeno }&youtubeno=${youtubeno}&now_page=${param.now_page == null ? 1 : param.now_page}" title="삭제"><IMG src="/cosme_youtube_tip/images/delete.png" class="icon"></A>
+                 <A href="/cosme_youtube_tip/update.do?youtubeno=${youtubeno}" title="수정"><IMG src="/cosme_youtube_tip/images/update.png" class="icon"></A>
               </td>
             </c:when>
             <c:otherwise>
@@ -88,6 +90,8 @@
 
     </tbody>
   </table>
+  
+<button type="button" onclick="location.href='http://localhost:9093/cosme_youtube_tip/list_youtube_all.do'" class="btn btn-info">유튜브 전체 목록</button>
 </DIV>
  
 <jsp:include page="../menu/bottom.jsp" />

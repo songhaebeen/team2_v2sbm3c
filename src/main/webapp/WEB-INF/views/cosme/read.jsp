@@ -57,7 +57,7 @@
       </li>
  
  
-      <button type="button" onclick="location.href='${pageContext.request.contextPath}/cosme_youtube_tip/create.do?cosmeno=${cosmeno }' class="btn btn-info"">유튜브 등록</button>
+      <button type="button" onclick="location.href='http://localhost:9093/cosme_youtube_tip/list_youtube_cosmeno.do?cosmeno=${cosmeno }'" class="btn btn-info">유튜브 목록</button>
       
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>

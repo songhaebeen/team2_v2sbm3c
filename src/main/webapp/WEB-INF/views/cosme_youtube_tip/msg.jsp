@@ -33,6 +33,11 @@
               <span class="span_fail">새로운 유튜브 등록에 실패했습니다.</span>
             </LI>                                                                      
           </c:when>
+          <c:when test="${code == 'update_fail'}"> <%-- Java if --%>
+            <LI class='li_none'>
+              <span class="span_fail">유튜브 수정에 실패했습니다.</span>
+            </LI>                                                                      
+          </c:when>
         </c:choose>
 
       <LI class='li_none'>
