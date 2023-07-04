@@ -42,9 +42,7 @@ function recommend() {
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                     <a class="nav-link" href="/fboard/list_all.do">자유게시판</a>
                   </li>
-                
-                
-                                   
+                                          
                   <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">화장품</a>
                       <div class="dropdown-menu">
@@ -69,7 +67,7 @@ function recommend() {
                   <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">회원</a>
                       <div class="dropdown-menu">
-                          <a class="dropdown-item" href="/reply/list_memberno.do?memberno=${memberno }">내가 쓴 댓글</a>
+                          <a class="dropdown-item" href="/reply/list_memberno.do">내가 쓴 댓글</a>
                           <a class="dropdown-item" href="/member/create.do">회원 가입</a>
                           <a class="dropdown-item" href="/member/read.do?memberno=${memberno }">가입 정보</a>
                           <a class="dropdown-item" href="#">아이디 찾기</a>

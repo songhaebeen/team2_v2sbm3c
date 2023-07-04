@@ -22,6 +22,7 @@ import dev.mvc.fboard.FboardProcInter;
 import dev.mvc.fboard.FboardVO;
 import dev.mvc.member.MemberProc;
 import dev.mvc.member.MemberVO;
+import dev.mvc.tool.Tool;
 
 @Controller
 public class ReplyCont {
@@ -373,19 +374,51 @@ public String posttWirte(ReplyVO replyVO) throws Exception {
   @RequestMapping(value="/reply/list_memberno.do", method=RequestMethod.GET)
   public ModelAndView list_memberno(HttpSession session) {
     ModelAndView mav = new ModelAndView();
-    int memberno = (int)(session.getAttribute("memberno"));
     
-    Integer integer = null;
-    int value = integer.intValue();
+    if (this.memberProc.isMember(session)) { // 회원으로 로그인
+      int memberno = (int)session.getAttribute("memberno");
     
-    List<ReplyMemberVO> list = replyProc.list_memberno(memberno);
-    
-    mav.addObject("list", list);
+
+      List<ReplyMemberVO> list = replyProc.list_memberno(memberno);
+      mav.addObject("list", list);
+   
     
     mav.setViewName("/reply/list_memberno"); // /webapp/reply/list_memberno.jsp
+    } else {
+      // 로그인을 하지 않은 경우
+      mav.setViewName("/member/login_need"); // /webapp/WEB-INF/views/member/login_need.jsp
+    }
     
     return mav;
   }
+  
+//  /**
+//   * 댓글 조회
+//   * 회원 본인만 가능
+//   * @param memberno
+//   * @return
+//   */
+//  @RequestMapping(value="/reply/read.do", method=RequestMethod.GET)
+//  public ModelAndView read(HttpSession session, HttpServletRequest request){
+//    ModelAndView mav = new ModelAndView();
+//    
+//    int memberno = 0;
+//    if (this.memberProc.isMember(session)) { 
+//      // 로그인한 경우
+//        memberno = (int)session.getAttribute("memberno"); // 본인의 회원 정보 조회
+//        
+//      ReplyMemberVO replyMemberVO = this.replyProc.read(memberno);
+//      mav.addObject("memberVO", replyMemberVO);
+//      mav.setViewName("/reply/read"); // /member/read.jsp
+//      
+//    } else {
+//      // 로그인을 하지 않은 경우
+//      mav.setViewName("/member/login_need"); // /webapp/WEB-INF/views/member/login_need.jsp
+//    }
+//    
+//    return mav; // forward
+//  }
+
   
   /**
    * 수정 폼
@@ -408,6 +441,29 @@ public String posttWirte(ReplyVO replyVO) throws Exception {
      mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
      }
 
+    return mav; // forward
+  }
+  
+  /**
+   * 수정 처리
+   * http://localhost:9093/reply/update_reply.do
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/reply/update_reply.do", method = RequestMethod.POST)
+  public ModelAndView update(HttpSession session, ReplyMemberVO replyMemberVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    if (this.memberProc.isMember(session) && this.replyProc.password_check(replyMemberVO) == 1 ) {
+       this.replyProc.update(replyMemberVO);  
+         
+       // mav 객체 이용
+       mav.addObject("replyno", replyMemberVO.getReplyno());
+       mav.setViewName("redirect:/reply/list_memberno.do");
+    } else {
+       mav.addObject("url", "/reply/passwd_check"); // /WEB-INF/views/reply/passwd_check.jsp
+    }    
+   
     return mav; // forward
   }
   

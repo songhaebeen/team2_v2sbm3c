@@ -46,6 +46,8 @@ public interface ReplyProcInter {
    */
   public int checkPasswd(Map<String, Object> map);
   
+  public int password_check(ReplyMemberVO replyMemberVO);
+  
   /**
    * 수정
    * @param fboardVO
@@ -82,6 +84,8 @@ public interface ReplyProcInter {
   public List<ReplyMemberVO> list_memberno(int memberno);
 
   public ReplyMemberVO read(int replyno);
+
+  
 
   
 }

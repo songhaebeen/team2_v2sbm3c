@@ -136,5 +136,11 @@ public ReplyMemberVO read(int replyno) {
 
   return replyMemberVO;
 }
+
+@Override
+public int password_check(ReplyMemberVO replyMemberVO) {
+  int cnt = this.replyDAO.password_check(replyMemberVO);
+  return cnt;
+}
    
 }

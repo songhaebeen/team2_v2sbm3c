@@ -48,6 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE replyno=#{replyno} AND passwd=#{passwd}
   </select>
   
+  <!-- 조회 -->
     <select id="read" parameterType="int" resultType="dev.mvc.reply.ReplyMemberVO">
 			SELECT replyno, fboardno, memberno, content, passwd, rdate
 			FROM reply
@@ -103,6 +104,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       FROM fboard f, reply r, member m
       WHERE (f.fboardno = r.fboardno) AND m.memberno=${memberno}
       ORDER BY r.replyno DESC
+  </select>
+  
+    <!-- 패스워드 검사 -->
+  <select id="password_check" resultType="int" parameterType="dev.mvc.reply.ReplyMemberVO">
+    SELECT COUNT(*) as cnt 
+    FROM reply
+    WHERE replyno = #{replyno} AND passwd=#{passwd}
   </select>
 	  
     
