@@ -2,7 +2,8 @@
 /* Table Name: 자유게시판 */
 /**********************************/
 DROP TABLE fboard;
-
+drop table f_board;
+commit;
 CREATE TABLE fboard(
         fboardno            NUMBER(10)     NOT NULL         PRIMARY KEY,
         memberno            NUMBER(10)     NOT NULL , -- FK
@@ -50,16 +51,16 @@ INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, passwd, word, rdate, fi
 VALUES(fboard_seq.nextval, 1, '자유', '아무 글 작성', '123', '드라마,K드라마,넷플릭스', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000);
 
 commit;     
-
+select * from member;
 -- 등록 화면 유형 1: 커뮤니티(공지사항, 게시판, 자료실, 갤러리,  Q/A...)글 등록
-INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1)
-VALUES(fboard_seq.nextval, 1, '자유1', '아무 글 작성', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000);
-            
-INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1)
-VALUES(fboard_seq.nextval, 1, '자유2', '사담', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000);
+INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1,passwd)
+VALUES(fboard_seq.nextval, 3, '자유1', '아무 글 작성', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000,'1234');
             
 INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1,passwd)
-VALUES(fboard_seq.nextval, 2, '자유3', '오늘 하루', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000,'1234');
+VALUES(fboard_seq.nextval, 3, '자유2', '사담', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000,'1234');
+            
+INSERT INTO fboard(fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1,passwd)
+VALUES(fboard_seq.nextval, 4, '자유3', '오늘 하루', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000,'1234');
 
 -- 유형 1 전체 목록
 SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views, replycnt

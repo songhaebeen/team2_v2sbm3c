@@ -2,7 +2,7 @@
 /* Table Name: 공지사항 */
 /**********************************/
 DROP TABLE notice;
-
+commit;
 CREATE TABLE notice(
         noticeno            NUMBER(10)     NOT NULL         PRIMARY KEY,
         adminno            NUMBER(10)     NOT NULL , -- FK
@@ -44,7 +44,7 @@ CREATE SEQUENCE notice_seq
   CACHE 2                        -- 2번은 메모리에서만 계산
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
 
-INSERT INTO notice(noticeno, adminno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1)
+INSERT INTO notice(noticeno, masterno, ntitle, ncontent, passwd, rdate, file1, file1saved, thumb1, size1)
 VALUES(notice_seq.nextval, 1, '필독', '규정 안내','1234', sysdate, 'cosme.jpg', 'cosme_1.jpg', 'cosme_t.jpg', 1000);
 
 commit;     
