@@ -100,14 +100,15 @@ public class MemberProc implements MemberProcInter {
   }
   
   @Override
-  public int find_id(HashMap<String, Object> map) {
-    int cnt = this.memberDAO.find_id(map);
+  public int user_out(int memberno) {
+    int cnt = this.memberDAO.user_out(memberno);
     return cnt;
   }
-  
-
 
   
+
+  
+
 
 }
 

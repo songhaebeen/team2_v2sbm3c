@@ -520,6 +520,7 @@ Cookie[] cookies = request.getCookies();
     } else {
       mav.addObject("url", "/admin/login_need"); // login_need.jsp, redirect parameter 적용
     }
+    mav.addObject("now_page", noticeVO.getNow_page()); // POST -> GET: 데이터 분실이 발생함으로 데이터 저장 ★
     
     return mav; // forward
   }   

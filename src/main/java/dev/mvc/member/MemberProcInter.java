@@ -83,12 +83,11 @@ public interface MemberProcInter {
   public int login(HashMap<String, Object> map);
   
   /**
-   * 아이디 찾기
+   * 회원 탈퇴
    * @param map
    * @return
    */
-  public int find_id(HashMap<String, Object> map);
-
+  public int user_out(int memberno);
   
 
   

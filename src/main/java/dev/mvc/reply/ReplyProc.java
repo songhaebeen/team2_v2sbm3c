@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import dev.mvc.fboard.FboardVO;
 import dev.mvc.tool.Tool;
 
 @Component("dev.mvc.reply.ReplyProc")
@@ -115,6 +116,25 @@ public int update(ReplyMemberVO replyMemberVO) {
   return cnt;
 }
 
+@Override
+public List<ReplyMemberVO> list_memberno(int memberno) {
+  List<ReplyMemberVO> list = replyDAO.list_memberno(memberno);
+  String content = "";
+  
+  // 특수 문자 변경
+  for (ReplyMemberVO replyMemberVO:list) {
+    content = replyMemberVO.getContent();
+    content = Tool.convertChar(content);
+    replyMemberVO.setContent(content);
+  }
+  return list;
+}
 
+@Override
+public ReplyMemberVO read(int replyno) {
+  ReplyMemberVO replyMemberVO = this.replyDAO.read(replyno);
+
+  return replyMemberVO;
+}
    
 }

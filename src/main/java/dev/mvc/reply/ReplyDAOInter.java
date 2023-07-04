@@ -75,5 +75,14 @@ public interface ReplyDAOInter {
    * @return
    */
   public List<ReplyMemberVO> list_ten(int fboardno);
+  
+  /**
+   * 회원별 댓글 목록
+   * @param replyVO
+   * @return
+   */
+  public List<ReplyMemberVO> list_memberno(int memberno);
+  
+  public ReplyMemberVO read(int replyno);
 
 }

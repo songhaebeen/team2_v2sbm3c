@@ -100,7 +100,7 @@ SELECT memberno, id,email, passwd, mname, tel, zipcode, address1, address2, mdat
 FROM member
 ORDER BY memberno DESC;
 
-SELECT memberno, id, email, passwd, mname, tel, zipcode, address1, address2, mdate, grade
+SELECT memberno, id, grade
 FROM member
 ORDER BY memberno DESC;
      
@@ -160,8 +160,15 @@ UPDATE member
 SET grade = 99
 WHERE memberno = 1;
 
-9. 로그인시 탈퇴회원인지 확인후 로그인 처리
-SELECT * FROM member
-WHERE grade NOT BETWEEN 40 AND 49
-  AND grade <> 99;
+9. 로그인시 정지 회원인지 확인
+SELECT COUNT(*) as cnt 
+FROM member
+WHERE id='user1@gmail.com' AND grade >= 40 AND grade <= 49;
+
+10. 로그인시 탈퇴회원인지 확인
+SELECT COUNT(*) as cnt 
+FROM member
+WHERE id='user1@gmail.com' AND grade = 99;
+
+Controller에서 정지 회원 갯수도 0이고 탈퇴 회원 갯수도 0인 경우 로그인 처리입니다.
  

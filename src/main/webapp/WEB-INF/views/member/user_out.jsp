@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
   <DIV class='title_line'>
-    회원 삭제(관리자 전용)
+    회원 탈퇴
   </DIV>
 
   <DIV class='content_body'>
@@ -36,12 +36,12 @@
    
     <DIV class='message'>
       <FORM name='frm' method='POST' action='./delete.do'>
-        '${memberVO.mname }(${memberVO.id })' 회원을 삭제하면 복구 할 수 없습니다.<br><br>
-        정말로 삭제하시겠습니까?<br><br>         
+        '${sessionScope.mname }(${sessionScope.id })' 회원을 탈퇴하면 복구 할 수 없습니다.<br><br>
+        정말로 탈퇴하시겠습니까?<br><br>         
         <input type='hidden' name='memberno' value='${memberVO.memberno}'>     
             
-        <button type="submit" class="btn btn-info btn-sm">삭제</button>
-        <button type="button" onclick="location.href='./list.do'" class="btn btn-info btn-sm">취소(목록)</button>
+        <button type="submit" class="btn btn-info btn-sm">탈퇴</button>
+        <button type="button" onclick="history.back()" class="btn btn-info btn-sm">취소</button>
      
       </FORM>
     </DIV>

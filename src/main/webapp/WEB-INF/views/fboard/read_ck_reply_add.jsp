@@ -51,7 +51,15 @@
     
   });
 
- //좋아요
+	 /* 리뷰 수정 버튼 -> 패스워드 입력 폼 출력 */
+	 function update_reply(replyno) {
+	     let popUrl = "/reply/update.do?fboardno=${fboardno}&replyno=" + replyno;
+	     let popOption = "width=490px, height=490px, top=300px, left=300px, scrollbars=yes";
+	     window.open(popUrl, "리뷰 수정", popOption);
+	 }
+
+ 
+  //좋아요
   function update_recom_ajax(fboardno) {
     // console.log('-> fboardno:' + fboardno);
     var params = "";
@@ -259,6 +267,8 @@
               }
           
           if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치 여부 확인, 본인의 글만 수정, 삭제 가능함 ★
+        	  msg += " <a href='javascript:void(0);' onclick='update_reply(" + row.replyno + ")'><img src='/reply/images/update.png'></a>";
+           
             msg += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='/reply/images/delete.png'></A>";           
           }
           
@@ -357,7 +367,9 @@
             }
 
       if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치여부 확인, 본인의 글만 삭제 가능함 ★
-          msg += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='/reply/images/delete.png'></A>";
+    	  msg += " <a href='javascript:void(0);' onclick='update_reply(" + row.replyno + ")'><img src='/reply/images/update.png'></a>";
+           
+        msg += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='/reply/images/delete.png'></A>";
         }
         msg += "  " + "<br>";
         msg += row.content;
@@ -521,7 +533,7 @@
   <DIV style='width: 80%; margin: 0px auto;'>
       <HR>
       <FORM name='frm_reply' id='frm_reply'> <%-- 댓글 등록 폼 --%>
-       <img src="/fboard/images/reply.png" style='width: 2%; float: center; float-bottom: 2%, margin-right: 0.2%;'> <!--${replycnt } --!>
+       <img src="/fboard/images/reply.png" style='width: 2%; float: center; float-bottom: 2%, margin-right: 0.2%;'> 
        <br>
           <input type='hidden' name='fboardno' id='fboardno' value='${fboardno}'>
           <input type='hidden' name='memberno' id='memberno' value='${sessionScope.memberno}'>
