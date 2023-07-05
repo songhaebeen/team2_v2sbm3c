@@ -62,60 +62,107 @@ public class ReplyCont {
   }
   
   /**
-   * 패스워드를 검사한 후 삭제 
-   * http://localhost:9093/reply/delete.do?replyno=1&passwd=1234
-   * {"delete_cnt":0,"passwd_cnt":0}
-   * {"delete_cnt":1,"passwd_cnt":1}
-   * @param replyno
-   * @param passwd
+   * 삭제 폼
+   * @param fboardno
    * @return
    */
-  @ResponseBody
-  @RequestMapping(value = "/reply/delete.do", 
-                              method = RequestMethod.POST,
-                              produces = "text/plain;charset=UTF-8")
-  public String delete(int replyno, String passwd, int fboardno) {
-    Map<String, Object> map = new HashMap<String, Object>();
-    map.put("replyno", replyno);
-    map.put("passwd", passwd);
-    map.put("fboardno", fboardno);
-    
-    int passwd_cnt = replyProc.checkPasswd(map); // 패스워드 일치 여부, 1: 일치, 0: 불일치
-    int delete_cnt = 0;                                    // 삭제된 댓글
-    
-    if (passwd_cnt == 1) { // 패스워드가 일치할 경우
-      delete_cnt = replyProc.delete(replyno); // 댓글 삭제
-      fboardProc.decreaseReplycnt(fboardno);
-      
-    }    
-
-    JSONObject obj = new JSONObject();
-    obj.put("passwd_cnt", passwd_cnt); // 패스워드 일치 여부, 1: 일치, 0: 불일치
-    obj.put("delete_cnt", delete_cnt); // 삭제된 댓글
-    
-    
-    return obj.toString();
-  }
-  
   @RequestMapping(value = "/reply/delete.do", method = RequestMethod.GET)
   public ModelAndView delete(HttpSession session, int replyno, int fboardno) {
-	  ModelAndView mav = new ModelAndView();	 
-	  System.out.println("-> fboardno :" + session.getAttribute("fboardno"));
-	  fboardProc.decreaseReplycnt(fboardno);
-	  
-      if (this.adminProc.isAdmin(session) == true) {
-          mav.setViewName("/reply/list_join");        
-          this.replyProc.delete(replyno);
-          this.fboardProc.decreaseReplycnt(fboardno);
-          
-        } else {
-          mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+    ModelAndView mav = new ModelAndView();
 
-        }
-	  
-	  return mav;
-	  
+    if (this.memberProc.isMember(session)) { // 로그인
+      ReplyMemberVO replyMemberVO = this.replyProc.read(replyno);
+      fboardProc.decreaseReplycnt(fboardno);
+      
+      mav.addObject("replyMemberVO", replyMemberVO);
+    
+      mav.setViewName("/reply/delete"); // /WEB-INF/views/reply/delete.jsp
+
+      }else{ // 정상적인 로그인이 아닌 경우
+     mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+     }
+
+    return mav; // forward
   }
+  
+  /**
+   * 삭제 처리
+   * http://localhost:9093/reply/delete.do
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/reply/delete.do", method = RequestMethod.POST)
+  public ModelAndView delete(HttpSession session, ReplyMemberVO replyMemberVO, int replyno) {
+    ModelAndView mav = new ModelAndView();
+        
+    if (this.memberProc.isMember(session) && this.replyProc.password_check(replyMemberVO) == 1 ) {
+       this.replyProc.delete(replyno);  
+       
+         
+       // mav 객체 이용
+       mav.addObject("replyno", replyMemberVO.getReplyno());
+       mav.setViewName("redirect:/reply/list_memberno.do");
+    } else {
+      mav.addObject("replyMemberVO", replyMemberVO);
+
+       mav.addObject("url", "/reply/passwd_check"); // /WEB-INF/views/reply/passwd_check.jsp
+    }    
+    
+    
+   
+    return mav; // forward
+  }
+  
+//  /**
+//   * 패스워드를 검사한 후 삭제 
+//   * http://localhost:9093/reply/delete.do?replyno=1&passwd=1234
+//   * {"delete_cnt":0,"passwd_cnt":0}
+//   * {"delete_cnt":1,"passwd_cnt":1}
+//   * @param replyno
+//   * @param passwd
+//   * @return
+//   */
+//  @ResponseBody
+//  @RequestMapping(value = "/reply/delete.do", 
+//                              method = RequestMethod.POST,
+//                              produces = "text/plain;charset=UTF-8")
+//  public String delete(int replyno, String passwd) {
+//    Map<String, Object> map = new HashMap<String, Object>();
+//    map.put("replyno", replyno);
+//    map.put("passwd", passwd);
+//    
+//    int passwd_cnt = replyProc.checkPasswd(map); // 패스워드 일치 여부, 1: 일치, 0: 불일치
+//    int delete_cnt = 0;                                    // 삭제된 댓글
+//    
+//    if (passwd_cnt == 1) { // 패스워드가 일치할 경우
+//      delete_cnt = replyProc.delete(replyno); // 댓글 삭제
+//      
+//    }    
+//
+//    JSONObject obj = new JSONObject();
+//    obj.put("passwd_cnt", passwd_cnt); // 패스워드 일치 여부, 1: 일치, 0: 불일치
+//    obj.put("delete_cnt", delete_cnt); // 삭제된 댓글
+//    
+//    
+//    return obj.toString();
+//  }
+//  
+//  @RequestMapping(value = "/reply/delete.do", method = RequestMethod.GET)
+//  public ModelAndView delete(HttpSession session, int replyno) {
+//	  ModelAndView mav = new ModelAndView();	 
+//	  
+//      if (this.adminProc.isAdmin(session) == true) {
+//          mav.setViewName("/reply/list_join");        
+//          this.replyProc.delete(replyno);
+//          
+//        } else {
+//          mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+//
+//        }
+//	  
+//	  return mav;
+//	  
+//  }
   
   
 //  /**
