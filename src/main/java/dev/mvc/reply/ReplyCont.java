@@ -70,7 +70,7 @@ public class ReplyCont {
   public ModelAndView delete(HttpSession session, int replyno, int fboardno) {
     ModelAndView mav = new ModelAndView();
 
-    if (this.memberProc.isMember(session)) { // 로그인
+    if (this.memberProc.isMember(session) || adminProc.isAdmin(session)) { // 로그인
       ReplyMemberVO replyMemberVO = this.replyProc.read(replyno);
       fboardProc.decreaseReplycnt(fboardno);
       
@@ -95,13 +95,13 @@ public class ReplyCont {
   public ModelAndView delete(HttpSession session, ReplyMemberVO replyMemberVO, int replyno) {
     ModelAndView mav = new ModelAndView();
         
-    if (this.memberProc.isMember(session) && this.replyProc.password_check(replyMemberVO) == 1 ) {
+    if (this.memberProc.isMember(session) && this.replyProc.password_check(replyMemberVO) == 1 || this.adminProc.isAdmin(session) && this.replyProc.password_check(replyMemberVO) == 1) {
        this.replyProc.delete(replyno);  
        
          
        // mav 객체 이용
        mav.addObject("replyno", replyMemberVO.getReplyno());
-       mav.setViewName("redirect:/reply/list_memberno.do");
+       mav.setViewName("redirect:/reply/list_join.do");
     } else {
       mav.addObject("replyMemberVO", replyMemberVO);
 

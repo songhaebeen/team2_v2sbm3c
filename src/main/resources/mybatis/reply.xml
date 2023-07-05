@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT m.id, r.replyno, r.fboardno, r.memberno, r.content, r.passwd, r.rdate
     FROM member m, reply r
     WHERE m.memberno = r.memberno
-    ORDER BY r.replyno ASC
+    ORDER BY r.replyno DESC
   </select>
   
   <!-- 패스워드 검사 -->
