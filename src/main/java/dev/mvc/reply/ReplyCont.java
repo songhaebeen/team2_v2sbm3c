@@ -22,6 +22,7 @@ import dev.mvc.fboard.FboardProcInter;
 import dev.mvc.fboard.FboardVO;
 import dev.mvc.member.MemberProc;
 import dev.mvc.member.MemberVO;
+import dev.mvc.tool.Tool;
 
 @Controller
 public class ReplyCont {
@@ -59,7 +60,6 @@ public class ReplyCont {
     return obj.toString(); // {"cnt":1}
 
   }
-<<<<<<< HEAD
   
   /**
    * 삭제 폼
@@ -165,9 +165,6 @@ public class ReplyCont {
 //  }
   
   
-=======
-
->>>>>>> 6fedd42cfb16710e43b4adc168b90b12b55957d1
 //  /**
 //   * 댓글 전체 목록(관리자)
 //   * http://localhost:9093/reply/list.do
@@ -289,83 +286,64 @@ public class ReplyCont {
     return obj.toString();     
   }
   
-  /**
-   * 패스워드를 검사한 후 삭제 
-   * http://localhost:9093/reply/delete.do?replyno=1&passwd=1234
-   * {"delete_cnt":0,"passwd_cnt":0}
-   * {"delete_cnt":1,"passwd_cnt":1}
-   * @param replyno
-   * @param passwd
-   * @return
-   */
-  @ResponseBody
-  @RequestMapping(value = "/reply/delete.do", 
-                              method = RequestMethod.POST,
-                              produces = "text/plain;charset=UTF-8")
-  public String delete(int replyno, String passwd) {
-    Map<String, Object> map = new HashMap<String, Object>();
-    map.put("replyno", replyno);
-    map.put("passwd", passwd);
-    
-    int passwd_cnt = replyProc.checkPasswd(map); // 패스워드 일치 여부, 1: 일치, 0: 불일치
-    int delete_cnt = 0;                                    // 삭제된 댓글
-    if (passwd_cnt == 1) { // 패스워드가 일치할 경우
-      delete_cnt = replyProc.delete(replyno); // 댓글 삭제
-    }
-    
-    JSONObject obj = new JSONObject();
-    obj.put("passwd_cnt", passwd_cnt); // 패스워드 일치 여부, 1: 일치, 0: 불일치
-    obj.put("delete_cnt", delete_cnt); // 삭제된 댓글
-    
-    return obj.toString();
-  }
-  
-  
-  @RequestMapping(value = "/reply/delete.do", method = RequestMethod.GET)
-  public ModelAndView delete_reply(HttpSession session, int replyno) {
-    ModelAndView mav = new ModelAndView();
-      if (this.adminProc.isAdmin(session) == true) {
-          mav.setViewName("/reply/list_join");
-          this.replyProc.delete(replyno);
-        } else {
-          mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
 
-        }
-    
-    return mav;
-    
-  }
+//  /**
+//   * 패스워드 입력폼 
+//   * http://localhost:9093/reply/update.do?replyno=1&passwd=1234
+//   * {"delete_cnt":0,"passwd_cnt":0}
+//   * {"delete_cnt":1,"passwd_cnt":1}
+//   * @param replyno
+//   * @param passwd
+//   * @return
+//   */
+//  @ResponseBody
+//  @RequestMapping(value = "/reply/update.do", 
+//                              method = RequestMethod.POST,
+//                              produces = "text/plain;charset=UTF-8")
+//  public String update_passwd(ReplyMemberVO replyMemberVO, String passwd) {
+//    Map<String, Object> map = new HashMap<String, Object>();
+//    map.put("replyMemberVO", replyMemberVO);
+//    map.put("passwd", passwd);
+//    
+//    int passwd_cnt = replyProc.checkPasswd(map); // 패스워드 일치 여부, 1: 일치, 0: 불일치
+//    if (passwd_cnt == 1) { // 패스워드가 일치할 경우
+//      replyProc.update(replyMemberVO); // 댓글 수정
+//    }
+//    
+//    JSONObject obj = new JSONObject();
+//    obj.put("passwd_cnt", passwd_cnt); // 패스워드 일치 여부, 1: 일치, 0: 불일치
+//    
+//    return obj.toString();
+//  }
   
-  /**
-   * 패스워드를 검사한 후 수정 
-   * http://localhost:9093/reply/update.do?replyno=1&passwd=1234
-   * {"delete_cnt":0,"passwd_cnt":0}
-   * {"delete_cnt":1,"passwd_cnt":1}
-   * @param replyno
-   * @param passwd
-   * @return
-   */
-  @ResponseBody
-  @RequestMapping(value = "/reply/update.do", 
-                              method = RequestMethod.POST,
-                              produces = "text/plain;charset=UTF-8")
-  public String update(ReplyMemberVO replyMemberVO, String passwd) {
-    Map<String, Object> map = new HashMap<String, Object>();
-    map.put("replyMemberVO", replyMemberVO);
-    map.put("passwd", passwd);
-    
-    int passwd_cnt = replyProc.checkPasswd(map); // 패스워드 일치 여부, 1: 일치, 0: 불일치
-    int update_cnt = 0;                                    // 수정된 댓글
-    if (passwd_cnt == 1) { // 패스워드가 일치할 경우
-      update_cnt = replyProc.update(replyMemberVO); // 댓글 수정
-    }
-    
-    JSONObject obj = new JSONObject();
-    obj.put("passwd_cnt", passwd_cnt); // 패스워드 일치 여부, 1: 일치, 0: 불일치
-    obj.put("update_cnt", update_cnt); // 수정된 댓글
-    
-    return obj.toString();
-  }
+//  /**
+//   * 패스워드를 검사한 후 수정 
+//   * http://localhost:9093/reply/update.do?replyno=1&passwd=1234
+//   * {"delete_cnt":0,"passwd_cnt":0}
+//   * {"delete_cnt":1,"passwd_cnt":1}
+//   * @param replyno
+//   * @param passwd
+//   * @return
+//   */
+//  @ResponseBody
+//  @RequestMapping(value = "/reply/update.do", 
+//                              method = RequestMethod.POST,
+//                              produces = "text/plain;charset=UTF-8")
+//  public String update(ReplyMemberVO replyMemberVO, String passwd) {
+//    Map<String, Object> map = new HashMap<String, Object>();
+//    map.put("replyMemberVO", replyMemberVO);
+//    map.put("passwd", passwd);
+//    
+//    int passwd_cnt = replyProc.checkPasswd(map); // 패스워드 일치 여부, 1: 일치, 0: 불일치
+//    if (passwd_cnt == 1) { // 패스워드가 일치할 경우
+//      replyProc.update(replyMemberVO); // 댓글 수정
+//    }
+//    
+//    JSONObject obj = new JSONObject();
+//    obj.put("passwd_cnt", passwd_cnt); // 패스워드 일치 여부, 1: 일치, 0: 불일치
+//    
+//    return obj.toString();
+//  }
   
 //  /**
 //   * 삭제 폼
@@ -420,8 +398,8 @@ public class ReplyCont {
     
     List<ReplyMemberVO> list = replyProc.list_by_fboardno_join_add(fboardno);
     
-  //fboardProc.increaseReplycnt(fboardno);
-  //fboardProc.decreaseReplycnt(fboardno);
+	//fboardProc.increaseReplycnt(fboardno);
+	//fboardProc.decreaseReplycnt(fboardno);
     
     FboardVO fboardVO = this.fboardProc.read(fboardno);
     
@@ -429,6 +407,7 @@ public class ReplyCont {
    String mname = this.memberProc.read(fboardVO.getMemberno()).getMname();
    mav.addObject("mname", mname);
     
+   
     JSONObject obj = new JSONObject();
     obj.put("list", list);
  
@@ -453,5 +432,123 @@ public class ReplyCont {
     return mav;
   }
   
+  /**
+   * 내가 단 댓글 목록
+  * http://localhost:9093/reply/list_memberno.do
+   * @param memberno
+   * @return
+   */
+  @RequestMapping(value="/reply/list_memberno.do", method=RequestMethod.GET)
+  public ModelAndView list_memberno(HttpSession session) {
+    ModelAndView mav = new ModelAndView();
+    System.out.println("-> memberno :" + session.getAttribute("memberno"));
+    System.out.println("-> id :" + session.getAttribute("id"));
+
+    int memberno = 0;
+    
+    if (this.memberProc.isMember(session)) { // 회원으로 로그인
+      if (session.getAttribute("memberno") != null) {
+        memberno = (int)session.getAttribute("memberno");
+      }
+    
+
+      List<ReplyMemberVO> list = replyProc.list_memberno(memberno);
+      mav.addObject("list", list);
+   
+    
+    mav.setViewName("/reply/list_memberno"); // /webapp/reply/list_memberno.jsp
+    } else {
+      // 로그인을 하지 않은 경우
+      mav.setViewName("/member/login_need"); // /webapp/WEB-INF/views/member/login_need.jsp
+    }
+    
+    return mav;
+  }
+  
+//  /**
+//   * 댓글 조회
+//   * 회원 본인만 가능
+//   * @param memberno
+//   * @return
+//   */
+//  @RequestMapping(value="/reply/read.do", method=RequestMethod.GET)
+//  public ModelAndView read(HttpSession session, HttpServletRequest request){
+//    ModelAndView mav = new ModelAndView();
+//    
+//    int memberno = 0;
+//    if (this.memberProc.isMember(session)) { 
+//      // 로그인한 경우
+//        memberno = (int)session.getAttribute("memberno"); // 본인의 회원 정보 조회
+//        
+//      ReplyMemberVO replyMemberVO = this.replyProc.read(memberno);
+//      mav.addObject("memberVO", replyMemberVO);
+//      mav.setViewName("/reply/read"); // /member/read.jsp
+//      
+//    } else {
+//      // 로그인을 하지 않은 경우
+//      mav.setViewName("/member/login_need"); // /webapp/WEB-INF/views/member/login_need.jsp
+//    }
+//    
+//    return mav; // forward
+//  }
+
+  
+  /**
+   * 수정 폼
+   * http://localhost:9093/reply/update.do
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/reply/update.do", method = RequestMethod.GET)
+  public ModelAndView update(HttpSession session, int replyno) {
+    ModelAndView mav = new ModelAndView();
+    System.out.println("-> memberno :" + session.getAttribute("memberno"));
+    System.out.println("-> id :" + session.getAttribute("id"));
+    System.out.println("-> public ModelAndView update(HttpSession session, int replyno) 호출");
+    
+    
+    if (this.memberProc.isMember(session)) { // 로그인
+      ReplyMemberVO replyMemberVO = this.replyProc.read(replyno);
+      mav.addObject("replyMemberVO", replyMemberVO);
+    
+      mav.setViewName("/reply/update"); // /WEB-INF/views/reply/update.jsp
+
+      }else{ // 정상적인 로그인이 아닌 경우
+     mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+     }
+
+    return mav; // forward
+  }
+  
+  /**
+   * 수정 처리
+   * http://localhost:9093/reply/update.do
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/reply/update.do", method = RequestMethod.POST)
+  public ModelAndView update(HttpSession session, ReplyMemberVO replyMemberVO) {
+    ModelAndView mav = new ModelAndView();
+    System.out.println("-> memberno :" + session.getAttribute("memberno"));
+    System.out.println("-> id :" + session.getAttribute("id"));
+    System.out.println("-> public ModelAndView update(HttpSession session, ReplyMemberVO replyMemberVO) 호출");
+        
+    if (this.memberProc.isMember(session) && this.replyProc.password_check(replyMemberVO) == 1 ) {
+       this.replyProc.update(replyMemberVO);  
+
+         
+       // mav 객체 이용
+       mav.addObject("replyno", replyMemberVO.getReplyno());
+       mav.setViewName("redirect:/reply/list_memberno.do");
+    } else {
+      mav.addObject("replyMemberVO", replyMemberVO);
+
+       mav.addObject("url", "/reply/passwd_check"); // /WEB-INF/views/reply/passwd_check.jsp
+    }    
+    
+    
+   
+    return mav; // forward
+  }
   
 }
