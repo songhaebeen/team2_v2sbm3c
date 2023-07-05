@@ -533,7 +533,7 @@
   <DIV style='width: 80%; margin: 0px auto;'>
       <HR>
       <FORM name='frm_reply' id='frm_reply'> <%-- 댓글 등록 폼 --%>
-       <img src="/fboard/images/reply.png" style='width: 2%; float: center; float-bottom: 2%, margin-right: 0.2%;'> 
+       <img src="/fboard/images/reply.png" style='width: 2%; float: center; float-bottom: 2%, margin-right: 0.2%;'> ${replycnt }
        <br>
           <input type='hidden' name='fboardno' id='fboardno' value='${fboardno}'>
           <input type='hidden' name='memberno' id='memberno' value='${sessionScope.memberno}'>

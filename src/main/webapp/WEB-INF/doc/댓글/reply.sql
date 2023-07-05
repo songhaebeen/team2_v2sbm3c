@@ -125,7 +125,7 @@ WHERE replyno=1 AND passwd='1234';
 
 9) 삭제
 DELETE FROM reply
-WHERE replyno=1;
+WHERE replyno=24 AND fboardno=4;
 
 10) reply + member join + 특정 fboardno 별 목록, 1000건 출력
 SELECT id, replyno, fboardno, memberno, content, passwd, rdate, r

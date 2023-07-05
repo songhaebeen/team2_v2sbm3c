@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 삭제 -->
   <delete id="delete" parameterType="int">
     DELETE FROM reply
-    WHERE replyno=#{replyno}
+    WHERE replyno=#{replyno} AND fboardno=#{fboardno}
   </delete>
   
     <select id="list_by_fboardno_join_add" resultType="dev.mvc.reply.ReplyMemberVO" parameterType="int">

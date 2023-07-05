@@ -98,7 +98,8 @@
         <c:set var="fboardno" value="${fboardVO.fboardno }" />
         <c:set var="thumb1" value="${fboardVO.thumb1 }" />
         <c:set var="views" value="${fboardVO.views }" />
-          <c:set var="rdate" value="${fboardVO.rdate.substring(0, 10) }" />
+        <c:set var="replycnt" value="${fboardVO.replycnt }" />
+        <c:set var="rdate" value="${fboardVO.rdate.substring(0, 10) }" />
         
          <tr style="height: 112px;" onclick="location.href='./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }'" class='hover'>
           <td style='vertical-align: middle; text-align: center; '>
@@ -113,7 +114,7 @@
             </c:choose>
           </td>  
           <td style='vertical-align: middle;'>
-            <div style='font-weight: bold;'><%--<a href="./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }">--%>${ftitle }</a></div>
+            <div style='font-weight: bold;'><%--<a href="./read.do?fboardno=${fboardno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }">--%>${ftitle } [${replycnt }]</div>
             <c:choose> 
               <c:when test="${fcontent.length() > 140 }"> <%-- 140자 이상이면 140자만 출력 --%>
                   ${fcontent.substring(0, 140)}...더보기

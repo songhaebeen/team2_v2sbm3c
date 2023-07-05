@@ -2,7 +2,7 @@
 /* Table Name: 자유게시판 */
 /**********************************/
 DROP TABLE fboard;
-drop table f_board;
+
 commit;
 CREATE TABLE fboard(
         fboardno            NUMBER(10)     NOT NULL         PRIMARY KEY,
@@ -198,5 +198,12 @@ WHERE userno IN('1','2','3');
 UPDATE fboard
 SET replycnt = replycnt + 1
 WHERE fboardno = 1;
+
+--댓글 감소
+UPDATE fboard
+SET replycnt = replycnt - 1
+WHERE fboardno = 4;
+
+COMMIT;
 
 ROLLBACK;

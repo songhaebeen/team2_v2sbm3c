@@ -66,11 +66,11 @@
   
     <!-- 검색 + 페이징 목록 -->
   <select id="list_by_search_paging" resultType="dev.mvc.fboard.FboardVO" parameterType="dev.mvc.fboard.FboardVO">
-   SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views, r
+   SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views, replycnt, r
       FROM (
-              SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views, rownum as r
+              SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views, replycnt, rownum as r
               FROM (
-                        SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views
+                        SELECT fboardno, memberno, ftitle, fcontent, rdate, file1, file1saved, thumb1, size1, youtube, views, replycnt
                         FROM fboard
                         <choose>
                           <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
