@@ -563,22 +563,15 @@ public class MemberCont {
   * @return
   */
  @RequestMapping(value="/member/user_out.do", method=RequestMethod.POST)
- public ModelAndView user_out(MemberVO memberVO){
+ public ModelAndView user_out_post(HttpSession session) {
    ModelAndView mav = new ModelAndView();
    
-   int cnt= this.memberProc.update(memberVO);
-   
-   if (cnt == 1) {
-     mav.addObject("code", "update_success");
-     mav.addObject("grade", memberVO.getGrade());
+   if (this.memberProc.isMember(session)) {
+     session.setAttribute("userValue", 99);
+     mav.setViewName("/member/user_out");
    } else {
-     mav.addObject("code", "update_fail");
+     mav.setViewName("/member/login_need");
    }
-
-   mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
-   mav.addObject("url", "/member/msg");  // /member/msg -> /member/msg.jsp
-   
-   mav.setViewName("redirect:/member/msg.do");
    
    return mav;
  }

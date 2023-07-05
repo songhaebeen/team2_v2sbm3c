@@ -22,7 +22,10 @@
 
   <DIV style='width: 100%; margin: 30px auto; text-align: center;'>
     <%-- /static/images/resort01.jpg --%>
+    <iframe src='./jquery/fotorama-4.6.4/example.html' style='width: 108%; height: 600px; border: none;'></iframe>
+    <!-- 
     <IMG src='/images/logo2.gif' style='width: 45%;'>
+     -->
   </DIV>
   
   <DIV style='margin: 0px auto; width: 100%;'>

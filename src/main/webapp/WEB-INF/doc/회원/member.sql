@@ -104,7 +104,8 @@ SELECT memberno, id, grade
 FROM member
 ORDER BY memberno DESC;
      
-     
+ROLLBACK;
+
 3. 조회
  
 1) user1@gmail.com 사원 정보 보기
