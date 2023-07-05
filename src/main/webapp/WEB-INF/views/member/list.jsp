@@ -49,6 +49,7 @@
       <col style='width: 5%;'/>
       <col style='width: 10%;'/>
       <col style='width: 10%;'/>
+      <col style='width: 10%;'/>
       <col style='width: 15%;'/>
       <col style='width: 30%;'/>
       <col style='width: 15%;'/>

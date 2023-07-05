@@ -96,7 +96,7 @@ COMMIT;
 2. 목록
 - 검색을 하지 않는 경우, 전체 목록 출력
  
-SELECT memberno, id,email, passwd, mname, tel, zipcode, address1, address2, mdate, grade
+SELECT memberno, id, email, passwd, mname, tel, zipcode, address1, address2, mdate, grade
 FROM member
 ORDER BY memberno DESC;
 
@@ -111,7 +111,7 @@ ROLLBACK;
 1) user1@gmail.com 사원 정보 보기
 SELECT memberno, id, email, passwd, mname, tel, zipcode, address1, address2, mdate, grade
 FROM member
-WHERE memberno = 1;
+WHERE memberno = 17;
 
 SELECT memberno, id, email, passwd, mname, tel, zipcode, address1, address2, mdate, grade
 FROM member
@@ -120,7 +120,7 @@ WHERE id = 'user1';
     
 4. 수정
 UPDATE member 
-SET id='user5',email='user5@gmail.com', mname='아로미', tel='111-1111-1111', zipcode='00000',
+SET id='user5', email='user5@gmail.com', mname='아로미', tel='111-1111-1111', zipcode='00000',
     address1='경기도', address2='파주시', grade=14
 WHERE memberno=1;
 
@@ -146,6 +146,7 @@ SET passwd='0000'
 WHERE memberno=1;
 
 COMMIT;
+
  
  
 7. 로그인
@@ -172,4 +173,6 @@ FROM member
 WHERE id='user1@gmail.com' AND grade = 99;
 
 Controller에서 정지 회원 갯수도 0이고 탈퇴 회원 갯수도 0인 경우 로그인 처리입니다.
+
+
  

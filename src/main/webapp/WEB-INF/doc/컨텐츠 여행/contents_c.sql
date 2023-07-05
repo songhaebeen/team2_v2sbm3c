@@ -1,4 +1,5 @@
 DROP TABLE contentsco CASCADE CONSTRAINTS; -- 자식 무시하고 삭제 가능
+
 DROP TABLE contentsco;
 
 CREATE TABLE contentsco(

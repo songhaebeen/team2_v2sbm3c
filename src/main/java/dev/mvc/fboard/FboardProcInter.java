@@ -120,6 +120,13 @@ public interface FboardProcInter {
    * @return
    */   
   public int decreaseReplycnt(int fboardno);
+  
+  /**
+   * 댓글수 확인
+   * @param 
+   * @return
+   */
+  public int count(int fboardno);
 	
 
 }

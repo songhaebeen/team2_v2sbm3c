@@ -24,6 +24,12 @@ public class MemberProc implements MemberProcInter {
     int cnt = this.memberDAO.checkID(id);
     return cnt;
   }
+  
+  @Override
+  public int checkEmail(String email) {
+    int cnt = this.memberDAO.checkID(email);
+    return cnt;
+  }
 
   @Override
   public int create(MemberVO memberVO) {

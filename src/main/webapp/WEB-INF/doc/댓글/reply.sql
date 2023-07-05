@@ -10,8 +10,8 @@ CREATE TABLE reply(
         content                               VARCHAR2(1000)         NOT NULL,
         passwd                                VARCHAR2(20)         NOT NULL,
         rdate                              DATE NOT NULL,
-  FOREIGN KEY (fboardno) REFERENCES fboard (fboardno),
-  FOREIGN KEY (memberno) REFERENCES member (memberno)
+  FOREIGN KEY (fboardno) REFERENCES fboard (fboardno) ON DELETE CASCADE,
+  FOREIGN KEY (memberno) REFERENCES member (memberno) ON DELETE CASCADE
 );
 
 COMMENT ON TABLE reply is '댓글';
@@ -164,3 +164,8 @@ SELECT mname, replyno, fboardno, memberno, content, passwd, rdate, r
            )
     )
     WHERE r <= 10;
+    
+--해당 글의 댓글수 확인
+SELECT COUNT(*)
+FROM reply
+WHERE fboardno=1;

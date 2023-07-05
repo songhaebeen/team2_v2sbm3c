@@ -92,5 +92,12 @@ public interface ReplyDAOInter {
    */
   public int delete(int replyno);
   
+  /**
+   * 댓글수 확인
+   * @param 
+   * @return
+   */
+  public int count(int fboardno);
+  
 
 }

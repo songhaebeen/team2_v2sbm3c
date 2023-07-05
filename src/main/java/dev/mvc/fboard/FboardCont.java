@@ -17,8 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
 import dev.mvc.member.MemberProcInter;
+import dev.mvc.reply.ReplyProcInter;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
+import jdk.jfr.Description;
 
 @Controller
 public class FboardCont {
@@ -33,6 +35,10 @@ public class FboardCont {
   @Autowired
   @Qualifier("dev.mvc.fboard.FboardProc") 
   private FboardProcInter fboardProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.reply.ReplyProc") 
+  private ReplyProcInter replyProc;
   
   public FboardCont() {
 	  System.out.println("-> FboardCont created.");
@@ -586,6 +592,7 @@ public class FboardCont {
     
     // 삭제할 정보를 조회하여 확인
     FboardVO fboardVO = this.fboardProc.read(fboardno);
+    fboardProc.count(fboardno);
     mav.addObject("fboardVO", fboardVO);
     
     mav.setViewName("/fboard/delete");  // /webapp/WEB-INF/views/fboard/delete.jsp

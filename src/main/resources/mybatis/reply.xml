@@ -113,5 +113,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE replyno = #{replyno} AND passwd=#{passwd}
   </select>
 	  
-    
+    <!-- 해당 글의 댓글수 확인 -->
+  <select id="count" resultType="int" >
+			SELECT COUNT(*)
+			FROM reply
+			WHERE fboardno=#{fboardno}
+  </select>
+  
 </mapper> 
