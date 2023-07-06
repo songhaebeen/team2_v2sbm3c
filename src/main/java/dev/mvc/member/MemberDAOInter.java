@@ -87,6 +87,9 @@ public interface MemberDAOInter {
    * @return
    */
   public int user_out(int memberno);
+
+  
+  
   
 
  

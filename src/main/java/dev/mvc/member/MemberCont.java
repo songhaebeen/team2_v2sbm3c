@@ -548,6 +548,7 @@ public class MemberCont {
    ModelAndView mav = new ModelAndView();
    
    if (this.memberProc.isMember(session)) {
+     
      mav.setViewName("/member/user_out");
    } else {
      mav.setViewName("/member/login_need"); // /WEB-INF/views/member/user_out.jsp
@@ -558,23 +559,42 @@ public class MemberCont {
  }
  
  /**
-  * 회원 정보 수정 처리
+  * 등록 처리
   * @param memberVO
   * @return
   */
  @RequestMapping(value="/member/user_out.do", method=RequestMethod.POST)
- public ModelAndView user_out_post(HttpSession session) {
+ public ModelAndView user_out(MemberVO memberVO){
    ModelAndView mav = new ModelAndView();
    
-   if (this.memberProc.isMember(session)) {
-     session.setAttribute("userValue", 99);
-     mav.setViewName("/member/user_out");
+   // System.out.println("id: " + memberVO.getId());
+   
+   memberVO.setGrade(99); // 기본 회원 가입 등록 15 지정
+   
+   int cnt= this.memberProc.create(memberVO); // SQL insert
+   
+   if (cnt == 1) { // insert 레코드 개수
+     mav.addObject("code", "create_success");
+     mav.addObject("mname", memberVO.getMname());  // 홍길동님(user4) 회원 가입을 축하합니다.
+     mav.addObject("id", memberVO.getId());
    } else {
-     mav.setViewName("/member/login_need");
+     mav.addObject("code", "create_fail");
    }
+   
+   mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+   
+   mav.addObject("url", "/member/msg");  // /member/msg -> /member/msg.jsp
+   
+   mav.setViewName("redirect:/member/msg.do"); // POST -> GET -> /member/msg.jsp
+
+//   mav.addObject("code", "create_fail"); // 가입 실패 test용
+//   mav.addObject("cnt", 0);                 // 가입 실패 test용
    
    return mav;
  }
+ 
+ 
+
  
 }
 

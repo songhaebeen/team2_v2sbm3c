@@ -71,6 +71,8 @@
   SET grade = 99
   WHERE memberno = #{memberno}
  </update> 
+
+
  
 
 </mapper> 
