@@ -47,12 +47,12 @@ public class FboardVO {
    private int now_page = 1;
     
 	public int getFboardno() {
-		return fboardno;
-	}
-	public void setFboardno(int fboardno) {
-		this.fboardno = fboardno;
-	}
-	public int getMemberno() {
+    return fboardno;
+  }
+  public void setFboardno(int fboardno) {
+    this.fboardno = fboardno;
+  }
+  public int getMemberno() {
 		return memberno;
 	}
 	public void setMemberno(int memberno) {

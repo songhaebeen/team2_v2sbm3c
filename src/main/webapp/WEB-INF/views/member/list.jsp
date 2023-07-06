@@ -49,7 +49,6 @@
       <col style='width: 5%;'/>
       <col style='width: 10%;'/>
       <col style='width: 10%;'/>
-      <col style='width: 10%;'/>
       <col style='width: 15%;'/>
       <col style='width: 30%;'/>
       <col style='width: 15%;'/>
@@ -58,7 +57,6 @@
     <TR>
       <TH class='th_bs'>등급 </TH>
       <TH class='th_bs'>ID</TH>
-      <TH class='th_bs'>EMAIL</TH>
       <TH class='th_bs'>성명</TH>
       <TH class='th_bs'>전화번호</TH>
       <TH class='th_bs'>주소</TH>
@@ -70,7 +68,6 @@
       <c:set var="memberno" value ="${memberVO.memberno}" />
       <c:set var="grade" value ="${memberVO.grade}" />
       <c:set var="id" value ="${memberVO.id}" />
-      <c:set var="email" value ="${memberVO.email}" />
       <c:set var="mname" value ="${memberVO.mname}" />
       <c:set var="tel" value ="${memberVO.tel}" />
       <c:set var="address1" value ="${memberVO.address1}" />
@@ -86,7 +83,6 @@
         </c:choose>  
       </TD>
       <TD class='td_left'><A href="./read.do?memberno=${memberno}">${id}</A></TD>
-      <TD class='td_left'><A href="./read.do?memberno=${memberno}">${email}</A></TD>
       <TD class='td_left'><A href="./read.do?memberno=${memberno}">${mname}</A></TD>
       <TD class='td_basic'>${tel}</TD>
       <TD class='td_left'>
