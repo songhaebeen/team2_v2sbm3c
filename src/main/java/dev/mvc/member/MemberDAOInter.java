@@ -22,6 +22,13 @@ public interface MemberDAOInter {
   public int checkID(String id);
   
   /**
+   * 중복 이메일 검사
+   * @param email
+   * @return 중복 이메일 갯수
+   */
+  public int checkEmail(String email);
+  
+  /**
    * 회원 가입
    * @param memberVO
    * @return

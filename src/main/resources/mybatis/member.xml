@@ -8,9 +8,15 @@
     WHERE id=#{id}
   </select>
   
+  <select id="checkEmail" resultType="int" parameterType="String">
+    SELECT COUNT(email) as cnt
+    FROM member
+    WHERE email=#{email}
+  </select>
+
   <insert id="create" parameterType="dev.mvc.member.MemberVO">
     INSERT INTO member(memberno, id, email, passwd, mname, tel, zipcode, address1, address2, mdate, grade)
-    VALUES (member_seq.nextval, #{id},#{email}, #{passwd}, #{mname}, #{tel}, #{zipcode}, #{address1}, #{address2}, sysdate, #{grade})
+    VALUES (member_seq.nextval, #{id}, #{email}, #{passwd}, #{mname}, #{tel}, #{zipcode}, #{address1}, #{address2}, sysdate, #{grade})
   </insert>
   
   <select id="list" resultType="dev.mvc.member.MemberVO">

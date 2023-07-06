@@ -28,10 +28,10 @@
       let msg = '';
     
       if ($.trim(id).length == 0) { // $.trim(id): 문자열 좌우의 공백 제거, length: 문자열 길이, id를 입력받지 않은 경우
-        $('#modal_title').html('ID(이메일) 중복 확인'); // 제목 
+        $('#modal_title').html('ID 중복 확인'); // 제목 
 
         $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
-    	  msg = '· ID(이메일)를 입력하세요.<br>· ID(이메일) 입력은 필수 입니다.<br>· ID(이메일)는 3자이상 권장합니다.';
+    	  msg = '· ID를 입력하세요.<br>· ID 입력은 필수 입니다.<br>· ID 3자이상 권장합니다.';
         $('#modal_content').html(msg);           // 내용
         
         $('#btn_close').attr("data-focus", "id");  // data-focus: 개발자가 추가한 속성, 닫기 버튼 클릭시 "id" 입력으로 focus 이동
@@ -57,18 +57,18 @@
             
             if (rdata.cnt > 0) { // 아이디 중복
               $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
-              msg = "이미 사용중인 ID(이메일) 입니다.<br>";
-              msg = msg + "다른 ID(이메일)을 지정해주세요.";
+              msg = "이미 사용중인 ID 입니다.<br>";
+              msg = msg + "다른 ID을 지정해주세요.";
               $('#btn_close').attr("data-focus", "id");  // id 입력으로 focus 이동
               
             } else { // 아이디 중복 안됨.
               $('#modal_content').attr('class', 'alert alert-success'); // Bootstrap CSS 변경
-              msg = "사용 가능한 ID(이메일) 입니다.";
+              msg = "사용 가능한 ID 입니다.";
               $('#btn_close').attr("data-focus", "passwd");  // passwd 입력으로 focus 이동
               // $.cookie('checkId', 'TRUE'); // Cookie 기록
             }
             
-            $('#modal_title').html('ID(이메일) 중복 확인'); // 제목 
+            $('#modal_title').html('ID 중복 확인'); // 제목 
             $('#modal_content').html(msg);        // 내용
             $('#modal_panel').modal();              // 다이얼로그 출력
           },
@@ -143,6 +143,133 @@
 
     $('#frm').submit(); // required="required" 작동 안됨.
   }  
+
+  //Email-------------------------------------------------------------------------------------------------------------------
+  // jQuery ajax 요청
+  function checkEmail() {
+    // $('#btn_close').attr("data-focus", "이동할 태그 지정");
+    
+    let frm = $('#frm'); // id가 frm인 태그 검색
+    let email = $('#email', frm).val(); // frm 폼에서 email가 'email'인 태그 검색
+    let params = '';
+    let msg = '';
+  
+    if ($.trim(id).length == 0) { // $.trim(id): 문자열 좌우의 공백 제거, length: 문자열 길이, id를 입력받지 않은 경우
+      $('#modal_title').html('Email 중복 확인'); // 제목 
+
+      $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
+      msg = '· Email를 입력하세요.<br>· Email 입력은 필수 입니다.<br>· Email 3자이상 권장합니다.';
+      $('#modal_content').html(msg);           // 내용
+      
+      $('#btn_close').attr("data-focus", "email");  // data-focus: 개발자가 추가한 속성, 닫기 버튼 클릭시 "id" 입력으로 focus 이동
+      $('#modal_panel').modal();                 // 다이얼로그 출력, modal: 메시지 창을 닫아야 다음 동작 진행 가능
+
+      return false;  // 회원 가입 진행 중지
+      
+    } else {  // when ID is entered
+      params = 'email=' + email;
+      // var params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
+      // alert('params: ' + params);
+  
+      $.ajax({
+        url: './checkEmail.do', // spring execute, http://localhost:9091/member/checkEmail.do?id=user1@gmail.com
+        type: 'get',  // post
+        cache: false, // 응답 결과 임시 저장 취소
+        async: true,  // true: 비동기 통신
+        dataType: 'json', // 응답 형식: json, html, xml...
+        data: params,      // 데이터
+        success: function(rdata) { // 서버로부터 성공적으로 응답이 온경우, 통신 성공: {"cnt":1}
+          // alert(rdata);
+          let msg = "";
+          
+          if (rdata.cnt > 0) { // 아이디 중복
+            $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
+            msg = "이미 사용중인 Email 입니다.<br>";
+            msg = msg + "다른 Email을 지정해주세요.";
+            $('#btn_close').attr("data-focus", "email");  // id 입력으로 focus 이동
+            
+          } else { // 이메일 중복 안됨.
+            $('#modal_content').attr('class', 'alert alert-success'); // Bootstrap CSS 변경
+            msg = "사용 가능한 Email 입니다.";
+            $('#btn_close').attr("data-focus", "passwd");  // passwd 입력으로 focus 이동
+            // $.cookie('checkId', 'TRUE'); // Cookie 기록
+          }
+          
+          $('#modal_title').html('Email 중복 확인'); // 제목 
+          $('#modal_content').html(msg);        // 내용
+          $('#modal_panel').modal();              // 다이얼로그 출력
+        },
+        // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
+        error: function(request, status, error) { // callback 함수
+          console.log(error);
+        }
+      });
+      
+      // 처리중 출력
+  /*     var gif = '';
+      gif +="<div style='margin: 0px auto; text-align: center;'>";
+      gif +="  <img src='/member/images/ani04.gif' style='width: 10%;'>";
+      gif +="</div>";
+      
+      $('#panel2').html(gif);
+      $('#panel2').show(); // 출력 */
+      
+    }
+  
+  }
+
+function setFocus() {  // focus 이동
+  // console.log('btn_close click!');
+  
+  let tag = $('#btn_close').attr('data-focus'); // data-focus 속성에 선언된 값을 읽음 
+  // alert('tag: ' + tag);
+  
+  $('#' + tag).focus(); // data-focus 속성에 선언된 태그를 찾아서 포커스 이동
+}
+
+function send() { // 회원 가입 처리
+  let id = $('#email').val(); // 태그의 아이디가 'email'인 태그의 값
+  if ($.trim(email).length == 0) { // email를 입력받지 않은 경우
+    $('#modal_title').html('Email 중복 확인'); // 제목
+          
+    $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
+    msg = '· Email를 입력하세요.<br>· Email 입력은 필수 입니다.<br>· Email는 3자이상 권장합니다.'; 
+    $('#modal_content').html(msg);        // 내용
+
+    $('#btn_close').attr("data-focus", "email");  // 닫기 버튼 클릭시 id 입력으로 focus 이동
+    $('#modal_panel').modal();               // 다이얼로그 출력
+    
+    return false; // 가입 중지
+  } 
+       
+  // 패스워드를 정상적으로 2번 입력했는지 확인
+  if ($('#passwd').val() != $('#passwd2').val()) {
+    $('#modal_title').html('패스워드 일치 여부  확인'); // 제목 
+
+    $('#modal_content').attr('class', 'alert alert-danger'); // CSS 변경
+    msg = '입력된 패스워드가 일치하지 않습니다.<br>';
+    msg += "패스워드를 다시 입력해주세요.<br>"; 
+    $('#modal_content').html(msg);  // 내용
+    $('#btn_close').attr('data-focus', 'passwd');
+    $('#modal_panel').modal();         // 다이얼로그 출력
+    
+    return false; // submit 중지
+  }
+
+  let mname = $('#mname').val(); // 태그의 아이디가 'id'인 태그의 값
+  if ($.trim(mname).length == 0) { // id를 입력받지 않은 경우
+    $('#modal_title').html('이름 입력 누락'); // 제목 
+      
+    $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
+    msg = '· 이름을 입력하세요.<br>· 이름 입력은 필수입니다.';
+    $('#modal_content').html(msg);        // 내용
+    $('#btn_close').attr("data-focus", "mname");  // 닫기 버튼 클릭시 mname 입력으로 focus 이동
+    $('#modal_panel').modal();               // 다이얼로그 출력
+    return false;
+ } 
+
+  $('#frm').submit(); // required="required" 작동 안됨.
+}  
 </script>
 </head> 
 
@@ -197,9 +324,9 @@
     
         <div class="form-group"> <%-- 줄이 변경되지 않는 패턴 --%>
       <label>이메일*:
-        <input type='text' class="form-control form-control-sm" name='id' id='id' value='user1@gmail.com' required="required" placeholder="이메일" autofocus="autofocus">
+        <input type='text' class="form-control form-control-sm" name='email' id='email' value='user1@gmail.com' required="required" placeholder="이메일" autofocus="autofocus">
       </label>
-      <button type='button' id="btn_checkID" onclick="checkID()" class="btn btn-info btn-sm">중복확인</button>
+      <button type='button' id="btn_checkEmail" onclick="checkEmail()" class="btn btn-info btn-sm">중복확인</button>
     </div> 
                 
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>

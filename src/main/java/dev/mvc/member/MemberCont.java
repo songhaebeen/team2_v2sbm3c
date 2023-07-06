@@ -68,6 +68,22 @@ public class MemberCont {
    
     return json.toString(); // {"cnt":1} 
   }
+  
+  /**
+  * ID 중복 체크, JSON 출력
+  * @return
+  */
+  @ResponseBody
+  @RequestMapping(value="/member/checkEmail.do", method=RequestMethod.GET ,
+                         produces = "text/plain;charset=UTF-8" )
+  public String checkEmail(String email) {
+    int cnt = this.memberProc.checkID(email);
+   
+    JSONObject json = new JSONObject();
+    json.put("cnt", cnt); 
+   
+    return json.toString(); // {"cnt":1} 
+  }
 
   // http://localhost:9091/member/create.do
   /**
