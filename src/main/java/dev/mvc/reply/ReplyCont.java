@@ -74,7 +74,7 @@ public class ReplyCont {
   @RequestMapping(value = "/reply/delete.do", 
                               method = RequestMethod.POST,
                               produces = "text/plain;charset=UTF-8")
-  public String delete(int replyno, String passwd, int fboardno) {
+  public String delete(int replyno, int fboardno, String passwd) {
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("replyno", replyno);
     map.put("passwd", passwd);
