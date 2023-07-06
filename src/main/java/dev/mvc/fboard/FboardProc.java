@@ -271,4 +271,10 @@ public class FboardProc implements FboardProcInter{
 		return cnt;
 	}
 
+  @Override
+  public int count(int fboardno) {
+    int cnt= this.fboardDAO.count(fboardno);
+    return cnt;
+  }
+
 }

@@ -85,8 +85,9 @@ commit;
 
 -- 삭제
 DELETE FROM fboard
-WHERE fboardno = 1;
-commit;
+WHERE fboardno = 4 CASCADE CONSTRAINTS;
+
+ROLLBACK;
 
 DELETE FROM fboard
 WHERE fboardno=1 AND memberno = 1;
@@ -203,6 +204,10 @@ WHERE fboardno = 1;
 UPDATE fboard
 SET replycnt = replycnt - 1
 WHERE fboardno = 4;
+
+SELECT COUNT(*)
+FROM reply
+WHERE fboardno=4
 
 COMMIT;
 

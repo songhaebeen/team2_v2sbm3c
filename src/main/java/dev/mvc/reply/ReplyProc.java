@@ -144,5 +144,11 @@ public List<ReplyMemberVO> list_member_join() {
     int cnt = this.replyDAO.password_check(replyMemberVO);
     return cnt;
   }
+
+  @Override
+  public int count(int fboardno) {
+    int cnt =this.replyDAO.count(fboardno);
+    return cnt;
+  }
    
 }

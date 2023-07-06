@@ -146,5 +146,12 @@
      SET replycnt = replycnt - 1
      WHERE fboardno = #{fboardno}
    </update>
+   
+   <!-- 해당 글의 댓글수 확인 -->
+  <select id="count" resultType="int" >
+      SELECT COUNT(*)
+      FROM reply
+      WHERE fboardno=#{fboardno}
+  </select>
   
     </mapper>

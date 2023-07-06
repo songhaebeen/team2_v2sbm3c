@@ -21,8 +21,8 @@
 <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+
 </head> 
  
 <body>
@@ -89,7 +89,7 @@
               <div style='text-align: center; margin: 10px auto;'>
                 <span style="color: #FF0000; font-weight: bold;">삭제를 진행 하시겠습니까? 삭제하시면 복구 할 수 없습니다.</span><br><br>
                 <br><br>
-                <button type = "submit" class="btn btn-primary">삭제 진행</button>
+                <button type = "submit" id ="btnDelete"class="btn btn-primary">삭제 진행</button>
                 <button type = "button" onclick = "history.back()" class="btn btn-primary">취소</button>
               </div>   
           </FORM>
