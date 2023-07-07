@@ -54,9 +54,16 @@
 	 /* 리뷰 수정 버튼 -> 패스워드 입력 폼 출력 */
 	 function update_reply(replyno) {
 	     let popUrl = "/reply/update.do?fboardno=${fboardno}&replyno=" + replyno;
-	     let popOption = "width=1050px, height=600px, top=300px, left=300px, scrollbars=yes";
+	     let popOption = "width=500px, height=650px, top=300px, left=300px, scrollbars=yes";
 	     window.open(popUrl, "리뷰 수정", popOption);
 	 }
+
+   /* 리뷰 삭제 버튼 -> 패스워드 입력 폼 출력 */
+   function delete_reply(replyno) {
+       let popUrl = "/reply/delete.do?fboardno=${fboardno}&replyno=" + replyno;
+       let popOption = "width=1050px, height=600px, top=300px, left=300px, scrollbars=yes";
+       window.open(popUrl, "리뷰 삭제", popOption);
+   }
 
  
  //좋아요
@@ -269,7 +276,7 @@
           if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치 여부 확인, 본인의 글만 수정, 삭제 가능함 ★
         	  msg += " <a href='javascript:void(0);' onclick='update_reply(" + row.replyno + ")'><img src='/reply/images/update.png'></a>";
            
-            msg += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='/reply/images/delete.png'></A>";           
+        	  msg += " <a href='javascript:void(0);' onclick='delete_reply(" + row.replyno + ")'><IMG src='/reply/images/delete.png'></A>";           
           }
           
           msg += "  " + "<br>";
@@ -369,7 +376,7 @@
       if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치여부 확인, 본인의 글만 삭제 가능함 ★
     	  msg += " <a href='javascript:void(0);' onclick='update_reply(" + row.replyno + ")'><img src='/reply/images/update.png'></a>";
            
-        msg += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='/reply/images/delete.png'></A>";
+        msg += " <a href='javascript:void(0);' onclick='delete_reply(" + row.replyno + ")'><IMG src='/reply/images/delete.png'></A>";
         }
         msg += "  " + "<br>";
         msg += row.content;
