@@ -14,7 +14,7 @@
 <title>댓글 수정</title>
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
- 
+
 <script type="text/JavaScript"
           src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -24,9 +24,8 @@
 </head>
  
 <body>
-<c:import url="/menu/top.do" />
  
-<DIV class='title_line'> > 수정</DIV>
+<DIV class='title_line'> 댓글 수정</DIV>
 
 <DIV class='content_body'>
     <ASIDE class='aside_right'> 
@@ -39,23 +38,24 @@
   <input type="hidden" name="replyno" value="${param.replyno }">
     <div>
     <label>내용</label>
-    <textarea name='content' required="required" class="form-control" rows="4" style='width: 80%;'>${content }</textarea>
+    <textarea name='content' required="required" class="form-control" rows="8" style='width: 100%;'>${content }</textarea>
     </div>
      <div>
       <label>패스워드</label>
       <input type='password' name='passwd' value='1234' required="required" 
                 class="form-control" style='width: 30%;'>
      </div>
+     <br>
        
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-primary">저장</button>
-      <button type="button" onclick="history.back()" class="btn btn-primary">취소</button>
+      <button type="button" onclick="window.close()" class="btn btn-primary">취소</button>
     </div>
   
   </FORM>
 </DIV>
  
-<jsp:include page="../menu/bottom.jsp" flush='false' />
+
 </body>
  
 </html>

@@ -54,7 +54,7 @@
 	 /* 리뷰 수정 버튼 -> 패스워드 입력 폼 출력 */
 	 function update_reply(replyno) {
 	     let popUrl = "/reply/update.do?fboardno=${fboardno}&replyno=" + replyno;
-	     let popOption = "width=1050px, height=600px, top=300px, left=300px, scrollbars=yes";
+	     let popOption = "width=500px, height=650px, top=300px, left=300px, scrollbars=yes";
 	     window.open(popUrl, "리뷰 수정", popOption);
 	 }
 

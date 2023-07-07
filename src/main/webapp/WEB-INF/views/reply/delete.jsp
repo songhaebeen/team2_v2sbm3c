@@ -37,6 +37,7 @@
   
   <FORM name='frm' method='POST' action='./delete.do'>
   <input type="hidden" name="replyno" value="${param.replyno }">
+  <input type="hidden" name="fboardno" value="${param.fboardno }">
               <br><br>
               <div style='text-align: center; margin: 10px auto;'>
                 <span style="color: #FF0000; font-weight: bold;">삭제를 진행 하시겠습니까? 삭제하시면 복구 할 수 없습니다.</span><br><br>
@@ -48,7 +49,7 @@
                 
                 <br><br>
                 <button type = "submit" class="btn btn-primary">삭제 진행</button>
-                <button type = "button" onclick = "history.back()" class="btn btn-primary">취소</button>
+                <button type = "button" onclick = "window.close()" class="btn btn-primary">취소</button>
               </div> 
   
   </FORM>

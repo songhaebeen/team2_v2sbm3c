@@ -67,12 +67,11 @@ public class ReplyCont {
    * @return
    */
   @RequestMapping(value = "/reply/delete.do", method = RequestMethod.GET)
-  public ModelAndView delete(HttpSession session, int replyno, int fboardno) {
+  public ModelAndView delete(HttpSession session, int replyno) {
     ModelAndView mav = new ModelAndView();
 
     if (this.memberProc.isMember(session) || adminProc.isAdmin(session)) { // 로그인
       ReplyMemberVO replyMemberVO = this.replyProc.read(replyno);
-      fboardProc.decreaseReplycnt(fboardno);
       
       mav.addObject("replyMemberVO", replyMemberVO);
     
@@ -92,23 +91,21 @@ public class ReplyCont {
    * @return
    */
   @RequestMapping(value = "/reply/delete.do", method = RequestMethod.POST)
-  public ModelAndView delete(HttpSession session, ReplyMemberVO replyMemberVO, int replyno) {
+  public ModelAndView delete(HttpSession session, ReplyMemberVO replyMemberVO, int replyno, int fboardno) {
     ModelAndView mav = new ModelAndView();
         
     if (this.memberProc.isMember(session) && this.replyProc.password_check(replyMemberVO) == 1 || this.adminProc.isAdmin(session) && this.replyProc.password_check(replyMemberVO) == 1) {
        this.replyProc.delete(replyno);  
-       
+       fboardProc.decreaseReplycnt(fboardno);
          
        // mav 객체 이용
        mav.addObject("replyno", replyMemberVO.getReplyno());
-       mav.setViewName("redirect:/reply/list_join.do");
+       mav.setViewName("redirect:/reply/list_memberno.do");
     } else {
       mav.addObject("replyMemberVO", replyMemberVO);
 
        mav.addObject("url", "/reply/passwd_check"); // /WEB-INF/views/reply/passwd_check.jsp
     }    
-    
-    
    
     return mav; // forward
   }
