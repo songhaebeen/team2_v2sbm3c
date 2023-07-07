@@ -45,12 +45,12 @@ public class ReplyCont {
     System.out.println("-> ReplyCont created.");
   }
   
-  @ResponseBody
   @RequestMapping(value = "/reply/create.do",
                             method = RequestMethod.POST,
                             produces = "text/plain;charset=UTF-8")
   public String create(ReplyVO replyVO, int fboardno) {
     int cnt = replyProc.create(replyVO);
+    //증가
     fboardProc.increaseReplycnt(fboardno);
     
     JSONObject obj = new JSONObject();
@@ -194,7 +194,7 @@ public class ReplyCont {
   @RequestMapping(value = "/reply/delete.do", 
                               method = RequestMethod.POST,
                               produces = "text/plain;charset=UTF-8")
-  public String delete(int replyno, String passwd) {
+  public String delete(int replyno, String passwd, int fboardno) {
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("replyno", replyno);
     map.put("passwd", passwd);
@@ -203,6 +203,8 @@ public class ReplyCont {
     int delete_cnt = 0;                                    // 삭제된 댓글
     if (passwd_cnt == 1) { // 패스워드가 일치할 경우
       delete_cnt = replyProc.delete(replyno); // 댓글 삭제
+      //감소
+      delete_cnt = fboardProc.decreaseReplycnt(fboardno);
     }
     
     JSONObject obj = new JSONObject();

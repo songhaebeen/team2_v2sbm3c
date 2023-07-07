@@ -59,7 +59,7 @@
 	 }
 
  
-  //좋아요
+ //좋아요
   function update_recom_ajax(fboardno) {
     // console.log('-> fboardno:' + fboardno);
     var params = "";

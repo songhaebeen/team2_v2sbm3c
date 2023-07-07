@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dev.mvc.admin.AdminProcInter;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.reply.ReplyProcInter;
+import dev.mvc.reply.ReplyVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 import jdk.jfr.Description;
