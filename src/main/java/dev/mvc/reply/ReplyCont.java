@@ -323,13 +323,7 @@ public class ReplyCont {
 //    
 //    return obj.toString();
 //  }
-<<<<<<< HEAD
-//  
-//  
-=======
-  
-  
->>>>>>> e21c777d7e6a805bde72ec82ec8d0b4e830fdf32
+
 //  @RequestMapping(value = "/reply/delete.do", method = RequestMethod.GET)
 //  public ModelAndView delete_reply(HttpSession session, int replyno) {
 //    ModelAndView mav = new ModelAndView();
@@ -339,14 +333,14 @@ public class ReplyCont {
 //        } else {
 //          mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
 //        }
-<<<<<<< HEAD
+
 //      return mav;
 //  }
-=======
+
 //          return mav;
 //  }
 
->>>>>>> e21c777d7e6a805bde72ec82ec8d0b4e830fdf32
+
 //  /**
 //   * 패스워드 입력폼 
 //   * http://localhost:9093/reply/update.do?replyno=1&passwd=1234
