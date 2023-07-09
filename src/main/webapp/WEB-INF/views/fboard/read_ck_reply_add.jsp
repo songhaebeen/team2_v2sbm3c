@@ -73,9 +73,14 @@
    }
 
  
+<<<<<<< HEAD
   //좋아요
   $(function recom() {
 	  $('#btn_recom').on("click", function(){
+=======
+ //좋아요
+  function update_recom_ajax(fboardno) {
+>>>>>>> d71e85135475402427ac92784bb4fbc16e00c448
     // console.log('-> fboardno:' + fboardno);
     var fboardno = ${fboardno};
     var memberno = ${memberno};

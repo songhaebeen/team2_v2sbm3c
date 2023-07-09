@@ -70,7 +70,7 @@ function recommend() {
                           <a class="dropdown-item" href="/reply/list_memberno.do">내가 쓴 댓글</a>
                           <a class="dropdown-item" href="/member/create.do">회원 가입</a>
                           <a class="dropdown-item" href="/member/read.do?memberno=${memberno }">가입 정보</a>
-                          <a class="dropdown-item" href="#">아이디 찾기</a>
+                          <a class="dropdown-item" href="/mail/form_file.do">아이디 찾기</a>
                           <a class="dropdown-item" href="#">비밀번호 찾기</a>                      
                           <a class="dropdown-item" href="/member/passwd_update.do?memberno=${memberno }">비밀번호 변경</a> 
                           <a class="dropdown-item" href="/member/read.do">회원 정보 수정</a>

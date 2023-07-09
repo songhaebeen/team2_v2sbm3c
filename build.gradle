@@ -33,6 +33,10 @@ dependencies {
   implementation 'org.json:json:20230227'
   // https://mvnrepository.com/artifact/org.json/json
   implementation 'org.json:json:20190722'  
+  // https://mvnrepository.com/artifact/org.projectlombok/lombok
+  compileOnly 'org.projectlombok:lombok:1.18.26'
+   // https://mvnrepository.com/artifact/javax.mail/javax.mail-api 
+  implementation 'javax.mail:javax.mail-api:1.6.2'
   
 }
 
