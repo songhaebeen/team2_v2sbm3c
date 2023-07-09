@@ -42,7 +42,7 @@
  let reply_list; // 댓글 목록
 
  $(function(){
-    
+    $('#btn_recom').on("click", function() { recom(${fboardno}); });
     $('#btn_login').on('click', login_ajax);
     $('#btn_loadDefault').on('click', loadDefault);
 
@@ -58,12 +58,12 @@
     
   });
 
-	 /* 리뷰 수정 버튼 -> 패스워드 입력 폼 출력 */
-	 function update_reply(replyno) {
-	     let popUrl = "/reply/update.do?fboardno=${fboardno}&replyno=" + replyno;
-	     let popOption = "width=500px, height=650px, top=300px, left=300px, scrollbars=yes";
-	     window.open(popUrl, "리뷰 수정", popOption);
-	 }
+   /* 리뷰 수정 버튼 -> 패스워드 입력 폼 출력 */
+   function update_reply(replyno) {
+       let popUrl = "/reply/update.do?fboardno=${fboardno}&replyno=" + replyno;
+       let popOption = "width=500px, height=650px, top=300px, left=300px, scrollbars=yes";
+       window.open(popUrl, "리뷰 수정", popOption);
+   }
 
    /* 리뷰 삭제 버튼 -> 패스워드 입력 폼 출력 */
    function delete_reply(replyno) {
@@ -73,14 +73,8 @@
    }
 
  
-<<<<<<< HEAD
   //좋아요
-  $(function recom() {
-	  $('#btn_recom').on("click", function(){
-=======
- //좋아요
-  function update_recom_ajax(fboardno) {
->>>>>>> d71e85135475402427ac92784bb4fbc16e00c448
+  function recom() {
     // console.log('-> fboardno:' + fboardno);
     var fboardno = ${fboardno};
     var memberno = ${memberno};
@@ -104,7 +98,7 @@
             $('#btn_recom').html('❤️ ('+rdata.recom+')');
             $('#span_animation').hide();
           } else {
-            	  if(rdata.findGood == 1){
+                if(rdata.findGood == 1){
                       $("#btn_like").attr("src","/good/images/red.png");
                       $("#findGood").empty();
                       $("#findGood").append(jdata.findGood);
@@ -300,9 +294,9 @@
               }
           
           if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치 여부 확인, 본인의 글만 수정, 삭제 가능함 ★
-        	  msg += " <a href='javascript:void(0);' onclick='update_reply(" + row.replyno + ")'><img src='/reply/images/update.png'></a>";
+            msg += " <a href='javascript:void(0);' onclick='update_reply(" + row.replyno + ")'><img src='/reply/images/update.png'></a>";
            
-        	  msg += " <a href='javascript:void(0);' onclick='delete_reply(" + row.replyno + ")'><IMG src='/reply/images/delete.png'></A>";           
+            msg += " <a href='javascript:void(0);' onclick='delete_reply(" + row.replyno + ")'><IMG src='/reply/images/delete.png'></A>";           
           }
           
           msg += "  " + "<br>";
@@ -400,7 +394,7 @@
             }
 
       if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치여부 확인, 본인의 글만 삭제 가능함 ★
-    	  msg += " <a href='javascript:void(0);' onclick='update_reply(" + row.replyno + ")'><img src='/reply/images/update.png'></a>";
+        msg += " <a href='javascript:void(0);' onclick='update_reply(" + row.replyno + ")'><img src='/reply/images/update.png'></a>";
            
         msg += " <a href='javascript:void(0);' onclick='delete_reply(" + row.replyno + ")'><IMG src='/reply/images/delete.png'></A>";
         }
