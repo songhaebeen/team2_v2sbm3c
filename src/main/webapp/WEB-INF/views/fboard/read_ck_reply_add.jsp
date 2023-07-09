@@ -32,17 +32,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<style>
-.custom-button {
-  background-color: #ffffff; /* 배경색을 하얀색(#ffffff)으로 지정 */
-}
-</style>
-
 <script type="text/javascript">
  let reply_list; // 댓글 목록
 
  $(function(){
-    $('#btn_recom').on("click", function() { recom(${fboardno}); });
+    //$('#btn_recom').on("click", function() { recom(${fboardno}); });
     $('#btn_login').on('click', login_ajax);
     $('#btn_loadDefault').on('click', loadDefault);
 
@@ -432,7 +426,6 @@
     </div>
   </div>
 </div> <!-- Modal 알림창 종료 -->
-
 <!-- -------------------- 댓글 삭제폼 시작 -------------------- -->
 <div class="modal fade" id="modal_panel_delete" role="dialog">
   <div class="modal-dialog">
