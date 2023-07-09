@@ -1,6 +1,7 @@
 package dev.mvc.fboard;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
+import dev.mvc.good.GoodProcInter;
+import dev.mvc.good.GoodVO;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.reply.ReplyProcInter;
 import dev.mvc.tool.Tool;
@@ -39,6 +42,10 @@ public class FboardCont {
   @Autowired
   @Qualifier("dev.mvc.reply.ReplyProc") 
   private ReplyProcInter replyProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.good.GoodProc") 
+  private GoodProcInter goodProc;
   
   public FboardCont() {
 	  System.out.println("-> FboardCont created.");
@@ -259,7 +266,7 @@ public class FboardCont {
     	// 댓글 기능 추가 
         //mav.setViewName("/fboard/read_ck_reply"); // /WEB-INF/views/fboard/read_cookie_reply.jsp
     	
-    	// 댓글 + 더보기 버튼 기능 추가 
+    	// 댓글 + 더보기 버튼 기능 + 좋아요 추가 
         mav.setViewName("/fboard/read_ck_reply_add"); // /WEB-INF/views/fboard/read_ck_reply_add.jsp
         
         // -------------------------------------------------------------------------------

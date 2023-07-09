@@ -12,6 +12,7 @@
 <c:set var="word" value="${fboardVO.word }" />
 <c:set var="views" value="${fboardVO.views }" />
 <c:set var="replycnt" value="${fboardVO.replycnt }" />
+<c:set var="recom" value="${fboardVO.recom }" />
 <c:set var="size1_label" value="${fboardVO.size1_label }" />
 <c:set var="rdate" value="${fboardVO.rdate.substring(0, 16) }" />
 
@@ -31,11 +32,17 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<style>
+.custom-button {
+  background-color: #ffffff; /* 배경색을 하얀색(#ffffff)으로 지정 */
+}
+</style>
+
 <script type="text/javascript">
  let reply_list; // 댓글 목록
 
  $(function(){
-    //$('#btn_recom').on("click", function() { update_recom_ajax(${fboardno}); });
+    
     $('#btn_login').on('click', login_ajax);
     $('#btn_loadDefault').on('click', loadDefault);
 
@@ -67,29 +74,43 @@
 
  
   //좋아요
-  function update_recom_ajax(fboardno) {
+  $(function recom() {
+	  $('#btn_recom').on("click", function(){
     // console.log('-> fboardno:' + fboardno);
+    var fboardno = ${fboardno};
+    var memberno = ${memberno};
     var params = "";
     // params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
-    params = 'fboardno=' + fboardno; // 공백이 값으로 있으면 안됨.
+    params = 'fboardno=' + fboardno + 'memberno=' + memberno; // 공백이 값으로 있으면 안됨.
     $.ajax(
       {
-        url: '/fboard/update_recom_ajax.do',
+        url: '/good/findGood.do',
         type: 'post',  // get, post
         cache: false, // 응답 결과 임시 저장 취소
         async: true,  // true: 비동기 통신
         dataType: 'json', // 응답 형식: json, html, xml...
         data: params,      // 데이터
-        success: function(rdata) { // 응답이 온경우
+        success: function(rdata) { // 응답이 온 경우
           // console.log('-> rdata: '+ rdata);
           var str = '';
           if (rdata.cnt == 1) {
             // console.log('-> btn_recom: ' + $('#btn_recom').val());  // X
             // console.log('-> btn_recom: ' + $('#btn_recom').html());
-            $('#btn_recom').html('♥('+rdata.recom+')');
+            $('#btn_recom').html('❤️ ('+rdata.recom+')');
             $('#span_animation').hide();
           } else {
-            $('#span_animation').html("지금은 추천을 할 수 없습니다.");
+            	  if(rdata.findGood == 1){
+                      $("#btn_like").attr("src","/good/images/red.png");
+                      $("#findGood").empty();
+                      $("#findGood").append(jdata.findGood);
+                  }
+                  else if (rdata.findGood == 0){
+                      $("#btn_like").attr("src","/good/images/white.png");
+                      $("#findGood").empty();
+                      $("#findGood").append(jdata.findGood);
+                      
+                  }
+            $('#span_animation').html("지금은 좋아요를 할 수 없습니다.");
           }
         },
         // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
@@ -525,7 +546,6 @@
           </c:if>
            <br>
         </DIV>
-
     </ul>
     <div style="width: 85%; text-align: right; margin-left: 15%;">  
     <button type="button" onclick="location.href='/fboard/list_all.do'" class="btn btn-info btn-sm">목록형</button>
@@ -534,13 +554,21 @@
      
   </fieldset>
 
-
-
-  <!-- ------------------------------ 댓글 영역 시작 ------------------------------ -->
+  <!-- ------------------------------ 좋아요, 댓글 영역 시작 ------------------------------ -->
   <DIV style='width: 80%; margin: 0px auto;'>
       <HR>
-      <FORM name='frm_reply' id='frm_reply'> <%-- 댓글 등록 폼 --%>
-       <img src="/fboard/images/reply.png" style='width: 2%; float: center; float-bottom: 2%, margin-right: 0.2%;'> ${replycnt }
+      <FORM name='frm_reply' id='frm_reply'> <%-- 댓글 등록 폼 --%> 
+         <c:choose>
+    <c:when test="${recom eq '0' or empty recom}"> <!-- recom가 0이면 빈 하트-->
+        <img src="/good/images/white.png" 
+             id="btn_recom" align="left" style="cursor:pointer; width: 20px;">
+    </c:when>
+    <c:otherwise> <!-- recom가 1이면 빨간 하트-->
+        <img src="/good/images/red.png" 
+              id="btn_recom" align="left" style="cursor:pointer; width: 20px;">
+    </c:otherwise>
+    </c:choose>
+       ${recom} 💬 ${replycnt }
        <br>
           <input type='hidden' name='fboardno' id='fboardno' value='${fboardno}'>
           <input type='hidden' name='memberno' id='memberno' value='${sessionScope.memberno}'>

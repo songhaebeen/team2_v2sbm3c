@@ -11,6 +11,7 @@ public class FboardVO {
 	private String passwd="";
 	private int views;
 	private int replycnt;
+	private int recom;
 
 	/** 검색어 */
 	private String word="";
@@ -94,6 +95,12 @@ public class FboardVO {
 	}
 	public void setReplycnt(int replycnt) {
 		this.replycnt = replycnt;
+	}
+	public int getRecom() {
+		return recom;
+	}
+	public void setRecom(int recom) {
+		this.recom = recom;
 	}
 	public String getRdate() {
 		return rdate;

@@ -37,7 +37,9 @@ VALUES(reply_seq.nextval, 5, 3, '댓글1', '1234', sysdate);
 INSERT INTO reply(replyno, fboardno, memberno, content, passwd, rdate)
 VALUES(reply_seq.nextval, 5, 3, '댓글2', '1234', sysdate);
 INSERT INTO reply(replyno, fboardno, memberno, content, passwd, rdate)
-VALUES(reply_seq.nextval, 5, 3, '댓글3', '1234', sysdate);             
+VALUES(reply_seq.nextval, 5, 3, '댓글3', '1234', sysdate);  
+
+COMMIT;
 
 2) 전체 목록
 SELECT replyno, fboardno, memberno, content, passwd, rdate

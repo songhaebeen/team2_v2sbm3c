@@ -30,7 +30,7 @@ import com.zaxxer.hikari.HikariDataSource;
                                          ,"dev.mvc.reply",
                                          "dev.mvc.contentsco",    
                                          "dev.mvc.cosme",
-                                         "dev.mvc.reply",
+                                         "dev.mvc.good",
                                          "dev.mvc.cosme_youtube_tip"
                                          })    
 

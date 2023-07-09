@@ -21,7 +21,7 @@
 <body>
 <c:import url="/menu/top.do" />
    <DIV class="title_line">
-    회원 별 댓글 목록
+    내가 단 댓글 목록
   </DIV>
     <ASIDE class='aside_right'> 
     <A href="javascript:history.back();">돌아가기</A>

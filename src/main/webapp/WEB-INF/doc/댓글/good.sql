@@ -8,8 +8,8 @@ CREATE TABLE good(
         fboardno                           NUMBER(10)    NOT NULL ,
         memberno                            NUMBER(6)  NOT NULL ,
         rdate                              DATE         NOT NULL,
-  FOREIGN KEY (fboardno) REFERENCES fboard (fboardno),
-  FOREIGN KEY (memberno) REFERENCES member (memberno)
+  FOREIGN KEY (fboardno) REFERENCES fboard (fboardno) ON DELETE CASCADE,
+  FOREIGN KEY (memberno) REFERENCES member (memberno) ON DELETE CASCADE
 );
 
 COMMENT ON TABLE good is '좋아요';
@@ -26,17 +26,25 @@ CREATE SEQUENCE good_seq
   MAXVALUE 9999999999 -- 최대값: 9999999999
   CACHE 2                     -- 2번은 메모리에서만 계산
   NOCYCLE;                   -- 다시 1부터 생성되는 것을 방지
-  
-INSERT INTO good(goodno, fboardno, memberno, rdate)
-VALUES(good_seq.nextval, 1, 3, sysdate);
 
 commit;
 
-SELECT goodno FROM good;
+--좋아요 눌렀나 체크
+SELECT COUNT(*) 
+FROM good 
+WHERE fboardno = 1 AND memberno = 3;
 
-DELETE GOOD
-WHERE fboardno=1
-AND memberno=3
+UPDATE good
+SET like_check = like_check + 1 
+WHERE memberno=3 AND fboardno=1;
+
+--좋아요
+INSERT INTO good(goodno, fboardno, memberno, rdate)
+VALUES(good_seq.nextval, 1, 3, sysdate);
+
+--좋아요 취소
+DELETE FROM 
+good WHERE fboardno = 1 AND memberno = 3;
 
 SELECT BB.fboardno, G.memberno, NVL(GC.gcnt,0) AS gcnt
 FROM fboard BB LEFT OUTER JOIN good G

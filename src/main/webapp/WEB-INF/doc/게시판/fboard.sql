@@ -3,7 +3,6 @@
 /**********************************/
 DROP TABLE fboard;
 
-commit;
 CREATE TABLE fboard(
         fboardno            NUMBER(10)     NOT NULL         PRIMARY KEY,
         memberno            NUMBER(10)     NOT NULL , -- FK
@@ -13,6 +12,7 @@ CREATE TABLE fboard(
         word                VARCHAR2(100)         NULL , --검색
         views               NUMBER(7)         DEFAULT 0   NOT NULL, --조회수
         replycnt            NUMBER(7)         DEFAULT 0   NOT NULL, --댓글수
+        recom               NUMBER(7)         DEFAULT 0   NOT NULL, --좋아요수
         rdate               DATE           NOT NULL,
         file1                VARCHAR(100)          NULL,  -- 원본 파일명 image
         file1saved            VARCHAR(100)          NULL,  -- 저장된 파일명, image
@@ -31,6 +31,7 @@ COMMENT ON COLUMN fboard.passwd is '패스워드';
 COMMENT ON COLUMN fboard.word is '검색어';
 COMMENT ON COLUMN fboard.views is '조회수';
 COMMENT ON COLUMN fboard.replycnt is '댓글수';
+COMMENT ON COLUMN fboard.recom is '좋아요수';
 COMMENT ON COLUMN fboard.rdate is '등록일';
 COMMENT ON COLUMN fboard.file1 is '메인 이미지';
 COMMENT ON COLUMN fboard.file1saved is '실제 저장된 메인 이미지';
@@ -197,12 +198,22 @@ WHERE userno IN('1','2','3');
 --댓글 증가         
 UPDATE fboard
 SET replycnt = replycnt + 1
-WHERE fboardno = 7;
+WHERE fboardno = 1;
 
 --댓글 감소
 UPDATE fboard
 SET replycnt = replycnt - 1
 WHERE fboardno = 4;
+
+--좋아요
+UPDATE fboard
+SET recom = recom + 1
+WHERE fboardno = 3;
+
+--좋아요 취소
+UPDATE fboard
+SET recom = recom - 1
+WHERE fboardno = 3;
 
 COMMIT;
 

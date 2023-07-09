@@ -26,7 +26,7 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'> > 삭제</DIV>
+<DIV class='title_line'> 삭제</DIV>
 
 <DIV class='content_body'>
     <ASIDE class='aside_right'> 
@@ -41,11 +41,12 @@
               <br><br>
               <div style='text-align: center; margin: 10px auto;'>
                 <span style="color: #FF0000; font-weight: bold;">삭제를 진행 하시겠습니까? 삭제하시면 복구 할 수 없습니다.</span><br><br>
-                <div>
-                   <label>패스워드</label>
-                   <input type='password' name='passwd' value='1234' required="required" 
-                  class="form-control" style='width: 30%;'>
-                    </div>
+                <div style='margin: 10px auto; text-align: center;'>
+                <label>패스워드</label>
+                <input type='password' name='passwd' value='1234' required="required" 
+                class="form-control" style='width: 30%; display: block; margin: 0 auto;'>
+                </div>
+
                 
                 <br><br>
                 <button type = "submit" class="btn btn-primary">삭제 진행</button>
