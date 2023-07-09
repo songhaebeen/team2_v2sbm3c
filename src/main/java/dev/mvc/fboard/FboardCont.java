@@ -601,7 +601,7 @@ public class FboardCont {
     
     // 삭제할 정보를 조회하여 확인
     FboardVO fboardVO = this.fboardProc.read(fboardno);
-    fboardProc.count(fboardno);
+    //fboardProc.count(fboardno);
     mav.addObject("fboardVO", fboardVO);
     
     mav.setViewName("/fboard/delete");  // /webapp/WEB-INF/views/fboard/delete.jsp

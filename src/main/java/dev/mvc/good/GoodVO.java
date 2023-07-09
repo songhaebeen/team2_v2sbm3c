@@ -3,8 +3,9 @@ package dev.mvc.good;
 public class GoodVO {
 	private int goodno;
 	private int fboardno;
-	private int memerno;
-	private int rate;
+	private int memberno;
+	private String rdate;
+  private String ftitle;
 	
 	public int getGoodno() {
 		return goodno;
@@ -18,18 +19,24 @@ public class GoodVO {
 	public void setFboardno(int fboardno) {
 		this.fboardno = fboardno;
 	}
-	public int getMemerno() {
-		return memerno;
-	}
-	public void setMemerno(int memerno) {
-		this.memerno = memerno;
-	}
-	public int getRate() {
-		return rate;
-	}
-	public void setRate(int rate) {
-		this.rate = rate;
-	}
-	
+	public int getMemberno() {
+    return memberno;
+  }
+  public void setMemberno(int memberno) {
+    this.memberno = memberno;
+  }
+  public String getFtitle() {
+    return ftitle;
+  }
+  public void setFtitle(String ftitle) {
+    this.ftitle = ftitle;
+  }
+  public String getRdate() {
+    return rdate;
+  }
+  public void setRdate(String rdate) {
+    this.rdate = rdate;
+  }
+
 
 }
