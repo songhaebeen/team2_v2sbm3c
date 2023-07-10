@@ -40,11 +40,25 @@ WHERE memberno=3 AND fboardno=1;
 
 --좋아요
 INSERT INTO good(goodno, fboardno, memberno, rdate)
-VALUES(good_seq.nextval, 1, 3, sysdate);
+VALUES(good_seq.nextval, 2, 2, sysdate);
+
+--전체 목록
+SELECT goodno, fboardno, memberno, rdate
+FROM good ORDER BY goodno ASC;
+
+--회원별 목록
+SELECT g.goodno, m.memberno, g.fboardno, g.rdate
+FROM fboard f, good g, member m
+WHERE (f.fboardno = g.fboardno) AND m.memberno=3
+ORDER BY g.goodno DESC;
+
+COMMIT;
+
+ROLLBACK;
 
 --좋아요 취소
 DELETE FROM 
-good WHERE fboardno = 1 AND memberno = 3;
+good WHERE goodno = 5;
 
 SELECT BB.fboardno, G.memberno, NVL(GC.gcnt,0) AS gcnt
 FROM fboard BB LEFT OUTER JOIN good G

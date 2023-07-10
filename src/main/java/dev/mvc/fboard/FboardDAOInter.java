@@ -110,10 +110,17 @@ public interface FboardDAOInter {
   public int decreaseReplycnt(int fboardno);
   
   /**
-   * 댓글수 확인
+   * 좋아요 수 증가
    * @param 
    * @return
-   */
-  public int count(int fboardno);
+   */ 
+  public int increaseRecom(int fboardno);
+  
+  /**
+   * 좋아요 수 감소
+   * @param 
+   * @return
+   */   
+  public int decreaseRecom(int fboardno);
 
 }

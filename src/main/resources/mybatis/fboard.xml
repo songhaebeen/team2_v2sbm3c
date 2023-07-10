@@ -146,12 +146,19 @@
      SET replycnt = replycnt - 1
      WHERE fboardno = #{fboardno}
    </update>
+  
+   <!-- 좋아요 수 증가 -->
+   <update id="increaseRecom" parameterType="int">
+			UPDATE fboard
+			SET recom = recom + 1
+			WHERE fboardno = #{fboardno}
+   </update>
    
-   <!-- 해당 글의 댓글수 확인 -->
-  <select id="count" resultType="int" >
-      SELECT COUNT(*)
-      FROM reply
-      WHERE fboardno=#{fboardno}
-  </select>
+    <!-- 좋아요 수 감소 -->
+   <update id="decreaseRecom" parameterType="int">
+     UPDATE fboard
+     SET recom = recom - 1
+     WHERE fboardno = #{fboardno}
+   </update>
   
     </mapper>

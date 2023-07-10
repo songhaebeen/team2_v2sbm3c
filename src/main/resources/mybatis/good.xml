@@ -5,23 +5,38 @@
 
 <mapper namespace="dev.mvc.good.GoodDAOInter">
 
-  <!-- 좋아요 눌렀는지 안눌렀는지 확인-->
-  <select id="findGood" resultType="int" parameterType="dev.mvc.good.GoodVO">
-    SELECT COUNT(*) 
-    FROM good 
-    WHERE fboardno = #{fboardno} AND memberno = #{memberno}
-  </select>
-
 <!-- 좋아요 증가 -->
   <insert id="up" >
     INSERT INTO good(goodno, fboardno, memberno, rdate)
     VALUES(good_seq.nextval, #{memberno}, #{fboardno}, sysdate);
   </insert>
   
+  <!-- 좋아요 전체 목록-->
+  <select id="list_all" resultType="dev.mvc.good.GoodVO" parameterType="int">
+		SELECT goodno, fboardno, memberno, rdate
+		FROM good 
+		ORDER BY goodno DESC
+  </select>
+  
+  <!-- 좋아요 회원별 목록-->
+  <select id="list_memberno" resultType="dev.mvc.good.GoodVO" parameterType="int">
+		SELECT g.goodno, m.memberno, g.fboardno, g.rdate
+		FROM fboard f, good g, member m
+		WHERE (f.fboardno = g.fboardno) AND m.memberno=#{memberno} 
+		ORDER BY g.goodno DESC
+  </select>
+  
   <!-- 좋아요 감소 -->
   <delete id="down">
-    DELETE FROM good 
-    WHERE fboardno = #{fboardno} AND memberno = #{memberno} 
+			DELETE FROM 
+			good WHERE goodno = #{goodno}
   </delete>
+  
+  <!-- 좋아요 눌렀는지 안눌렀는지 확인-->
+  <select id="findGood" resultType="int" parameterType="dev.mvc.good.GoodVO">
+    SELECT COUNT(*) 
+    FROM good 
+    WHERE fboardno = #{fboardno} AND memberno = #{memberno}
+  </select>
   
 </mapper>

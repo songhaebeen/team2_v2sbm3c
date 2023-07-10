@@ -271,9 +271,17 @@ public class FboardProc implements FboardProcInter{
 		return cnt;
 	}
 
+	//좋아요 증가
   @Override
-  public int count(int fboardno) {
-    int cnt= this.fboardDAO.count(fboardno);
+  public int increaseRecom(int fboardno) {
+    int cnt =this.fboardDAO.increaseRecom(fboardno);
+    return cnt;
+  }
+
+  //좋아요 감소
+  @Override
+  public int decreaseRecom(int fboardno) {
+    int cnt = this.fboardDAO.decreaseRecom(fboardno);
     return cnt;
   }
 

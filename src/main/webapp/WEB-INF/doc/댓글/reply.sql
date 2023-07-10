@@ -63,7 +63,7 @@ ORDER BY r.replyno DESC;
 SELECT m.id,
            r.replyno, r.fboardno, r.memberno, r.content, r.passwd, r.rdate
 FROM member m,  reply r
-WHERE (m.memberno = r.memberno) AND r.fboardno=5
+WHERE (m.memberno = r.memberno) AND r.fboardno=2
 ORDER BY r.replyno DESC;
 
 ID                                REPLYNO   FBOARDNO   MEMBERNO CONTENT    PASSWD        RDATE              

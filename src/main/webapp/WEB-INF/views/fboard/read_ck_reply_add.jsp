@@ -72,15 +72,12 @@
        window.open(popUrl, "리뷰 삭제", popOption);
    }
 
- 
-<<<<<<< HEAD
   //좋아요
   $(function recom() {
 	  $('#btn_recom').on("click", function(){
-=======
+		  
  //좋아요
   function update_recom_ajax(fboardno) {
->>>>>>> d71e85135475402427ac92784bb4fbc16e00c448
     // console.log('-> fboardno:' + fboardno);
     var fboardno = ${fboardno};
     var memberno = ${memberno};
@@ -287,22 +284,20 @@
         
           var row = rdata.list[i];
           
-          
           if ('${fboardVO.memberno}' == row.memberno) {           
-            //처음 5글자는 그대로 출력하고, 나머지 부분은 * 10개로 표시, 글쓴이 댓글은 파란색으로 출력
-            msg += "<DIV id='"+row.replyno+"' style='border-bottom: solid 1px #EEEEEE; margin-bottom: 10px;'>";
-            msg += "<span style='font-weight: bold; color: #4431bf;'>" +  row.id.substring(0, 5) + "*".repeat(10) + "</span>";
-            msg += "  " + row.rdate;
-          }else{
-             msg += "<DIV id='"+row.replyno+"' style='border-bottom: solid 1px #EEEEEE; margin-bottom: 10px;'>";
-             msg += "<span style='font-weight: bold;'>" + row.id.substring(0, 5) + "*".repeat(10)  + "</span>";
-             msg += "  " + row.rdate;
-              }
+              //처음 5글자는 그대로 출력하고, 나머지 부분은 * 10개로 표시, 글쓴이 댓글은 파란색으로 출력
+              msg += "<DIV id='"+row.replyno+"' style='border-bottom: solid 1px #EEEEEE; margin-bottom: 10px;'>";
+              msg += "<span style='font-weight: bold; color: #4431bf;'>" +  row.id.substring(0, 5) + "*".repeat(10) + "</span>";
+              msg += "  " + row.rdate;
+            }else{
+                msg += "<DIV id='"+row.replyno+"' style='border-bottom: solid 1px #EEEEEE; margin-bottom: 10px;'>";
+                msg += "<span style='font-weight: bold;'>" + row.id.substring(0, 5) + "*".repeat(10)  + "</span>";
+                msg += "  " + row.rdate;
+                 }
           
           if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치 여부 확인, 본인의 글만 수정, 삭제 가능함 ★
         	  msg += " <a href='javascript:void(0);' onclick='update_reply(" + row.replyno + ")'><img src='/reply/images/update.png'></a>";
-           
-        	  msg += " <a href='javascript:void(0);' onclick='delete_reply(" + row.replyno + ")'><IMG src='/reply/images/delete.png'></A>";           
+        	  msg += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='/reply/images/delete.png'></A>";           
           }
           
           msg += "  " + "<br>";
@@ -593,9 +588,6 @@
       </DIV> 
       
 
-
-
-    
   </DIV>
   
   <!-- ------------------------------ 댓글 영역 종료 ------------------------------  -->

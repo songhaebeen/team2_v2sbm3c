@@ -67,6 +67,7 @@ function recommend() {
                   <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">회원</a>
                       <div class="dropdown-menu">
+                          <A class='dropdown-item'  href='/good/list_memberno.do'>내가 좋아요한 글</A> 
                           <a class="dropdown-item" href="/reply/list_memberno.do">내가 쓴 댓글</a>
                           <a class="dropdown-item" href="/member/create.do">회원 가입</a>
                           <a class="dropdown-item" href="/member/read.do?memberno=${memberno }">가입 정보</a>
@@ -91,7 +92,7 @@ function recommend() {
                           <a class="dropdown-item" href='/admin/create.do'>관리자 가입</a>
                           <a class="dropdown-item" href='/admin/list.do'>관리자 목록</a>
                           <a class="dropdown-item" href='/member/list.do'>회원 목록</a>
-                          <%--<A class='dropdown-item'  href='/reply/list.do'>댓글 목록</A> --%>
+                          <A class='dropdown-item'  href='/good/list_all.do'>좋아요 목록</A> 
                            <A class='dropdown-item'  href='/reply/list_join.do'>댓글 목록</A>
                            <a class="dropdown-item" href='/cate/list_all.do'>카테고리 전체 목록</a>
                           <a class="dropdown-item" href='/admin/logout.do'>관리자 ${sessionScope.admin_id } 로그아웃</a>
