@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import dev.mvc.admin.AdminProcInter;
 import dev.mvc.fboard.FboardProcInter;
 import dev.mvc.member.MemberProcInter;
-import dev.mvc.reply.ReplyMemberVO;
 
 @Controller
 public class GoodCont {
@@ -123,28 +122,45 @@ public class GoodCont {
     
     return mav;
   }
+  
   /**
-   * 좋아요 취소 처리
+   * 좋아요 처리
    * http://localhost:9093/good/down.do
    * 
    * @return
    */
-  @RequestMapping(value = "/good/down.do", method = RequestMethod.POST)
-  public ModelAndView down(HttpSession session, GoodVO goodVO, int goodno, int fboardno) {
+  @RequestMapping(value = "/good/down.do",
+      method = RequestMethod.POST,
+      produces = "text/plain;charset=UTF-8")
+  public String down(int goodno, int fboardno) {
+  int cnt = goodProc.down(goodno);
+  //증가
+  fboardProc.decreaseRecom(fboardno);
+  
+  JSONObject obj = new JSONObject();
+  obj.put("cnt",cnt);
+  
+  return obj.toString(); // {"cnt":1}
+  
+  }
+  
+  @RequestMapping(value = "/good/down.do", method = RequestMethod.GET)
+  public ModelAndView down(HttpSession session, int goodno) {
     ModelAndView mav = new ModelAndView();
-        
-    if (this.memberProc.isMember(session) && this.goodProc.findGood(goodVO) == 0) {
-       this.goodProc.up(goodno);  
-         
-       // mav 객체 이용
-       mav.addObject("goodno", goodVO.getGoodno());
-       mav.setViewName("redirect:/good/list_memberno.do");
-    } else {
-    	mav.addObject("goodVO", goodVO);
-        mav.addObject("url", "/reply/passwd_check"); // /WEB-INF/views/reply/passwd_check.jsp
-    }    
-   
-    return mav; // forward
+      if (this.adminProc.isAdmin(session) == true) {
+          mav.setViewName("/good/list_all");
+          this.goodProc.down(goodno);
+          
+        } else if (this.memberProc.isMember(session) == true) {
+          mav.setViewName("/good/list_memberno");
+          this.goodProc.down(goodno);
+        }else{
+          mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+
+        }
+    
+    return mav;
+    
   }
   
   /**

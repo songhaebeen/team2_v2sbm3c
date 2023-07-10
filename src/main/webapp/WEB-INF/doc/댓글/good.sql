@@ -40,14 +40,14 @@ WHERE memberno=3 AND fboardno=1;
 
 --좋아요
 INSERT INTO good(goodno, fboardno, memberno, rdate)
-VALUES(good_seq.nextval, 2, 2, sysdate);
+VALUES(good_seq.nextval, 2, 1, sysdate);
 
 --전체 목록
 SELECT goodno, fboardno, memberno, rdate
 FROM good ORDER BY goodno ASC;
 
 --회원별 목록
-SELECT g.goodno, m.memberno, g.fboardno, g.rdate
+SELECT g.goodno, m.memberno, g.fboardno, f.ftitle, g.rdate
 FROM fboard f, good g, member m
 WHERE (f.fboardno = g.fboardno) AND m.memberno=3
 ORDER BY g.goodno DESC;

@@ -1,9 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="dev.mvc.cateco.CatecoVO" %>
-
 
 <script type="text/javascript">
 function recommend() {
@@ -21,7 +18,7 @@ function recommend() {
 <DIV class='container_main'> 
     <!-- 헤더 start -->
     <div class="header">
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" href="/">Team2</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle Navigation">
               <span class="navbar-toggler-icon"></span>
@@ -108,7 +105,6 @@ function recommend() {
                   </li>
                     </c:otherwise>
                   </c:choose>     
-                </ul>
             </div>    
         </nav>
 

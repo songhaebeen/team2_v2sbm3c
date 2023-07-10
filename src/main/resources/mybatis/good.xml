@@ -20,9 +20,9 @@
   
   <!-- 좋아요 회원별 목록-->
   <select id="list_memberno" resultType="dev.mvc.good.GoodVO" parameterType="int">
-		SELECT g.goodno, m.memberno, g.fboardno, g.rdate
+		SELECT g.goodno, m.memberno, g.fboardno, f.ftitle, g.rdate
 		FROM fboard f, good g, member m
-		WHERE (f.fboardno = g.fboardno) AND m.memberno=#{memberno} 
+		WHERE (f.fboardno = g.fboardno) AND m.memberno=#{memberno}
 		ORDER BY g.goodno DESC
   </select>
   

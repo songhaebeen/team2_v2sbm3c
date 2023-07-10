@@ -36,8 +36,9 @@
       <colgroup>
         <col style="width: 15%;"></col>
         <col style="width: 15%;"></col>
+        <col style="width: 20%;"></col>
         <col style="width: 15%;"></col>
-        <col style="width: 15%;"></col>
+        <col style="width: 15%;"></col>  
         
       </colgroup>
       <%-- table 컬럼 --%>
@@ -45,17 +46,18 @@
         <tr>
           <th style='text-align: center;'>좋아요 번호</th>
           <th style='text-align: center;'>글 번호</th>
+          <th style='text-align: center;'>제목</th>
           <th style='text-align: center;'>등록일</th>
           <th style='text-align: center;'>기타</th>
         </tr>
-      
       </thead>
       
-            <%-- table 내용 --%>
+      <%-- table 내용 --%>
       <tbody>
         <c:forEach var="goodVO" items="${list }">
           <c:set var="goodno" value="${goodVO.goodno }" />
           <c:set var="fboardno" value="${goodVO.fboardno }" />
+          <c:set var="ftitle" value="${goodVO.ftitle }" />
           <c:set var="memberno" value="${goodVO.memberno }" />
           <c:set var="rdate" value="${goodVO.rdate }" />
           
@@ -67,10 +69,13 @@
               <A href='../fboard/read.do?fboardno=${fboardno }'>${fboardno}</A>
             </td>
             <td style='text-align: center; vertical-align: middle;'>
+             ${ftitle }
+            </td>
+            <td style='text-align: center; vertical-align: middle;'>
               ${rdate.substring(0,10)}
             </td>
             <td style='text-align: center; vertical-align: middle;'>
-              <a href="./delete.do?fboardno=${fboardno}&goodno=${goodno}"><img src="/good/images/delete.png" title="삭제"  border='0' /></a>
+              <a href="./down.do?fboardno=${fboardno}&goodno=${goodno}"><img src="/good/images/delete.png" title="삭제"  border='0' /></a>
             </td>
           </tr>
         </c:forEach>

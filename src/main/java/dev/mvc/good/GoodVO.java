@@ -5,6 +5,7 @@ public class GoodVO {
 	private int fboardno;
 	private int memberno;
 	private String rdate;
+  private String ftitle;
 	
 	public int getGoodno() {
 		return goodno;
@@ -23,6 +24,12 @@ public class GoodVO {
   }
   public void setMemberno(int memberno) {
     this.memberno = memberno;
+  }
+  public String getFtitle() {
+    return ftitle;
+  }
+  public void setFtitle(String ftitle) {
+    this.ftitle = ftitle;
   }
   public String getRdate() {
     return rdate;

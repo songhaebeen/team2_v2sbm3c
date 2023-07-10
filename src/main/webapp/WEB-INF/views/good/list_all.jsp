@@ -38,7 +38,7 @@
         <col style="width: 15%;"></col>
         <col style="width: 15%;"></col>
         <col style="width: 15%;"></col>
-        <col style="width: 15%;"></col>
+         <col style="width: 15%;"></col>
         
       </colgroup>
       <%-- table 컬럼 --%>
@@ -71,11 +71,11 @@
             <td style='text-align: center; vertical-align: middle;'>
               <A href='../member/read.do?memberno=${memberno }'>${id}</A>
             </td>
-             <td style='text-align: center; vertical-align: middle;'>
+            <td style='text-align: center; vertical-align: middle;'>
               ${rdate.substring(0,10)}
             </td>
             <td style='text-align: center; vertical-align: middle;'>
-              <a href="./delete.do?fboardno=${fboardno}&goodno=${goodno}"><img src="/good/images/delete.png" title="삭제"  border='0' /></a>
+              <a href="./down.do?fboardno=${fboardno}&goodno=${goodno}"><img src="/good/images/delete.png" title="삭제"  border='0' /></a>
             </td>
           </tr>
         </c:forEach>
