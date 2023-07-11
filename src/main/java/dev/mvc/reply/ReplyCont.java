@@ -45,7 +45,7 @@ public class ReplyCont {
   public ReplyCont(){
     System.out.println("-> ReplyCont created.");
   }
-  
+
   @RequestMapping(value = "/reply/create.do",
                             method = RequestMethod.POST,
                             produces = "text/plain;charset=UTF-8")

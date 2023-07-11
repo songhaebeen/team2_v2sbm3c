@@ -30,9 +30,9 @@ CREATE SEQUENCE good_seq
 commit;
 
 --좋아요 눌렀나 체크
-SELECT COUNT(*) 
+SELECT COUNT(*) as cnt
 FROM good 
-WHERE fboardno = 1 AND memberno = 3;
+WHERE fboardno = 3 AND memberno = 1;
 
 UPDATE good
 SET like_check = like_check + 1 
@@ -41,6 +41,11 @@ WHERE memberno=3 AND fboardno=1;
 --좋아요
 INSERT INTO good(goodno, fboardno, memberno, rdate)
 VALUES(good_seq.nextval, 2, 1, sysdate);
+
+--조회
+SELECT goodno, fboardno, memberno, rdate
+FROM good
+WHERE fboardno = 3 AND memberno = 1;
 
 --전체 목록
 SELECT goodno, fboardno, memberno, rdate

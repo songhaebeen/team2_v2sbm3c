@@ -6,9 +6,9 @@
 <mapper namespace="dev.mvc.good.GoodDAOInter">
 
 <!-- 좋아요 증가 -->
-  <insert id="up" >
+  <insert id="create" parameterType="dev.mvc.good.GoodVO">
     INSERT INTO good(goodno, fboardno, memberno, rdate)
-    VALUES(good_seq.nextval, #{memberno}, #{fboardno}, sysdate);
+    VALUES(good_seq.nextval, #{memberno}, #{fboardno}, sysdate)
   </insert>
   
   <!-- 좋아요 전체 목록-->
@@ -27,14 +27,14 @@
   </select>
   
   <!-- 좋아요 감소 -->
-  <delete id="down">
+  <delete id="delete">
 			DELETE FROM 
 			good WHERE goodno = #{goodno}
   </delete>
   
   <!-- 좋아요 눌렀는지 안눌렀는지 확인-->
   <select id="findGood" resultType="int" parameterType="dev.mvc.good.GoodVO">
-    SELECT COUNT(*) 
+    SELECT COUNT(*) as cnt
     FROM good 
     WHERE fboardno = #{fboardno} AND memberno = #{memberno}
   </select>

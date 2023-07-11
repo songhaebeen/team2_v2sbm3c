@@ -9,7 +9,7 @@ public interface GoodDAOInter {
    * @param goodVO
    * @return 1: 증가, 0: 감소
    */
-  public int up(int goodno);
+  public int create(GoodVO goodVO);
   
   /**
    * 목록
@@ -30,7 +30,7 @@ public interface GoodDAOInter {
    * @param goodVO
    * @return 1: 증가, 0: 감소
    */
-  public int down(int goodno);
+  public int delete(int goodno);
   
   /**
    * 좋아요 체크  

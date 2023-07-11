@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -179,7 +180,7 @@ public class FboardCont {
    * @return
    */
   @RequestMapping(value="/fboard/read.do",  method=RequestMethod.GET )
-  public ModelAndView read(int fboardno, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+  public ModelAndView read(int fboardno, HttpSession session, HttpServletRequest request, HttpServletResponse response, GoodVO goodVO) {
     ModelAndView mav = new ModelAndView();
     
     FboardVO read = fboardProc.read(fboardno);
@@ -234,7 +235,7 @@ public class FboardCont {
 	    //System.out.println("cookie 있음");
 	    
 	    // 쿠키 값 받아옴.
-	    String value = viewCookie.getValue();
+	    //String value = viewCookie.getValue();
 	    viewCookie.setMaxAge(60 * 60 * 24); // 1 day
 	    //viewCookie.setMaxAge(30); // 30 seconds
 	    //System.out.println("cookie 값 : " + value);
@@ -258,7 +259,10 @@ public class FboardCont {
     	fboardVO.setSize1_label(Tool.unit(size1)); 
     
     	mav.addObject("fboardVO", fboardVO); // request.setAttribute("fboardVO", fboardVO);
-
+    	
+    	this.goodProc.findGood(goodVO);
+    	//mav.addObject("goodVO", goodVO);
+    	
     	 //회원 번호: memberno -> MemberVO -> id
     	String id = this.memberProc.read(fboardVO.getMemberno()).getId();
     	mav.addObject("mname", id);
@@ -656,7 +660,52 @@ public class FboardCont {
     
     return mav;
   }   
+  
+  /**
+   * 좋아요 체크
+   * http://localhost:9093/fboard/good.do?fboardno=2&memberno=3
+   * 
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/fboard/good.do", 
+                method = RequestMethod.GET,
+                produces = "text/plain;charset=UTF-8")
+  public String good(HttpSession session, GoodVO goodVO, Integer goodno, int fboardno) {
+       
+    int cnt = 0; //좋아요 체크
+    int up_cnt = 0; //좋아요 증가
+    int down_cnt = 0; //좋아요 감소
+    boolean bol = this.memberProc.isMember(session);
+    int findcnt = this.goodProc.findGood(goodVO);
+    int flag = 0;
     
+    System.out.println("memberno: " + session.getAttribute("memberno"));
+    System.out.println("goodVO: " + goodVO);
+    
+    if ( bol &&  findcnt == 0) {  
+      //회원 좋아요 1 증가
+      cnt = goodProc.create(goodVO);
+      //전체 좋아요 수 증가
+      up_cnt = fboardProc.increaseRecom(fboardno);
+      flag = 1;
+      
+     } else if(bol &&  findcnt == 1){
+       //회원 좋아요 1 감소
+       cnt = goodProc.delete(goodno);
+       //좋아요 수 감소
+       down_cnt = fboardProc.decreaseRecom(fboardno);
+       flag = -1;
+    }    
+   
+    FboardVO fboardVO = this.fboardProc.read(fboardno);
+    
+    JSONObject obj = new JSONObject();
+    obj.put("recom", fboardVO.getRecom());
+    obj.put("flag", flag);
+    
+    return obj.toString();
+  }
 
 
 }

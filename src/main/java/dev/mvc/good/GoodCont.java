@@ -46,23 +46,51 @@ public class GoodCont {
   }
   
   /**
-   * 좋아요 처리
-   * http://localhost:9093/good/up.do
+   * 좋아요 
+   * http://localhost:9093/good/create.do?fboardno=2&memberno=3
    * 
    * @return
    */
-  @RequestMapping(value = "/good/up.do",
+  @RequestMapping(value = "/good/create.do",
+      method = RequestMethod.GET,
+      produces = "text/plain;charset=UTF-8")
+  public String findGood(int fboardno, HttpSession session, int goodno, GoodVO goodVO) {
+    
+    int cnt = goodProc.create(goodVO);
+    //증가
+    int recom = fboardProc.increaseRecom(fboardno);
+    
+    int find = goodProc.findGood(goodVO);
+    
+    JSONObject obj = new JSONObject();
+    obj.put("cnt",cnt);
+    obj.put("recom",recom);
+    obj.put("find",find);
+    
+    return obj.toString(); // {"cnt":1}
+  
+  }
+  
+  /**
+   * 좋아요 처리
+   * http://localhost:9093/good/create.do
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/good/create.do",
       method = RequestMethod.POST,
       produces = "text/plain;charset=UTF-8")
-  public String up(int goodno, int fboardno) {
-  int cnt = goodProc.up(goodno);
-  //증가
-  fboardProc.increaseRecom(fboardno);
+  public String create(int goodno, int fboardno,GoodVO goodVO) {
+   
+    int cnt = goodProc.create(goodVO);
+    //증가
+    int recom = fboardProc.increaseRecom(fboardno);
   
-  JSONObject obj = new JSONObject();
-  obj.put("cnt",cnt);
+    JSONObject obj = new JSONObject();
+    obj.put("cnt",cnt);
+    obj.put("recom",recom);
   
-  return obj.toString(); // {"cnt":1}
+    return obj.toString(); // {"cnt":1}
   
   }
   
@@ -125,16 +153,16 @@ public class GoodCont {
   
   /**
    * 좋아요 처리
-   * http://localhost:9093/good/down.do
+   * http://localhost:9093/good/delete.do
    * 
    * @return
    */
-  @RequestMapping(value = "/good/down.do",
+  @RequestMapping(value = "/good/delete.do",
       method = RequestMethod.POST,
       produces = "text/plain;charset=UTF-8")
   public String down(int goodno, int fboardno) {
-  int cnt = goodProc.down(goodno);
-  //증가
+  int cnt = goodProc.delete(goodno);
+  //감소
   fboardProc.decreaseRecom(fboardno);
   
   JSONObject obj = new JSONObject();
@@ -149,11 +177,11 @@ public class GoodCont {
     ModelAndView mav = new ModelAndView();
       if (this.adminProc.isAdmin(session) == true) {
           mav.setViewName("/good/list_all");
-          this.goodProc.down(goodno);
+          this.goodProc.delete(goodno);
           
         } else if (this.memberProc.isMember(session) == true) {
           mav.setViewName("/good/list_memberno");
-          this.goodProc.down(goodno);
+          this.goodProc.delete(goodno);
         }else{
           mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
 
@@ -165,30 +193,43 @@ public class GoodCont {
   
   /**
    * 좋아요 체크
-   * http://localhost:9093/good/findGood.do
+   * http://localhost:9093/good/findGood.do?fboardno=2&memberno=3
    * 
    * @return
    */
   @ResponseBody
   @RequestMapping(value = "/good/findGood.do", 
-  						  method = RequestMethod.POST,
+  						  method = RequestMethod.GET,
   						  produces = "text/plain;charset=UTF-8")
   public String findGood(HttpSession session, GoodVO goodVO, int goodno, int fboardno) {
-	Map<String, Object> map = new HashMap<String, Object>();
-    map.put("goodno", goodno);
-        
+       
+    int cnt = 0; //좋아요 체크
     int up_cnt = 0; //좋아요 증가
     int down_cnt = 0; //좋아요 감소
-    if (this.memberProc.isMember(session) && this.goodProc.findGood(goodVO) == 0) {
-    	down_cnt = goodProc.down(goodno);  
+    boolean bol = this.memberProc.isMember(session);
+    int findcnt = this.goodProc.findGood(goodVO);
+    
+    System.out.println("memberno: " + session.getAttribute("memberno"));
+    System.out.println("goodVO: " + goodVO);
+    
+    if ( bol &&  findcnt == 0) {  
+      //회원 좋아요 1 증가
+      cnt = goodProc.create(goodVO);
+      //전체 좋아요 수 증가
+      up_cnt = fboardProc.increaseRecom(fboardno);
          
-     } else if(this.memberProc.isMember(session) && this.goodProc.findGood(goodVO) == 1){
-    	 up_cnt = goodProc.up(goodno);  
+     } else if(bol &&  findcnt == 1){
+       //회원 좋아요 1 감소
+       cnt = goodProc.delete(goodno);
+       //좋아요 수 감소
+       down_cnt = fboardProc.decreaseRecom(fboardno);
     }    
    
     JSONObject obj = new JSONObject();
+    obj.put("up_cnt",up_cnt);
+    obj.put("down_cnt",down_cnt);
+    obj.put("cnt",cnt);
     
     return obj.toString();
   }
-
 }

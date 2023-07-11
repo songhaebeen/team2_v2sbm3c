@@ -36,7 +36,7 @@
  let reply_list; // 댓글 목록
 
  $(function(){
-    //$('#btn_recom').on("click", function() { recom(${fboardno}); });
+    $('#btn_recom').on("click", function() { recom(${fboardno}); });
     $('#btn_login').on('click', login_ajax);
     $('#btn_loadDefault').on('click', loadDefault);
 
@@ -77,7 +77,7 @@
     params = 'fboardno=' + fboardno + 'memberno=' + memberno; // 공백이 값으로 있으면 안됨.
     $.ajax(
       {
-        url: '/good/findGood.do',
+        url: '/good/up.do',
         type: 'post',  // get, post
         cache: false, // 응답 결과 임시 저장 취소
         async: true,  // true: 비동기 통신
@@ -90,19 +90,9 @@
             // console.log('-> btn_recom: ' + $('#btn_recom').val());  // X
             // console.log('-> btn_recom: ' + $('#btn_recom').html());
             $('#btn_recom').html('❤️ ('+rdata.recom+')');
+            $("#btn_like").attr("src","/good/images/red.png");
             $('#span_animation').hide();
-          } else {
-                if(rdata.findGood == 1){
-                      $("#btn_like").attr("src","/good/images/red.png");
-                      $("#findGood").empty();
-                      $("#findGood").append(jdata.findGood);
-                  }
-                  else if (rdata.findGood == 0){
-                      $("#btn_like").attr("src","/good/images/white.png");
-                      $("#findGood").empty();
-                      $("#findGood").append(jdata.findGood);
-                      
-                  }
+          } else {  
             $('#span_animation').html("지금은 좋아요를 할 수 없습니다.");
           }
         },
@@ -550,16 +540,16 @@
   <DIV style='width: 80%; margin: 0px auto;'>
       <HR>
       <FORM name='frm_reply' id='frm_reply'> <%-- 댓글 등록 폼 --%> 
-         <c:choose>
-    <c:when test="${recom eq '0' or empty recom}"> <!-- recom가 0이면 빈 하트-->
+       <c:choose>
+       <c:when test="${recom eq '0' or empty recom}"> <!-- recom가 0이면 빈 하트-->
         <img src="/good/images/white.png" 
              id="btn_recom" align="left" style="cursor:pointer; width: 20px;">
-    </c:when>
-    <c:otherwise> <!-- recom가 1이면 빨간 하트-->
+        </c:when>
+       <c:otherwise> <!-- recom가 1이면 빨간 하트-->
         <img src="/good/images/red.png" 
               id="btn_recom" align="left" style="cursor:pointer; width: 20px;">
-    </c:otherwise>
-    </c:choose>
+        </c:otherwise>
+       </c:choose>
        ${recom} 💬 ${replycnt }
        <br>
           <input type='hidden' name='fboardno' id='fboardno' value='${fboardno}'>
