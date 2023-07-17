@@ -31,7 +31,8 @@ import com.zaxxer.hikari.HikariDataSource;
                                          "dev.mvc.contentsco",    
                                          "dev.mvc.cosme",
                                          "dev.mvc.good",
-                                         "dev.mvc.cosme_youtube_tip"
+                                         "dev.mvc.cosme_youtube_tip",
+                                         "dev.mvc.costip"
                                          })    
 
 public class DatabaseConfiguration {

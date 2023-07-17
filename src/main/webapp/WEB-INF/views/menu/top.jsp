@@ -39,6 +39,14 @@ function recommend() {
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
                     <a class="nav-link" href="/fboard/list_all.do">자유게시판</a>
                   </li>
+                  
+                  <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">메이크업 Tip</a>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="/costip/create.do;">메이크업 Tip 등록</a>
+                          <a class="dropdown-item" href="/costip/list_all.do">메이크업 Tip 전체 목록</a>
+                      </div>
+                  </li>
                                           
                   <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">화장품</a>
