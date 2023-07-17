@@ -55,7 +55,7 @@
         <c:set var="costipno" value="${costipVO.costipno }" />
         <c:set var="thumb1" value="${costipVO.thumb1 }" />
         
-        <tr style="height: 112px;" onclick="location.href='./read.do?costipno=${costipno }'" class='hover'>
+        <tr style="height: 112px;" onclick="location.href='./read.do?costipno=${costipno }&now_page=1'" class='hover'>
           <td style='vertical-align: middle; text-align: center; '>
             <c:choose>
               <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>
