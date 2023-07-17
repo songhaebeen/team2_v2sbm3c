@@ -35,5 +35,37 @@ public class CostipProc  implements CostipProcInter {
     
     return list;
   }
+  
+  @Override
+  public ArrayList <CostipVO> list_by_costipno() {
+    ArrayList<CostipVO> list = this.costipDAO.list_by_costipno();
+    
+    for (CostipVO costipVO : list) {
+      String title = costipVO.getTitle();
+      String content = costipVO.getContent();
+      
+      title = Tool.convertChar(title);
+      content = Tool.convertChar(content);
+      
+      costipVO.setTitle(title);
+      costipVO.setContent(content);
+    }
+    
+    return list;
+  }
+  
+//조회 
+@Override
+public CostipVO read(int costipno) {
+ CostipVO costipVO = this.costipDAO.read(costipno);
+ return costipVO;
+}
+
+//유튜브
+@Override
+public int youtube(CostipVO costipVO) {
+int cnt = this.costipDAO.youtube(costipVO);
+return cnt;
+}
 
 }

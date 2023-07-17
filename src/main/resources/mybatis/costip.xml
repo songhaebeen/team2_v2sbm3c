@@ -21,4 +21,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM costip
     ORDER BY costipno DESC
   </select>
+  
+    <!-- 특정 카테고리의 등록된 글목록 -->
+  <select id="list_by_costipno" resultType="dev.mvc.costip.CostipVO" parameterType="int">
+    SELECT costipno, memberno, title, content, recom, score, cnt, replycnt, passwd, word, rdate,
+              file1, file1saved, thumb1, size1
+    FROM costip
+    WHERE costipno = #{costipno}
+    ORDER BY costipno DESC
+  </select>
+  
+     <!--조회 -->
+  <select id="read" resultType="dev.mvc.costip.CostipVO" parameterType="int">
+    SELECT costipno, memberno, title, content, recom, score, cnt, replycnt, passwd, word, rdate,
+              file1, file1saved, thumb1, size1, youtube
+    FROM costip
+    WHERE costipno = #{costipno}
+  </select>
+  
+  <!-- Youtube 등록, 수정, 삭제 -->
+  <update id="youtube" parameterType="dev.mvc.costip.CostipVO">
+    UPDATE costip
+    SET youtube=#{youtube}
+    WHERE costipno=#{costipno}
+  </update>
   </mapper>

@@ -147,5 +147,70 @@ public class CostipCont {
    
    return mav;
  }
+ 
+ @RequestMapping(value="/costip/list_by_costipno.do",method=RequestMethod.GET)
+ public ModelAndView list_by_costipno(int costipno) {
+   ModelAndView mav = new ModelAndView();
+   
+   CostipVO costipVO = this.costipProc.read(costipno);
+   mav.addObject("costipVo", costipVO);
+   
+   ArrayList<CostipVO> list = this.costipProc.list_by_costipno();
+   mav.addObject("list", list);
+   
+   mav.setViewName("/costip/list_by_costipno");
+   
+   return mav;
+ }
+ 
+ @RequestMapping(value="/costip/read.do", method=RequestMethod.GET)
+ public ModelAndView read(int costipno) {
+   ModelAndView mav = new ModelAndView();
+   
+   CostipVO costipVO = this.costipProc.read(costipno);
+   
+   String title = costipVO.getTitle();
+   String content = costipVO.getContent();
+   
+   title = Tool.convertChar(title);
+   content = Tool.convertChar(content);
+   
+   costipVO.setTitle(title);
+   costipVO.setContent(content);
+   
+   long size1 = costipVO.getSize1();
+   costipVO.setSize1_label(Tool.unit(size1));
+   
+   mav.addObject("costipVO", costipVO);
+   
+   mav.setViewName("/costip/read");
+   
+   return mav;
+   
+ }
+ 
+ @RequestMapping(value="/costip/youtube.do", method=RequestMethod.GET)
+ public ModelAndView youtube(int costipno) {
+   ModelAndView mav = new ModelAndView();
+   
+   CostipVO costipVO = this.costipProc.read(costipno);
+   mav.addObject("costipVO", costipVO);
+   
+   mav.setViewName("/costip/youtube");
+   
+   return mav;
+ }
+ 
+ @RequestMapping(value="/costip/youtube.do", method = RequestMethod.POST)
+ public ModelAndView youtube_update(CostipVO costipVO) {
+   ModelAndView mav = new ModelAndView();
+   
+   this.costipProc.youtube(costipVO);
+   
+   mav.setViewName("redirect:/costip/read.do?costipno=" + costipVO.getCostipno());
+   
+   return mav;
+ }
+ 
 
 }
