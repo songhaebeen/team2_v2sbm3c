@@ -4,59 +4,60 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CostipVO {
   
-  /** costip 번호*/
+  /** 컨텐츠 번호 */
   private int costipno;
-  /** 회원 번호*/
+  /** 관리자 번호 */
   private int memberno;
-  /** 제목*/
-  private String title;
+  /** 제목 */
+  private String title = "";
   /** 내용 */
-  private String content;
-  /** 추천수*/
+  private String content = "";
+  /** 추천수 */
   private int recom;
   /** 점수 */
   private int score;
   /** 조회수 */
   private int cnt = 0;
-  /** 댓글수*/
+  /** 댓글수 */
   private int replycnt = 0;
   /** 패스워드 */
   private String passwd = "";
-  /** 검색어*/
+  /** 검색어 */
   private String word = "";
-  /** 등록 날짜*/
+  /** 등록 날짜 */
   private String rdate = "";
-  
+
   /** 메인 이미지 */
   private String file1 = "";
-  /** 실제 저장된 메인 이미지*/
+  /** 실제 저장된 메인 이미지 */
   private String file1saved = "";
-  /** 메인 이미지 preview*/
+  /** 메인 이미지 preview */
   private String thumb1 = "";
-  /** 메인 이미지 크기*/
+  /** 메인 이미지 크기 */
   private long size1;
+
   
   /** Youtube */
   private String youtube;
   
   /**
-  이미지 파일
-  <input type='file' class="form-control" name='file1MF' id='file1MF' 
-             value='' placeholder="파일 선택">
-  */
- private MultipartFile file1MF;
- 
- /** 메인 이미지 크기 단위, 파일 크기 */
- private String size1_label = "";
- 
- /** 시작 rownum */
- private int start_num;
- 
- /** 종료 rownum */
- private int end_num;    
- 
- /** 현재 페이지 */
- private int now_page = 1;
+   이미지 파일
+   <input type='file' class="form-control" name='file1MF' id='file1MF' 
+              value='' placeholder="파일 선택">
+   */
+  private MultipartFile file1MF;
+  
+  /** 메인 이미지 크기 단위, 파일 크기 */
+  private String size1_label = "";
+  
+  /** 시작 rownum */
+  private int start_num;
+  
+  /** 종료 rownum */
+  private int end_num;    
+  
+  /** 현재 페이지 */
+  private int now_page = 1;
 
 public int getCostipno() {
   return costipno;

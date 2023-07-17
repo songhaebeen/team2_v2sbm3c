@@ -36,5 +36,20 @@ public interface CostipProcInter {
    * @return
    */
   public int youtube(CostipVO costipVO);
+  
+  /**
+   * 패스워드 검사
+   * @param costipVO
+   * @return 1: 패스워드 일치, 0: 패스워드 불일치 
+   */
+  public int password_check(CostipVO costipVO);
+  
+  /**
+   * 글 정보 수정
+   * @param costipVO
+   * @return 처리된 레코드 갯수
+   */
+  public int update_text(CostipVO costipVO);
+
 
 }

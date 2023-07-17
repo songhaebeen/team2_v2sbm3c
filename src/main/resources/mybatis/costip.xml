@@ -45,4 +45,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SET youtube=#{youtube}
     WHERE costipno=#{costipno}
   </update>
+  
+  <!-- 패스워드 검사 -->
+  <select id = "password_check" resultType="int" parameterType="dev.mvc.costip.CostipVO">
+    SELECT COUNT(*) as cnt
+    FROM costip
+    WHERE constipno = #{costipno} AND passwd = #{passwd}
+  </select>
+  
+  <!-- 글 수정 -->
+  <update id = "update_text" parameterType="dev.mvc.costip.CostipVO">
+  UPDATE costip
+  SET title=#{title}, content=#{content}, word=#{word}
+  WHERE costipno = #{costipno}
+  </update>
   </mapper>

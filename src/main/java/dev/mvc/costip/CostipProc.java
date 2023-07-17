@@ -68,4 +68,16 @@ int cnt = this.costipDAO.youtube(costipVO);
 return cnt;
 }
 
+@Override
+public int password_check(CostipVO costipVO) {
+  int cnt = this.costipDAO.password_check(costipVO);
+  return cnt;
+}
+
+@Override
+public int update_text(CostipVO costipVO) {
+  int cnt = this.costipDAO.update_text(costipVO);
+  return cnt;
+}
+
 }

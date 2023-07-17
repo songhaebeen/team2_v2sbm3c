@@ -42,7 +42,7 @@
       --%>
       <A href="./create.do?costipno=${costipno }">등록</A>
       <span class='menu_divide' >│</span>
-      <A href="./update_text.do?costipno=${cositpno}&now_page=${param.now_page}">글 수정</A>
+      <A href="./update_text.do?costipno=${costipno}&now_page=${param.now_page}">글 수정</A>
       <span class='menu_divide' >│</span>
       <A href="./update_file.do?costipno=${costipno}&now_page=${param.now_page}">파일 수정</A>  
       <span class='menu_divide' >│</span>

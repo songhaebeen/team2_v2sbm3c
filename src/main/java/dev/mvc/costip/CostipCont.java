@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.cateco.CatecoVO;
+import dev.mvc.contentsco.ContentscoVO;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
@@ -209,6 +211,77 @@ public class CostipCont {
    
    mav.setViewName("redirect:/costip/read.do?costipno=" + costipVO.getCostipno());
    
+   return mav;
+ }
+ 
+//수정 폼
+// http://localhost:9093/costip/update_text.do?costipno=1
+@RequestMapping(value = "/costip/update_text.do", method = RequestMethod.GET)
+public ModelAndView update_text(int costipno) {
+  ModelAndView mav = new ModelAndView();
+  
+  CostipVO costipVO = this.costipProc.read(costipno);
+  mav.addObject("costipVO", costipVO);
+  
+  
+  mav.setViewName("/costip/update_text"); // /WEB-INF/views/contents/update_text.jsp
+  
+  return mav; // forward
+  }
+
+// 수정 처리
+// http://localhost:9093/contentsco/update_text.do?contentscono=1
+
+@RequestMapping(value = "/costip/update_text.do", method = RequestMethod.POST)
+  public ModelAndView update_text(HttpSession session, CostipVO costipVO) {
+  ModelAndView mav = new ModelAndView();
+  
+  // System.out.println("-> word: " + contentsVO.getWord());
+  
+  if (this.memberProc.isMember(session)) { // 관리자 로그인
+    this.costipProc.update_text(costipVO);  
+    
+    mav.addObject("costipno", costipVO.getCostipno());
+
+    mav.setViewName("redirect:/costip/read.do");
+  } else { // 정상적인 로그인이 아닌 경우
+    if (this.costipProc.password_check(costipVO) == 1) {
+      this.costipProc.update_text(costipVO);  
+       
+      // mav 객체 이용
+      mav.addObject("costipno", costipVO.getCostipno());
+      
+      mav.setViewName("redirect:/costip/read.do");
+    } else {
+      mav.addObject("url", "/costip/passwd_check"); // /WEB-INF/views/contents/passwd_check.jsp
+      mav.setViewName("redirect:/costip/msg.do");  // POST -> GET -> JSP 출력
+    }    
+  }
+  
+  mav.addObject("now_page", costipVO.getNow_page()); // POST -> GET: 데이터 분실이 발생함으로 다시하번 데이터 저장 ★
+  
+  // URL에 파라미터의 전송
+  // mav.setViewName("redirect:/contents/read.do?contentscono=" + contentsVO.getContentsno() + "&cateno=" + contentsVO.getCateno());             
+  
+  return mav; // forward
+}
+    
+ /**
+  * contentsno, passwd를 GET 방식으로 전달받아 패스워드 일치 검사를하고 결과 1또는 0을 Console에 출력하세요.
+  * http://localhost:9093/costip/password_check.do?costipno=2&passwd=123
+  * @return
+  */
+ @RequestMapping(value="/costip/password_check.do", method=RequestMethod.GET )
+ public ModelAndView password_check(CostipVO costipVO) {
+   ModelAndView mav = new ModelAndView();
+
+   int cnt = this.costipProc.password_check(costipVO);
+   System.out.println("-> cnt: " + cnt);
+   
+   if (cnt == 0) {
+     mav.setViewName("/costip/passwd_check"); // /WEB-INF/views/contents/passwd_check.jsp
+   }
+       
    return mav;
  }
  
