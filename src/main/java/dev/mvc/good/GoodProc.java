@@ -30,8 +30,8 @@ public class GoodProc implements GoodProcInter{
   }
 
 	@Override
-	public int delete(int goodno) {
-		int cnt = this.goodDAO.delete(goodno);
+	public int delete(GoodVO goodVO) {
+		int cnt = this.goodDAO.delete(goodVO);
 		return cnt;
 	}
 	

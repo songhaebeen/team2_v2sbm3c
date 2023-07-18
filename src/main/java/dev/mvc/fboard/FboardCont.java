@@ -1,6 +1,7 @@
 package dev.mvc.fboard;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -22,6 +23,7 @@ import dev.mvc.admin.AdminProcInter;
 import dev.mvc.good.GoodProcInter;
 import dev.mvc.good.GoodVO;
 import dev.mvc.member.MemberProcInter;
+import dev.mvc.reply.ReplyMemberVO;
 import dev.mvc.reply.ReplyProcInter;
 import dev.mvc.reply.ReplyVO;
 import dev.mvc.tool.Tool;
@@ -180,7 +182,7 @@ public class FboardCont {
    * @return
    */
   @RequestMapping(value="/fboard/read.do",  method=RequestMethod.GET )
-  public ModelAndView read(int fboardno, HttpSession session, HttpServletRequest request, HttpServletResponse response, GoodVO goodVO) {
+  public ModelAndView read(int fboardno, HttpSession session, HttpServletRequest request, HttpServletResponse response, GoodVO goodVO, ReplyMemberVO replyMemberVO) {
     ModelAndView mav = new ModelAndView();
     
     FboardVO read = fboardProc.read(fboardno);
@@ -267,6 +269,8 @@ public class FboardCont {
     	String id = this.memberProc.read(fboardVO.getMemberno()).getId();
     	mav.addObject("mname", id);
     	
+    	List<ReplyMemberVO> list = this.replyProc.list_ten(fboardno);
+    	mav.addObject("list", list);
     	//mav.setViewName("/fboard/read"); // /WEB-INF/views/fboard/read.jsp
     	
     	// 댓글 기능 추가 
@@ -671,30 +675,27 @@ public class FboardCont {
   @RequestMapping(value = "/fboard/good.do", 
                 method = RequestMethod.GET,
                 produces = "text/plain;charset=UTF-8")
-  public String good(HttpSession session, GoodVO goodVO, Integer goodno, int fboardno) {
-       
-    int cnt = 0; //좋아요 체크
-    int up_cnt = 0; //좋아요 증가
-    int down_cnt = 0; //좋아요 감소
+  public String good(HttpSession session, GoodVO goodVO) {
+    int fboardno = goodVO.getFboardno();
+    
     boolean bol = this.memberProc.isMember(session);
-    int findcnt = this.goodProc.findGood(goodVO);
+    int findcnt = this.goodProc.findGood(goodVO); //좋아요 있나 확인
     int flag = 0;
     
     System.out.println("memberno: " + session.getAttribute("memberno"));
-    System.out.println("goodVO: " + goodVO);
     
     if ( bol &&  findcnt == 0) {  
       //회원 좋아요 1 증가
-      cnt = goodProc.create(goodVO);
+      goodProc.create(goodVO);
       //전체 좋아요 수 증가
-      up_cnt = fboardProc.increaseRecom(fboardno);
+      fboardProc.increaseRecom(fboardno);
       flag = 1;
       
      } else if(bol &&  findcnt == 1){
        //회원 좋아요 1 감소
-       cnt = goodProc.delete(goodno);
+       goodProc.delete(goodVO);
        //좋아요 수 감소
-       down_cnt = fboardProc.decreaseRecom(fboardno);
+       fboardProc.decreaseRecom(fboardno);
        flag = -1;
     }    
    

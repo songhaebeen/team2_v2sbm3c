@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
 import dev.mvc.fboard.FboardProcInter;
+import dev.mvc.fboard.FboardVO;
 import dev.mvc.member.MemberProcInter;
 
 @Controller
@@ -160,8 +161,8 @@ public class GoodCont {
   @RequestMapping(value = "/good/delete.do",
       method = RequestMethod.POST,
       produces = "text/plain;charset=UTF-8")
-  public String down(int goodno, int fboardno) {
-  int cnt = goodProc.delete(goodno);
+  public String down(GoodVO goodVO, int fboardno) {
+  int cnt = goodProc.delete(goodVO);
   //감소
   fboardProc.decreaseRecom(fboardno);
   
@@ -173,15 +174,15 @@ public class GoodCont {
   }
   
   @RequestMapping(value = "/good/down.do", method = RequestMethod.GET)
-  public ModelAndView down(HttpSession session, int goodno) {
+  public ModelAndView down(HttpSession session, GoodVO goodVO) {
     ModelAndView mav = new ModelAndView();
       if (this.adminProc.isAdmin(session) == true) {
           mav.setViewName("/good/list_all");
-          this.goodProc.delete(goodno);
+          this.goodProc.delete(goodVO);
           
         } else if (this.memberProc.isMember(session) == true) {
           mav.setViewName("/good/list_memberno");
-          this.goodProc.delete(goodno);
+          this.goodProc.delete(goodVO);
         }else{
           mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
 
@@ -192,44 +193,45 @@ public class GoodCont {
   }
   
   /**
-   * 좋아요 체크
-   * http://localhost:9093/good/findGood.do?fboardno=2&memberno=3
+   * 좋아요 체크 후 증가, 감소
+   * http://localhost:9093/good/checkGood.do?fboardno=1&memberno=1
    * 
    * @return
    */
   @ResponseBody
-  @RequestMapping(value = "/good/findGood.do", 
-  						  method = RequestMethod.GET,
+  @RequestMapping(value = "/good/checkGood.do", 
+  						  method = RequestMethod.POST,
   						  produces = "text/plain;charset=UTF-8")
-  public String findGood(HttpSession session, GoodVO goodVO, int goodno, int fboardno) {
+  public String checkGood(HttpSession session, GoodVO goodVO) {
+    int fboardno = goodVO.getFboardno();
        
-    int cnt = 0; //좋아요 체크
-    int up_cnt = 0; //좋아요 증가
-    int down_cnt = 0; //좋아요 감소
     boolean bol = this.memberProc.isMember(session);
-    int findcnt = this.goodProc.findGood(goodVO);
+    int findcnt = this.goodProc.findGood(goodVO); //좋아요 있나 확인
     
     System.out.println("memberno: " + session.getAttribute("memberno"));
-    System.out.println("goodVO: " + goodVO);
     
     if ( bol &&  findcnt == 0) {  
-      //회원 좋아요 1 증가
-      cnt = goodProc.create(goodVO);
-      //전체 좋아요 수 증가
-      up_cnt = fboardProc.increaseRecom(fboardno);
+       //회원 좋아요 1 증가
+       goodProc.create(goodVO);
+       //전체 좋아요 수 증가
+       fboardProc.increaseRecom(fboardno);
          
      } else if(bol &&  findcnt == 1){
        //회원 좋아요 1 감소
-       cnt = goodProc.delete(goodno);
+       goodProc.delete(goodVO);
        //좋아요 수 감소
-       down_cnt = fboardProc.decreaseRecom(fboardno);
+       fboardProc.decreaseRecom(fboardno);
     }    
    
+    FboardVO fboardVO = this.fboardProc.read(fboardno);
+    int recom = fboardVO.getRecom();
+    System.out.println("-> recom: " + recom);
+    System.out.println("-> findcnt: " + findcnt);
+    
     JSONObject obj = new JSONObject();
-    obj.put("up_cnt",up_cnt);
-    obj.put("down_cnt",down_cnt);
-    obj.put("cnt",cnt);
+    obj.put("recom", recom);
     
     return obj.toString();
   }
+  
 }

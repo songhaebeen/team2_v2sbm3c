@@ -36,7 +36,7 @@
  let reply_list; // 댓글 목록
 
  $(function(){
-    $('#btn_recom').on("click", function() { recom(${fboardno}); });
+    $('#btn_recom').on("click", recom);
     $('#btn_login').on('click', login_ajax);
     $('#btn_loadDefault').on('click', loadDefault);
 
@@ -45,7 +45,7 @@
     $('#content', frm_reply).on('click', check_login);  // 댓글 작성 시 로그인 여부 확인
     $('#btn_create', frm_reply).on('click', reply_create);  // 댓글 작성 시 로그인 여부 확인
 
-    list_by_fboardno_join(); //댓글 목록
+    //list_by_fboardno_join(); //댓글 목록
 
     $('#btn_add').on('click', list_by_fboardno_join_add);  // [더보기] 버튼
     // ---------------------------------------- 댓글 관련 종료 ----------------------------------------
@@ -69,15 +69,18 @@
  
   //좋아요
   function recom() {
-    // console.log('-> fboardno:' + fboardno);
+    console.log('-> recom()');
     var fboardno = ${fboardno};
     var memberno = ${memberno};
+    var recom = ${recom};
     var params = "";
     // params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
     params = 'fboardno=' + fboardno + 'memberno=' + memberno; // 공백이 값으로 있으면 안됨.
+    console.log('-> params: ' + params);
+    
     $.ajax(
       {
-        url: '/good/up.do',
+        url: '/good/checkGood.do',
         type: 'post',  // get, post
         cache: false, // 응답 결과 임시 저장 취소
         async: true,  // true: 비동기 통신
@@ -86,20 +89,19 @@
         success: function(rdata) { // 응답이 온 경우
           // console.log('-> rdata: '+ rdata);
           var str = '';
-          if (rdata.cnt == 1) {
+          if (rdata.findcnt == 0) {
             // console.log('-> btn_recom: ' + $('#btn_recom').val());  // X
             // console.log('-> btn_recom: ' + $('#btn_recom').html());
-            $('#btn_recom').html('❤️ ('+rdata.recom+')');
-            $("#btn_like").attr("src","/good/images/red.png");
-            $('#span_animation').hide();
-          } else {  
-            $('#span_animation').html("지금은 좋아요를 할 수 없습니다.");
-          }
+            $("#btn_recom").attr("src","/good/images/red.png");
+          } else if(rdata.findcnt == 1) 
+        	  $("#btn_recom").attr("src","/good/images/white.png");
+         
         },
         // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
         error: function(request, status, error) { // callback 함수
           console.log(error);
         }
+        
       }
     );  //  $.ajax END
 
@@ -234,7 +236,7 @@
 
   // fboardno 별 소속된 댓글 목록, 2건만 출력
   function list_by_fboardno_join() {
-    var params = 'fboardno=' + ${fboardVO.fboardno };
+    var params = 'fboardno=' + ${fboardVO.fboardno } + 'memberno=' + ${fboardVO.memberno};
 
     $.ajax({
       url: "../reply/list_by_fboardno_join.do", // action 대상 주소
@@ -264,7 +266,6 @@
           // alert('i: ' + i)
         
           var row = rdata.list[i];
-          
           
           if ('${fboardVO.memberno}' == row.memberno) {           
             //처음 5글자는 그대로 출력하고, 나머지 부분은 * 10개로 표시, 글쓴이 댓글은 파란색으로 출력
@@ -539,44 +540,73 @@
   <!-- ------------------------------ 좋아요, 댓글 영역 시작 ------------------------------ -->
   <DIV style='width: 80%; margin: 0px auto;'>
       <HR>
-      <FORM name='frm_reply' id='frm_reply'> <%-- 댓글 등록 폼 --%> 
-       <c:choose>
-       <c:when test="${recom eq '0' or empty recom}"> <!-- recom가 0이면 빈 하트-->
-        <img src="/good/images/white.png" 
-             id="btn_recom" align="left" style="cursor:pointer; width: 20px;">
-        </c:when>
-       <c:otherwise> <!-- recom가 1이면 빨간 하트-->
-        <img src="/good/images/red.png" 
-              id="btn_recom" align="left" style="cursor:pointer; width: 20px;">
-        </c:otherwise>
-       </c:choose>
-       ${recom} 💬 ${replycnt }
-       <br>
+		<c:if test="${checkGood }">
+		      <span id="btn_recom" style="color: red;">♥</span>
+		      </c:if>
+		      <c:if test="${!checkGood }">
+		      <span id="btn_recom" style="color: black;">♡</span>
+		      
+		      </c:if>
+        ${recom } 💬 ${replycnt }
+      <FORM name='frm_reply' id='frm_reply'>
           <input type='hidden' name='fboardno' id='fboardno' value='${fboardno}'>
           <input type='hidden' name='memberno' id='memberno' value='${sessionScope.memberno}'>
           
           <textarea name='content' id='content' style='width: 100%; height: 60px;' placeholder="댓글 작성, 로그인해야 등록 할 수 있습니다."></textarea>
           <input type='password' name='passwd' id='passwd' placeholder="패스워드">
           <button type='button' id='btn_create'>등록</button>
-      </FORM>
       <HR>
+    </FORM>
+     </DIV>
+  
+     <div style='width: 100%;'>
+     <table class="table table-striped" style='width: 100%;'>
+      <colgroup>
+        <col style="width: 25%;"></col>
+        <col style="width: 45%;"></col>
+        <col style="width: 15%;"></col>
+        <col style="width: 10%;"></col>
+        
+      </colgroup>
+      <%-- table 컬럼 --%>
+      <thead>
+        <tr>
+          <th style='text-align: center;'>회원 ID</th>
+          <th style='text-align: left;'>내용</th>
+          <th style='text-align: center;'>등록일</th>
+          <th style='text-align: center;'>기타</th>
+        </tr>
       
-      <DIV id='reply_list' data-replyPage='0'></DIV><%-- 댓글 목록 --%>
+      </thead>
       
-      <!-- <button type="button" onclick="location.href='/reply/list_ten.do?fboardno=${fboardno}&now_page=${param.now_page}'" class="btn btn-info btn-sm">댓글 ▽</button> -->
-
-      <DIV id='reply_list_btn' style='border: solid 1px #EEEEEE; margin: 0px auto; width: 20%; background-color: #EEFFFF;'>
-          <button id='btn_add' style='width: 100%;'>더보기 ▽</button>
-      </DIV> 
-      
-
-
-
-    
-  </DIV>
+      <%-- table 내용 --%>
+      <tbody>
+        <c:forEach var="replyMemberVO" items="${list }">
+          <c:set var="id" value="${replyMemberVO.id }" />
+          <c:set var="content" value="${replyMemberVO.content }" />
+          <c:set var="rdate" value="${replyMemberVO.rdate }" />
+          
+          <tr style='height: 50px;'> 
+            <td style='text-align: center; vertical-align: middle;'>
+              <%--<A href='../member/read.do?memberno=${memberno }'>--%><span> ${id.substring(0, 5)}**********</span></A>
+            </td>
+            <td style='text-align: left; vertical-align: middle;'>${content}</td>
+            <td style='text-align: center; vertical-align: middle;'>
+              ${rdate.substring(0,10)}
+            </td>
+            <td style='text-align: center; vertical-align: middle;'>
+            <a href="./update.do?replyno=${replyno}&fboardno=${fboardno}"><img src="/reply/images/update.png" title="수정"  border='0' /></a>
+              <a href="./delete.do?replyno=${replyno}&fboardno=${fboardno}"><img src="/reply/images/delete.png" title="삭제"  border='0' /></a>
+            </td>
+          </tr>
+        </c:forEach>
+        
+      </tbody>
+    </table>
+    <br><br>
+  </div>
   
   <!-- ------------------------------ 댓글 영역 종료 ------------------------------  -->
-
   
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>

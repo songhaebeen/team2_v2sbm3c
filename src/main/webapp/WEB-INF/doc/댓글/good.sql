@@ -1,7 +1,7 @@
 /**********************************/
 /* Table Name: 좋아요 */
 /**********************************/
-DROP TABLE good;
+DROP TABLE good CASCADE CONSTRAINTS ;
 
 CREATE TABLE good(
         goodno                            NUMBER(10)     NOT NULL         PRIMARY KEY,
@@ -13,7 +13,7 @@ CREATE TABLE good(
 );
 
 COMMENT ON TABLE good is '좋아요';
-COMMENT ON COLUMN good.likeno is '좋아요번호';
+COMMENT ON COLUMN good.goodno is '좋아요번호';
 COMMENT ON COLUMN good.fboardno is '자유게시판 번호';
 COMMENT ON COLUMN good.memberno is '회원 번호';
 COMMENT ON COLUMN good.rdate is '등록일';
@@ -78,3 +78,8 @@ WHERE BB.fboardno = 1;
 
 좋아요 했는지 확인
 SELECT COUNT(*) FROM good WHERE fboardno = 1 AND memberno = 3;
+
+
+DELETE FROM good 
+WHERE fboardno=1 AND memberno=1;
+

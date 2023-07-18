@@ -28,8 +28,8 @@
   
   <!-- 좋아요 감소 -->
   <delete id="delete">
-			DELETE FROM 
-			good WHERE goodno = #{goodno}
+		DELETE FROM good 
+		WHERE fboardno=#{fboardno} AND memberno=#{memberno}
   </delete>
   
   <!-- 좋아요 눌렀는지 안눌렀는지 확인-->

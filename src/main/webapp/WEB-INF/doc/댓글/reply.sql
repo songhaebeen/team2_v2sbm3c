@@ -2,6 +2,7 @@
 /* Table Name: 댓글 */
 /**********************************/
 DROP TABLE reply;
+DROP TABLE reply CASCADE CONSTRAINTS;
 
 CREATE TABLE reply(
         replyno                            NUMBER(10)         NOT NULL         PRIMARY KEY,

@@ -30,7 +30,7 @@ public interface GoodProcInter {
    * @param goodno
    * @return 1: 증가, 0: 감소
    */
-  public int delete(int goodno);
+  public int delete(GoodVO goodVO);
 
   /**
    * 좋아요 체크  
