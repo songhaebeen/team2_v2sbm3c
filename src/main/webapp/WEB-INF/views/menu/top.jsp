@@ -52,6 +52,7 @@ function recommend() {
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">화장품</a>
                       <div class="dropdown-menu">
                           <a class="dropdown-item" href="javascript: recommend();">화장품 추천</a>
+                          <a class="dropdown-item" href="http://localhost:5000/recommend_cosme">AI로 추천받는 화장품 정보들</a>
                           <a class="dropdown-item" href="/cosme/create.do">화장품 등록</a>
                           <a class="dropdown-item" href="/cosme/cosme_by_cate.do">종류별 리스트</a>
                           <a class="dropdown-item" href="/cosme/list_by_typet.do">타입별 리스트</a>
@@ -96,6 +97,7 @@ function recommend() {
                         <div class="dropdown-menu">
                           <a class="dropdown-item" href='/admin/create.do'>관리자 가입</a>
                           <a class="dropdown-item" href='/admin/list.do'>관리자 목록</a>
+                          <a class="dropdown-item" href="http://localhost:5000/sentiment/initial">실제 사이트 반응 AI로 확인</a>
                           <a class="dropdown-item" href='/member/list.do'>회원 목록</a>
                           <A class='dropdown-item'  href='/good/list_all.do'>좋아요 목록</A> 
                            <A class='dropdown-item'  href='/reply/list_join.do'>댓글 목록</A>
