@@ -1,7 +1,7 @@
 /**********************************/
 /* Table Name: 자유게시판 */
 /**********************************/
-DROP TABLE fboard;
+DROP TABLE fboard CASCADE CONSTRAINTS;
 
 CREATE TABLE fboard(
         fboardno            NUMBER(10)     NOT NULL         PRIMARY KEY,

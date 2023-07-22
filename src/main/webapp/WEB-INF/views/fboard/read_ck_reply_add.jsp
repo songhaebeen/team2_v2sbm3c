@@ -68,47 +68,38 @@
 
  
   //좋아요
-  function recom() {
-    console.log('-> recom()');
-    var fboardno = ${fboardno};
-    var memberno = ${memberno};
-    var recom = ${recom};
-    var params = "";
-    // params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
-    params = 'fboardno=' + fboardno + 'memberno=' + memberno; // 공백이 값으로 있으면 안됨.
-    console.log('-> params: ' + params);
-    
-    $.ajax(
-      {
-        url: '/good/checkGood.do',
-        type: 'post',  // get, post
-        cache: false, // 응답 결과 임시 저장 취소
-        async: true,  // true: 비동기 통신
-        dataType: 'json', // 응답 형식: json, html, xml...
-        data: params,      // 데이터
-        success: function(rdata) { // 응답이 온 경우
-          // console.log('-> rdata: '+ rdata);
-          var str = '';
-          if (rdata.findcnt == 0) {
-            // console.log('-> btn_recom: ' + $('#btn_recom').val());  // X
-            // console.log('-> btn_recom: ' + $('#btn_recom').html());
-            $("#btn_recom").attr("src","/good/images/red.png");
-          } else if(rdata.findcnt == 1) 
-        	  $("#btn_recom").attr("src","/good/images/white.png");
-         
-        },
-        // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
-        error: function(request, status, error) { // callback 함수
-          console.log(error);
-        }
-        
-      }
-    );  //  $.ajax END
+function recom() {
+  console.log('-> recom()');
+  var fboardno = ${fboardno};
+  var memberno = ${memberno};
 
-    // $('#span_animation').css('text-align', 'center');
-    $('#span_animation').html("<img src='/fboard/images/ani04.gif' style='width: 8%;'>");
-    $('#span_animation').show(); // 숨겨진 태그의 출력
-  }
+  $.ajax({
+    url: '/good/checkGood.do',
+    type: 'POST',
+    cache: false,
+    async: true,
+    dataType: 'json',
+    data: {
+      fboardno: fboardno,
+      memberno: memberno
+    },
+    success: function(rdata) {
+      var str = '';
+      if (rdata.findcnt == 0) {
+        $("#img_recom").attr("src", "/good/images/red.png");
+      } else if (rdata.findcnt == 1) {
+        $("#img_recom").attr("src", "/good/images/white.png");
+      }
+    },
+    error: function(request, status, error) {
+      console.log(error);
+    }
+  });
+
+  $('#span_animation').html("<img src='/fboard/images/ani04.gif' style='width: 8%;'>");
+  $('#span_animation').show();
+}
+
 
   function loadDefault() {
     $('#id').val('user1');
@@ -540,14 +531,18 @@
   <!-- ------------------------------ 좋아요, 댓글 영역 시작 ------------------------------ -->
   <DIV style='width: 80%; margin: 0px auto;'>
       <HR>
-		<c:if test="${checkGood }">
-		      <span id="btn_recom" style="color: red;">♥</span>
-		      </c:if>
-		      <c:if test="${!checkGood }">
-		      <span id="btn_recom" style="color: black;">♡</span>
-		      
-		      </c:if>
-        ${recom } 💬 ${replycnt }
+      <FORM name='btn_recom' id='btn_recom'>
+      <c:choose>
+    <c:when test="${findcnt == 1 }">
+        <img src="/good/images/white.png" height="20"  id="img_recom">
+    </c:when>
+    <c:otherwise>
+        <img src="/good/images/red.png" height="20"  id="img_recom">
+    </c:otherwise>
+     </c:choose>
+     ${recom }  💬 ${replycnt }
+  </FORM>
+       
       <FORM name='frm_reply' id='frm_reply'>
           <input type='hidden' name='fboardno' id='fboardno' value='${fboardno}'>
           <input type='hidden' name='memberno' id='memberno' value='${sessionScope.memberno}'>

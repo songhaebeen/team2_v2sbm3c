@@ -230,6 +230,7 @@ public class GoodCont {
     
     JSONObject obj = new JSONObject();
     obj.put("recom", recom);
+    obj.put("findcnt", findcnt);
     
     return obj.toString();
   }

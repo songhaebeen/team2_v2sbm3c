@@ -8,7 +8,7 @@
 <!-- 좋아요 증가 -->
   <insert id="create" parameterType="dev.mvc.good.GoodVO">
     INSERT INTO good(goodno, fboardno, memberno, rdate)
-    VALUES(good_seq.nextval, #{memberno}, #{fboardno}, sysdate)
+    VALUES(good_seq.nextval, #{fboardno}, #{memberno}, sysdate)
   </insert>
   
   <!-- 좋아요 전체 목록-->
